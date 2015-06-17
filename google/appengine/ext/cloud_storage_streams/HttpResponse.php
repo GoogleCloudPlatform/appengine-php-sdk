@@ -46,6 +46,11 @@ final class HttpResponse {
   const SERVICE_UNAVAILABLE = 503;
   const GATEWAY_TIMEOUT = 504;
 
+  /**
+   * A map of HTTP response codes to string representations of that code.
+   *
+   * @access private
+   */
   private static $status_messages = [
     self::OK => "OK",
     self::CREATED => "CREATE",
@@ -69,6 +74,13 @@ final class HttpResponse {
     self::GATEWAY_TIMEOUT => "GATEWAY TIMEOUT",
   ];
 
+  /**
+   * Get the status message string for a given HTTP response code.
+   *
+   * @param int $code The HTTP response code.
+   *
+   * @returns string The string representation of the status code.
+   */
   public static function getStatusMessage($code) {
     if (array_key_exists($code, self::$status_messages)) {
       return self::$status_messages[$code];

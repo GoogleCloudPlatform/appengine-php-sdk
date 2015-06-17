@@ -20,6 +20,9 @@
  */
 namespace google\appengine\util;
 
+/**
+ * Various PHP array related utility functions.
+ */
 final class ArrayUtil {
   /**
    * Find an item in an associative array by a key value, or return null if not

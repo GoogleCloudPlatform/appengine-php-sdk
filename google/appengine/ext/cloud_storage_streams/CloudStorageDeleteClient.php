@@ -25,6 +25,9 @@ namespace google\appengine\ext\cloud_storage_streams;
  * Client for deleting objects from Google Cloud Storage.
  */
 final class CloudStorageDeleteClient extends CloudStorageClient {
+  /**
+   * Delete the object from the Cloud Storage Bucket.
+   */
   public function delete() {
     $token_header = $this->getOAuthTokenHeader(parent::WRITE_SCOPE);
     if ($token_header === false) {

@@ -20,8 +20,13 @@
  */
 namespace google\appengine\util;
 
+/**
+ * HTTP related Utilities.
+ */
 final class HttpUtil {
-  // HTTP Status Codes to Text Lookup Table.
+  /**
+   * HTTP Status Codes to Text Lookup Table.
+   */
   private static $codeTextMap = [
       100 => "Continue",
       101 => "Switching Protocols",
