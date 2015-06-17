@@ -1,0 +1,22 @@
+{
+    "name": "GoogleCloudPlatform/appengine-php-sdk",
+    "description": "Google App Engine PHP SDK",
+    "type": "library",
+    "keywords": ["google", "appengine", "sdk"],
+    "homepage": "https://cloud.google.com/appengine/docs/php/",
+    "license": "Apache-2.0",
+    "support": {
+        "issues": "https://code.google.com/p/googleappengine/wiki/FilingIssues?tm=3",
+        "forum": "https://groups.google.com/forum/#!forum/google-appengine"
+    },
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "mikey179/vfsStream": "~1"
+        "phpunit/phpunit": "4.6.*"
+    },
+    "autoload": {
+        "files": ["google/appengine/runtime/autoloader.php"]
+    }
+}
