@@ -1,5 +1,8 @@
 # Google App Engine PHP SDK
 
+[![Build Status](https://travis-ci.org/GoogleCloudPlatform/appengine-php-sdk.svg)](https://travis-ci.org/GoogleCloudPlatform/appengine-php-sdk)
+[![License](https://poser.pugx.org/google/appengine-php-sdk/license)](https://packagist.org/packages/google/appengine-php-sdk)
+
 ## Description
 
 The Google App Engine PHP SDK is provided for developers that are building

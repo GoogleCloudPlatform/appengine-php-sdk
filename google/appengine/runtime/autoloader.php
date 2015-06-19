@@ -301,6 +301,7 @@ final class ClassLoader {
         'google\appengine\api\taskqueue\taskalreadyexistsexception' => 'google/appengine/api/taskqueue/TaskAlreadyExistsException.php',
         'google\appengine\api\taskqueue\pushtask' => 'google/appengine/api/taskqueue/PushTask.php',
         'google\appengine\api\taskqueue\pushqueue' => 'google/appengine/api/taskqueue/PushQueue.php',
+        'google\appengine\api\taskqueue\mockmicrotime' => 'google/appengine/api/taskqueue/MockMicrotime.php',
         'google\appengine\modulesserviceerror\errorcode' => 'google/appengine/api/modules/modules_service_pb.php',
         'google\appengine\modulesserviceerror' => 'google/appengine/api/modules/modules_service_pb.php',
         'google\appengine\getmodulesrequest' => 'google/appengine/api/modules/modules_service_pb.php',

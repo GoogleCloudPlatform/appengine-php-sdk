@@ -1,5 +1,5 @@
 <phpunit
-  bootstrap="vendor/autoloader.php">
+  bootstrap="vendor/autoload.php">
   <testsuites>
     <testsuite name="API Tests">
       <!-- Tests are Indivudually listed as they may have different requirements. -->
