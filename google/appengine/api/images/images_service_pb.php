@@ -358,6 +358,40 @@ namespace google\appengine {
     public function hasAllowStretch() {
       return isset($this->allow_stretch);
     }
+    public function getCropRightXSet() {
+      if (!isset($this->crop_right_x_set)) {
+        return false;
+      }
+      return $this->crop_right_x_set;
+    }
+    public function setCropRightXSet($val) {
+      $this->crop_right_x_set = $val;
+      return $this;
+    }
+    public function clearCropRightXSet() {
+      unset($this->crop_right_x_set);
+      return $this;
+    }
+    public function hasCropRightXSet() {
+      return isset($this->crop_right_x_set);
+    }
+    public function getCropBottomYSet() {
+      if (!isset($this->crop_bottom_y_set)) {
+        return false;
+      }
+      return $this->crop_bottom_y_set;
+    }
+    public function setCropBottomYSet($val) {
+      $this->crop_bottom_y_set = $val;
+      return $this;
+    }
+    public function clearCropBottomYSet() {
+      unset($this->crop_bottom_y_set);
+      return $this;
+    }
+    public function hasCropBottomYSet() {
+      return isset($this->crop_bottom_y_set);
+    }
     public function clear() {
       $this->clearWidth();
       $this->clearHeight();
@@ -373,6 +407,8 @@ namespace google\appengine {
       $this->clearCropOffsetX();
       $this->clearCropOffsetY();
       $this->clearAllowStretch();
+      $this->clearCropRightXSet();
+      $this->clearCropBottomYSet();
     }
     public function byteSizePartial() {
       $res = 0;
@@ -420,6 +456,12 @@ namespace google\appengine {
       }
       if (isset($this->allow_stretch)) {
         $res += 2;
+      }
+      if (isset($this->crop_right_x_set)) {
+        $res += 3;
+      }
+      if (isset($this->crop_bottom_y_set)) {
+        $res += 3;
       }
       return $res;
     }
@@ -480,6 +522,14 @@ namespace google\appengine {
         $out->putVarInt32(112);
         $out->putBoolean($this->allow_stretch);
       }
+      if (isset($this->crop_right_x_set)) {
+        $out->putVarInt32(864);
+        $out->putBoolean($this->crop_right_x_set);
+      }
+      if (isset($this->crop_bottom_y_set)) {
+        $out->putVarInt32(872);
+        $out->putBoolean($this->crop_bottom_y_set);
+      }
     }
     public function tryMerge($d) {
       while($d->avail() > 0) {
@@ -526,6 +576,12 @@ namespace google\appengine {
             break;
           case 112:
             $this->setAllowStretch($d->getBoolean());
+            break;
+          case 864:
+            $this->setCropRightXSet($d->getBoolean());
+            break;
+          case 872:
+            $this->setCropBottomYSet($d->getBoolean());
             break;
           case 0:
             throw new \google\net\ProtocolBufferDecodeError();
@@ -582,6 +638,12 @@ namespace google\appengine {
       if ($x->hasAllowStretch()) {
         $this->setAllowStretch($x->getAllowStretch());
       }
+      if ($x->hasCropRightXSet()) {
+        $this->setCropRightXSet($x->getCropRightXSet());
+      }
+      if ($x->hasCropBottomYSet()) {
+        $this->setCropBottomYSet($x->getCropBottomYSet());
+      }
     }
     public function equals($x) {
       if ($x === $this) { return true; }
@@ -613,6 +675,10 @@ namespace google\appengine {
       if (isset($this->crop_offset_y) && $this->crop_offset_y !== $x->crop_offset_y) return false;
       if (isset($this->allow_stretch) !== isset($x->allow_stretch)) return false;
       if (isset($this->allow_stretch) && $this->allow_stretch !== $x->allow_stretch) return false;
+      if (isset($this->crop_right_x_set) !== isset($x->crop_right_x_set)) return false;
+      if (isset($this->crop_right_x_set) && $this->crop_right_x_set !== $x->crop_right_x_set) return false;
+      if (isset($this->crop_bottom_y_set) !== isset($x->crop_bottom_y_set)) return false;
+      if (isset($this->crop_bottom_y_set) && $this->crop_bottom_y_set !== $x->crop_bottom_y_set) return false;
       return true;
     }
     public function shortDebugString($prefix = "") {
@@ -658,6 +724,12 @@ namespace google\appengine {
       }
       if (isset($this->allow_stretch)) {
         $res .= $prefix . "allow_stretch: " . $this->debugFormatBool($this->allow_stretch) . "\n";
+      }
+      if (isset($this->crop_right_x_set)) {
+        $res .= $prefix . "crop_right_x_set: " . $this->debugFormatBool($this->crop_right_x_set) . "\n";
+      }
+      if (isset($this->crop_bottom_y_set)) {
+        $res .= $prefix . "crop_bottom_y_set: " . $this->debugFormatBool($this->crop_bottom_y_set) . "\n";
       }
       return $res;
     }
