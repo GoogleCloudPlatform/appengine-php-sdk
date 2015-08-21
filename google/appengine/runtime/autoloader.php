@@ -35,6 +35,7 @@ final class ClassLoader {
         'google\appengine\testing\apiproxytestbase' => 'google/appengine/testing/ApiProxyTestBase.php',
         'google\appengine\testing\apiproxymock' => 'google/appengine/testing/ApiProxyMock.php',
         'google\appengine\testing\apicallarguments' => 'google/appengine/testing/ApiCallArguments.php',
+        'google\appengine\runtime\vmapiproxy' => 'google/appengine/runtime/VmApiProxy.php',
         'google\appengine\runtime\virtualfilesystem' => 'google/appengine/runtime/VirtualFileSystem.php',
         'google\appengine\runtime\unlinkuploads' => 'google/appengine/runtime/UnlinkUploads.php',
         'google\appengine\runtime\sploverride' => 'google/appengine/runtime/SplOverride.php',
