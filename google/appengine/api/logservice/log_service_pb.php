@@ -18,9 +18,11 @@
 # source: google/appengine/api/logservice/log_service.proto
 
 namespace dummy {
-  require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
-  require_once 'google/appengine/api/api_base_pb.php';
-  require_once 'google/appengine/api/source_pb.php';
+  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
+    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+    require_once 'google/appengine/api/api_base_pb.php';
+    require_once 'google/appengine/api/source_pb.php';
+  }
 }
 namespace google\appengine\LogServiceError {
   class ErrorCode {

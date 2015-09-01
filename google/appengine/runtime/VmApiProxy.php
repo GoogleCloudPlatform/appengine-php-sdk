@@ -116,10 +116,13 @@ class VmApiProxy extends ApiProxyBase{
     if ($deadline === null) {
       $deadline = self::DEFAULT_TIMEOUT_SEC;
     }
-
-    $ticket = static::getEnvOrDefault(self::TICKET_HEADER,
-        static::getEnvOrDefault(self::DEV_TICKET_HEADER,
-                                $this->getDefaultTicket()));
+    $ticket = getenv(self::TICKET_HEADER);
+    if ($ticket === false) {
+      $ticket = getenv(self::DEV_TICKET_HEADER);
+      if ($ticket === false) {
+        $ticket = $this->getDefaultTicket();
+      }
+    }
 
     $remote_request = new Request();
     $remote_request->setServiceName($package);
@@ -225,7 +228,7 @@ class VmApiProxy extends ApiProxyBase{
 
   /**
    * Return the default security ticket for the RPC call. If the default value
-   * was not set int he constructor then it will be retrieved from the
+   * was not set in the constructor then it will be retrieved from the
    * environment.
    *
    * @returns string The security ticket.

@@ -18,7 +18,9 @@
 # source: google/appengine/api/images/images_service.proto
 
 namespace dummy {
-  require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
+    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+  }
 }
 namespace google\appengine\ImagesServiceError {
   class ErrorCode {
@@ -426,6 +428,40 @@ namespace google\appengine {
     public function hasCropBottomYSet() {
       return isset($this->crop_bottom_y_set);
     }
+    public function getCropOffsetXSet() {
+      if (!isset($this->crop_offset_x_set)) {
+        return false;
+      }
+      return $this->crop_offset_x_set;
+    }
+    public function setCropOffsetXSet($val) {
+      $this->crop_offset_x_set = $val;
+      return $this;
+    }
+    public function clearCropOffsetXSet() {
+      unset($this->crop_offset_x_set);
+      return $this;
+    }
+    public function hasCropOffsetXSet() {
+      return isset($this->crop_offset_x_set);
+    }
+    public function getCropOffsetYSet() {
+      if (!isset($this->crop_offset_y_set)) {
+        return false;
+      }
+      return $this->crop_offset_y_set;
+    }
+    public function setCropOffsetYSet($val) {
+      $this->crop_offset_y_set = $val;
+      return $this;
+    }
+    public function clearCropOffsetYSet() {
+      unset($this->crop_offset_y_set);
+      return $this;
+    }
+    public function hasCropOffsetYSet() {
+      return isset($this->crop_offset_y_set);
+    }
     public function clear() {
       $this->clearWidth();
       $this->clearHeight();
@@ -445,6 +481,8 @@ namespace google\appengine {
       $this->clearHeightSet();
       $this->clearCropRightXSet();
       $this->clearCropBottomYSet();
+      $this->clearCropOffsetXSet();
+      $this->clearCropOffsetYSet();
     }
     public function byteSizePartial() {
       $res = 0;
@@ -503,6 +541,12 @@ namespace google\appengine {
         $res += 3;
       }
       if (isset($this->crop_bottom_y_set)) {
+        $res += 3;
+      }
+      if (isset($this->crop_offset_x_set)) {
+        $res += 3;
+      }
+      if (isset($this->crop_offset_y_set)) {
         $res += 3;
       }
       return $res;
@@ -580,6 +624,14 @@ namespace google\appengine {
         $out->putVarInt32(872);
         $out->putBoolean($this->crop_bottom_y_set);
       }
+      if (isset($this->crop_offset_x_set)) {
+        $out->putVarInt32(896);
+        $out->putBoolean($this->crop_offset_x_set);
+      }
+      if (isset($this->crop_offset_y_set)) {
+        $out->putVarInt32(904);
+        $out->putBoolean($this->crop_offset_y_set);
+      }
     }
     public function tryMerge($d) {
       while($d->avail() > 0) {
@@ -638,6 +690,12 @@ namespace google\appengine {
             break;
           case 872:
             $this->setCropBottomYSet($d->getBoolean());
+            break;
+          case 896:
+            $this->setCropOffsetXSet($d->getBoolean());
+            break;
+          case 904:
+            $this->setCropOffsetYSet($d->getBoolean());
             break;
           case 0:
             throw new \google\net\ProtocolBufferDecodeError();
@@ -706,6 +764,12 @@ namespace google\appengine {
       if ($x->hasCropBottomYSet()) {
         $this->setCropBottomYSet($x->getCropBottomYSet());
       }
+      if ($x->hasCropOffsetXSet()) {
+        $this->setCropOffsetXSet($x->getCropOffsetXSet());
+      }
+      if ($x->hasCropOffsetYSet()) {
+        $this->setCropOffsetYSet($x->getCropOffsetYSet());
+      }
     }
     public function equals($x) {
       if ($x === $this) { return true; }
@@ -745,6 +809,10 @@ namespace google\appengine {
       if (isset($this->crop_right_x_set) && $this->crop_right_x_set !== $x->crop_right_x_set) return false;
       if (isset($this->crop_bottom_y_set) !== isset($x->crop_bottom_y_set)) return false;
       if (isset($this->crop_bottom_y_set) && $this->crop_bottom_y_set !== $x->crop_bottom_y_set) return false;
+      if (isset($this->crop_offset_x_set) !== isset($x->crop_offset_x_set)) return false;
+      if (isset($this->crop_offset_x_set) && $this->crop_offset_x_set !== $x->crop_offset_x_set) return false;
+      if (isset($this->crop_offset_y_set) !== isset($x->crop_offset_y_set)) return false;
+      if (isset($this->crop_offset_y_set) && $this->crop_offset_y_set !== $x->crop_offset_y_set) return false;
       return true;
     }
     public function shortDebugString($prefix = "") {
@@ -802,6 +870,12 @@ namespace google\appengine {
       }
       if (isset($this->crop_bottom_y_set)) {
         $res .= $prefix . "crop_bottom_y_set: " . $this->debugFormatBool($this->crop_bottom_y_set) . "\n";
+      }
+      if (isset($this->crop_offset_x_set)) {
+        $res .= $prefix . "crop_offset_x_set: " . $this->debugFormatBool($this->crop_offset_x_set) . "\n";
+      }
+      if (isset($this->crop_offset_y_set)) {
+        $res .= $prefix . "crop_offset_y_set: " . $this->debugFormatBool($this->crop_offset_y_set) . "\n";
       }
       return $res;
     }
@@ -1952,11 +2026,29 @@ namespace google\appengine {
     public function hasColor() {
       return isset($this->color);
     }
+    public function getColorSet() {
+      if (!isset($this->color_set)) {
+        return false;
+      }
+      return $this->color_set;
+    }
+    public function setColorSet($val) {
+      $this->color_set = $val;
+      return $this;
+    }
+    public function clearColorSet() {
+      unset($this->color_set);
+      return $this;
+    }
+    public function hasColorSet() {
+      return isset($this->color_set);
+    }
     public function clear() {
       $this->clearWidth();
       $this->clearHeight();
       $this->clearOutput();
       $this->clearColor();
+      $this->clearColorSet();
     }
     public function byteSizePartial() {
       $res = 0;
@@ -1975,6 +2067,9 @@ namespace google\appengine {
       if (isset($this->color)) {
         $res += 1;
         $res += $this->lengthVarInt64($this->color);
+      }
+      if (isset($this->color_set)) {
+        $res += 3;
       }
       return $res;
     }
@@ -1996,6 +2091,10 @@ namespace google\appengine {
         $out->putVarInt32(32);
         $out->putVarInt32($this->color);
       }
+      if (isset($this->color_set)) {
+        $out->putVarInt32(832);
+        $out->putBoolean($this->color_set);
+      }
     }
     public function tryMerge($d) {
       while($d->avail() > 0) {
@@ -2015,6 +2114,9 @@ namespace google\appengine {
             break;
           case 32:
             $this->setColor($d->getVarInt32());
+            break;
+          case 832:
+            $this->setColorSet($d->getBoolean());
             break;
           case 0:
             throw new \google\net\ProtocolBufferDecodeError();
@@ -2044,6 +2146,9 @@ namespace google\appengine {
       if ($x->hasColor()) {
         $this->setColor($x->getColor());
       }
+      if ($x->hasColorSet()) {
+        $this->setColorSet($x->getColorSet());
+      }
     }
     public function equals($x) {
       if ($x === $this) { return true; }
@@ -2055,6 +2160,8 @@ namespace google\appengine {
       if (isset($this->output) && !$this->output->equals($x->output)) return false;
       if (isset($this->color) !== isset($x->color)) return false;
       if (isset($this->color) && !$this->integerEquals($this->color, $x->color)) return false;
+      if (isset($this->color_set) !== isset($x->color_set)) return false;
+      if (isset($this->color_set) && $this->color_set !== $x->color_set) return false;
       return true;
     }
     public function shortDebugString($prefix = "") {
@@ -2070,6 +2177,9 @@ namespace google\appengine {
       }
       if (isset($this->color)) {
         $res .= $prefix . "color: " . $this->debugFormatInt32($this->color) . "\n";
+      }
+      if (isset($this->color_set)) {
+        $res .= $prefix . "color_set: " . $this->debugFormatBool($this->color_set) . "\n";
       }
       return $res;
     }

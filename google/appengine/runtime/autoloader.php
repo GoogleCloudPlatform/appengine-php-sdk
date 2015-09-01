@@ -7,13 +7,17 @@
 
 namespace google\appengine\runtime;
 
-final class ClassLoader {
-  private static $classmap = null;
+if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
+  define('GOOGLE_APPENGINE_CLASSLOADER', true);
 
-  public static function loadClass($class_name) {
-    if (self::$classmap === null) {
-      self::$classmap = [
-        'org\bovigo\vfs\vfsstreamwrapper' => 'third_party/vfsstream/vendor/mikey179/vfsStream/src/main/php/org/bovigo/vfs/vfsStreamWrapper.php',
+  final class ClassLoader {
+    private static $classmap = null;
+    private static $sdk_root = null;
+
+    public static function loadClass($class_name) {
+      if (self::$classmap === null) {
+        self::$classmap = [
+          'org\bovigo\vfs\vfsstreamwrapper' => 'third_party/vfsstream/vendor/mikey179/vfsStream/src/main/php/org/bovigo/vfs/vfsStreamWrapper.php',
         'org\bovigo\vfs\vfsstreamfile' => 'third_party/vfsstream/vendor/mikey179/vfsStream/src/main/php/org/bovigo/vfs/vfsStreamFile.php',
         'org\bovigo\vfs\vfsstreamexception' => 'third_party/vfsstream/vendor/mikey179/vfsStream/src/main/php/org/bovigo/vfs/vfsStreamException.php',
         'org\bovigo\vfs\vfsstreamdirectory' => 'third_party/vfsstream/vendor/mikey179/vfsStream/src/main/php/org/bovigo/vfs/vfsStreamDirectory.php',
@@ -256,6 +260,7 @@ final class ClassLoader {
         'google\appengine\base\bytesproto' => 'google/appengine/api/api_base_pb.php',
         'google\appengine\base\voidproto' => 'google/appengine/api/api_base_pb.php',
         'google\appengine\api\users\usersexception' => 'google/appengine/api/users/UsersException.php',
+        'google\appengine\api\users\userserviceutil' => 'google/appengine/api/users/UserServiceUtil.php',
         'google\appengine\api\users\userservice' => 'google/appengine/api/users/UserService.php',
         'google\appengine\api\users\user' => 'google/appengine/api/users/User.php',
         'google\appengine\taskqueueserviceerror\errorcode' => 'google/appengine/api/taskqueue/taskqueue_service_pb.php',
@@ -543,14 +548,25 @@ final class ClassLoader {
         'google\appengine\api\app_identity\publiccertificate' => 'google/appengine/api/app_identity/PublicCertificate.php',
         'google\appengine\api\app_identity\appidentityservice' => 'google/appengine/api/app_identity/AppIdentityService.php',
         'google\appengine\api\app_identity\appidentityexception' => 'google/appengine/api/app_identity/AppIdentityException.php',
-      ];
-    }
-    $class_name = strtolower($class_name);
-    if (array_key_exists($class_name, self::$classmap)) {
-      require self::$classmap[$class_name];
+        ];
+        $base_dir = dirname(__FILE__);
+        self::$sdk_root = dirname(dirname(dirname($base_dir))) .
+                          DIRECTORY_SEPARATOR;
+      }
+      $class_name = strtolower($class_name);
+      if (array_key_exists($class_name, self::$classmap)) {
+        $target_file = self::$classmap[$class_name];
+        $full_path = self::$sdk_root . $target_file;
+        if (file_exists($full_path)) {
+          require $full_path;
+        } else {
+          require $target_file;
+        }
+      }
     }
   }
-}
 
-spl_autoload_register(__NAMESPACE__ . '\ClassLoader::loadClass');
+  spl_autoload_register(__NAMESPACE__ . '\ClassLoader::loadClass');
+
+}  // defined ('GOOGLE_APPENGINE_CLASSLOADER')
 

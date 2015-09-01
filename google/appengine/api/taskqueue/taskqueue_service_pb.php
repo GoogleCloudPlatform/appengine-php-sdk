@@ -18,8 +18,10 @@
 # source: google/appengine/api/taskqueue/taskqueue_service.proto
 
 namespace dummy {
-  require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
-  require_once 'google/appengine/datastore/datastore_v3_pb.php';
+  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
+    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+    require_once 'google/appengine/datastore/datastore_v3_pb.php';
+  }
 }
 namespace google\appengine\TaskQueueServiceError {
   class ErrorCode {
