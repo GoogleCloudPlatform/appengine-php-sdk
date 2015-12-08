@@ -26,13 +26,17 @@ use google\appengine\UserServiceError;
  * Unittest for User class.
  */
 class UserTest extends ApiProxyTestBase {
+  public function setUp() {
+    parent::setUp();
+    putenv('AUTH_DOMAIN=gmail.com');
+  }
+
   public function tearDown() {
     putenv('AUTH_DOMAIN');
     parent::tearDown();
   }
 
   public function testException() {
-    putenv('AUTH_DOMAIN=gmail.com');
     $this->setExpectedException(
         '\InvalidArgumentException',
         'One of $email or $federated_identity must be set.');
@@ -40,7 +44,6 @@ class UserTest extends ApiProxyTestBase {
   }
 
   public function testGetFederatedIdentity() {
-    putenv('AUTH_DOMAIN=gmail.com');
     $bill = new User(null, 'http://www.google.com/bill', null, '100001');
 
     $this->assertEquals(
@@ -55,11 +58,7 @@ class UserTest extends ApiProxyTestBase {
     $this->assertEquals('bill@example.com', $bill->getEmail());
   }
 
-  /**
-   * @dataProvider getNicknameDataProvider
-   */
-  public function testGetNickname($env_name) {
-    putenv($env_name . '=gmail.com');
+  public function testGetNickname() {
     $jon = new User('jonmac@gmail.com', null, null, '11444');
     $this->assertEquals('jonmac', $jon->getNickname());
 
@@ -67,10 +66,10 @@ class UserTest extends ApiProxyTestBase {
     $this->assertEquals('jonmac@example.com', $jon->getNickname());
 
     # nickname for federated user.
-    putenv($env_name . '=example.com');
+    putenv('AUTH_DOMAIN=example.com');
     $bill = new User(
         'bill@example.com', 'http://example.com/bill', null, '22772');
-    putenv($env_name . '=gmail.com');
+    putenv('AUTH_DOMAIN=gmail.com');
     $this->assertEquals('bill', $bill->getNickname());
 
     $bill = new User('bill@example.com', 'http://google.com/bill', null,
@@ -85,19 +84,9 @@ class UserTest extends ApiProxyTestBase {
 
     $bill = new User(null, 'http://google.com/bill', null, '22772');
     $this->assertEquals('http://google.com/bill', $bill->getNickname());
-
-    putenv($env_name);
-  }
-
-  public function getNicknameDataProvider() {
-    return [
-        ['AUTH_DOMAIN'],
-        ['HTTP_X_APPENGINE_AUTH_DOMAIN'],
-    ];
   }
 
   public function testToString() {
-    putenv('AUTH_DOMAIN=gmail.com');
     $bill = new User(
         'bill@example.com', 'http://google.com/bill', null, '22772');
     $this->assertEquals(

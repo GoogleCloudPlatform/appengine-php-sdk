@@ -18,10 +18,8 @@
 # source: google/appengine/datastore/datastore_v4.proto
 
 namespace dummy {
-  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
-    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
-    require_once 'google/appengine/datastore/entity_v4_pb.php';
-  }
+  require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+  require_once 'google/appengine/datastore/entity_v4_pb.php';
 }
 namespace google\appengine\datastore\v4\Error {
   class ErrorCode {

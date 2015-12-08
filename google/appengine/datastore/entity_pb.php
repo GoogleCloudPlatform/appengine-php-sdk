@@ -18,9 +18,7 @@
 # source: google/appengine/datastore/entity.proto
 
 namespace dummy {
-  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
-    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
-  }
+  require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
 }
 namespace storage_onestore_v3\PropertyValue {
   class PointValue extends \google\net\ProtocolMessage {

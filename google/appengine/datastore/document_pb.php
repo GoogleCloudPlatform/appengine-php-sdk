@@ -18,9 +18,7 @@
 # source: google/appengine/datastore/document.proto
 
 namespace dummy {
-  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
-    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
-  }
+  require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
 }
 namespace storage_onestore_v3\FieldValue {
   class ContentType {
@@ -30,8 +28,6 @@ namespace storage_onestore_v3\FieldValue {
     const DATE = 3;
     const NUMBER = 4;
     const GEO = 5;
-    const PREFIX = 6;
-    const TOKENIZED_PREFIX = 7;
   }
 }
 namespace storage_onestore_v3\FieldValue {
@@ -883,33 +879,11 @@ namespace storage_onestore_v3 {
     public function hasIndexDeleteTime() {
       return isset($this->index_delete_time);
     }
-    public function getMaxIndexSizeBytes() {
-      if (!isset($this->max_index_size_bytes)) {
-        return "0";
-      }
-      return $this->max_index_size_bytes;
-    }
-    public function setMaxIndexSizeBytes($val) {
-      if (is_double($val)) {
-        $this->max_index_size_bytes = sprintf('%0.0F', $val);
-      } else {
-        $this->max_index_size_bytes = $val;
-      }
-      return $this;
-    }
-    public function clearMaxIndexSizeBytes() {
-      unset($this->max_index_size_bytes);
-      return $this;
-    }
-    public function hasMaxIndexSizeBytes() {
-      return isset($this->max_index_size_bytes);
-    }
     public function clear() {
       $this->clearIsOverFieldNumberThreshold();
       $this->clearIndexShardSettings();
       $this->clearIndexState();
       $this->clearIndexDeleteTime();
-      $this->clearMaxIndexSizeBytes();
     }
     public function byteSizePartial() {
       $res = 0;
@@ -927,10 +901,6 @@ namespace storage_onestore_v3 {
       if (isset($this->index_delete_time)) {
         $res += 1;
         $res += $this->lengthVarInt64($this->index_delete_time);
-      }
-      if (isset($this->max_index_size_bytes)) {
-        $res += 1;
-        $res += $this->lengthVarInt64($this->max_index_size_bytes);
       }
       return $res;
     }
@@ -952,10 +922,6 @@ namespace storage_onestore_v3 {
         $out->putVarInt32(32);
         $out->putVarInt64($this->index_delete_time);
       }
-      if (isset($this->max_index_size_bytes)) {
-        $out->putVarInt32(40);
-        $out->putVarInt64($this->max_index_size_bytes);
-      }
     }
     public function tryMerge($d) {
       while($d->avail() > 0) {
@@ -975,9 +941,6 @@ namespace storage_onestore_v3 {
             break;
           case 32:
             $this->setIndexDeleteTime($d->getVarInt64());
-            break;
-          case 40:
-            $this->setMaxIndexSizeBytes($d->getVarInt64());
             break;
           case 0:
             throw new \google\net\ProtocolBufferDecodeError();
@@ -1005,9 +968,6 @@ namespace storage_onestore_v3 {
       if ($x->hasIndexDeleteTime()) {
         $this->setIndexDeleteTime($x->getIndexDeleteTime());
       }
-      if ($x->hasMaxIndexSizeBytes()) {
-        $this->setMaxIndexSizeBytes($x->getMaxIndexSizeBytes());
-      }
     }
     public function equals($x) {
       if ($x === $this) { return true; }
@@ -1019,8 +979,6 @@ namespace storage_onestore_v3 {
       if (isset($this->index_state) && $this->index_state !== $x->index_state) return false;
       if (isset($this->index_delete_time) !== isset($x->index_delete_time)) return false;
       if (isset($this->index_delete_time) && !$this->integerEquals($this->index_delete_time, $x->index_delete_time)) return false;
-      if (isset($this->max_index_size_bytes) !== isset($x->max_index_size_bytes)) return false;
-      if (isset($this->max_index_size_bytes) && !$this->integerEquals($this->max_index_size_bytes, $x->max_index_size_bytes)) return false;
       return true;
     }
     public function shortDebugString($prefix = "") {
@@ -1036,9 +994,6 @@ namespace storage_onestore_v3 {
       }
       if (isset($this->index_delete_time)) {
         $res .= $prefix . "index_delete_time: " . $this->debugFormatInt64($this->index_delete_time) . "\n";
-      }
-      if (isset($this->max_index_size_bytes)) {
-        $res .= $prefix . "max_index_size_bytes: " . $this->debugFormatInt64($this->max_index_size_bytes) . "\n";
       }
       return $res;
     }

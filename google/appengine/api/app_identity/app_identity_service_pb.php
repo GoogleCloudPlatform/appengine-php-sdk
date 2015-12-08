@@ -18,9 +18,7 @@
 # source: google/appengine/api/app_identity/app_identity_service.proto
 
 namespace dummy {
-  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
-    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
-  }
+  require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
 }
 namespace google\appengine\AppIdentityServiceError {
   class ErrorCode {
