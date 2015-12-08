@@ -18,7 +18,9 @@
 # source: google/appengine/api/user_service.proto
 
 namespace dummy {
-  require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
+    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+  }
 }
 namespace google\appengine\UserServiceError {
   class ErrorCode {
@@ -278,7 +280,6 @@ namespace google\appengine {
       };
     }
     public function checkInitialized() {
-      if (!isset($this->login_url)) return 'login_url';
       return null;
     }
     public function mergeFrom($x) {
@@ -473,7 +474,6 @@ namespace google\appengine {
       };
     }
     public function checkInitialized() {
-      if (!isset($this->logout_url)) return 'logout_url';
       return null;
     }
     public function mergeFrom($x) {
@@ -928,9 +928,6 @@ namespace google\appengine {
       };
     }
     public function checkInitialized() {
-      if (!isset($this->email)) return 'email';
-      if (!isset($this->user_id)) return 'user_id';
-      if (!isset($this->auth_domain)) return 'auth_domain';
       return null;
     }
     public function mergeFrom($x) {
@@ -1104,7 +1101,6 @@ namespace google\appengine {
       };
     }
     public function checkInitialized() {
-      if (!isset($this->oauth_consumer_key)) return 'oauth_consumer_key';
       return null;
     }
     public function mergeFrom($x) {

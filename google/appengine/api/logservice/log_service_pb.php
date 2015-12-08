@@ -18,9 +18,11 @@
 # source: google/appengine/api/logservice/log_service.proto
 
 namespace dummy {
-  require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
-  require_once 'google/appengine/api/api_base_pb.php';
-  require_once 'google/appengine/api/source_pb.php';
+  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
+    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+    require_once 'google/appengine/api/api_base_pb.php';
+    require_once 'google/appengine/api/source_pb.php';
+  }
 }
 namespace google\appengine\LogServiceError {
   class ErrorCode {
@@ -2484,6 +2486,23 @@ namespace google\appengine {
     public function hasVersionId() {
       return isset($this->version_id);
     }
+    public function getModuleIdSet() {
+      if (!isset($this->module_id_set)) {
+        return false;
+      }
+      return $this->module_id_set;
+    }
+    public function setModuleIdSet($val) {
+      $this->module_id_set = $val;
+      return $this;
+    }
+    public function clearModuleIdSet() {
+      unset($this->module_id_set);
+      return $this;
+    }
+    public function hasModuleIdSet() {
+      return isset($this->module_id_set);
+    }
     public function getVersionIdSet() {
       if (!isset($this->version_id_set)) {
         return false;
@@ -2504,6 +2523,7 @@ namespace google\appengine {
     public function clear() {
       $this->clearModuleId();
       $this->clearVersionId();
+      $this->clearModuleIdSet();
       $this->clearVersionIdSet();
     }
     public function byteSizePartial() {
@@ -2515,6 +2535,9 @@ namespace google\appengine {
       if (isset($this->version_id)) {
         $res += 1;
         $res += $this->lengthString(strlen($this->version_id));
+      }
+      if (isset($this->module_id_set)) {
+        $res += 3;
       }
       if (isset($this->version_id_set)) {
         $res += 3;
@@ -2529,6 +2552,10 @@ namespace google\appengine {
       if (isset($this->version_id)) {
         $out->putVarInt32(18);
         $out->putPrefixedString($this->version_id);
+      }
+      if (isset($this->module_id_set)) {
+        $out->putVarInt32(808);
+        $out->putBoolean($this->module_id_set);
       }
       if (isset($this->version_id_set)) {
         $out->putVarInt32(816);
@@ -2548,6 +2575,9 @@ namespace google\appengine {
             $length = $d->getVarInt32();
             $this->setVersionId(substr($d->buffer(), $d->pos(), $length));
             $d->skip($length);
+            break;
+          case 808:
+            $this->setModuleIdSet($d->getBoolean());
             break;
           case 816:
             $this->setVersionIdSet($d->getBoolean());
@@ -2571,6 +2601,9 @@ namespace google\appengine {
       if ($x->hasVersionId()) {
         $this->setVersionId($x->getVersionId());
       }
+      if ($x->hasModuleIdSet()) {
+        $this->setModuleIdSet($x->getModuleIdSet());
+      }
       if ($x->hasVersionIdSet()) {
         $this->setVersionIdSet($x->getVersionIdSet());
       }
@@ -2581,6 +2614,8 @@ namespace google\appengine {
       if (isset($this->module_id) && $this->module_id !== $x->module_id) return false;
       if (isset($this->version_id) !== isset($x->version_id)) return false;
       if (isset($this->version_id) && $this->version_id !== $x->version_id) return false;
+      if (isset($this->module_id_set) !== isset($x->module_id_set)) return false;
+      if (isset($this->module_id_set) && $this->module_id_set !== $x->module_id_set) return false;
       if (isset($this->version_id_set) !== isset($x->version_id_set)) return false;
       if (isset($this->version_id_set) && $this->version_id_set !== $x->version_id_set) return false;
       return true;
@@ -2592,6 +2627,9 @@ namespace google\appengine {
       }
       if (isset($this->version_id)) {
         $res .= $prefix . "version_id: " . $this->debugFormatString($this->version_id) . "\n";
+      }
+      if (isset($this->module_id_set)) {
+        $res .= $prefix . "module_id_set: " . $this->debugFormatBool($this->module_id_set) . "\n";
       }
       if (isset($this->version_id_set)) {
         $res .= $prefix . "version_id_set: " . $this->debugFormatBool($this->version_id_set) . "\n";
@@ -4336,6 +4374,23 @@ namespace google\appengine {
     public function hasVersionsOnly() {
       return isset($this->versions_only);
     }
+    public function getResolutionHoursSet() {
+      if (!isset($this->resolution_hours_set)) {
+        return false;
+      }
+      return $this->resolution_hours_set;
+    }
+    public function setResolutionHoursSet($val) {
+      $this->resolution_hours_set = $val;
+      return $this;
+    }
+    public function clearResolutionHoursSet() {
+      unset($this->resolution_hours_set);
+      return $this;
+    }
+    public function hasResolutionHoursSet() {
+      return isset($this->resolution_hours_set);
+    }
     public function getUsageVersionSet() {
       if (!isset($this->usage_version_set)) {
         return false;
@@ -4362,6 +4417,7 @@ namespace google\appengine {
       $this->clearCombineVersions();
       $this->clearUsageVersion();
       $this->clearVersionsOnly();
+      $this->clearResolutionHoursSet();
       $this->clearUsageVersionSet();
     }
     public function byteSizePartial() {
@@ -4396,6 +4452,9 @@ namespace google\appengine {
       }
       if (isset($this->versions_only)) {
         $res += 2;
+      }
+      if (isset($this->resolution_hours_set)) {
+        $res += 3;
       }
       if (isset($this->usage_version_set)) {
         $res += 3;
@@ -4436,6 +4495,10 @@ namespace google\appengine {
         $out->putVarInt32(64);
         $out->putBoolean($this->versions_only);
       }
+      if (isset($this->resolution_hours_set)) {
+        $out->putVarInt32(840);
+        $out->putBoolean($this->resolution_hours_set);
+      }
       if (isset($this->usage_version_set)) {
         $out->putVarInt32(856);
         $out->putBoolean($this->usage_version_set);
@@ -4472,6 +4535,9 @@ namespace google\appengine {
             break;
           case 64:
             $this->setVersionsOnly($d->getBoolean());
+            break;
+          case 840:
+            $this->setResolutionHoursSet($d->getBoolean());
             break;
           case 856:
             $this->setUsageVersionSet($d->getBoolean());
@@ -4514,6 +4580,9 @@ namespace google\appengine {
       if ($x->hasVersionsOnly()) {
         $this->setVersionsOnly($x->getVersionsOnly());
       }
+      if ($x->hasResolutionHoursSet()) {
+        $this->setResolutionHoursSet($x->getResolutionHoursSet());
+      }
       if ($x->hasUsageVersionSet()) {
         $this->setUsageVersionSet($x->getUsageVersionSet());
       }
@@ -4538,6 +4607,8 @@ namespace google\appengine {
       if (isset($this->usage_version) && !$this->integerEquals($this->usage_version, $x->usage_version)) return false;
       if (isset($this->versions_only) !== isset($x->versions_only)) return false;
       if (isset($this->versions_only) && $this->versions_only !== $x->versions_only) return false;
+      if (isset($this->resolution_hours_set) !== isset($x->resolution_hours_set)) return false;
+      if (isset($this->resolution_hours_set) && $this->resolution_hours_set !== $x->resolution_hours_set) return false;
       if (isset($this->usage_version_set) !== isset($x->usage_version_set)) return false;
       if (isset($this->usage_version_set) && $this->usage_version_set !== $x->usage_version_set) return false;
       return true;
@@ -4567,6 +4638,9 @@ namespace google\appengine {
       }
       if (isset($this->versions_only)) {
         $res .= $prefix . "versions_only: " . $this->debugFormatBool($this->versions_only) . "\n";
+      }
+      if (isset($this->resolution_hours_set)) {
+        $res .= $prefix . "resolution_hours_set: " . $this->debugFormatBool($this->resolution_hours_set) . "\n";
       }
       if (isset($this->usage_version_set)) {
         $res .= $prefix . "usage_version_set: " . $this->debugFormatBool($this->usage_version_set) . "\n";

@@ -18,8 +18,10 @@
 # source: google/appengine/api/search/search_service.proto
 
 namespace dummy {
-  require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
-  require_once 'google/appengine/datastore/document_pb.php';
+  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
+    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+    require_once 'google/appengine/datastore/document_pb.php';
+  }
 }
 namespace google\appengine\SearchServiceError {
   class ErrorCode {
@@ -6807,12 +6809,30 @@ namespace google\appengine {
     public function clearFacetResult() {
       $this->facet_result = array();
     }
+    public function getDocsScored() {
+      if (!isset($this->docs_scored)) {
+        return 0;
+      }
+      return $this->docs_scored;
+    }
+    public function setDocsScored($val) {
+      $this->docs_scored = $val;
+      return $this;
+    }
+    public function clearDocsScored() {
+      unset($this->docs_scored);
+      return $this;
+    }
+    public function hasDocsScored() {
+      return isset($this->docs_scored);
+    }
     public function clear() {
       $this->clearResult();
       $this->clearMatchedCount();
       $this->clearStatus();
       $this->clearCursor();
       $this->clearFacetResult();
+      $this->clearDocsScored();
     }
     public function byteSizePartial() {
       $res = 0;
@@ -6837,6 +6857,10 @@ namespace google\appengine {
       $res += 1 * sizeof($this->facet_result);
       foreach ($this->facet_result as $value) {
         $res += $this->lengthString($value->byteSizePartial());
+      }
+      if (isset($this->docs_scored)) {
+        $res += 1;
+        $res += $this->lengthVarInt64($this->docs_scored);
       }
       return $res;
     }
@@ -6865,6 +6889,10 @@ namespace google\appengine {
         $out->putVarInt32(42);
         $out->putVarInt32($value->byteSizePartial());
         $value->outputPartial($out);
+      }
+      if (isset($this->docs_scored)) {
+        $out->putVarInt32(48);
+        $out->putVarInt32($this->docs_scored);
       }
     }
     public function tryMerge($d) {
@@ -6896,6 +6924,9 @@ namespace google\appengine {
             $tmp = new \google\net\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
             $d->skip($length);
             $this->addFacetResult()->tryMerge($tmp);
+            break;
+          case 48:
+            $this->setDocsScored($d->getVarInt32());
             break;
           case 0:
             throw new \google\net\ProtocolBufferDecodeError();
@@ -6933,6 +6964,9 @@ namespace google\appengine {
       foreach ($x->getFacetResultList() as $v) {
         $this->addFacetResult()->copyFrom($v);
       }
+      if ($x->hasDocsScored()) {
+        $this->setDocsScored($x->getDocsScored());
+      }
     }
     public function equals($x) {
       if ($x === $this) { return true; }
@@ -6950,6 +6984,8 @@ namespace google\appengine {
       foreach (array_map(null, $this->facet_result, $x->facet_result) as $v) {
         if (!$v[0]->equals($v[1])) return false;
       }
+      if (isset($this->docs_scored) !== isset($x->docs_scored)) return false;
+      if (isset($this->docs_scored) && !$this->integerEquals($this->docs_scored, $x->docs_scored)) return false;
       return true;
     }
     public function shortDebugString($prefix = "") {
@@ -6968,6 +7004,9 @@ namespace google\appengine {
       }
       foreach ($this->facet_result as $value) {
         $res .= $prefix . "facet_result <\n" . $value->shortDebugString($prefix . "  ") . $prefix . ">\n";
+      }
+      if (isset($this->docs_scored)) {
+        $res .= $prefix . "docs_scored: " . $this->debugFormatInt32($this->docs_scored) . "\n";
       }
       return $res;
     }

@@ -18,7 +18,9 @@
 # source: google/appengine/api/modules/modules_service.proto
 
 namespace dummy {
-  require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
+    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+  }
 }
 namespace google\appengine\ModulesServiceError {
   class ErrorCode {
@@ -484,7 +486,6 @@ namespace google\appengine {
       };
     }
     public function checkInitialized() {
-      if (!isset($this->version)) return 'version';
       return null;
     }
     public function mergeFrom($x) {
@@ -680,7 +681,6 @@ namespace google\appengine {
       };
     }
     public function checkInitialized() {
-      if (!isset($this->instances)) return 'instances';
       return null;
     }
     public function mergeFrom($x) {

@@ -18,7 +18,9 @@
 # source: google/appengine/datastore/entity.proto
 
 namespace dummy {
-  require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
+    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+  }
 }
 namespace storage_onestore_v3\PropertyValue {
   class PointValue extends \google\net\ProtocolMessage {
@@ -3436,6 +3438,23 @@ namespace storage_onestore_v3 {
     public function hasErrorMessage() {
       return isset($this->error_message);
     }
+    public function getDatabase() {
+      if (!isset($this->database)) {
+        return '';
+      }
+      return $this->database;
+    }
+    public function setDatabase($val) {
+      $this->database = $val;
+      return $this;
+    }
+    public function clearDatabase() {
+      unset($this->database);
+      return $this;
+    }
+    public function hasDatabase() {
+      return isset($this->database);
+    }
     public function clear() {
       $this->clearAppId();
       $this->clearId();
@@ -3447,6 +3466,7 @@ namespace storage_onestore_v3 {
       $this->clearDisabledIndex();
       $this->clearWorkflowState();
       $this->clearErrorMessage();
+      $this->clearDatabase();
     }
     public function byteSizePartial() {
       $res = 0;
@@ -3488,6 +3508,10 @@ namespace storage_onestore_v3 {
       if (isset($this->error_message)) {
         $res += 1;
         $res += $this->lengthString(strlen($this->error_message));
+      }
+      if (isset($this->database)) {
+        $res += 1;
+        $res += $this->lengthString(strlen($this->database));
       }
       return $res;
     }
@@ -3534,6 +3558,10 @@ namespace storage_onestore_v3 {
         $out->putVarInt32(90);
         $out->putPrefixedString($this->error_message);
       }
+      if (isset($this->database)) {
+        $out->putVarInt32(98);
+        $out->putPrefixedString($this->database);
+      }
     }
     public function tryMerge($d) {
       while($d->avail() > 0) {
@@ -3578,6 +3606,11 @@ namespace storage_onestore_v3 {
           case 90:
             $length = $d->getVarInt32();
             $this->setErrorMessage(substr($d->buffer(), $d->pos(), $length));
+            $d->skip($length);
+            break;
+          case 98:
+            $length = $d->getVarInt32();
+            $this->setDatabase(substr($d->buffer(), $d->pos(), $length));
             $d->skip($length);
             break;
           case 0:
@@ -3627,6 +3660,9 @@ namespace storage_onestore_v3 {
       if ($x->hasErrorMessage()) {
         $this->setErrorMessage($x->getErrorMessage());
       }
+      if ($x->hasDatabase()) {
+        $this->setDatabase($x->getDatabase());
+      }
     }
     public function equals($x) {
       if ($x === $this) { return true; }
@@ -3652,6 +3688,8 @@ namespace storage_onestore_v3 {
       if (isset($this->workflow_state) && $this->workflow_state !== $x->workflow_state) return false;
       if (isset($this->error_message) !== isset($x->error_message)) return false;
       if (isset($this->error_message) && $this->error_message !== $x->error_message) return false;
+      if (isset($this->database) !== isset($x->database)) return false;
+      if (isset($this->database) && $this->database !== $x->database) return false;
       return true;
     }
     public function shortDebugString($prefix = "") {
@@ -3685,6 +3723,9 @@ namespace storage_onestore_v3 {
       }
       if (isset($this->error_message)) {
         $res .= $prefix . "error_message: " . $this->debugFormatString($this->error_message) . "\n";
+      }
+      if (isset($this->database)) {
+        $res .= $prefix . "database: " . $this->debugFormatString($this->database) . "\n";
       }
       return $res;
     }
