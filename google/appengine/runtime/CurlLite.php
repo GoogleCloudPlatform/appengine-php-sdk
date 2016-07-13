@@ -484,9 +484,10 @@ final class CurlLite {
       case CURLOPT_QUOTE:
       case CURLOPT_PROGRESSFUNCTION:
       case CURLOPT_SHARE:
-        throw new CurlLiteOptionNotSupportedException(
-          'Option ' . $key . ' is not supported by this curl implementation.');
-
+        if ($value !== null) {
+          throw new CurlLiteOptionNotSupportedException(
+            'Option ' . $key . ' is not supported by this curl implementation.');
+        }
       // Everything else is a no-op, or will be configured at request time.
       default:
     }
