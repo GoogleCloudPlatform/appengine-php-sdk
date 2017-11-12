@@ -35,6 +35,7 @@ require_once 'google/appengine/runtime/RPCFailedError.php';
 use google\appengine\base\VoidProto;
 use google\appengine\runtime\ApiProxyBase;
 use google\appengine\runtime\RealApiProxy;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Mocked make_call function
@@ -54,7 +55,7 @@ function make_call($package,
 /**
  * Unittest for ApiProxy class.
  */
-class ApiProxyTest extends \PHPUnit_Framework_TestCase {
+class ApiProxyTest extends TestCase {
 
   /**
    * Checks that an expected exception corresponds to a

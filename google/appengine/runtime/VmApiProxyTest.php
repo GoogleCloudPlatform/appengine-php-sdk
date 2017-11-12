@@ -27,7 +27,7 @@ use google\appengine\SignForAppRequest;
 use google\appengine\SignForAppResponse;
 use google\appengine\runtime\ApiProxy;
 use google\appengine\runtime\ApplicationError;
-
+use PHPUnit\Framework\TestCase;
 
 class ValueUnexpectedException extends \Exception {
   public function __construct($expected, $actual) {
@@ -114,7 +114,7 @@ class MockHttpStream {
   }
 }
 
-class VmAPiProxyTest extends \PHPUnit_Framework_TestCase {
+class VmAPiProxyTest extends TestCase {
   const PACKAGE_NAME = "TestPackage";
   const CALL_NAME = "TestCall";
 
@@ -396,4 +396,3 @@ class VmAPiProxyTest extends \PHPUnit_Framework_TestCase {
     putenv(VmApiProxy::DEV_TICKET_HEADER);
   }
 }
-

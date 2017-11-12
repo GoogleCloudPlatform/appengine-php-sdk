@@ -19,11 +19,11 @@ namespace google\appengine\datastore;
 require_once 'google/appengine/datastore/datastore_v3_pb.php';
 
 use \google\appengine_datastore_v3\Transaction;
+use PHPUnit\Framework\TestCase;
 
-class DatastoreProtoTest extends\PHPUnit_Framework_TestCase {
+class DatastoreProtoTest extends TestCase {
   public function testTransactionInstantiation() {
     $transaction = new Transaction();
     $this->assertEquals("", $transaction->serializePartialToString());
   }
 }
-

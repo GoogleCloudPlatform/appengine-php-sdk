@@ -17,8 +17,9 @@
 namespace google\appengine\runtime;
 
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase;
 
-class UnlinkUploadsTest extends \PHPUnit_Framework_TestCase {
+class UnlinkUploadsTest extends TestCase {
   protected $files;
 
   protected function setUp() {

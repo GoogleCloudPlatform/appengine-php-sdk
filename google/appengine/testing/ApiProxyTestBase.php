@@ -16,10 +16,12 @@
  */
 namespace google\appengine\testing;
 
+use PHPUnit\Framework\TestCase;
+
 require_once 'google/appengine/testing/ApiCallArguments.php';
 require_once 'google/appengine/testing/ApiProxyMock.php';
 
-class ApiProxyTestBase extends\PHPUnit_Framework_TestCase {
+class ApiProxyTestBase extends TestCase {
   protected function setUp() {
     $this->apiProxyMock = new ApiProxyMock();
     $this->apiProxyMock->init($this);
@@ -29,4 +31,3 @@ class ApiProxyTestBase extends\PHPUnit_Framework_TestCase {
     $this->apiProxyMock->verify();
   }
 }
-
