@@ -17,8 +17,9 @@
 namespace google\appengine\runtime;
 
 use google\appengine\testing\TestUtils;
+use PHPUnit\Framework\TestCase;
 
-class GlobTest extends \PHPUnit_Framework_TestCase {
+class GlobTest extends TestCase {
 
   protected function tearDown() {
     if (!empty($GLOBALS['opendir'])) {

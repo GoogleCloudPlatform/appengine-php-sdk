@@ -22,9 +22,11 @@
 
 namespace google\appengine\ext\session;
 
+use PHPUnit\Framework\TestCase;
+
 require_once 'google/appengine/ext/session/MemcacheSessionHandler.php';
 
-class MemcacheSessionHandlerTest extends \PHPUnit_Framework_TestCase {
+class MemcacheSessionHandlerTest extends TestCase {
 
   public function testSession() {
     $stub = $this->getMock('MemcacheContainer', array('close', 'get', 'set',

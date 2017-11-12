@@ -17,8 +17,9 @@
 namespace google\appengine\util;
 
 use google\appengine\util\ArrayUtil;
+use PHPUnit\Framework\TestCase;
 
-class ArrayUtilTest extends \PHPUnit_Framework_TestCase {
+class ArrayUtilTest extends TestCase {
 
   private $merge_fn = "google\appengine\util\ArrayUtil::arrayMergeIgnoreCase";
   /**
