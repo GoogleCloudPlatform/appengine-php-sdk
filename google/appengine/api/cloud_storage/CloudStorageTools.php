@@ -944,6 +944,7 @@ final class CloudStorageTools {
   private static function getUploadMaxFileSizeInBytes() {
     $val = trim(ini_get('upload_max_filesize'));
     $unit = strtolower(substr($val, -1));
+    $val = substr($val, 0, -1);
     switch ($unit) {
       case 'g':
         $val *= 1024;
