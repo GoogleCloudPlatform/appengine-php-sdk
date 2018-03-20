@@ -141,19 +141,6 @@ class GlobTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals(['foo/1.txt', 'foo/2.txt'], $result);
   }
 
-  public function testErrors() {
-    // Match the semantics of glob as observed in
-    // https://github.com/php/php-src/blob/master/ext/standard/tests/file/glob_error.phpt
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
-    Glob::doGlob();  // Not enough arguments
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
-    Glob::doGlob("*", GLOB_ERR, 2);  // Too many arguments
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
-    Glob::doGlob('*', '');
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
-    Glob::doGlob('*', 'str');
-  }
-
   /**
    * @dataProvider braceExpansionDataProvider
    */
