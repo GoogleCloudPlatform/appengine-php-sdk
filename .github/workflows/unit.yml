@@ -26,6 +26,6 @@ jobs:
         max_attempts: 3
         command: composer install --prefer-dist --no-interaction
     - name: Run phpunit
-      run: mkdir -p build/logs && phpunit --coverage-clover build/logs/clover.xml
+      run: mkdir -p build/logs && ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
     - name: Run coveralls
       run: ./vendor/bin/coveralls -v
