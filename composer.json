@@ -13,9 +13,9 @@
         "php": ">=5.4.0"
     },
     "require-dev": {
-        "mikey179/vfsStream": "~1",
+        "mikey179/vfsstream": "~1",
         "phpunit/phpunit": "4.6.*",
-        "satooshi/php-coveralls": "dev-master"
+        "php-coveralls/php-coveralls": "dev-master"
     },
     "autoload": {
         "files": ["google/appengine/runtime/autoloader.php"]
