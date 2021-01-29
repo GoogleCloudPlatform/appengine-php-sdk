@@ -121,11 +121,11 @@ class MessageTest extends ApiProxyTestBase {
     }
   }
 
-  public function testAddHeaderNonWhitelisted() {
+  public function testAddHeaderNonAllowlisted() {
     $message = new Message();
     $this->setExpectedException(
         "InvalidArgumentException",
-        "Input header 'invalid-header: data' is not whitelisted for use with" .
+        "Input header 'invalid-header: data' is not allowlisted for use with" .
         " the Google App Engine Mail Service.");
     $message->addHeader("invalid-header", "data");
   }
