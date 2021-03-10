@@ -294,6 +294,8 @@ if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
         'google\appengine\urlfetchrequest' => 'google/appengine/api/urlfetch_service_pb.php',
         'google\appengine\urlfetchresponse\header' => 'google/appengine/api/urlfetch_service_pb.php',
         'google\appengine\urlfetchresponse' => 'google/appengine/api/urlfetch_service_pb.php',
+        'google\appengine\api\urlfetch\urlfetch' => 'google/appengine/api/urlfetch/UrlFetch.php',
+        'google\appengine\api\urlfetch\urlfetchstreamwrapper' => 'google/appengine/api/urlfetch/UrlFetchStreamwrapper.php',
         'google\appengine\sourcelocation' => 'google/appengine/api/source_pb.php',
         'google\appengine\mailserviceerror\errorcode' => 'google/appengine/api/mail_service_pb.php',
         'google\appengine\mailserviceerror' => 'google/appengine/api/mail_service_pb.php',
