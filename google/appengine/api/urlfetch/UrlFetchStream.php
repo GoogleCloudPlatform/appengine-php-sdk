@@ -18,40 +18,26 @@
 
 namespace google\appengine\api\urlfetch;
 
-require_once __DIR__ . '/UrlFetch.php';
-
 use google\appengine\runtime\ApplicationError;
 use google\appengine\URLFetchServiceError\ErrorCode;
 use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Stream\CachingStream;
 
-class UrlFetchStreamwrapper
+class UrlFetchStream
 {
-    const DOMAIN_SEPARATOR = ": ";
-    const NEWLINE_SEPARATOR = "\r\n";
+    private const DOMAIN_SEPARATOR = ": ";
+    private const NEWLINE_SEPARATOR = "\r\n";
+    private const CHECK_VARS = array('GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH');
 
     public $context;
-    private $stream;
-    private $url_fetch_response;
+    private $stream = null;
+    private $url_fetch_response= null;
   
-    //Context options parameters
-    private $headers;
-    private $content;
-    private $timeout;
-    private $method;
-
-    /**
-     * Constructs a new stream wrapper.
-     */
-    public function __construct()
-    {
-        $this->stream = null;
-        $this->url_fetch_response = null;
-        $this->headers = null;
-        $this->content = null;
-        $this->timeout = null;
-        $this->method = null;
-    }
+    // Context options parameters
+    private $headers = [];
+    private $content = '';
+    private $timeout = 0.0;
+    private $method = null;
 
     /**
      * Maps Error Code to Exception Type. Contains proto error types.
@@ -104,7 +90,7 @@ class UrlFetchStreamwrapper
      *
      * @return void.
      */
-    private function getContextOptions($context_key, $context_value)
+    private function setContextOptions($context_key, $context_value)
     {
         switch ($context_key) {
       case 'method':
@@ -113,29 +99,19 @@ class UrlFetchStreamwrapper
       case 'header':
         $this->setHeaders($context_value);
         break;
-      case 'user_agent':
-        Exception('user_agent not supported in URLFetch options');
-        break;
       case 'content':
         $this->setContent($context_value);
-        break;
-      case 'proxy':
-        Exception('proxy not supported in URLFetch options');
-        break;
-      case 'request_fulluri':
-        Exception('request_fulluri not supported in URLFetch options');
-        break;
-      case 'max_redirects':
-        Exception('max_redirects not supported in URLFetch options');
-        break;
-      case 'protocol_version':
-        Exception('protocol_version not supported in URLFetch options');
         break;
       case 'timeout':
         $this->setTimeout($context_value);
         break;
+      case 'user_agent':
+      case 'proxy':
+      case 'request_fulluri':
+      case 'max_redirects':
+      case 'protocol_version':
       case 'ignore_errors':
-         Exception('ignore_errors not supported in URLFetch options');
+        throw new Exception('URLFetch does not support stream context option ' . $context_key);
         break;
       default:
         throw new Exception('Invalid $context_key value' . $context_key);
@@ -145,47 +121,43 @@ class UrlFetchStreamwrapper
     /**
      * Save Method.
      *
-     * @param string $context_value:
+     * @param string $method:
      *    Input must be one of 'GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH'.
      *
      * @return void.
      *
      */
-    private function setMethod($context_value)
+    private function setMethod($method)
     {
-        $checkVars = array('GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH');
-        if (!is_string($context_value) || !in_array($context_value, $checkVars)) {
+        if (!is_string($method) || !in_array($method, self::CHECK_VARS)) {
             throw new Exception('Method value is illegal');
         }
-        $this->method = $context_value;
+        $this->method = $method;
     }
 
     /**
      * Parse and save all the headers.
      *
-     * @param (string or array) $context_value: Contains header to be parsed.
+     * @param (string or array) $headers: Contains header to be parsed.
      *
      * @return void.
      *
      */
-    private function setHeaders($context_value)
+    private function setHeaders($headers)
     {
-        if ($this->headers == null) {
-            $this->headers = array();
-        }
-        if (is_string($context_value)) {
-            $headers_array = explode(self::NEWLINE_SEPARATOR, $context_value);
+        if (is_string($headers)) {
+            $headers_array = explode(self::NEWLINE_SEPARATOR, $headers);
             foreach ($headers_array as $header) {
                 $h_array = explode(self::DOMAIN_SEPARATOR, $header);
         
-                //Empty value check for cases when there are excessive \r\n values.
+                // Empty value check for cases when there are excessive \r\n values.
                 if (empty($h_array[0])) {
                     continue;
                 }
                 array_push($this->headers, $h_array);
             }
-        } elseif (is_array($context_value)) {
-            $this->headers = $this->headers + $context_value;
+        } elseif (is_array($headers)) {
+            $this->headers = $this->headers + $headers;
         } else {
             throw new Exception('Header value must be string or array');
         }
@@ -194,34 +166,34 @@ class UrlFetchStreamwrapper
     /**
      * Save all the content.
      *
-     * @param string $context_value: URL-encoded query string,
+     * @param string $content: URL-encoded query string,
      *    typically generated from http_build_query().
      *
      * @return void.
      *
      */
-    private function setContent($context_value)
+    private function setContent($content)
     {
-        if (!is_string($context_value)) {
+        if (!is_string($content)) {
             throw new Exception('Content value must of type string string');
         }
-        $this->content = $context_value;
+        $this->content = $content;
     }
 
     /**
      * Save the timeout.
      *
-     * @param float $context_value: Timeout for URL request in seconds.
+     * @param float $timeout: Timeout for URL request in seconds.
      *
      * @return void.
      *
      */
-    private function setTimeout($context_value)
+    private function setTimeout($timeout)
     {
-        if (!is_numeric($context_value)) {
-            throw new Exception('Content value must of type string string');
+        if (!is_numeric($timeout)) {
+            throw new Exception('Content value must of type string');
         }
-        $this->timeout = $context_value;
+        $this->timeout = $timeout;
     }
 
     /**
@@ -244,12 +216,9 @@ class UrlFetchStreamwrapper
         }
         $options = stream_context_get_options($this->context);
 
-        foreach ($options as $section1 => $items1) {
-            $web_protocol = $section1;
-            print("Web Protocol: ");
-            var_dump($web_protocol);
-            foreach ($items1 as $context_key => $context_value) {
-                $this->getContextOptions($context_key, $context_value);
+        foreach ($options as $web_protocol => $context_array) {
+            foreach ($context_array as $context_key => $context_value) {
+                $this->setContextOptions($context_key, $context_value);
             }
         }
 
@@ -261,16 +230,13 @@ class UrlFetchStreamwrapper
             $this->method,
             $this->headers,
             $this->content,
-            null,
-            null,
+            true,
+            true,
             $this->timeout);
 
             $this->url_fetch_response = $resp;
-
-            $this->stream = Stream::factory($resp->getContent());
-            $this->stream = new CachingStream($this->stream);
+            $this->stream = new CachingStream(Stream::factory($resp->getContent()));
         } catch (ApplicationError $e) {
-            $this->errorHandler($e);
             throw errorCodeToException($e->getApplicationError());
         }
         if ($resp->getStatuscode() >= 400) {
@@ -289,16 +255,17 @@ class UrlFetchStreamwrapper
     {
         $this->stream = null;
         $this->url_fetch_response = null;
-        $this->headers = null;
-        $this->content = null;
-        $this->timeout = null;
+        $this->headers = [];
+        $this->content = '';
+        $this->timeout = 0.0;
         $this->method = null;
     }
 
     /**
-     * Rename the URL path.
+     * Return if end of file.
      *
-     * @return bool Should return true if the read/write position is at the end of the stream and if no more data is available to be read, or false otherwise.
+     * @return bool Return true if the read/write position is at the end of the stream and if 
+     *     no more data is available to be read, or false otherwise.
      *
      */
     public function stream_eof()
@@ -309,7 +276,8 @@ class UrlFetchStreamwrapper
     /**
       * Flushes the output, Unused.
       *
-      * @return bool Should return true if the cached data was successfully stored (or if there was no data to store), or false if the data could not be stored.
+      * @return bool Return true if the cached data was successfully stored (or if there was no data to store), 
+      *     or false if the data could not be stored.
       *
       */
     public function stream_flush()
@@ -382,26 +350,11 @@ class UrlFetchStreamwrapper
     /**
       * Retrieve the current position of a stream.
       *
-      * @return int Should return the current position of the stream.
+      * @return int Return the current position of the stream.
       *
       */
     public function stream_tell()
     {
         return $stream->tell();
-    }
-
-    /**
-     * Retrieve Stack Trace information.
-     *
-     */
-    private function errorHandler($e)
-    {
-        $trace = $e->getTrace();
-        echo "\nMessage LOG: " . $e->getMessage() . "\n";
-        echo 'ERROR occuring in: ' . $e->getFile() . ' on line ' . $e->getLine();
-        echo ' called from ' . $trace[0]['file'] . ' on line ' . $trace[0]['line'] . "\n";
-        echo "\nStack Trace Pretty Print:\n" . $e->getTraceAsString() . "\n";
-        echo "\nFull Stack Trace Array:\n";
-        print_r($trace);
     }
 }

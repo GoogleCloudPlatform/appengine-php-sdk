@@ -18,14 +18,14 @@
 namespace google\appengine\api\urlfetch;
 
 require_once __DIR__ . '/UrlFetch.php';
-require_once __DIR__ . '/UrlFetchStreamwrapper.php';
+require_once __DIR__ . '/UrlFetchStream.php';
 
 use google\appengine\testing\ApiProxyTestBase;
 use google\appengine\URLFetchRequest;
 use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchResponse;
 
-class UrlFetchStreamwrapperTest extends ApiProxyTestBase
+class UrlFetchStreamTest extends ApiProxyTestBase
 {
     public function setUp()
     {
@@ -41,7 +41,7 @@ class UrlFetchStreamwrapperTest extends ApiProxyTestBase
 
     public function testStreamWithHeaderArray()
     {
-        $urlfetch_stream = new UrlFetchStreamwrapper();
+        $urlfetch_stream = new UrlFetchStream();
         $url = "http://www.google.com";
 
         // Mock behavior of result.
@@ -49,6 +49,8 @@ class UrlFetchStreamwrapperTest extends ApiProxyTestBase
         $resp = new URLFetchResponse();
         $req->setUrl($url);
         $req->setMethod(RequestMethod::POST);
+        $req->setFollowredirects(true);
+        $req->setMustvalidateservercertificate(false);
         $header = new URLFetchRequest\Header();
         $header->setKey('Content-type');
         $header->setValue('application/x-www-form-urlencoded');
@@ -70,7 +72,7 @@ class UrlFetchStreamwrapperTest extends ApiProxyTestBase
   
     public function testStreamWithHeaderString()
     {
-        $urlfetch_stream = new UrlFetchStreamwrapper();
+        $urlfetch_stream = new UrlFetchStream();
         $url = "http://www.google.com";
 
         // Mock behavior of result.
@@ -78,6 +80,8 @@ class UrlFetchStreamwrapperTest extends ApiProxyTestBase
         $resp = new URLFetchResponse();
         $req->setUrl($url);
         $req->setMethod(RequestMethod::POST);
+        $req->setFollowredirects(true);
+        $req->setMustvalidateservercertificate(false);
         $header = new URLFetchRequest\Header();
         $header->setKey('Content-type');
         $header->setValue('application/x-www-form-urlencoded');
@@ -99,7 +103,7 @@ class UrlFetchStreamwrapperTest extends ApiProxyTestBase
 
     public function testStreamWithMultiHeaderString()
     {
-        $urlfetch_stream = new UrlFetchStreamwrapper();
+        $urlfetch_stream = new UrlFetchStream();
         $url = "http://www.google.com";
 
         // Mock behavior of result.
@@ -107,6 +111,8 @@ class UrlFetchStreamwrapperTest extends ApiProxyTestBase
         $resp = new URLFetchResponse();
         $req->setUrl($url);
         $req->setMethod(RequestMethod::POST);
+        $req->setFollowredirects(true);
+        $req->setMustvalidateservercertificate(false);
         $header = new URLFetchRequest\Header();
         $header->setKey('Content-type');
         $header->setValue('application/octet-stream');
@@ -143,7 +149,7 @@ class UrlFetchStreamwrapperTest extends ApiProxyTestBase
 
     public function testGetFetchWithPayload()
     {
-        $urlfetch_stream = new UrlFetchStreamwrapper();
+        $urlfetch_stream = new UrlFetchStream();
         $url = "http://www.google.com";
     
         $payload = http_build_query(
@@ -163,6 +169,8 @@ class UrlFetchStreamwrapperTest extends ApiProxyTestBase
         $resp = new URLFetchResponse();
         $req->setUrl($url);
         $req->setMethod(RequestMethod::POST);
+        $req->setFollowredirects(true);
+        $req->setMustvalidateservercertificate(false);
         $req->setPayload($payload);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
@@ -174,7 +182,7 @@ class UrlFetchStreamwrapperTest extends ApiProxyTestBase
 
     public function testGetFetchWithDeadline()
     {
-        $urlfetch_stream = new UrlFetchStreamwrapper();
+        $urlfetch_stream = new UrlFetchStream();
         $url = "http://www.google.com";
         $deadline = 5.0;
         $opts = array('http' =>
@@ -188,6 +196,8 @@ class UrlFetchStreamwrapperTest extends ApiProxyTestBase
         $resp = new URLFetchResponse();
         $req->setUrl($url);
         $req->setMethod(RequestMethod::POST);
+        $req->setFollowredirects(true);
+        $req->setMustvalidateservercertificate(false);
         $req->setDeadline($deadline);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
@@ -213,12 +223,14 @@ class UrlFetchStreamwrapperTest extends ApiProxyTestBase
         $resp = new URLFetchResponse();
         $req->setUrl($url);
         $req->setMethod(RequestMethod::GET);
+        $req->setFollowredirects(true);
+        $req->setMustvalidateservercertificate(false);
         $req->setDeadline($deadline);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
         stream_wrapper_unregister("http");
-        stream_wrapper_register("http", "google\appengine\api\urlfetch\UrlFetchStreamwrapper")
-        or die("Failed to register http protocol for UrlFetchStreamwrapper");
+        stream_wrapper_register("http", "google\appengine\api\urlfetch\UrlFetchStream")
+        or die("Failed to register http protocol for UrlFetchStream");
         $opts = stream_context_create($opts);
         $result = file_get_contents($url, false, $opts);
     }

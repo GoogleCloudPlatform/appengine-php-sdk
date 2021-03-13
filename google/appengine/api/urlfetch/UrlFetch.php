@@ -131,24 +131,24 @@ final class UrlFetch
     public function fetch(
     string $url,
     string $request_method = 'GET',
-    array $headers = null,
-    string $payload = null,
-    bool $allow_truncated = null,
-    bool $follow_redirects = null,
-    float $deadline = null,
-    bool $validate_certificate = null
+    array $headers = [],
+    string $payload = '',
+    bool $allow_truncated = true,
+    bool $follow_redirects = true,
+    float $deadline = 0.0,
+    bool $validate_certificate = false
   ) {
         if (strncmp($url,'http://', 7) != 0 && strncmp($url,'https://', 8)!= 0) {
-            throw new Exception('stream_open: URL input must use http:// or https://');
+            throw new Exception('URL input must use http:// or https://');
         }
     
-        $URLFetchRequest = new URLFetchRequest();
-        $URLFetchResponse = new URLFetchResponse();
+        $req = new URLFetchRequest();
+        $resp = new URLFetchResponse();
 
         // Request Method and URL.
-        $URLFetchRequest->setUrl($url);
+        $req->setUrl($url);
         $req_method = $this->getRequestMethod($request_method);
-        $URLFetchRequest->setMethod($req_method);
+        $req->setMethod($req_method);
     
         // Headers.
         if (!empty($headers)) {
@@ -156,48 +156,36 @@ final class UrlFetch
                 $header = new URLFetchRequest\Header();
                 $header->setKey($key);
                 $header->setValue($value);
-                $URLFetchRequest->addHeader($header);
+                $req->addHeader($header);
             }
         }
     
         // Payload.
-        if (!empty($payload) && ($request_method == 'POST' || $request_method == 'PUT' || $request_method == 'PATCH')) {
-            $URLFetchRequest->setPayload($payload);
+        if ($payload != '' && ($req_method == RequestMethod::POST || $req_method == RequestMethod::PUT || $req_method == RequestMethod::PATCH)) {
+            $req->setPayload($payload);
         }
 
         //Deadline.
-        if (!empty($deadline)) {
-            $URLFetchRequest->setDeadline($deadline);
+        if ($deadline  > 0.0) {
+            $req->setDeadline($deadline);
         }
     
-        $URLFetchRequest->setFollowredirects($follow_redirects);
-        $URLFetchRequest->setMustvalidateservercertificate($validate_certificate);
+        $req->setFollowredirects($follow_redirects);
+        $req->setMustvalidateservercertificate($validate_certificate);
 
         try {
             ApiProxy::makeSyncCall(
-          'urlfetch', 'Fetch', $URLFetchRequest, $URLFetchResponse);
+          'urlfetch', 'Fetch', $req, $resp);
         } catch (ApplicationError $e) {
             http_response_code(500);
-            $this->errorHandler($e);
             throw errorCodeToException($e->getApplicationError());
         }
 
         //Allow Truncated.
-        if ($URLFetchResponse->getContentwastruncated() == true && !$allow_truncated) {
+        if ($resp->getContentwastruncated() == true && !$allow_truncated) {
             throw new Exception('Error: Output was truncated and allow_truncated option is not enabled!');
         }
 
-        return $URLFetchResponse;
-    }
-  
-    private function errorHandler($e)
-    {
-        $trace = $e->getTrace();
-        echo "\nMessage LOG: " . $e->getMessage() . "\n";
-        echo 'ERROR occuring in: ' . $e->getFile() . ' on line ' . $e->getLine();
-        echo ' called from ' . $trace[0]['file'] . ' on line ' . $trace[0]['line'] . "\n";
-        echo "\nStack Trace Pretty Print:\n" . $e->getTraceAsString() . "\n";
-        echo "\nFull Stack Trace Array:\n";
-        print_r($trace);
+        return $resp;
     }
 }

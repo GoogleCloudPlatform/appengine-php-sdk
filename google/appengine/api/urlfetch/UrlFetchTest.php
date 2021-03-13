@@ -46,6 +46,8 @@ class UrlFetchTest extends ApiProxyTestBase
         $resp = new URLFetchResponse();
         $req->setUrl($url);
         $req->setMethod(RequestMethod::GET);
+        $req->setFollowredirects(true);
+        $req->setMustvalidateservercertificate(false);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         $result = $urlfetch->fetch($url, 'GET');
         $this->assertEquals($resp, $result);
@@ -59,6 +61,8 @@ class UrlFetchTest extends ApiProxyTestBase
         $resp = new URLFetchResponse();
         $req->setUrl($url);
         $req->setMethod(RequestMethod::GET);
+        $req->setFollowredirects(true);
+        $req->setMustvalidateservercertificate(false);
         $header = new URLFetchRequest\Header();
         $header->setKey('header1');
         $header->setValue('value1');
@@ -79,8 +83,10 @@ class UrlFetchTest extends ApiProxyTestBase
         $req->setMethod(RequestMethod::PUT);
         $payload = "Example Payload";
         $req->setPayload($payload);
+        $req->setFollowredirects(true);
+        $req->setMustvalidateservercertificate(false);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
-        $result = $urlfetch->fetch($url, 'PUT', null,  $payload);
+        $result = $urlfetch->fetch($url, 'PUT', [],  $payload);
         $this->assertEquals($resp, $result);
     }
 
@@ -99,8 +105,10 @@ class UrlFetchTest extends ApiProxyTestBase
         )
     );
         $req->setPayload($payload);
+        $req->setFollowredirects(true);
+        $req->setMustvalidateservercertificate(false);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
-        $result = $urlfetch->fetch($url, 'PUT', null,  $payload);
+        $result = $urlfetch->fetch($url, 'PUT', [],  $payload);
         $this->assertEquals($resp, $result);
     }
 
@@ -116,13 +124,14 @@ class UrlFetchTest extends ApiProxyTestBase
         $req->setUrl($url);
         $req->setMethod(RequestMethod::GET);
         $req->setFollowredirects($follow_redirects);
+        $req->setMustvalidateservercertificate(false);
         $req->setDeadline($deadline);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         $result = $urlfetch->fetch(
         $url,
         'GET',
-        null,
-        null,
+        [],
+        '',
         $allow_truncated,
         $follow_redirects,
         $deadline);
