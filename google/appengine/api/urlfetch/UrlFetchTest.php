@@ -17,8 +17,6 @@
 
 namespace google\appengine\api\urlfetch;
 
-require_once __DIR__ . '/UrlFetch.php';
-
 use google\appengine\testing\ApiProxyTestBase;
 use google\appengine\URLFetchRequest;
 use google\appengine\URLFetchRequest\RequestMethod;

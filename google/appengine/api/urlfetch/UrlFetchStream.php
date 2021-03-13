@@ -27,7 +27,7 @@ class UrlFetchStream
 {
     private const DOMAIN_SEPARATOR = ": ";
     private const NEWLINE_SEPARATOR = "\r\n";
-    private const CHECK_VARS = array('GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH');
+    private const HTTP_METHODS = array('GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH');
 
     public $context;
     private $stream = null;
@@ -129,7 +129,7 @@ class UrlFetchStream
      */
     private function setMethod($method)
     {
-        if (!is_string($method) || !in_array($method, self::CHECK_VARS)) {
+        if (!is_string($method) || !in_array($method, self::HTTP_METHODS)) {
             throw new Exception('Method value is illegal');
         }
         $this->method = $method;
@@ -264,7 +264,7 @@ class UrlFetchStream
     /**
      * Return if end of file.
      *
-     * @return bool Return true if the read/write position is at the end of the stream and if 
+     * @return bool Return true if the read/write position is at the end of the stream and if
      *     no more data is available to be read, or false otherwise.
      *
      */
@@ -276,7 +276,7 @@ class UrlFetchStream
     /**
       * Flushes the output, Unused.
       *
-      * @return bool Return true if the cached data was successfully stored (or if there was no data to store), 
+      * @return bool Return true if the cached data was successfully stored (or if there was no data to store),
       *     or false if the data could not be stored.
       *
       */
