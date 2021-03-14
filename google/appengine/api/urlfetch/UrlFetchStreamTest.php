@@ -125,19 +125,25 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $header = new URLFetchRequest\Header();
         $header->setKey('X-Google-RPC-Service-Method');
         $header->setValue('/VMRemoteAPI.CallRemoteAPI');
+        $header = new URLFetchRequest\Header();
+        $header->setKey('User-Agent');
+        $header->setValue('some_user_agent_string');
+        $req->addHeader($header);
+
         $req->addHeader($header);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
         $header_str = "Content-Type: application/octet-stream\r\n" .
-      "X-Google-RPC-Service-Deadline: 60\r\n" . "X-Google-RPC-Service-Endpoint: app-engine-apis\r\n" .
-      "X-Google-RPC-Service-Method: /VMRemoteAPI.CallRemoteAPI\r\n";
+      "X-Google-RPC-Service-Deadline: 60\n" . "X-Google-RPC-Service-Endpoint: app-engine-apis\r" .
+      "X-Google-RPC-Service-Method: /VMRemoteAPI.CallRemoteAPI\n";
 
         $opts = array('http' =>
         array(
             'method' => 'POST',
             'header'  => $header_str,
-        )
-    );
+            'user_agent' => 'some_user_agent_string',
+            )
+         );
         $opts = stream_context_create($opts);
         $urlfetch_stream->context = $opts;
         $result = $urlfetch_stream->stream_open($url, 'a+', $unused1, $unused2);

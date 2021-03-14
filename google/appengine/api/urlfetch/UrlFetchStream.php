@@ -26,7 +26,7 @@ use GuzzleHttp\Stream\CachingStream;
 class UrlFetchStream
 {
     private const DOMAIN_SEPARATOR = ": ";
-    private const NEWLINE_SEPARATOR = "\r\n";
+    private const NEWLINE_SEPARATOR = "/\r\n|\n|\r/";
     private const HTTP_METHODS = array('GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH');
 
     public $context;
@@ -38,6 +38,7 @@ class UrlFetchStream
     private $content = '';
     private $timeout = 0.0;
     private $method = null;
+    private $user_agent = '';
 
     /**
      * Maps Error Code to Exception Type. Contains proto error types.
@@ -106,6 +107,8 @@ class UrlFetchStream
         $this->setTimeout($context_value);
         break;
       case 'user_agent':
+        $this->setUserAgent($context_value);
+        break;
       case 'proxy':
       case 'request_fulluri':
       case 'max_redirects':
@@ -146,7 +149,7 @@ class UrlFetchStream
     private function setHeaders($headers)
     {
         if (is_string($headers)) {
-            $headers_array = explode(self::NEWLINE_SEPARATOR, $headers);
+            $headers_array = preg_split(self::NEWLINE_SEPARATOR, $headers);
             foreach ($headers_array as $header) {
                 $h_array = explode(self::DOMAIN_SEPARATOR, $header);
         
@@ -175,7 +178,7 @@ class UrlFetchStream
     private function setContent($content)
     {
         if (!is_string($content)) {
-            throw new Exception('Content value must of type string string');
+            throw new Exception('Content value must of type string');
         }
         $this->content = $content;
     }
@@ -194,6 +197,22 @@ class UrlFetchStream
             throw new Exception('Content value must of type string');
         }
         $this->timeout = $timeout;
+    }
+
+    /**
+     * Save the user-agent as header.
+     *
+     * @param string $user_agent: User-Agent header string.
+     *
+     * @return void.
+     *
+     */
+    private function setUserAgent($user_agent)
+    {
+        if (!is_string($user_agent)) {
+            throw new Exception('User Agent value must of type string');
+        }
+        $this->user_agent = $user_agent;
     }
 
     /**
@@ -220,6 +239,12 @@ class UrlFetchStream
             foreach ($context_array as $context_key => $context_value) {
                 $this->setContextOptions($context_key, $context_value);
             }
+        }
+
+        // Check and store User-agent if specified separately from header.
+        if (!in_array('User-Agent', $this->headers) && $this->user_agent != '') {
+            $header_arr = ['User-Agent' => $this->user_agent];
+            $this->headers = $this->headers + $header_arr;
         }
 
         try {
@@ -259,6 +284,7 @@ class UrlFetchStream
         $this->content = '';
         $this->timeout = 0.0;
         $this->method = null;
+        $this->user_agent = '';
     }
 
     /**
