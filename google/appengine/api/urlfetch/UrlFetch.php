@@ -33,37 +33,37 @@ final class UrlFetch
     private static function errorCodeToException($error)
     {
         switch ($error) {
-      case ErrorCode::OK:
-        return new Exception('Module Return OK.');
-      case ErrorCode::INVALID_URL:
-        return new Exception('Invalid URL.');
-      case ErrorCode::FETCH_ERROR:
-        return new Exception('FETCH ERROR.');
-      case ErrorCode::UNSPECIFIED_ERROR:
-        return new Exception('Unexpected Error.');
-      case ErrorCode::RESPONSE_TOO_LARGE:
-        return new Exception('Response Too Large.');
-      case ErrorCode::DEADLINE_EXCEEDED:
-        return new Exception('Deadline Exceeded.');
-      case ErrorCode::SSL_CERTIFICATE_ERROR:
-        return new Exception('SSL Certificate Error.');
-      case ErrorCode::DNS_ERROR:
-        return new Exception('DNS Error.');
-      case ErrorCode::CLOSED:
-        return new Exception('Closed Error.');
-      case ErrorCode::INTERNAL_TRANSIENT_ERROR:
-        return new Exception('Internal Transient Error.');
-      case ErrorCode::TOO_MANY_REDIRECTS:
-        return new Exception('Too Many Redirects.');
-      case ErrorCode::MALFORMED_REPLY:
-        return new Exception('Malformed Reply.');
-      case ErrorCode::CONNECTION_ERROR:
-        return new Exception('Connection Error.');
-      case ErrorCode::PAYLOAD_TOO_LARGE:
-        return new Exception('Payload Too Large.');
-      default:
-        return new ModulesException('Error Code: ' . $error);
-    }
+          case ErrorCode::OK:
+            return new Exception('Module Return OK.');
+          case ErrorCode::INVALID_URL:
+            return new Exception('Invalid URL.');
+          case ErrorCode::FETCH_ERROR:
+            return new Exception('FETCH ERROR.');
+          case ErrorCode::UNSPECIFIED_ERROR:
+            return new Exception('Unexpected Error.');
+          case ErrorCode::RESPONSE_TOO_LARGE:
+            return new Exception('Response Too Large.');
+          case ErrorCode::DEADLINE_EXCEEDED:
+            return new Exception('Deadline Exceeded.');
+          case ErrorCode::SSL_CERTIFICATE_ERROR:
+            return new Exception('SSL Certificate Error.');
+          case ErrorCode::DNS_ERROR:
+            return new Exception('DNS Error.');
+          case ErrorCode::CLOSED:
+            return new Exception('Closed Error.');
+          case ErrorCode::INTERNAL_TRANSIENT_ERROR:
+            return new Exception('Internal Transient Error.');
+          case ErrorCode::TOO_MANY_REDIRECTS:
+            return new Exception('Too Many Redirects.');
+          case ErrorCode::MALFORMED_REPLY:
+            return new Exception('Malformed Reply.');
+          case ErrorCode::CONNECTION_ERROR:
+            return new Exception('Connection Error.');
+          case ErrorCode::PAYLOAD_TOO_LARGE:
+            return new Exception('Payload Too Large.');
+          default:
+            return new ModulesException('Error Code: ' . $error);
+        }
     }
 
     /**
@@ -78,21 +78,21 @@ final class UrlFetch
     private function getRequestMethod($request_method)
     {
         switch ($request_method) {
-      case 'GET':
-        return RequestMethod::GET;
-      case 'POST':
-        return RequestMethod::POST;
-      case 'HEAD':
-        return RequestMethod::HEAD;
-      case 'PUT':
-        return RequestMethod::PUT;
-      case 'DELETE':
-        return RequestMethod::DELETE;
-      case 'PATCH':
-        return RequestMethod::PATCH;
-      default:
-        throw new Exception('Invalid Request Method Input: ' . $request_method);
-    }
+          case 'GET':
+            return RequestMethod::GET;
+          case 'POST':
+            return RequestMethod::POST;
+          case 'HEAD':
+            return RequestMethod::HEAD;
+          case 'PUT':
+            return RequestMethod::PUT;
+          case 'DELETE':
+            return RequestMethod::DELETE;
+          case 'PATCH':
+            return RequestMethod::PATCH;
+          default:
+            throw new Exception('Invalid Request Method Input: ' . $request_method);
+        }
     }
 
     /**

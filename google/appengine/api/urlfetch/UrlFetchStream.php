@@ -46,37 +46,37 @@ class UrlFetchStream
     private static function errorCodeToException($error)
     {
         switch ($error) {
-      case ErrorCode::OK:
-        return new Exception('Module Return OK.');
-      case ErrorCode::INVALID_URL:
-        return new Exception('Invalid URL.');
-      case ErrorCode::FETCH_ERROR:
-        return new Exception('FETCH ERROR.');
-      case ErrorCode::UNSPECIFIED_ERROR:
-        return new Exception('Unexpected Error.');
-      case ErrorCode::RESPONSE_TOO_LARGE:
-        return new Exception('Response Too Large.');
-      case ErrorCode::DEADLINE_EXCEEDED:
-        return new Exception('Deadline Exceeded.');
-      case ErrorCode::SSL_CERTIFICATE_ERROR:
-        return new Exception('SSL Certificate Error.');
-      case ErrorCode::DNS_ERROR:
-        return new Exception('DNS Error.');
-      case ErrorCode::CLOSED:
-        return new Exception('Closed Error.');
-      case ErrorCode::INTERNAL_TRANSIENT_ERROR:
-        return new Exception('Internal Transient Error.');
-      case ErrorCode::TOO_MANY_REDIRECTS:
-        return new Exception('Too Many Redirects.');
-      case ErrorCode::MALFORMED_REPLY:
-        return new Exception('Malformed Reply.');
-      case ErrorCode::CONNECTION_ERROR:
-        return new Exception('Connection Error.');
-      case ErrorCode::PAYLOAD_TOO_LARGE:
-        return new Exception('Payload Too Large.');
-      default:
-        return new ModulesException('Error Code: ' . $error);
-    }
+          case ErrorCode::OK:
+            return new Exception('Module Return OK.');
+          case ErrorCode::INVALID_URL:
+            return new Exception('Invalid URL.');
+          case ErrorCode::FETCH_ERROR:
+            return new Exception('FETCH ERROR.');
+          case ErrorCode::UNSPECIFIED_ERROR:
+            return new Exception('Unexpected Error.');
+          case ErrorCode::RESPONSE_TOO_LARGE:
+            return new Exception('Response Too Large.');
+          case ErrorCode::DEADLINE_EXCEEDED:
+            return new Exception('Deadline Exceeded.');
+          case ErrorCode::SSL_CERTIFICATE_ERROR:
+            return new Exception('SSL Certificate Error.');
+          case ErrorCode::DNS_ERROR:
+            return new Exception('DNS Error.');
+          case ErrorCode::CLOSED:
+            return new Exception('Closed Error.');
+          case ErrorCode::INTERNAL_TRANSIENT_ERROR:
+            return new Exception('Internal Transient Error.');
+          case ErrorCode::TOO_MANY_REDIRECTS:
+            return new Exception('Too Many Redirects.');
+          case ErrorCode::MALFORMED_REPLY:
+            return new Exception('Malformed Reply.');
+          case ErrorCode::CONNECTION_ERROR:
+            return new Exception('Connection Error.');
+          case ErrorCode::PAYLOAD_TOO_LARGE:
+            return new Exception('Payload Too Large.');
+          default:
+            return new ModulesException('Error Code: ' . $error);
+        }
     }
 
     /**
@@ -94,31 +94,31 @@ class UrlFetchStream
     private function setContextOptions($context_key, $context_value)
     {
         switch ($context_key) {
-      case 'method':
-        $this->setMethod($context_value);
-        break;
-      case 'header':
-        $this->setHeaders($context_value);
-        break;
-      case 'content':
-        $this->setContent($context_value);
-        break;
-      case 'timeout':
-        $this->setTimeout($context_value);
-        break;
-      case 'user_agent':
-        $this->setUserAgent($context_value);
-        break;
-      case 'proxy':
-      case 'request_fulluri':
-      case 'max_redirects':
-      case 'protocol_version':
-      case 'ignore_errors':
-        throw new Exception('URLFetch does not support stream context option ' . $context_key);
-        break;
-      default:
-        throw new Exception('Invalid $context_key value' . $context_key);
-    }
+          case 'method':
+            $this->setMethod($context_value);
+            break;
+          case 'header':
+            $this->setHeaders($context_value);
+            break;
+          case 'content':
+            $this->setContent($context_value);
+            break;
+          case 'timeout':
+            $this->setTimeout($context_value);
+            break;
+          case 'user_agent':
+            $this->setUserAgent($context_value);
+            break;
+          case 'proxy':
+          case 'request_fulluri':
+          case 'max_redirects':
+          case 'protocol_version':
+          case 'ignore_errors':
+            throw new Exception('URLFetch does not support stream context option ' . $context_key);
+            break;
+          default:
+            throw new Exception('Invalid $context_key value' . $context_key);
+        }
     }
 
     /**
@@ -351,25 +351,25 @@ class UrlFetchStream
     public function stream_seek($offset, $whence)
     {
         switch ($whence) {
-      case 0: // 'SEEK_SET'
-        $stream->seek($offset);
-        break;
-      case 1: // 'SEEK_CUR'
-        $cur_position = $stream->tell();
-        $stream->seek($cur_position + $offset);
-        break;
-      case 2: // 'SEEK_END'
-        $cur_position = $stream->tell();
-        $eof_offset = 0;
-        while (!$stream->eof()) {
-            ++$eof_offset;
-            $stream->seek($cur_position + $eof_offset);
+          case 0: // 'SEEK_SET'
+            $stream->seek($offset);
+            break;
+          case 1: // 'SEEK_CUR'
+            $cur_position = $stream->tell();
+            $stream->seek($cur_position + $offset);
+            break;
+          case 2: // 'SEEK_END'
+            $cur_position = $stream->tell();
+            $eof_offset = 0;
+            while (!$stream->eof()) {
+                ++$eof_offset;
+                $stream->seek($cur_position + $eof_offset);
+            }
+            $stream->seek($cur_position + $eof_offset + $offset);
+            break;
+          default:
+            return false;
         }
-        $stream->seek($cur_position + $eof_offset + $offset);
-        break;
-      default:
-        return false;
-    }
         return true;
     }
 
