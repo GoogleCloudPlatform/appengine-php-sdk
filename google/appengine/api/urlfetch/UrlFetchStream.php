@@ -37,7 +37,7 @@ class UrlFetchStream
     private $headers = [];
     private $content = '';
     private $timeout = 0.0;
-    private $method = null;
+    private $method = 'GET';
     private $user_agent = '';
 
     /**
@@ -152,12 +152,15 @@ class UrlFetchStream
             $headers_array = preg_split(self::NEWLINE_SEPARATOR, $headers);
             foreach ($headers_array as $header) {
                 $h_array = explode(self::DOMAIN_SEPARATOR, $header);
-        
+                if (!isset($h_array[1])) {
+                    $h_array[1] = null;
+                }
+                $h_pair = [$h_array[0] => $h_array[1]];
                 // Empty value check for cases when there are excessive \r\n values.
                 if (empty($h_array[0])) {
                     continue;
                 }
-                array_push($this->headers, $h_array);
+                $this->headers = array_merge($this->headers, $h_pair);
             }
         } elseif (is_array($headers)) {
             $this->headers = $this->headers + $headers;
@@ -283,7 +286,7 @@ class UrlFetchStream
         $this->headers = [];
         $this->content = '';
         $this->timeout = 0.0;
-        $this->method = null;
+        $this->method = 'GET';
         $this->user_agent = '';
     }
 

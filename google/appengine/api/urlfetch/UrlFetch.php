@@ -153,13 +153,12 @@ final class UrlFetch
         // Headers.
         if (!empty($headers)) {
             foreach ($headers as $key => $value) {
-                $header = new URLFetchRequest\Header();
+                $header = $req->addHeader();
                 $header->setKey($key);
                 $header->setValue($value);
-                $req->addHeader($header);
             }
         }
-    
+
         // Payload.
         if ($payload != '' && ($req_method == RequestMethod::POST || $req_method == RequestMethod::PUT || $req_method == RequestMethod::PATCH)) {
             $req->setPayload($payload);
@@ -177,8 +176,7 @@ final class UrlFetch
             ApiProxy::makeSyncCall(
           'urlfetch', 'Fetch', $req, $resp);
         } catch (ApplicationError $e) {
-            http_response_code(500);
-            throw errorCodeToException($e->getApplicationError());
+            throw $this->errorCodeToException($e->getApplicationError());
         }
 
         //Allow Truncated.
