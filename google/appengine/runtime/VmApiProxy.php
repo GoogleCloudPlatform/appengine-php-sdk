@@ -20,6 +20,7 @@ use google\appengine\ext\remote_api\Request;
 use google\appengine\ext\remote_api\Response;
 use google\appengine\ext\remote_api\RpcError\ErrorCode;
 use google\appengine\runtime\RPCFailedError;
+use GuzzleHttp\Client;
 
 /**
  * An ApiProxy implementation that communicates with the VMRuntime Service
