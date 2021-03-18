@@ -27,42 +27,42 @@ use google\appengine\URLFetchServiceError\ErrorCode;
 final class UrlFetch
 {
 
-  /**
-   * Maps Error Code to Exception Type. Contains proto error types.
-   */
+    /**
+     * Maps Error Code to Exception Type. Contains proto error types.
+     */
     private static function errorCodeToException($error)
     {
         switch ($error) {
-          case ErrorCode::OK:
-            return new Exception('Module Return OK.');
-          case ErrorCode::INVALID_URL:
-            return new Exception('Invalid URL.');
-          case ErrorCode::FETCH_ERROR:
-            return new Exception('FETCH ERROR.');
-          case ErrorCode::UNSPECIFIED_ERROR:
-            return new Exception('Unexpected Error.');
-          case ErrorCode::RESPONSE_TOO_LARGE:
-            return new Exception('Response Too Large.');
-          case ErrorCode::DEADLINE_EXCEEDED:
-            return new Exception('Deadline Exceeded.');
-          case ErrorCode::SSL_CERTIFICATE_ERROR:
-            return new Exception('SSL Certificate Error.');
-          case ErrorCode::DNS_ERROR:
-            return new Exception('DNS Error.');
-          case ErrorCode::CLOSED:
-            return new Exception('Closed Error.');
-          case ErrorCode::INTERNAL_TRANSIENT_ERROR:
-            return new Exception('Internal Transient Error.');
-          case ErrorCode::TOO_MANY_REDIRECTS:
-            return new Exception('Too Many Redirects.');
-          case ErrorCode::MALFORMED_REPLY:
-            return new Exception('Malformed Reply.');
-          case ErrorCode::CONNECTION_ERROR:
-            return new Exception('Connection Error.');
-          case ErrorCode::PAYLOAD_TOO_LARGE:
-            return new Exception('Payload Too Large.');
-          default:
-            return new ModulesException('Error Code: ' . $error);
+            case ErrorCode::OK:
+                return new Exception('Module Return OK.');
+            case ErrorCode::INVALID_URL:
+                return new Exception('Invalid URL.');
+            case ErrorCode::FETCH_ERROR:
+                return new Exception('FETCH ERROR.');
+            case ErrorCode::UNSPECIFIED_ERROR:
+                return new Exception('Unexpected Error.');
+            case ErrorCode::RESPONSE_TOO_LARGE:
+                return new Exception('Response Too Large.');
+            case ErrorCode::DEADLINE_EXCEEDED:
+                return new Exception('Deadline Exceeded.');
+            case ErrorCode::SSL_CERTIFICATE_ERROR:
+                return new Exception('SSL Certificate Error.');
+            case ErrorCode::DNS_ERROR:
+                return new Exception('DNS Error.');
+            case ErrorCode::CLOSED:
+                return new Exception('Closed Error.');
+            case ErrorCode::INTERNAL_TRANSIENT_ERROR:
+                return new Exception('Internal Transient Error.');
+            case ErrorCode::TOO_MANY_REDIRECTS:
+                return new Exception('Too Many Redirects.');
+            case ErrorCode::MALFORMED_REPLY:
+                return new Exception('Malformed Reply.');
+            case ErrorCode::CONNECTION_ERROR:
+                return new Exception('Connection Error.');
+            case ErrorCode::PAYLOAD_TOO_LARGE:
+                return new Exception('Payload Too Large.');
+            default:
+                return new ModulesException('Error Code: ' . $error);
         }
     }
 
@@ -78,20 +78,20 @@ final class UrlFetch
     private function getRequestMethod($request_method)
     {
         switch ($request_method) {
-          case 'GET':
-            return RequestMethod::GET;
-          case 'POST':
-            return RequestMethod::POST;
-          case 'HEAD':
-            return RequestMethod::HEAD;
-          case 'PUT':
-            return RequestMethod::PUT;
-          case 'DELETE':
-            return RequestMethod::DELETE;
-          case 'PATCH':
-            return RequestMethod::PATCH;
-          default:
-            throw new Exception('Invalid Request Method Input: ' . $request_method);
+            case 'GET':
+                return RequestMethod::GET;
+            case 'POST':
+                return RequestMethod::POST;
+            case 'HEAD':
+                return RequestMethod::HEAD;
+            case 'PUT':
+                return RequestMethod::PUT;
+            case 'DELETE':
+                return RequestMethod::DELETE;
+            case 'PATCH':
+                return RequestMethod::PATCH;
+            default:
+                throw new Exception('Invalid Request Method Input: ' . $request_method);
         }
     }
 
@@ -99,31 +99,23 @@ final class UrlFetch
      * Fetches a URL.
      *
      * @param string $url: Specifies the URL.
-     * @param string $request_method: The HTTP method.
-     *  URLs are fetched using one of the following HTTP methods:
-     *   - GET
-     *   - POST
-     *   - HEAD
-     *   - PUT
-     *   - DELETE
-     *   - PATCH
-     * @param array_map $header: Optional {key, value} pair input as header.
-     * @param string $payload: Optional, add a Payload to a URL Request for POST, PUT and PATCH requests.
-     * @param bool $allow_truncated: Optional, specify if contetn is truncated.
-     * @param bool $follow_redirects: Optional, If set to `True` (the default), redirects are
-     *     transparently followed, and the response (if less than 5 redirects)
-     *     contains the final destination's payload; the response status is 200.
-     *     You lose, however, the redirect chain information. If set to `False`,
-     *     you see the HTTP response yourself, including the 'Location' header, and
-     *     redirects are not followed.
-     * @param int $deadline: Optional, the timeout for the request in seconds. The default is a system-specific
-     *    deadline (typically 5 seconds).
-     * @param bool $validate_certificate: Optional,  If set to `True`, requests are not
-     *     sent to the server unless the certificate is valid, signed by a trusted CA,
-     *     and the host name matches the certificate. A value of `None` indicates that
-     *     the behavior will be chosen by the underlying `urlfetch` implementation.
+     * @param string $request_method: Optional, The HTTP method.
+     *     URLs are fetched using one of the following HTTP methods:
+     *     - GET
+     *     - POST
+     *     - HEAD
+     *     - PUT
+     *     - DELETE
+     *     - PATCH
+     * @param array $headers: Optional, array containing values in the format of {key => value} pairs.
+     * @param string $payload: Optional, payload for a URL Request when using POST, PUT, and PATCH requests.
+     * @param bool $allow_truncated: Optional, specify if content is truncated.
+     * @param bool $follow_redirects: Optional, specify if redirects are followed.
+     * @param int $deadline: Optional, the timeout for the request in seconds.
+     * @param bool $validate_certificate: Optional, If set to `true`, requests are not
+     *     sent to the server unless the certificate is valid and signed by a trusted CA.
      *
-     * @throws \InvalidArgumentException If UrlFetchRequest has a failure.
+     * @throws \Exception If UrlFetchRequest has a failure or if content is illegally truncated.
      *
      * @return URLFetchResponse Returns URLFetchResponse object upon success, else throws application error.
      *
@@ -160,7 +152,8 @@ final class UrlFetch
         }
 
         // Payload.
-        if ($payload != '' && ($req_method == RequestMethod::POST || $req_method == RequestMethod::PUT || $req_method == RequestMethod::PATCH)) {
+        if ($payload != '' && ($req_method == RequestMethod::POST || $req_method == RequestMethod::PUT 
+                || $req_method == RequestMethod::PATCH)) {
             $req->setPayload($payload);
         }
 
@@ -174,7 +167,7 @@ final class UrlFetch
 
         try {
             ApiProxy::makeSyncCall(
-          'urlfetch', 'Fetch', $req, $resp);
+                'urlfetch', 'Fetch', $req, $resp);
         } catch (ApplicationError $e) {
             throw $this->errorCodeToException($e->getApplicationError());
         }

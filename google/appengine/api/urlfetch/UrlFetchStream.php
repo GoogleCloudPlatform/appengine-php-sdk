@@ -46,48 +46,48 @@ class UrlFetchStream
     private static function errorCodeToException($error)
     {
         switch ($error) {
-          case ErrorCode::OK:
-            return new Exception('Module Return OK.');
-          case ErrorCode::INVALID_URL:
-            return new Exception('Invalid URL.');
-          case ErrorCode::FETCH_ERROR:
-            return new Exception('FETCH ERROR.');
-          case ErrorCode::UNSPECIFIED_ERROR:
-            return new Exception('Unexpected Error.');
-          case ErrorCode::RESPONSE_TOO_LARGE:
-            return new Exception('Response Too Large.');
-          case ErrorCode::DEADLINE_EXCEEDED:
-            return new Exception('Deadline Exceeded.');
-          case ErrorCode::SSL_CERTIFICATE_ERROR:
-            return new Exception('SSL Certificate Error.');
-          case ErrorCode::DNS_ERROR:
-            return new Exception('DNS Error.');
-          case ErrorCode::CLOSED:
-            return new Exception('Closed Error.');
-          case ErrorCode::INTERNAL_TRANSIENT_ERROR:
-            return new Exception('Internal Transient Error.');
-          case ErrorCode::TOO_MANY_REDIRECTS:
-            return new Exception('Too Many Redirects.');
-          case ErrorCode::MALFORMED_REPLY:
-            return new Exception('Malformed Reply.');
-          case ErrorCode::CONNECTION_ERROR:
-            return new Exception('Connection Error.');
-          case ErrorCode::PAYLOAD_TOO_LARGE:
-            return new Exception('Payload Too Large.');
-          default:
-            return new ModulesException('Error Code: ' . $error);
+            case ErrorCode::OK:
+                return new Exception('Module Return OK.');
+            case ErrorCode::INVALID_URL:
+                return new Exception('Invalid URL.');
+            case ErrorCode::FETCH_ERROR:
+                return new Exception('FETCH ERROR.');
+            case ErrorCode::UNSPECIFIED_ERROR:
+                return new Exception('Unexpected Error.');
+            case ErrorCode::RESPONSE_TOO_LARGE:
+                return new Exception('Response Too Large.');
+            case ErrorCode::DEADLINE_EXCEEDED:
+                return new Exception('Deadline Exceeded.');
+            case ErrorCode::SSL_CERTIFICATE_ERROR:
+                return new Exception('SSL Certificate Error.');
+            case ErrorCode::DNS_ERROR:
+                return new Exception('DNS Error.');
+            case ErrorCode::CLOSED:
+                return new Exception('Closed Error.');
+            case ErrorCode::INTERNAL_TRANSIENT_ERROR:
+                return new Exception('Internal Transient Error.');
+            case ErrorCode::TOO_MANY_REDIRECTS:
+                return new Exception('Too Many Redirects.');
+            case ErrorCode::MALFORMED_REPLY:
+                return new Exception('Malformed Reply.');
+            case ErrorCode::CONNECTION_ERROR:
+                return new Exception('Connection Error.');
+            case ErrorCode::PAYLOAD_TOO_LARGE:
+                return new Exception('Payload Too Large.');
+            default:
+                return new ModulesException('Error Code: ' . $error);
         }
     }
 
     /**
-     * HTTP Context Options
+     * HTTP Context Options.
      * See link for a list of options and their types:
      *    https://www.php.net/manual/en/context.http.php
      *s
      * @param string $context_key: Specifies the context type.
-     * @param string $context_value: Specifies the context value.
+     * @param string $context_value: Specifies the context value to be set.
      *
-     * @throws \Exception If Illegal context option given.
+     * @throws \Exception if illegal or unsupported context option given.
      *
      * @return void.
      */
@@ -122,7 +122,7 @@ class UrlFetchStream
     }
 
     /**
-     * Save Method.
+     * Save method.
      *
      * @param string $method:
      *    Input must be one of 'GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH'.
@@ -139,9 +139,11 @@ class UrlFetchStream
     }
 
     /**
-     * Parse and save all the headers.
+     * Save headers.
      *
      * @param (string or array) $headers: Contains header to be parsed.
+     *
+     * @throws \Exception if $headers is of an illegal type.
      *
      * @return void.
      *
@@ -170,10 +172,12 @@ class UrlFetchStream
     }
 
     /**
-     * Save all the content.
+     * Save content.
      *
      * @param string $content: URL-encoded query string,
-     *    typically generated from http_build_query().
+     *     typically generated from http_build_query().
+     *
+     * @throws \Exception if $content is not of string type.
      *
      * @return void.
      *
@@ -187,25 +191,29 @@ class UrlFetchStream
     }
 
     /**
-     * Save the timeout.
+     * Save timeout.
      *
      * @param float $timeout: Timeout for URL request in seconds.
+     *
+     * @throws \Exception if $timeout is not of float type.
      *
      * @return void.
      *
      */
     private function setTimeout($timeout)
     {
-        if (!is_numeric($timeout)) {
+        if (!is_float($timeout)) {
             throw new Exception('Content value must of type string');
         }
         $this->timeout = $timeout;
     }
 
     /**
-     * Save the user-agent as header.
+     * Save User-Agent as header.
      *
-     * @param string $user_agent: User-Agent header string.
+     * @param string $user_agent: 'User-Agent' header string.
+     *
+     * @throws \Exception if $timeout is not of string type.
      *
      * @return void.
      *
@@ -219,14 +227,14 @@ class UrlFetchStream
     }
 
     /**
-     * Opens  URL Stream.
+     * Opens URL Stream.
      *
      * @param string $url: Specifies the URL that was passed to the original function.
      * @param string $mode: UNUSED in the context of URLs.
-     * @param int $options: UNUSED in the context of URLs.
+     * @param int $options_stream: UNUSED in the context of URLs.
      * @param string $opened_path: UNUSED in the context of URLs.
      *
-     * @throws \Exception If URLFetch call has exception.
+     * @throws \Exception if URLFetch request is nto successful.
      *
      * @return bool Returns true on success or false on failure.
      *
@@ -253,20 +261,20 @@ class UrlFetchStream
         try {
             $urlfetch = new UrlFetch();
             $resp =
-          $urlfetch->fetch(
-            $url,
-            $this->method,
-            $this->headers,
-            $this->content,
-            true,
-            true,
-            $this->timeout);
-
+                $urlfetch->fetch(
+                    $url,
+                    $this->method,
+                    $this->headers,
+                    $this->content,
+                    true,
+                    true,
+                    $this->timeout);
             $this->url_fetch_response = $resp;
             $this->stream = new CachingStream(Stream::factory($resp->getContent()));
         } catch (ApplicationError $e) {
             throw errorCodeToException($e->getApplicationError());
         }
+
         if ($resp->getStatuscode() >= 400) {
             return false;
         }
@@ -303,10 +311,9 @@ class UrlFetchStream
     }
 
     /**
-      * Flushes the output, Unused.
+      * Flushes the output, UNUSED.
       *
-      * @return bool Return true if the cached data was successfully stored (or if there was no data to store),
-      *     or false if the data could not be stored.
+      * @return void.
       *
       */
     public function stream_flush()
@@ -316,7 +323,7 @@ class UrlFetchStream
     /**
       * Returns URL Stats.
       *
-      * @return void
+      * @return URLFetchResponse.
       *
       */
     public function stream_stat()
@@ -327,9 +334,11 @@ class UrlFetchStream
     /**
      * Read from Stream.
      *
-     * @param int $count How many bytes of data from the current position should be returned.
+     * @param int $count: How many bytes of data from the current position should be returned.
      *
-     * @return If there are less than count bytes available, return as many as are available. If no more data is available, return either false or an empty string.
+     * @return Return number of bytes. 
+     *     If there are less than count bytes available, return as many as are available. 
+     *     If no more data is available, return either false or an empty string.
      *
      */
     public function stream_read($count)
@@ -340,10 +349,9 @@ class UrlFetchStream
     /**
       * Seeks to specific location in a stream.
       *
-      * @param int $offset The stream offset to seek to.
+      * @param int $offset: The stream offset to seek to.
       *
-      * @param int $whence
-      *    Possible Valiues:
+      * @param int $whence:
       *     SEEK_SET: 0 - Set position equal to offset bytes.
       *     SEEK_CUR: 1 - Set position to current location plus offset.
       *     SEEK_END: 2 - Set position to end-of-file plus offset.
@@ -379,7 +387,7 @@ class UrlFetchStream
     /**
       * Retrieve the current position of a stream.
       *
-      * @return int Return the current position of the stream.
+      * @return the current position of the stream as int.
       *
       */
     public function stream_tell()
