@@ -55,30 +55,30 @@ class UrlFetchStream
     private function setContextOptions($context_key, $context_value)
     {
         switch ($context_key) {
-          case 'method':
-            $this->setMethod($context_value);
-            break;
-          case 'header':
-            $this->setHeaders($context_value);
-            break;
-          case 'content':
-            $this->setContent($context_value);
-            break;
-          case 'timeout':
-            $this->setTimeout($context_value);
-            break;
-          case 'user_agent':
-            $this->setUserAgent($context_value);
-            break;
-          case 'proxy':
-          case 'request_fulluri':
-          case 'max_redirects':
-          case 'protocol_version':
-          case 'ignore_errors':
-            throw new Exception('URLFetch does not support stream context option ' . $context_key);
-            break;
-          default:
-            throw new Exception('Invalid $context_key value' . $context_key);
+            case 'method':
+                $this->setMethod($context_value);
+                break;
+            case 'header':
+                $this->setHeaders($context_value);
+                break;
+            case 'content':
+                $this->setContent($context_value);
+                break;
+            case 'timeout':
+                $this->setTimeout($context_value);
+                break;
+            case 'user_agent':
+                $this->setUserAgent($context_value);
+                break;
+            case 'proxy':
+            case 'request_fulluri':
+            case 'max_redirects':
+            case 'protocol_version':
+            case 'ignore_errors':
+                throw new Exception('URLFetch does not support stream context option ' . $context_key);
+                break;
+            default:
+                throw new Exception('Invalid $context_key value' . $context_key);
         }
     }
 
@@ -95,7 +95,7 @@ class UrlFetchStream
     {
         if (!is_string($method) || !in_array($method, self::HTTP_METHODS)) {
             throw new Exception('Method value: ' . $method . ' is illegal, ' .
-                'please use one of: GET, POST, HEAD, PUT, DELETE, PATCH');
+                'please use one of:' . print_r(self::HTTP_METHODS));
         }
         $this->method = $method;
     }
@@ -274,28 +274,7 @@ class UrlFetchStream
     }
 
     /**
-      * Flushes the output, UNUSED.
-      *
-      * @return void.
-      *
-      */
-    public function stream_flush()
-    {
-    }
-  
-    /**
-      * Returns URL Stats.
-      *
-      * @return URLFetchResponse.
-      *
-      */
-    public function stream_stat()
-    {
-        return $this->url_fetch_response;
-    }
-
-    /**
-     * Read from Stream.
+     * Read from stream.
      *
      * @param int $count: How many bytes of data from the current position should be returned.
      *
@@ -307,6 +286,28 @@ class UrlFetchStream
     public function stream_read($count)
     {
         return $this->stream->read($count);
+    }
+
+    /**
+      * Seeks to specific location in a stream.
+      *
+      * @param int $offset: The stream offset to seek to.
+      *
+      * @param int $whence:
+      *     SEEK_SET: - Set position equal to offset bytes.
+      *     SEEK_CUR: - Set position to current location plus offset.
+      *     SEEK_END: - Set position to end-of-file plus offset.
+      *
+      * @return bool Return true if the position was updated, false otherwise.
+      *
+      */
+    public function stream_seek($offset, $whence = SEEK_SET)
+    {
+        if ($this->stream->isSeekable()) {
+            $this->stream->seek($offset, $whence);
+            return true;
+        }
+        return false;
     }
 
     /**

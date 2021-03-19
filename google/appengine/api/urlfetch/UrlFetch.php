@@ -28,43 +28,47 @@ final class UrlFetch
 {
 
     /**
-     * Maps Error Code to Exception Type. Contains proto error types.
+     * Raises exceptions and maps to UrlFetch error codes.
+     *
+     * @param ApplicationError: UrlFetch application error.
+     *
+     * @throws \Exception with error information.
      */
     private static function errorCodeToException($error)
     {
         $urlfetch_exception = "UrlFetch Exception with Error Code: ";
-
+        $message = ' with message: ' . $e->getMessage() . ".\n":
         switch ($error) {
             case ErrorCode::OK:
-                return new Exception($urlfetch_exception . 'Module Return OK.');
+                return new Exception($urlfetch_exception . 'Module Return OK.' . $message);
             case ErrorCode::INVALID_URL:
-                return new Exception($urlfetch_exception . 'Invalid URL.');
+                return new Exception($urlfetch_exception . 'Invalid URL.' . $message);
             case ErrorCode::FETCH_ERROR:
-                return new Exception($urlfetch_exception . 'FETCH ERROR.');
+                return new Exception($urlfetch_exception . 'Fetch Error.' . $message);
             case ErrorCode::UNSPECIFIED_ERROR:
-                return new Exception($urlfetch_exception . 'Unexpected Error.');
+                return new Exception($urlfetch_exception . 'Unexpected Error.' . $message);
             case ErrorCode::RESPONSE_TOO_LARGE:
-                return new Exception($urlfetch_exception . 'Response Too Large.');
+                return new Exception($urlfetch_exception . 'Response Too Large.' . $message);
             case ErrorCode::DEADLINE_EXCEEDED:
-                return new Exception($urlfetch_exception . 'Deadline Exceeded.');
+                return new Exception($urlfetch_exception . 'Deadline Exceeded.' . $message);
             case ErrorCode::SSL_CERTIFICATE_ERROR:
-                return new Exception($urlfetch_exception . 'SSL Certificate Error.');
+                return new Exception($urlfetch_exception . 'Ssl Certificate Error.' . $message);
             case ErrorCode::DNS_ERROR:
-                return new Exception($urlfetch_exception . 'DNS Error.');
+                return new Exception($urlfetch_exception . 'Dns Error.' . $message);
             case ErrorCode::CLOSED:
-                return new Exception($urlfetch_exception . 'Closed Error.');
+                return new Exception($urlfetch_exception . 'Closed Error.' . $message);
             case ErrorCode::INTERNAL_TRANSIENT_ERROR:
-                return new Exception($urlfetch_exception . 'Internal Transient Error.');
+                return new Exception($urlfetch_exception . 'Internal Transient Error.' . $message);
             case ErrorCode::TOO_MANY_REDIRECTS:
-                return new Exception($urlfetch_exception . 'Too Many Redirects.');
+                return new Exception($urlfetch_exception . 'Too Many Redirects.' . $message);
             case ErrorCode::MALFORMED_REPLY:
-                return new Exception($urlfetch_exception . 'Malformed Reply.');
+                return new Exception($urlfetch_exception . 'Malformed Reply.' . $message);
             case ErrorCode::CONNECTION_ERROR:
-                return new Exception($urlfetch_exception . 'Connection Error.');
+                return new Exception($urlfetch_exception . 'Connection Error.' . $message);
             case ErrorCode::PAYLOAD_TOO_LARGE:
-                return new Exception($urlfetch_exception . 'Payload Too Large.');
+                return new Exception($urlfetch_exception . 'Payload Too Large.' . $message);
             default:
-                return new ModulesException($urlfetch_exception . $error);
+                return new ModulesException($urlfetch_exception . $error . $message);
         }
     }
 
@@ -75,7 +79,7 @@ final class UrlFetch
      *
      * @throws \Exception for invalid $request_method input strings.
      *
-     * @return URLFetchRequest\RequestMethod type, equivalent
+     * @return URLFetchRequest\RequestMethod type.
      */
     private function getRequestMethod($request_method)
     {
@@ -117,7 +121,8 @@ final class UrlFetch
      * @param bool $validate_certificate: Optional, If set to `true`, requests are not
      *     sent to the server unless the certificate is valid and signed by a trusted CA.
      *
-     * @throws \Exception If UrlFetchRequest has a failure or if content is illegally truncated.
+     * @throws \Exception If UrlFetchRequest has an application failure, if illegal web protocol used,
+     *     or if content is illegally truncated.
      *
      * @return URLFetchResponse Returns URLFetchResponse object upon success, else throws application error.
      *
@@ -176,7 +181,7 @@ final class UrlFetch
 
         //Allow Truncated.
         if ($resp->getContentwastruncated() == true && !$allow_truncated) {
-            throw new Exception('Error: Output was truncated and allow_truncated option is not enabled!');
+            throw new Exception('Error: Output was truncated and allow_truncated option is not enabled.');
         }
 
         return $resp;
