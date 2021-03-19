@@ -97,11 +97,11 @@ class UrlFetchTest extends ApiProxyTestBase
         $req->setUrl($url);
         $req->setMethod(RequestMethod::PUT);
         $payload = http_build_query(
-        array(
-            'var1' => 'some content',
-            'var2' => 'some content2'
-        )
-    );
+            [
+                'var1' => 'some content',
+                'var2' => 'some content2'
+            ]
+        );
         $req->setPayload($payload);
         $req->setFollowredirects(true);
         $req->setMustvalidateservercertificate(false);
@@ -126,13 +126,13 @@ class UrlFetchTest extends ApiProxyTestBase
         $req->setDeadline($deadline);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         $result = $urlfetch->fetch(
-        $url,
-        'GET',
-        [],
-        '',
-        $allow_truncated,
-        $follow_redirects,
-        $deadline);
+            $url,
+            'GET',
+            [],
+            '',
+            $allow_truncated,
+            $follow_redirects,
+            $deadline);
         $this->assertEquals($resp, $result);
         $this->assertEquals($resp->getContentwastruncated(), $allow_truncated);
     }

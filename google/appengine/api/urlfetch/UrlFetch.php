@@ -32,37 +32,39 @@ final class UrlFetch
      */
     private static function errorCodeToException($error)
     {
+        $urlfetch_exception = "UrlFetch Exception with Error Code: ";
+
         switch ($error) {
             case ErrorCode::OK:
-                return new Exception('Module Return OK.');
+                return new Exception($urlfetch_exception . 'Module Return OK.');
             case ErrorCode::INVALID_URL:
-                return new Exception('Invalid URL.');
+                return new Exception($urlfetch_exception . 'Invalid URL.');
             case ErrorCode::FETCH_ERROR:
-                return new Exception('FETCH ERROR.');
+                return new Exception($urlfetch_exception . 'FETCH ERROR.');
             case ErrorCode::UNSPECIFIED_ERROR:
-                return new Exception('Unexpected Error.');
+                return new Exception($urlfetch_exception . 'Unexpected Error.');
             case ErrorCode::RESPONSE_TOO_LARGE:
-                return new Exception('Response Too Large.');
+                return new Exception($urlfetch_exception . 'Response Too Large.');
             case ErrorCode::DEADLINE_EXCEEDED:
-                return new Exception('Deadline Exceeded.');
+                return new Exception($urlfetch_exception . 'Deadline Exceeded.');
             case ErrorCode::SSL_CERTIFICATE_ERROR:
-                return new Exception('SSL Certificate Error.');
+                return new Exception($urlfetch_exception . 'SSL Certificate Error.');
             case ErrorCode::DNS_ERROR:
-                return new Exception('DNS Error.');
+                return new Exception($urlfetch_exception . 'DNS Error.');
             case ErrorCode::CLOSED:
-                return new Exception('Closed Error.');
+                return new Exception($urlfetch_exception . 'Closed Error.');
             case ErrorCode::INTERNAL_TRANSIENT_ERROR:
-                return new Exception('Internal Transient Error.');
+                return new Exception($urlfetch_exception . 'Internal Transient Error.');
             case ErrorCode::TOO_MANY_REDIRECTS:
-                return new Exception('Too Many Redirects.');
+                return new Exception($urlfetch_exception . 'Too Many Redirects.');
             case ErrorCode::MALFORMED_REPLY:
-                return new Exception('Malformed Reply.');
+                return new Exception($urlfetch_exception . 'Malformed Reply.');
             case ErrorCode::CONNECTION_ERROR:
-                return new Exception('Connection Error.');
+                return new Exception($urlfetch_exception . 'Connection Error.');
             case ErrorCode::PAYLOAD_TOO_LARGE:
-                return new Exception('Payload Too Large.');
+                return new Exception($urlfetch_exception . 'Payload Too Large.');
             default:
-                return new ModulesException('Error Code: ' . $error);
+                return new ModulesException($urlfetch_exception . $error);
         }
     }
 
@@ -121,15 +123,15 @@ final class UrlFetch
      *
      */
     public function fetch(
-    string $url,
-    string $request_method = 'GET',
-    array $headers = [],
-    string $payload = '',
-    bool $allow_truncated = true,
-    bool $follow_redirects = true,
-    float $deadline = 0.0,
-    bool $validate_certificate = false
-  ) {
+        string $url,
+        string $request_method = 'GET',
+        array $headers = [],
+        string $payload = '',
+        bool $allow_truncated = true,
+        bool $follow_redirects = true,
+        float $deadline = 0.0,
+        bool $validate_certificate = false
+    ) {
         if (strncmp($url,'http://', 7) != 0 && strncmp($url,'https://', 8)!= 0) {
             throw new Exception('URL input must use http:// or https://');
         }

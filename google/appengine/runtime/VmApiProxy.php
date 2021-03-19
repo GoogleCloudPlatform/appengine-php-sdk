@@ -146,14 +146,9 @@ class VmApiProxy extends ApiProxyBase{
 
     // Headers are sorted so we can do a string comparison in the unit test.
     ksort($headers);
-    $header_arr = [];
-    foreach($headers as $k => $v) {
-      $h_pair = [$k => $v];
-      $header_arr = array_merge($header_arr, $h_pair);
-    }
 
     $opts = [
-      'headers' => $header_arr,
+      'headers' => $headers,
       'body' => $serialized_remote_request,
       'read_timeout' => $deadline + self::DEADLINE_DELTA_SECONDS,
     ];

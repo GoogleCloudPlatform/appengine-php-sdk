@@ -41,45 +41,6 @@ class UrlFetchStream
     private $user_agent = '';
 
     /**
-     * Maps Error Code to Exception Type. Contains proto error types.
-     */
-    private static function errorCodeToException($error)
-    {
-        switch ($error) {
-            case ErrorCode::OK:
-                return new Exception('Module Return OK.');
-            case ErrorCode::INVALID_URL:
-                return new Exception('Invalid URL.');
-            case ErrorCode::FETCH_ERROR:
-                return new Exception('FETCH ERROR.');
-            case ErrorCode::UNSPECIFIED_ERROR:
-                return new Exception('Unexpected Error.');
-            case ErrorCode::RESPONSE_TOO_LARGE:
-                return new Exception('Response Too Large.');
-            case ErrorCode::DEADLINE_EXCEEDED:
-                return new Exception('Deadline Exceeded.');
-            case ErrorCode::SSL_CERTIFICATE_ERROR:
-                return new Exception('SSL Certificate Error.');
-            case ErrorCode::DNS_ERROR:
-                return new Exception('DNS Error.');
-            case ErrorCode::CLOSED:
-                return new Exception('Closed Error.');
-            case ErrorCode::INTERNAL_TRANSIENT_ERROR:
-                return new Exception('Internal Transient Error.');
-            case ErrorCode::TOO_MANY_REDIRECTS:
-                return new Exception('Too Many Redirects.');
-            case ErrorCode::MALFORMED_REPLY:
-                return new Exception('Malformed Reply.');
-            case ErrorCode::CONNECTION_ERROR:
-                return new Exception('Connection Error.');
-            case ErrorCode::PAYLOAD_TOO_LARGE:
-                return new Exception('Payload Too Large.');
-            default:
-                return new ModulesException('Error Code: ' . $error);
-        }
-    }
-
-    /**
      * HTTP Context Options.
      * See link for a list of options and their types:
      *    https://www.php.net/manual/en/context.http.php
@@ -133,7 +94,8 @@ class UrlFetchStream
     private function setMethod($method)
     {
         if (!is_string($method) || !in_array($method, self::HTTP_METHODS)) {
-            throw new Exception('Method value is illegal');
+            throw new Exception('Method value: ' . $method . ' is illegal, ' .
+                'please use one of: GET, POST, HEAD, PUT, DELETE, PATCH');
         }
         $this->method = $method;
     }
@@ -203,7 +165,7 @@ class UrlFetchStream
     private function setTimeout($timeout)
     {
         if (!is_float($timeout)) {
-            throw new Exception('Content value must of type string');
+            throw new Exception('Content value must of type float');
         }
         $this->timeout = $timeout;
     }
@@ -271,8 +233,9 @@ class UrlFetchStream
                     $this->timeout);
             $this->url_fetch_response = $resp;
             $this->stream = new CachingStream(Stream::factory($resp->getContent()));
-        } catch (ApplicationError $e) {
-            throw errorCodeToException($e->getApplicationError());
+        } catch (Exception $e) {
+            echo 'Caught exception: ' . $e->getMessage() . "\n";
+            exit($e->getTrace());
         }
 
         if ($resp->getStatuscode() >= 400) {
@@ -344,44 +307,6 @@ class UrlFetchStream
     public function stream_read($count)
     {
         return $this->stream->read($count);
-    }
-
-    /**
-      * Seeks to specific location in a stream.
-      *
-      * @param int $offset: The stream offset to seek to.
-      *
-      * @param int $whence:
-      *     SEEK_SET: 0 - Set position equal to offset bytes.
-      *     SEEK_CUR: 1 - Set position to current location plus offset.
-      *     SEEK_END: 2 - Set position to end-of-file plus offset.
-      *
-      * @return bool Return true if the position was updated, false otherwise.
-      *
-      */
-    public function stream_seek($offset, $whence)
-    {
-        switch ($whence) {
-          case 0: // 'SEEK_SET'
-            $stream->seek($offset);
-            break;
-          case 1: // 'SEEK_CUR'
-            $cur_position = $stream->tell();
-            $stream->seek($cur_position + $offset);
-            break;
-          case 2: // 'SEEK_END'
-            $cur_position = $stream->tell();
-            $eof_offset = 0;
-            while (!$stream->eof()) {
-                ++$eof_offset;
-                $stream->seek($cur_position + $eof_offset);
-            }
-            $stream->seek($cur_position + $eof_offset + $offset);
-            break;
-          default:
-            return false;
-        }
-        return true;
     }
 
     /**

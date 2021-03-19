@@ -55,12 +55,12 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
         $header_arr = ['Content-type' => 'application/x-www-form-urlencoded'];
-        $opts = array('http' =>
-        array(
-            'method' => 'POST',
-            'header'  => $header_arr,
-        )
-    );
+        $opts = ['http' =>
+            [
+                'method' => 'POST',
+                'header'  => $header_arr,
+            ]
+        ];
         $opts = stream_context_create($opts);
         $urlfetch_stream->context = $opts;
         $result = $urlfetch_stream->stream_open($url, 'a+', $unused1, $unused2);
@@ -86,12 +86,12 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
         $header_str = 'Content-type: application/x-www-form-urlencoded';
-        $opts = array('http' =>
-            array(
+        $opts = ['http' =>
+            [
                 'method' => 'POST',
                 'header'  => $header_str,
-            )
-        );
+            ]
+        ];
         $opts = stream_context_create($opts);
         $urlfetch_stream->context = $opts;
         $result = $urlfetch_stream->stream_open($url, 'a+', $unused1, $unused2);
@@ -137,13 +137,13 @@ class UrlFetchStreamTest extends ApiProxyTestBase
             "X-Google-RPC-Service-Deadline: 60\n" . "X-Google-RPC-Service-Endpoint: app-engine-apis\r" .
             "X-Google-RPC-Service-Method: /VMRemoteAPI.CallRemoteAPI\n";
 
-        $opts = array('http' =>
-            array(
+        $opts = ['http' =>
+            [
                 'method' => 'POST',
                 'header'  => $header_str,
                 'user_agent' => 'some_user_agent_string',
-            )
-        );
+            ]
+        ];
         $opts = stream_context_create($opts);
         $urlfetch_stream->context = $opts;
         $result = $urlfetch_stream->stream_open($url, 'a+', $unused1, $unused2);
@@ -156,17 +156,17 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $url = "http://www.google.com";
     
         $payload = http_build_query(
-            array(
+            [
                 'var1' => 'some_content',
                 'var2' => 'some_content2'
-            )
+            ]
         );
-        $opts = array('http' =>
-            array(
+        $opts = ['http' =>
+            [
                 'method' => 'POST',
                 'content' => $payload
-            )
-        );
+            ]
+        ];
         // Mock behavior of result.
         $req = new URLFetchRequest();
         $resp = new URLFetchResponse();
@@ -188,12 +188,12 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $urlfetch_stream = new UrlFetchStream();
         $url = "http://www.google.com";
         $deadline = 5.0;
-        $opts = array('http' =>
-            array(
+        $opts = ['http' =>
+            [
                 'method' => 'POST',
                 'timeout' => $deadline
-            )
-        );
+            ]
+        ];
         // Mock behavior of result.
         $req = new URLFetchRequest();
         $resp = new URLFetchResponse();
@@ -214,12 +214,12 @@ class UrlFetchStreamTest extends ApiProxyTestBase
     {
         $url = "http://www.google.com";
         $deadline = 5.0;
-        $opts = array('http' =>
-            array(
+        $opts = ['http' =>
+            [
                 'method' => 'GET',
                 'timeout' => $deadline
-            )
-        );
+            ]
+        ];
 
         // Mock behavior of result.
         $req = new URLFetchRequest();
