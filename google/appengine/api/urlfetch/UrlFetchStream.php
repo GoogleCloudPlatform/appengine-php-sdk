@@ -95,7 +95,7 @@ class UrlFetchStream
     {
         if (!is_string($method) || !in_array($method, self::HTTP_METHODS)) {
             throw new Exception('Method value: ' . $method . ' is illegal, ' .
-                'please use one of:' . print_r(self::HTTP_METHODS));
+                'please use one of:' . print_r(self::HTTP_METHODS, true));
         }
         $this->method = $method;
     }
