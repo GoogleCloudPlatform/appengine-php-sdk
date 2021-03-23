@@ -37,7 +37,7 @@ final class UrlFetch
     private static function errorCodeToException($error)
     {
         $urlfetch_exception = "UrlFetch Exception with Error Code: ";
-        $message = ' with message: ' . $e->getMessage() . ".\n":
+        $message = ' with message: ' . $e->getMessage() . " \n";
         switch ($error) {
             case ErrorCode::OK:
                 return new Exception($urlfetch_exception . 'Module Return OK.' . $message);
