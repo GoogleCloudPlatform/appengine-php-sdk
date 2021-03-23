@@ -274,6 +274,17 @@ class UrlFetchStream
     }
 
     /**
+     * Returns URL Stats.
+     *
+     * @return URLFetchResponse.
+     *
+     */
+    public function stream_stat()
+    {
+        return $this->url_fetch_response;
+    }
+
+    /**
      * Read from stream.
      *
      * @param int $count: How many bytes of data from the current position should be returned.
