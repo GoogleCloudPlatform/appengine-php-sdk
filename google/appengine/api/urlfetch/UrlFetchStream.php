@@ -22,14 +22,17 @@ use google\appengine\runtime\ApplicationError;
 use google\appengine\URLFetchServiceError\ErrorCode;
 use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Stream\CachingStream;
+use IteratorAggregate;
+use ArrayAccess;
 
-class UrlFetchStream
+class UrlFetchStream implements IteratorAggregate, ArrayAccess 
 {
     private const DOMAIN_SEPARATOR = ": ";
     private const NEWLINE_SEPARATOR = "/\r\n|\n|\r/";
     private const HTTP_METHODS = array('GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH');
 
     public $context;
+    protected $response_headers = null;
     private $stream = null;
     private $url_fetch_response= null;
   
@@ -39,6 +42,28 @@ class UrlFetchStream
     private $timeout = 0.0;
     private $method = 'GET';
     private $user_agent = '';
+   
+    
+    /* IteratorAggregate */
+    public function getIterator() {
+        return new ArrayIterator($this->response_headers);
+    }
+    /* ArrayAccess */
+    public function offsetExists($offset) 
+    { 
+        return array_key_exists($offset, $this->response_headers); 
+    }
+    public function offsetGet($offset ) 
+    { 
+        return $this->response_headers[$offset]; 
+    }
+    public function offsetSet($offset, $value) 
+    { 
+        $this->response_headers[$offset] = $value; 
+    }
+    public function offsetUnset($offset) { 
+        unset($this->response_headers[$offset]); 
+    }
 
     /**
      * HTTP Context Options.
@@ -233,6 +258,7 @@ class UrlFetchStream
                     $this->timeout);
             $this->url_fetch_response = $resp;
             $this->stream = new CachingStream(Stream::factory($resp->getContent()));
+            $this->response_headers = array_merge([$resp->getStatuscode()], $resp->getHeaderList());
         } catch (Exception $e) {
             echo 'Caught exception: ' . $e->getMessage() . "\n";
             exit($e->getTrace());
@@ -274,14 +300,14 @@ class UrlFetchStream
     }
 
     /**
-     * Returns URL Stats.
+     * Returns URL Stats, Unused. 
+     * Must have implementation here for stream wrapper.
      *
-     * @return URLFetchResponse.
+     * @return void.
      *
      */
     public function stream_stat()
     {
-        return $this->url_fetch_response;
     }
 
     /**
@@ -329,6 +355,6 @@ class UrlFetchStream
       */
     public function stream_tell()
     {
-        return $stream->tell();
+        return $this->stream->tell();
     }
 }
