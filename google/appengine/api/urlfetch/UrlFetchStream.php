@@ -243,7 +243,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @param bool $verify_peer
      *
-     * @throws \Exception if $timeout is not of string type.
+     * @throws \Exception if $verify_peer is not of bool type.
      *
      * @return void.
      *
