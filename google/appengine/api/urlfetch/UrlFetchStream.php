@@ -22,6 +22,7 @@ use google\appengine\runtime\ApplicationError;
 use google\appengine\URLFetchServiceError\ErrorCode;
 use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Stream\CachingStream;
+use \Exception as Exception;
 use IteratorAggregate;
 use ArrayAccess;
 
@@ -32,7 +33,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     private const HTTP_METHODS = array('GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH');
 
     public $context;
-    protected $response_headers = null;
     private $stream = null;
     private $url_fetch_response= null;
   
@@ -42,7 +42,8 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     private $timeout = 0.0;
     private $method = 'GET';
     private $user_agent = '';
-   
+    private $verify_peer = false;
+    protected $response_headers = null;
     
     /* IteratorAggregate */
     public function getIterator() {
@@ -53,7 +54,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     { 
         return array_key_exists($offset, $this->response_headers); 
     }
-    public function offsetGet($offset ) 
+    public function offsetGet($offset) 
     { 
         return $this->response_headers[$offset]; 
     }
@@ -66,9 +67,10 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     }
 
     /**
-     * HTTP Context Options.
-     * See link for a list of options and their types:
+     * HTTP and SSL Context Options.
+     * See link for a lists of HTTP and SSL options, and their types:
      *    https://www.php.net/manual/en/context.http.php
+     *    https://www.php.net/manual/en/context.ssl.php
      *s
      * @param string $context_key: Specifies the context type.
      * @param string $context_value: Specifies the context value to be set.
@@ -80,6 +82,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     private function setContextOptions($context_key, $context_value)
     {
         switch ($context_key) {
+            // HTTP Context Options.
             case 'method':
                 $this->setMethod($context_value);
                 break;
@@ -100,10 +103,32 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
             case 'max_redirects':
             case 'protocol_version':
             case 'ignore_errors':
-                throw new Exception('URLFetch does not support stream context option ' . $context_key);
+                throw new Exception('URLFetch does not support HTTP stream context option ' . $context_key);
+                break;
+            // SSL Context Options.
+            case 'verify_peer':
+                $this->setVerifyPeer($context_value);
+                break;
+            case 'peer_name':
+            case 'verify_peer_name':
+            case 'local_pk':
+            case 'disable_compression':
+            case 'peer_fingerprint':
+            case 'security_level':
+            case 'allow_self_signed':
+            case 'cafile':
+            case 'capath':
+            case 'local_cert':
+            case 'passphrase':
+            case 'verify_depth':
+            case 'ciphers':
+            case 'capture_peer_cert':
+            case 'capture_peer_cert_chain':
+            case 'SNI_enabled':
+                throw new Exception('URLFetch does not support SSL stream context option ' . $context_key);
                 break;
             default:
-                throw new Exception('Invalid $context_key value' . $context_key);
+                throw new Exception('Invalid $context_key value ' . $context_key);
         }
     }
 
@@ -200,7 +225,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @param string $user_agent: 'User-Agent' header string.
      *
-     * @throws \Exception if $timeout is not of string type.
+     * @throws \Exception if $user_agent is not of string type.
      *
      * @return void.
      *
@@ -211,6 +236,24 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
             throw new Exception('User Agent value must of type string');
         }
         $this->user_agent = $user_agent;
+    }
+
+    /**
+     * Set requirement verification of SSL certificate.
+     *
+     * @param bool $verify_peer
+     *
+     * @throws \Exception if $timeout is not of string type.
+     *
+     * @return void.
+     *
+     */
+    private function setVerifyPeer($verify_peer)
+    {
+        if (!is_bool($verify_peer)) {
+            throw new Exception('Verify Peer value must of type bool');
+        }
+        $this->verify_peer = $verify_peer;
     }
 
     /**
@@ -255,7 +298,8 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
                     $this->content,
                     true,
                     true,
-                    $this->timeout);
+                    $this->timeout,
+                    $this->verify_peer);
             $this->url_fetch_response = $resp;
             $this->stream = new CachingStream(Stream::factory($resp->getContent()));
             $this->response_headers = array_merge([$resp->getStatuscode()], $resp->getHeaderList());
@@ -285,6 +329,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
         $this->timeout = 0.0;
         $this->method = 'GET';
         $this->user_agent = '';
+        $this->verify_peer = false;
     }
 
     /**
@@ -301,7 +346,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
 
     /**
      * Returns URL Stats, Unused. 
-     * Must have implementation here for stream wrapper.
+     * Must be implemented for stream wrapper.
      *
      * @return void.
      *

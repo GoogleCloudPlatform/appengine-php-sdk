@@ -23,6 +23,7 @@ use google\appengine\URLFetchRequest;
 use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchResponse;
 use google\appengine\URLFetchServiceError\ErrorCode;
+use \Exception as Exception;
 
 final class UrlFetch
 {
@@ -37,8 +38,8 @@ final class UrlFetch
     private static function errorCodeToException($error)
     {
         $urlfetch_exception = "UrlFetch Exception with Error Code: ";
-        $message = ' with message: ' . $e->getMessage() . " \n";
-        switch ($error) {
+        $message = ' with message: ' . $error->getMessage() . " \n";
+        switch ($error->getApplicationError()) {
             case ErrorCode::OK:
                 return new Exception($urlfetch_exception . 'Module Return OK.' . $message);
             case ErrorCode::INVALID_URL:
@@ -68,7 +69,7 @@ final class UrlFetch
             case ErrorCode::PAYLOAD_TOO_LARGE:
                 return new Exception($urlfetch_exception . 'Payload Too Large.' . $message);
             default:
-                return new ModulesException($urlfetch_exception . $error . $message);
+                return new Exception($urlfetch_exception . $error . $message);
         }
     }
 
@@ -176,7 +177,7 @@ final class UrlFetch
             ApiProxy::makeSyncCall(
                 'urlfetch', 'Fetch', $req, $resp);
         } catch (ApplicationError $e) {
-            throw $this->errorCodeToException($e->getApplicationError());
+            throw self::errorCodeToException($e);
         }
 
         //Allow Truncated.
