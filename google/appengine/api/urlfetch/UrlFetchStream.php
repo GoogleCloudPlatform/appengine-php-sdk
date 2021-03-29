@@ -42,7 +42,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     private $timeout = 0.0;
     private $method = 'GET';
     private $user_agent = '';
-    private $verify_peer = false;
+    private $verify_peer = true;
     protected $response_headers = null;
     
     /* IteratorAggregate */
@@ -329,7 +329,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
         $this->timeout = 0.0;
         $this->method = 'GET';
         $this->user_agent = '';
-        $this->verify_peer = false;
+        $this->verify_peer = true;
     }
 
     /**
