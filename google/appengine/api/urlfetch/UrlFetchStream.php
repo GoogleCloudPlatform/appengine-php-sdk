@@ -24,7 +24,7 @@ use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Stream\CachingStream;
 use \Exception as Exception;
 use ArrayAccess;
-use ArrayIterator
+use ArrayIterator;
 use IteratorAggregate;
 
 class UrlFetchStream implements IteratorAggregate, ArrayAccess 
@@ -303,7 +303,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
                     $this->verify_peer);
             $this->url_fetch_response = $resp;
             $this->stream = new CachingStream(Stream::factory($resp->getContent()));
-            $this->response_headers = array_merge([$resp->getStatuscode()], $resp->getHeaderList());
+            $this->response_headers = $this->buildHeaderArray($resp->getStatuscode(), $resp->getHeaderList());
         } catch (Exception $e) {
             echo 'Caught exception: ' . $e->getMessage() . "\n";
             exit($e->getTrace());
@@ -402,5 +402,19 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     public function stream_tell()
     {
         return $this->stream->tell();
+    }
+
+    /**
+      * Build the UrlFetch response header array.
+      *
+      * @return the current position of the stream as int.
+      *
+      */
+    private function buildHeaderArray($status_code, $header_list){
+        $header_arr = [$status_code];
+        foreach($header_list as $header) {
+            array_push($header_arr, $header->getValue());
+        }
+        return $header_arr;
     }
 }
