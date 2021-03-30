@@ -141,6 +141,12 @@ final class UrlFetch
         if (strncmp($url,'http://', 7) != 0 && strncmp($url,'https://', 8)!= 0) {
             throw new Exception('URL input must use http:// or https://');
         }
+
+        // Only allow validate certificate for https requests.
+        if (strncmp($url,'http://', 7) == 0) {
+          $validate_certificate = false;
+        }
+
     
         $req = new URLFetchRequest();
         $resp = new URLFetchResponse();
