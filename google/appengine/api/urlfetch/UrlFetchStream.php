@@ -411,9 +411,11 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
       *
       */
     private function buildHeaderArray($status_code, $header_list){
+        $s_row = sprintf('StatusCode: %s', $status_code);
         $header_arr = [$status_code];
         foreach($header_list as $header) {
-            array_push($header_arr, $header->getValue());
+            $row = sprintf('%s: %s', $header->getKey(), $header->getValue());
+            array_push($header_arr, $row);
         }
         return $header_arr;
     }
