@@ -23,8 +23,9 @@ use google\appengine\URLFetchServiceError\ErrorCode;
 use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Stream\CachingStream;
 use \Exception as Exception;
-use IteratorAggregate;
 use ArrayAccess;
+use ArrayIterator
+use IteratorAggregate;
 
 class UrlFetchStream implements IteratorAggregate, ArrayAccess 
 {
