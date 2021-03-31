@@ -305,7 +305,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
             $this->stream = new CachingStream(Stream::factory($resp->getContent()));
             $this->response_headers = $this->buildHeaderArray($resp->getStatuscode(), $resp->getHeaderList());
         } catch (Exception $e) {
-            echo 'Caught exception: ' . $e->getMessage() . "\n";
+            echo 'Caught exception: ' . print_r($e->getMessage(), true) . "\n";
             exit($e->getTrace());
         }
 
@@ -412,7 +412,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
       */
     private function buildHeaderArray($status_code, $header_list){
         $s_row = sprintf('StatusCode: %s', $status_code);
-        $header_arr = [$status_code];
+        $header_arr = [$s_row];
         foreach($header_list as $header) {
             $row = sprintf('%s: %s', $header->getKey(), $header->getValue());
             array_push($header_arr, $row);
