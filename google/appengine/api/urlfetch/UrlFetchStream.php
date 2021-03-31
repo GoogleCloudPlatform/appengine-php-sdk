@@ -308,7 +308,8 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
             echo '<br>Caught exception:<br>';
             var_dump($e->getMessage());
             echo '<br><br>';
-            exit($e->getTrace());
+            var_dump($e->getTrace());
+            exit();
         }
 
         if ($resp->getStatuscode() >= 400) {
