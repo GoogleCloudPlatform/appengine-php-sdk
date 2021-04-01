@@ -413,8 +413,12 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
       * @return the current position of the stream as int.
       *
       */
-    private function buildHeaderArray($status_code, $header_list){
-        $s_row = sprintf('StatusCode: %s', $status_code);
+    private function buildHeaderArray($status_code, $header_list)
+    {
+        $s_row = 'error';
+        if ($status_code === 200) {
+            $s_row = sprintf('HTTP/1.1 %s OK', $status_code);
+        } 
         $header_arr = [$s_row];
         foreach($header_list as $header) {
             $row = sprintf('%s: %s', $header->getKey(), $header->getValue());
