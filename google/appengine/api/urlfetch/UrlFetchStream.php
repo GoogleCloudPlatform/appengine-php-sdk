@@ -46,6 +46,11 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     private $verify_peer = true;
     protected $response_headers = null;
     
+    /**
+    * IteratorAggregate and ArrayAccess implements access to http response header data.
+    * This data can be fetched by using stream_get_meta_data().
+    */
+
     /* IteratorAggregate */
     public function getIterator() {
         return new ArrayIterator($this->response_headers);
@@ -72,7 +77,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * See link for a lists of HTTP and SSL options, and their types:
      *    https://www.php.net/manual/en/context.http.php
      *    https://www.php.net/manual/en/context.ssl.php
-     *s
+     *
      * @param string $context_key: Specifies the context type.
      * @param string $context_value: Specifies the context value to be set.
      *
@@ -262,7 +267,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @param string $url: Specifies the URL that was passed to the original function.
      * @param string $mode: UNUSED in the context of URLs.
-     * @param int $options_stream: UNUSED in the context of URLs.
+     * @param int $options_stream: Bitwise mask of options.
      * @param string $opened_path: UNUSED in the context of URLs.
      *
      * @throws \Exception if URLFetch request is nto successful.
@@ -305,11 +310,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
             $this->stream = new CachingStream(Stream::factory($resp->getContent()));
             $this->response_headers = $this->buildHeaderArray($resp->getStatuscode(), $resp->getHeaderList());
         } catch (Exception $e) {
-            echo '<br>Caught exception:<br>';
-            var_dump($e->getMessage());
-            echo '<br><br>';
-            var_dump($e->getTrace());
-            exit();
+            return $this->returnError($e->getMessage(), $options_stream);
         }
 
         if ($resp->getStatuscode() >= 400) {
@@ -425,5 +426,20 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
             array_push($header_arr, $row);
         }
         return $header_arr;
+    }
+
+    /**
+     * Helper for whether or not to trigger an error or just return false on an error.
+     *
+     * @param  string $message The PHP error message to emit.
+     * @param  int $flags Bitwise mask of options (STREAM_REPORT_ERRORS)
+     * @return bool Returns false
+     */
+    private function returnError($message, $flags)
+    {
+        if ($flags & STREAM_REPORT_ERRORS) {
+            trigger_error($message, E_USER_WARNING);
+        }
+        return false;
     }
 }

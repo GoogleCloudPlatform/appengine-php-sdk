@@ -49,12 +49,12 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $req->setFollowredirects(true);
         $req->setMustvalidateservercertificate(false);
         $header = new URLFetchRequest\Header();
-        $header->setKey('Content-type');
-        $header->setValue('application/x-www-form-urlencoded');
+        $header->setKey('key');
+        $header->setValue('value');
         $req->addHeader($header);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
-        $header_arr = ['Content-type' => 'application/x-www-form-urlencoded'];
+        $header_arr = ['key' => 'value'];
         $opts = ['http' =>
             [
                 'method' => 'POST',
@@ -80,12 +80,12 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $req->setFollowredirects(true);
         $req->setMustvalidateservercertificate(false);
         $header = new URLFetchRequest\Header();
-        $header->setKey('Content-type');
-        $header->setValue('application/x-www-form-urlencoded');
+        $header->setKey('key');
+        $header->setValue('value');
         $req->addHeader($header);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
-        $header_str = 'Content-type: application/x-www-form-urlencoded';
+        $header_str = 'key: value';
         $opts = ['http' =>
             [
                 'method' => 'POST',
@@ -111,7 +111,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $req->setFollowredirects(true);
         $req->setMustvalidateservercertificate(false);
         $header = new URLFetchRequest\Header();
-        $header->setKey('Content-type');
+        $header->setKey('Content-Type');
         $header->setValue('application/octet-stream');
         $req->addHeader($header);
         $header = new URLFetchRequest\Header();

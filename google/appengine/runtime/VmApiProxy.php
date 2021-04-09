@@ -166,7 +166,6 @@ class VmApiProxy extends ApiProxyBase{
     // @codingStandardsIgnoreStart
     $resp = @$client->request('POST', $endpoint_url, $opts);
     // @codingStandardsIgnoreEnd
-    $body = $resp->getBody();
     $serialized_remote_respone = (string) $resp->getBody();
 
     if ($serialized_remote_respone === false) {

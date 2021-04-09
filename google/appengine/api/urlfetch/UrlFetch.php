@@ -29,7 +29,7 @@ final class UrlFetch
 {
 
     /**
-     * Raises exceptions and maps to UrlFetch error codes.
+     * Maps UrlFetch error codes.
      *
      * @param ApplicationError: UrlFetch application error.
      *
@@ -146,7 +146,6 @@ final class UrlFetch
         if (strncmp($url,'http://', 7) == 0) {
           $validate_certificate = false;
         }
-
     
         $req = new URLFetchRequest();
         $resp = new URLFetchResponse();
@@ -171,7 +170,7 @@ final class UrlFetch
             $req->setPayload($payload);
         }
 
-        //Deadline.
+        // Deadline.
         if ($deadline  > 0.0) {
             $req->setDeadline($deadline);
         }
@@ -186,9 +185,9 @@ final class UrlFetch
             throw self::errorCodeToException($e);
         }
 
-        //Allow Truncated.
+        // Allow Truncated.
         if ($resp->getContentwastruncated() == true && !$allow_truncated) {
-            throw new Exception('Error: Output was truncated and allow_truncated option is not enabled.');
+            throw new Exception('Output was truncated and allow_truncated option is not enabled.');
         }
 
         return $resp;
