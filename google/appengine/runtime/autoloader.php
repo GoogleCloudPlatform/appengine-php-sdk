@@ -98,7 +98,6 @@ if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
         'google\appengine\runtime\realapiproxy' => 'google/appengine/runtime/RealApiProxy.php',
         'google\appengine\runtime\rpcfailederror' => 'google/appengine/runtime/RPCFailedError.php',
         'google\appengine\runtime\overquotaerror' => 'google/appengine/runtime/OverQuotaError.php',
-        'google\appengine\runtime\memcacheutils' => 'google/appengine/runtime/MemcacheUtils.php',
         'google\appengine\runtime\mail' => 'google/appengine/runtime/Mail.php',
         'google\appengine\runtime\glob' => 'google/appengine/runtime/Glob.php',
         'google\appengine\runtime\featurenotenablederror' => 'google/appengine/runtime/FeatureNotEnabledError.php',
