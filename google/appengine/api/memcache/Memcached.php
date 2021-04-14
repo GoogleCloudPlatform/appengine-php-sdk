@@ -23,6 +23,9 @@
  *
  */
 
+require_once  'google/appengine/api/Memcache.php';
+require_once  'google/appengine/api/MemcacheUtils.php';
+
 use google\appengine\MemcacheDeleteRequest;
 use google\appengine\MemcacheDeleteResponse;
 use google\appengine\MemcacheDeleteResponse\DeleteStatusCode;
