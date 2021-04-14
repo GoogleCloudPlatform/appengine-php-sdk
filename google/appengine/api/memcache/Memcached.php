@@ -23,8 +23,7 @@
  *
  */
 
-require_once  'google/appengine/api/memcache/Memcache.php';
-require_once  'google/appengine/api/memcache/MemcacheUtils.php';
+namespace google\appengine\api\memcache;
 
 use google\appengine\MemcacheDeleteRequest;
 use google\appengine\MemcacheDeleteResponse;

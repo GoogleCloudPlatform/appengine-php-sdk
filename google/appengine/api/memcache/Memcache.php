@@ -24,6 +24,9 @@
  * User provided "flags" arguments are currently ignored and many methods are
  * no-ops.
  */
+
+namespace google\appengine\api\memcache;
+
 use google\appengine\MemcacheDeleteRequest;
 use google\appengine\MemcacheDeleteResponse;
 use google\appengine\MemcacheDeleteResponse\DeleteStatusCode;
