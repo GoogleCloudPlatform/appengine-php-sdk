@@ -24,6 +24,10 @@
  * User provided "flags" arguments are currently ignored and many methods are
  * no-ops.
  */
+
+namespace google\appengine\api\memcache;
+
+use google\appengine\api\memcache\MemcacheUtils;
 use google\appengine\MemcacheDeleteRequest;
 use google\appengine\MemcacheDeleteResponse;
 use google\appengine\MemcacheDeleteResponse\DeleteStatusCode;
@@ -40,7 +44,6 @@ use google\appengine\MemcacheSetResponse;
 use google\appengine\MemcacheSetResponse\SetStatusCode;
 use google\appengine\runtime\ApiProxy;
 use google\appengine\runtime\Error;
-use google\appengine\runtime\MemcacheUtils;
 
 // Define constants for compatibility, but they will be ignored.
 const MEMCACHE_COMPRESSED = 2;

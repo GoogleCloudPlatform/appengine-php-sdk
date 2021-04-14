@@ -19,10 +19,11 @@
  *
  */
 
-namespace google\appengine\runtime;
+namespace google\appengine\api\memcache;
 
 use google\appengine\MemcacheSetRequest;
 use google\appengine\MemcacheSetResponse;
+use google\appengine\runtime\ApiProxy;
 
 class MemcacheUtils {
 

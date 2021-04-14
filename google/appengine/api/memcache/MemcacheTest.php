@@ -19,9 +19,7 @@
  *
  */
 
-require_once 'google/appengine/api/memcache/memcache_service_pb.php';
-require_once 'google/appengine/runtime/Memcache.php';
-require_once 'google/appengine/testing/ApiProxyTestBase.php';
+namespace google\appengine\api\memcache;
 
 use google\appengine\MemcacheDeleteRequest;
 use google\appengine\MemcacheDeleteResponse;
