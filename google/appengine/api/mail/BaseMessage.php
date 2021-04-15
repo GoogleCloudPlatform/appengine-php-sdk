@@ -190,9 +190,9 @@ abstract class BaseMessage {
   /**
    * Adds a header pair to the mail object.
    *
-   * @param string $key Header name (from the whitelist) to be added.
+   * @param string $key Header name (from the allowlist) to be added.
    * @param string $value Header value to be added.
-   * @throws \InvalidArgumentException If the header is not on the whitelist, or
+   * @throws \InvalidArgumentException If the header is not on the allowlist, or
    * if the header is invalid (i.e. not a string).
    */
   public function addHeader($key, $value) {
@@ -209,7 +209,7 @@ abstract class BaseMessage {
    *
    * @param array An array of headers.
    * @throws \InvalidArgumentException If the input is not an array, or if
-   * headers are not on the whitelist, or if a header is invalid
+   * headers are not on the allowlist, or if a header is invalid
    * (i.e. not a string).
    */
   public function addHeaderArray($header_array) {
@@ -292,7 +292,7 @@ abstract class BaseMessage {
       return false;
     } else if (!in_array(strtolower($key), self::$allowed_headers)) {
       // Array keys don't have consistent case.
-      $error = sprintf("Input header '%s: %s' is not whitelisted for use with" .
+      $error = sprintf("Input header '%s: %s' is not allowlisted for use with" .
                        " the Google App Engine Mail Service.",
                        htmlspecialchars($key),
                        htmlspecialchars($value));
