@@ -22,6 +22,8 @@
 
 namespace google\appengine\ext\cloud_storage_streams;
 
+use google\appengine\api\memcache\Memcached;
+
 // TODO: Retry on transient errors.
 
 final class CloudStorageWriteClient extends CloudStorageClient {
@@ -285,7 +287,7 @@ final class CloudStorageWriteClient extends CloudStorageClient {
           $key_names[] = static::getReadMemcacheKey($this->url,
                                                     $range['Range']);
         }
-        $memcached = new \Memcached();
+        $memcached = new Memcached();
         $memcached->deleteMulti($key_names);
       }
     }

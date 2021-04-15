@@ -21,6 +21,8 @@
 
 namespace google\appengine\ext\cloud_storage_streams;
 
+use google\appengine\api\memcache\Memcache;
+
 use google\appengine\util\StringUtil;
 
 /**
@@ -253,7 +255,7 @@ final class CloudStorageUrlStatClient extends CloudStorageClient {
    */
   private function isBucketWritable($bucket) {
     $cache_key_name = sprintf(parent::WRITABLE_MEMCACHE_KEY_FORMAT, $bucket);
-    $memcache = new \Memcache();
+    $memcache = new Memcache();
     $result = $memcache->get($cache_key_name);
 
     if ($result) {

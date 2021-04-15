@@ -23,6 +23,8 @@
 
 namespace google\appengine\ext\cloud_storage_streams;
 
+use google\appengine\api\memcache\Memcache;
+
 /**
  * Google Cloud Storage Client for reading objects.
  */
@@ -69,7 +71,7 @@ final class CloudStorageReadClient extends CloudStorageClient {
 
   public function __construct($bucket, $object, $context) {
     parent::__construct($bucket, $object, $context);
-    $this->memcache_client = new \Memcache();
+    $this->memcache_client = new Memcache();
   }
 
   public function __destruct() {

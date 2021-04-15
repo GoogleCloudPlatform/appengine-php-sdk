@@ -162,7 +162,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
           'expiration_time' => 12345,
       ]));
       $item->setFlags(
-          \google\appengine\runtime\MemcacheUtils::TYPE_PHP_SERIALIZED);
+          \google\appengine\api\memcache\MemcacheUtils::TYPE_PHP_SERIALIZED);
     }
 
     $this->apiProxyMock->expectCall('memcache',
@@ -205,7 +205,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
                              AppIdentityService::EXPIRY_SAFETY_MARGIN_SECS -
                              AppIdentityService::EXPIRY_SHORT_MARGIN_SECS);
     $item->setFlags(
-        \google\appengine\runtime\MemcacheUtils::TYPE_PHP_SERIALIZED);
+         \google\appengine\api\memcache\MemcacheUtils::TYPE_PHP_SERIALIZED);
     $item->setSetPolicy(1); // Add
     $resp = new \google\appengine\MemcacheSetResponse();
     $resp->addSetStatus(1); // Stored

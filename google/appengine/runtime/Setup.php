@@ -23,8 +23,8 @@ namespace google\appengine\runtime {
 
   // Ensure that the class autoloader is the first include.
   require_once 'google/appengine/runtime/autoloader.php';
-  require_once 'google/appengine/runtime/Memcache.php';
-  require_once 'google/appengine/runtime/Memcached.php';
+  require_once 'google/appengine/api/memcache/Memcache.php';
+  require_once 'google/appengine/api/memcache/Memcached.php';
 
   // Setup the Memcache session handler
   MemcacheSessionHandler::configure();

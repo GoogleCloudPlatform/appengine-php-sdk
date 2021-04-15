@@ -20,6 +20,7 @@
 
 namespace google\appengine\api\app_identity;
 
+use google\appengine\api\memcache\Memcache;
 use google\appengine\AppIdentityServiceError\ErrorCode;
 use google\appengine\GetAccessTokenRequest;
 use google\appengine\GetAccessTokenResponse;
@@ -276,7 +277,7 @@ final class AppIdentityService {
   private static function putTokenInCache($name, $value, $expiry_secs) {
     $expiry_time_from_epoch = $expiry_secs - self::EXPIRY_SAFETY_MARGIN_SECS -
         self::EXPIRY_SHORT_MARGIN_SECS;
-    $memcache = new \Memcache();
+    $memcache = new Memcache();
     $memcache->set($name, $value, null, $expiry_time_from_epoch);
     // Record the expiry time in the object being cached, so we can check it
     // when read from APC.
@@ -318,7 +319,7 @@ final class AppIdentityService {
       unset($result['eviction_time_epoch']);
       return $result;
     }
-    $memcache = new \Memcache();
+    $memcache = new Memcache();
     $result = $memcache->get($name);
     // If there was a result in memcache but not in apc we can add using a
     // short timeout.
