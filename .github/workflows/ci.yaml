@@ -10,28 +10,28 @@ jobs:
           operating-system: [ubuntu-latest, windows-latest, macos-latest]
           php-versions: ['7.1', '7.2', '7.3', '7.4']
 
-        name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
-        steps:
-          - name: Checkout - Git Clone
-            uses: actions/checkout@v2
+      name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+      steps:
+        - name: Checkout - Git Clone
+          uses: actions/checkout@v2
 
-          - name: Setup PHP
-            uses: shivammathur/setup-php@v2
-            with:
-              php-version: ${{ matrix.php-versions }}
-              coverage: none
-  
-          - name: Composer update
-            run: composer self-update
+        - name: Setup PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ matrix.php-versions }}
+            coverage: none
 
-          - name: Install dependencies     
-            run: composer install --prefer-dist --no-interaction
+        - name: Composer update
+          run: composer self-update
 
-          - name: Create log directory
-            run: mkdir -p build/logs
+        - name: Install dependencies     
+          run: composer install --prefer-dist --no-interaction
 
-          - name: Run phpunit
-            run: phpunit --coverage-clover build/logs/clover.xml
+        - name: Create log directory
+          run: mkdir -p build/logs
 
-          - name: Coveralls
-            run: vendor/bin/coveralls -v
+        - name: Run phpunit
+          run: phpunit --coverage-clover build/logs/clover.xml
+
+        - name: Coveralls
+          run: vendor/bin/coveralls -v
