@@ -45,11 +45,11 @@ abstract class BaseMessage {
       'auto-submitted', 'in-reply-to', 'list-id', 'list-unsubscribe',
       'on-behalf-of', 'references', 'resent-date', 'resent-from', 'resent-to');
 
-  // Blacklisted extension types.
-  protected static $extension_blacklist = array(
+  // Denied extension types.
+  protected static $extension_denylist = [
       'ade', 'adp', 'bat', 'chm', 'cmd', 'com', 'cpl', 'exe', 'hta', 'ins',
       'isp', 'jse', 'lib', 'mde', 'msc', 'msp', 'mst', 'pif', 'scr', 'sct',
-      'shb', 'sys', 'vb', 'vbe', 'vbs', 'vxd', 'wsc', 'wsf', 'wsh');
+      'shb', 'sys', 'vb', 'vbe', 'vbs', 'vxd', 'wsc', 'wsf', 'wsh'];
 
   // Setter functions for constructor.
   protected static $set_functions = array('sender' => 'setSender',
@@ -60,6 +60,7 @@ abstract class BaseMessage {
                                         'subject' => 'setSubject',
                                         'textBody' => 'setTextBody',
                                         'htmlBody' => 'setHtmlBody',
+                                        'ampHtmlBody' => 'setAmpHtmlBody',
                                         'header' => 'addHeaderArray',
                                         'attachment' => 'addAttachmentArray',
                                         'attachments' => 'addAttachmentsArray');
@@ -107,7 +108,7 @@ abstract class BaseMessage {
    * attachment. Must be enclosed by angle brackets (<>).
    * @throws \InvalidArgumentException If the input is not an array or if the
    * attachment type is invalid (i.e. the filename is not a string, or the
-   * file extension is blacklisted).
+   * file extension is denied).
    */
   public function addAttachment($filename, $data, $content_id = null) {
     $this->addAttachmentsArray([["name" => $filename,
@@ -122,7 +123,7 @@ abstract class BaseMessage {
    *    Example: array("filename.txt" => "This is the file contents.");
    * @throws \InvalidArgumentException If the input is not an array or if the
    * attachment type is invalid (i.e. the filename is not a string, or the
-   * file extension is blacklisted).
+   * file extension is denied).
    * @deprecated
    */
   public function addAttachmentArray($attach_array) {
@@ -157,7 +158,7 @@ abstract class BaseMessage {
    * [['name' => 'foo.jpg', 'data' => 'data', 'content_id' => '<foo>']]
    * @throws \InvalidArgumentException If the input is not an array or if the
    * attachment type is invalid (i.e. the filename is not a string, or the
-   * file extension is blacklisted).
+   * file extension is denied).
    */
   public function addAttachmentsArray($attach_array) {
     if (!is_array($attach_array)) {
@@ -248,8 +249,8 @@ abstract class BaseMessage {
 
     $path_parts = pathinfo($filename);
     if (isset($path_parts['extension'])) {
-      if (in_array($path_parts['extension'], self::$extension_blacklist)) {
-        $error = sprintf("'%s' is a blacklisted file extension.",
+      if (in_array($path_parts['extension'], self::$extension_denylist)) {
+        $error = sprintf("'%s' is a denied file extension.",
                          $path_parts['extension']);
         return false;
       }
@@ -358,6 +359,23 @@ abstract class BaseMessage {
       throw new \InvalidArgumentException($error);
     }
     $this->message->setHtmlbody($text);
+  }
+
+  /**
+   * Sets AMP HTML content for the email body. This field is optional. Setting
+   * AMP HTML body makes the email an AMP Email. Plain text or HTML may become
+   * fallback content depending on the email client used.
+   *
+   * @param string $text AMP HTML to add.
+   * @throws \InvalidArgumentException If text is not a string.
+   */
+  public function setAmpHtmlBody($text) {
+    if (!is_string($text)) {
+      $error = sprintf('AMP HTML text given is not a string (Actual type: %s).',
+                       gettype($text));
+      throw new \InvalidArgumentException($error);
+    }
+    $this->message->setAmpHtmlbody($text);
   }
 
   /**

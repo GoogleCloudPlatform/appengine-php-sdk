@@ -14,17 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * Google Cloud Storage Read Client - Implements only the methods required to
- * read bytes from GCS using stream wrappers. For a fully fledged client
- * to access Google Cloud Storage you should consult the Google API client.
- *
- */
 
 namespace google\appengine\ext\cloud_storage_streams;
 
 /**
- * Google Cloud Storage Client for reading objects.
+ * Google Cloud Storage Read Client - Implements only the methods required to
+ * read bytes from GCS using stream wrappers. For a fully fledged client
+ * to access Google Cloud Storage you should consult the Google API client.
  */
 final class CloudStorageReadClient extends CloudStorageClient {
   // Buffer for storing data.
@@ -367,4 +363,3 @@ final class CloudStorageReadClient extends CloudStorageClient {
     return true;
   }
 }
-

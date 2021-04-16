@@ -30,7 +30,7 @@ class VmApiProxy extends ApiProxyBase{
   const TICKET_HEADER = 'HTTP_X_APPENGINE_API_TICKET';
   const DEV_TICKET_HEADER = 'HTTP_X_APPENGINE_DEV_REQUEST_ID';
   const DAPPER_ENV_KEY = 'HTTP_X_GOOGLE_DAPPERTRACEINFO';
-  const SERVICE_BRIDGE_HOST = 'appengine.googleapis.com';
+  const SERVICE_BRIDGE_HOST = 'appengine.googleapis.internal';
   const API_PORT = 10001;
   const SERVICE_ENDPOINT_NAME = 'app-engine-apis';
   const APIHOST_METHOD = '/VMRemoteAPI.CallRemoteAPI';

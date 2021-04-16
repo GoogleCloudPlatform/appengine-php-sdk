@@ -2618,7 +2618,6 @@ class CloudStorageStreamWrapperTest extends ApiProxyTestBase {
  * by gae extension, but is not on devappserver. INI will always be true during
  * these tests.
  *
- * - google_app_engine.enable_additional_cloud_storage_headers: true
  * - google_app_engine.enable_gcs_stat_cache: true
  *
  * @param string $varname
@@ -2630,10 +2629,7 @@ class CloudStorageStreamWrapperTest extends ApiProxyTestBase {
  *
  * @see http://php.net/ini_get
  */
-function ini_get($varname)  {
-  if ($varname == 'google_app_engine.enable_additional_cloud_storage_headers') {
-    return true;
-  }
+function ini_get($varname) {
   if ($varname == 'google_app_engine.enable_gcs_stat_cache') {
     return true;
   }
