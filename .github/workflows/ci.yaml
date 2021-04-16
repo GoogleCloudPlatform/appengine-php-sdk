@@ -1,14 +1,19 @@
 name: CI
 
-on: [push, pull_request]
-
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
 jobs:
     run:
       runs-on: ${{ matrix.operating-system }}
       strategy:
         matrix:
           operating-system: [ubuntu-latest, windows-latest, macos-latest]
-          php-versions: ['7.1', '7.2', '7.3', '7.4']
+          php-versions: [7.2', '7.3', '7.4']
 
       name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
       steps:
@@ -23,9 +28,6 @@ jobs:
             php-version: ${{ matrix.php-versions }}
             coverage: xdebug
             tools: php-cs-fixer, phpunit
-
-        - name: Composer update
-          run: composer self-update
 
         - name: Install dependencies     
           run: composer install --prefer-dist --no-interaction
