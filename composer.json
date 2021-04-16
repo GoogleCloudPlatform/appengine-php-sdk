@@ -10,12 +10,11 @@
         "forum": "https://groups.google.com/forum/#!forum/google-appengine"
     },
     "require": {
-        "guzzlehttp/psr7": "^1.6",
         "php": ">=5.4.0"
     },
     "require-dev": {
         "mikey179/vfsstream": "~1",
-        "phpunit/phpunit": "^7.0|^8.0",
+        "phpunit/phpunit": "4.6.*",
         "php-coveralls/php-coveralls": "dev-master"
     },
     "autoload": {
