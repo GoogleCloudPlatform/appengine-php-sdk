@@ -12,8 +12,10 @@ jobs:
 
       name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
       steps:
-        - name: Checkout - Git Clone
+        - name: Setup dependencies
           uses: actions/checkout@v2
+          uses: php-actions/composer@v5
+          uses: php-actions/phpunit@v2
 
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
