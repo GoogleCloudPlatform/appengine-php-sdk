@@ -17,7 +17,7 @@
 namespace google\appengine\runtime;
 
 class DirectUploadHandlerTest extends \PHPUnit\Framework\TestCase {
-  public static function setUpBeforeClass() {
+  public static function setUpBeforeClass(): void {
     VirtualFileSystem::getInstance()->initialize();
   }
 
