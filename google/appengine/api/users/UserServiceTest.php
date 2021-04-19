@@ -26,7 +26,7 @@ use google\appengine\UserServiceError;
  * Unittest for UserService class.
  */
 class UserServiceTest extends ApiProxyTestBase {
-  public function tearDown() {
+  public function tearDown(): void {
     putenv("AUTH_DOMAIN");
     parent::tearDown();
   }
