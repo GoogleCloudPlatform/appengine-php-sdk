@@ -20,7 +20,7 @@ require_once 'google/appengine/datastore/datastore_v4_pb.php';
 
 use \google\appengine\datastore\v4\Error\ErrorCode;
 
-class DatastoreV4ProtoTest extends\PHPUnit_Framework_TestCase {
+class DatastoreV4ProtoTest extends\PHPUnit\Framework\TestCase {
   public function testTrivial() {
     $this->assertEquals(1, ErrorCode::BAD_REQUEST);
   }
