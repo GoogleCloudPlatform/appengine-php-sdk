@@ -54,7 +54,7 @@ namespace google\appengine\api\log {
     const RPC_FLUSH_METHOD = 'Flush';
     const DEFAULT_BATCH_SIZE = 20;
 
-    public function setUp() {
+    public function setUp():void {
       parent::setUp();
       error_reporting(E_ALL);
       putenv('APPLICATION_ID='. self::APPLICATION_ID);
