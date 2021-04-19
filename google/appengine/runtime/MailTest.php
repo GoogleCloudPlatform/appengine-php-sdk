@@ -29,7 +29,7 @@ use google\appengine\testing\ApiProxyTestBase;
  */
 class MailTest extends ApiProxyTestBase {
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
     ini_set('sendmail_from', '');
     putenv('APPLICATION_ID=');

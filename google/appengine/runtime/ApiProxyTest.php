@@ -54,7 +54,7 @@ function make_call($package,
 /**
  * Unittest for ApiProxy class.
  */
-class ApiProxyTest extends \PHPUnit_Framework_TestCase {
+class ApiProxyTest extends \PHPUnit\Framework\TestCase {
 
   /**
    * Checks that an expected exception corresponds to a
