@@ -30,14 +30,14 @@ use google\appengine\TaskQueueServiceError\ErrorCode;
 
 class PushQueueTest extends ApiProxyTestBase {
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
     $this->_SERVER = $_SERVER;
     // Mock out any microtime() calls.
     MockMicrotime::reset();
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     $_SERVER = $this->_SERVER;
     parent::tearDown();
   }
