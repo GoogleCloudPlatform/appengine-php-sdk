@@ -116,7 +116,7 @@ class ModulesTest extends ApiProxyTestBase {
   }
 
   public function testGetVersionsWithIntegerModule() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$module must be a string. Actual type: integer');
     ModulesService::getVersions(5);
   }
@@ -148,13 +148,13 @@ class ModulesTest extends ApiProxyTestBase {
   }
 
   public function testGetNumInstancesWithIntegerModule() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$module must be a string. Actual type: integer');
     ModulesService::getNumInstances(5);
   }
 
   public function testGetNumInstancesWithIntegerVersion() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$version must be a string. Actual type: integer');
     ModulesService::getNumInstances('module1', 5);
   }
@@ -163,7 +163,7 @@ class ModulesTest extends ApiProxyTestBase {
     $req = new GetNumInstancesRequest();
     $resp = new ApplicationError(ErrorCode::INVALID_MODULE, 'invalid module');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\modules\ModulesException');
     $this->apiProxyMock->expectCall('modules', 'GetNumInstances', $req, $resp);
 
@@ -196,19 +196,19 @@ class ModulesTest extends ApiProxyTestBase {
   }
 
   public function testSetNumInstancesWithStringInstances() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$instances must be an integer. Actual type: string');
     ModulesService::setNumInstances('hello');
   }
 
   public function testSetNumInstancesWithIntegerModule() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$module must be a string. Actual type: integer');
     ModulesService::setNumInstances(5, 10);
   }
 
   public function testSetNumInstancesWithIntegerVersion() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$version must be a string. Actual type: integer');
     ModulesService::setNumInstances(5, 'module1', 5);
   }
@@ -219,7 +219,7 @@ class ModulesTest extends ApiProxyTestBase {
 
     $req->setInstances(3);
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\modules\ModulesException');
     $this->apiProxyMock->expectCall('modules', 'SetNumInstances', $req, $resp);
 
@@ -241,13 +241,13 @@ class ModulesTest extends ApiProxyTestBase {
   }
 
   public function testStartModuleWithIntegerModule() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$module must be a string. Actual type: integer');
     ModulesService::startVersion(5, 'v1');
   }
 
   public function testStartModuleWithIntegerVersion() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$version must be a string. Actual type: integer');
     ModulesService::startVersion('module1', 5);
   }
@@ -260,7 +260,7 @@ class ModulesTest extends ApiProxyTestBase {
     $req->setModule('module1');
     $req->setVersion('v1');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\modules\TransientModulesException');
     $this->apiProxyMock->expectCall('modules', 'StartModule', $req, $resp);
 
@@ -292,13 +292,13 @@ class ModulesTest extends ApiProxyTestBase {
   }
 
   public function testStopModuleWithIntegerModule() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$module must be a string. Actual type: integer');
     ModulesService::stopVersion(5, 'v1');
   }
 
   public function testStopModuleWithIntegerVersion() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$version must be a string. Actual type: integer');
     ModulesService::stopVersion('module1', 5);
   }
@@ -311,7 +311,7 @@ class ModulesTest extends ApiProxyTestBase {
     $req->setModule('module1');
     $req->setVersion('v1');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\modules\TransientModulesException');
     $this->apiProxyMock->expectCall('modules', 'StopModule', $req, $resp);
 
@@ -364,19 +364,19 @@ class ModulesTest extends ApiProxyTestBase {
   }
 
   public function testGetHostnameWithIntegerModule() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$module must be a string. Actual type: integer');
     ModulesService::getHostname(5);
   }
 
   public function testGetHostnameWithIntegerVersion() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$version must be a string. Actual type: integer');
     ModulesService::getHostname('module1', 5);
   }
 
   public function testGetHostnameWithArrayInstance() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
       '$instance must be an integer or string. Actual type: array');
     ModulesService::getHostname('module1', 'v1', []);
   }
@@ -386,7 +386,7 @@ class ModulesTest extends ApiProxyTestBase {
     $resp = new ApplicationError(ErrorCode::INVALID_INSTANCES,
                                  'invalid instances');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\modules\ModulesException');
     $this->apiProxyMock->expectCall('modules', 'GetHostname', $req, $resp);
 

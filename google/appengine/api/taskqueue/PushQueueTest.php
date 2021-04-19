@@ -72,7 +72,7 @@ class PushQueueTest extends ApiProxyTestBase {
   }
 
   public function testConstructorNameWrongType() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         '$name must be a string. Actual type: integer');
     $queue = new PushQueue(54321);
   }
@@ -85,7 +85,7 @@ class PushQueueTest extends ApiProxyTestBase {
   }
 
   public function testAddTaskTooBig() {
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\taskqueue\TaskQueueException',
         'Task greater than maximum size of ' . PushTask::MAX_TASK_SIZE_BYTES);
     // Althought 102400 is the max size, it's for the serialized proto which
@@ -95,14 +95,14 @@ class PushQueueTest extends ApiProxyTestBase {
   }
 
   public function testPushQueueAddTasksWrongType() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         '$tasks must be an array. Actual type: string');
     $queue = new PushQueue();
     $task_names = $queue->addTasks('not an array');
   }
 
   public function testPushQueueAddTasksWrongValueType() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'All values in $tasks must be instances of PushTask. ' .
         'Actual type: double');
     $queue = new PushQueue();
@@ -110,7 +110,7 @@ class PushQueueTest extends ApiProxyTestBase {
   }
 
   public function testPushQueueAddTasksTooMany() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         '$tasks must contain at most 100 tasks. Actual size: 101');
     $tasks = [];
     for ($i = 0; $i < 101; $i++) {
@@ -197,7 +197,7 @@ class PushQueueTest extends ApiProxyTestBase {
     $task_result->setResult(ErrorCode::TOMBSTONED_TASK);
     $task_result->setChosenTaskName('bob');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\taskqueue\TaskAlreadyExistsException');
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $resp);
 
@@ -219,7 +219,7 @@ class PushQueueTest extends ApiProxyTestBase {
     $task_result->setResult(ErrorCode::UNKNOWN_QUEUE);
     $task_result->setChosenTaskName('bob');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\taskqueue\TaskQueueException',
         'Unknown queue');
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $resp);
@@ -243,7 +243,7 @@ class PushQueueTest extends ApiProxyTestBase {
     $task_result->setResult(ErrorCode::UNKNOWN_QUEUE);
     $task_result->setChosenTaskName('bob');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\taskqueue\TaskQueueException',
         'Unknown queue');
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $resp);
@@ -266,7 +266,7 @@ class PushQueueTest extends ApiProxyTestBase {
     $task_result->setResult(ErrorCode::TOO_MANY_TASKS);
     $task_result->setChosenTaskName('bob');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\taskqueue\TaskQueueException',
         'Too many tasks in request.');
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $resp);

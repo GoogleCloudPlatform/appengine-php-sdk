@@ -29,7 +29,7 @@ use google\appengine\testing\ApiProxyTestBase;
 class MessageTest extends ApiProxyTestBase {
   public function testConstructorBadValues() {
     $options = array("fakeSet" => "test");
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Message received an invalid option: fakeSet");
     $message = new Message($options);
@@ -37,21 +37,21 @@ class MessageTest extends ApiProxyTestBase {
 
   public function testConstructNonString() {
     $options = "test";
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException", "Message expects an array, not string");
     $message = new Message($options);
   }
 
   public function testAddAttachmentError() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         'InvalidArgumentException', "'exe' is a denied file extension.");
     $message->addAttachment("file.exe", "data");
   }
 
   public function testAddAttachmentFilenameTypeError() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Filename must be a string but was type integer");
     $message->addAttachment(7, "data");
@@ -123,7 +123,7 @@ class MessageTest extends ApiProxyTestBase {
 
   public function testAddHeaderNonAllowlisted() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Input header 'invalid-header: data' is not allowlisted for use with" .
         " the Google App Engine Mail Service.");
@@ -132,7 +132,7 @@ class MessageTest extends ApiProxyTestBase {
 
   public function testAddHeaderWrongKeyType() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Header key is not a string (Actual type: array).");
     $message->addHeader(array("not-string"), "data");
@@ -140,7 +140,7 @@ class MessageTest extends ApiProxyTestBase {
 
   public function testAddHeaderArray() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Input is not an array (Actual type: string).");
     $message->addHeaderArray("string");
@@ -148,7 +148,7 @@ class MessageTest extends ApiProxyTestBase {
 
   public function testInvalidContentId() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Content-id must begin and end with angle brackets.");
     $message->addAttachment("foo.jpg", "image data", "invalid content id");
@@ -156,7 +156,7 @@ class MessageTest extends ApiProxyTestBase {
 
   public function testSetHtmlBody() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "HTML text given is not a string (Actual type: array).");
     $message->setHtmlBody(array("text"));
@@ -164,21 +164,21 @@ class MessageTest extends ApiProxyTestBase {
 
   public function testSetReplyTo() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException", "Invalid reply-to: invalid.email");
     $message->setReplyTo("invalid.email");
   }
 
   public function testSetSender() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException", "Invalid sender: invalid.email");
     $message->setSender("invalid.email");
   }
 
   public function testSetSubject() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Subject given is not a string (Actual type: array).");
     $message->setSubject(array("test"));
@@ -186,7 +186,7 @@ class MessageTest extends ApiProxyTestBase {
 
   public function testSetTextBody() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Plain text given is not a string (Actual type: array).");
     $message->setTextBody(array("text"));
@@ -194,14 +194,14 @@ class MessageTest extends ApiProxyTestBase {
 
   public function testSendNoSender() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException", "Required field sender is not provided.");
     $message->send();
   }
 
   public function testSendNoRecipient() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Neither to, cc or bcc is set - at least one is required.");
     $message->setSender("test@example.com");
@@ -210,7 +210,7 @@ class MessageTest extends ApiProxyTestBase {
 
   public function testSendNoSubject() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Required field subject is not provided.");
     $message->setSender("test@example.com");
@@ -220,7 +220,7 @@ class MessageTest extends ApiProxyTestBase {
 
   public function testSendNoBody() {
     $message = new Message();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Neither a plain-text nor HTML body is provided - at least one is " .
         "required.");
@@ -457,7 +457,7 @@ class MessageTest extends ApiProxyTestBase {
     $this->setupMessageSimple($message, $message_proto);
 
     $exception = new ApplicationError(ErrorCode::INTERNAL_ERROR, "test");
-    $this->setExpectedException("RuntimeException", "test");
+    $this->expectException("RuntimeException", "test");
 
     $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $exception);
     $message->send();
@@ -470,7 +470,7 @@ class MessageTest extends ApiProxyTestBase {
     $this->setupMessageSimple($message, $message_proto);
 
     $exception = new ApplicationError(ErrorCode::BAD_REQUEST, "test");
-    $this->setExpectedException("RuntimeException", "test");
+    $this->expectException("RuntimeException", "test");
 
     $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $exception);
     $message->send();
@@ -483,7 +483,7 @@ class MessageTest extends ApiProxyTestBase {
     $this->setupMessageSimple($message, $message_proto);
 
     $exception = new ApplicationError(ErrorCode::UNAUTHORIZED_SENDER, "test");
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Mail Service Error: Sender (test@example.com) is not an ".
         "authorized email address.");
@@ -501,7 +501,7 @@ class MessageTest extends ApiProxyTestBase {
 
     $exception = new ApplicationError(ErrorCode::INVALID_ATTACHMENT_TYPE,
                                       "test");
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Mail Service Error: Invalid attachment type.");
 
@@ -517,7 +517,7 @@ class MessageTest extends ApiProxyTestBase {
     $this->setupMessageSimple($message, $message_proto);
 
     $exception = new ApplicationError(ErrorCode::INVALID_HEADER_NAME, "test");
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Mail Service Error: Invalid header name.");
 

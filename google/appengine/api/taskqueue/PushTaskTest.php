@@ -59,57 +59,57 @@ class PushTaskTest extends ApiProxyTestBase {
   }
 
   public function testConstructorUrlWrongType() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'url_path must be a string. Actual type: integer');
     $task = new PushTask(999, ['key' => 'some value']);
   }
 
   public function testConstructorUrlEmpty() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         "url_path must begin with '/'.");
     $task = new PushTask('', ['key' => 'some value']);
   }
 
   public function testConstructorUrlWithoutLeadingSlash() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         "url_path must begin with '/'.");
     $task = new PushTask('wrong', ['key' => 'some value']);
   }
 
   public function testConstructorUrlMustNotContainQueryString() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'query strings not allowed in url_path.');
     $task = new PushTask('/someurl?');
   }
 
   public function testConstructorQueryDataWrongType() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'query_data must be an array. Actual type: string');
     $task = new PushTask('/myUrl', 'abc');
   }
 
   public function testConstructorOptionsWrongType() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'options must be an array. Actual type: integer');
     $task = new PushTask('/someUrl', ['key' => 'some value'], 123);
   }
 
   public function testConstructorUnknownOptions() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'Invalid options supplied: nonsense');
     $task = new PushTask('/someUrl', ['key' => 'some value'],
                          ['nonsense' => 123]);
   }
 
   public function testConstructorInvalidMethod() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'Invalid method: POSTIT');
     $task = new PushTask('/someUrl', ['key' => 'some value'],
                          ['method' => 'POSTIT']);
   }
 
   public function testConstructorInvalidName() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'name must be a string. Actual type: integer');
     $task = new PushTask('/someUrl', ['key' => 'some value'],
                          ['name' => 55]);
@@ -117,7 +117,7 @@ class PushTaskTest extends ApiProxyTestBase {
 
   public function testConstructorNameTooLong() {
     $name = str_repeat('a', 501);
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'name exceeds maximum length of 500. First 1000 ' .
         'characters of name: ' . $name);
     $task = new PushTask('/someUrl', ['key' => 'some value'],
@@ -131,21 +131,21 @@ class PushTaskTest extends ApiProxyTestBase {
   }
 
   public function testConstructorNameBadCharacters() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'name must match pattern: ' . PushTask::NAME_PATTERN .  '. name: @');
     $task = new PushTask('/someUrl', ['key' => 'some value'],
                        ['name' => '@']);
   }
 
   public function testConstructorInvalidDelaySeconds() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'delay_seconds must be a numeric type.');
     $task = new PushTask('/someUrl', ['key' => 'some value'],
                          ['delay_seconds' => 'a few']);
   }
 
   public function testConstructorNegativeDelaySeconds() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'delay_seconds must be between 0 and ' . PushTask::MAX_DELAY_SECONDS .
         ' (30 days). delay_seconds: -1');
     $task = new PushTask('/someUrl', ['key' => 'some value'],
@@ -154,7 +154,7 @@ class PushTaskTest extends ApiProxyTestBase {
 
   public function testConstructorDelaySecondsTooBig() {
     $delay = 1 + 30 * 86400;
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'delay_seconds must be between 0 and ' . PushTask::MAX_DELAY_SECONDS .
         ' (30 days). delay_seconds: ' . $delay);
     $task = new PushTask('/someUrl', ['key' => 'some value'],
@@ -169,7 +169,7 @@ class PushTaskTest extends ApiProxyTestBase {
 
   public function testConstructorUrlTooBig() {
     $url = '/' . str_repeat('b', 2083);
-    $this->setExpectedException(
+    $this->expectException(
         '\InvalidArgumentException',
         'URL length greater than maximum of ' . PushTask::MAX_URL_LENGTH) .
         '. URL: ' . $url;
@@ -177,33 +177,33 @@ class PushTaskTest extends ApiProxyTestBase {
   }
 
   public function testConstructorHeaderWrongType() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'header must be a string. Actual type: double');
     $t = new PushTask('/some-url', ['user-key' => 'user-data'],
         ['header' => 50.0]);
   }
 
   public function testConstructorHeaderWithoutColon() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'Each header must contain a colon. Header: bad-header!');
     $t = new PushTask('/some-url', ['user-key' => 'user-data'],
         ['header' => 'bad-header!']);
   }
 
   public function testConstructorInvalidContentType() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'Content-type header may not be specified as it is set by the task.');
     $t = new PushTask('/some-url', ['user-key' => 'user-data'],
         ['header' => 'content-type: application/pdf']);
   }
 
   public function testAddInvalidQueue() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     (new PushTask('/someUrl'))->add(999);
   }
 
   public function testAddTaskTooBig() {
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\taskqueue\TaskQueueException',
         'Task greater than maximum size of ' . PushTask::MAX_TASK_SIZE_BYTES);
     // Althought 102400 is the max size, it's for the serialized proto which
@@ -369,7 +369,7 @@ class PushTaskTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         ErrorCode::UNKNOWN_QUEUE, 'message');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\taskqueue\TaskQueueException',
         'Unknown queue');
 
@@ -383,7 +383,7 @@ class PushTaskTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         ErrorCode::TRANSIENT_ERROR, 'message');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\taskqueue\TransientTaskQueueException');
 
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $exception);
@@ -396,7 +396,7 @@ class PushTaskTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         ErrorCode::PERMISSION_DENIED, 'message');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\taskqueue\TaskQueueException',
         'Permission Denied');
 
@@ -410,7 +410,7 @@ class PushTaskTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         ErrorCode::TOMBSTONED_TASK, 'message');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\taskqueue\TaskAlreadyExistsException');
 
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $exception);
@@ -423,7 +423,7 @@ class PushTaskTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         ErrorCode::TASK_ALREADY_EXISTS, 'message');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\taskqueue\TaskAlreadyExistsException');
 
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $exception);
@@ -436,7 +436,7 @@ class PushTaskTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         ErrorCode::INVALID_QUEUE_MODE, 'message');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\taskqueue\TaskQueueException',
         'Cannot add a PushTask to a pull queue.');
 

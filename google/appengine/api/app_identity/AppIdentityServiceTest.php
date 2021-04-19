@@ -64,14 +64,14 @@ function rand($min, $max) {
  * Unittest for AppIdentityService class.
  */
 class AppIdentityServiceTest extends ApiProxyTestBase {
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
     $this->_SERVER = $_SERVER;
     $GLOBALS['fetch_calls'] = 0;
     $GLOBALS['store_calls'] = 0;
   }
 
-  public function testDown() {
+  public function testDown(): void {
     $_SERVER = $this->_SERVER;
     parent::tearDown();
   }
@@ -97,7 +97,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testInvalidBytesToSign() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $sign_result = AppIdentityService::signForApp(1.0);
   }
 
@@ -309,7 +309,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetAccessTokenInvalidScope() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $sign_result = AppIdentityService::getAccessToken(1.0);
   }
 
@@ -329,7 +329,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   public function testGetAccessTokenInvalidScopeArray() {
     $scopes = ["foo", 1];
     self::expectMemcacheGetRequest($scopes);
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $sign_result = AppIdentityService::getAccessToken($scopes);
   }
 
@@ -342,7 +342,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         ErrorCode::UNKNOWN_SCOPE, "unknown scope");
 
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
                                 'An unknown scope was supplied.');
 
     self::expectGetAccessTokenRequest(array($scope), false, $exception);
@@ -404,7 +404,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         $error, "not initialized");
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\app_identity\AppIdentityException',
         $expected_response);
 
