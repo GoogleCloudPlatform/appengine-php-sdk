@@ -265,7 +265,7 @@ class VmAPiProxyTest extends \PHPUnit\Framework\TestCase {
 
     $this->expectRpc($expected_request, $expected_response, $options);
 
-    $this->setExpectedException('google\appengine\runtime\\' . $exception);
+    $this->expectException('google\appengine\runtime\\' . $exception);
     ApiProxy::makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,
@@ -304,7 +304,7 @@ class VmAPiProxyTest extends \PHPUnit\Framework\TestCase {
 
     $this->expectRpc($expected_request, $expected_response, $options);
 
-    $this->setExpectedException('google\appengine\runtime\ApplicationError');
+    $this->expectException('google\appengine\runtime\ApplicationError');
     ApiProxy::makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,
@@ -322,7 +322,7 @@ class VmAPiProxyTest extends \PHPUnit\Framework\TestCase {
 
     $this->expectRpc($expected_request, $expected_response, $options);
 
-    $this->setExpectedException('google\appengine\runtime\RPCFailedError');
+    $this->expectException('google\appengine\runtime\RPCFailedError');
     ApiProxy::makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,
@@ -362,7 +362,7 @@ class VmAPiProxyTest extends \PHPUnit\Framework\TestCase {
 
     $this->expectRpc($expected_request, $expected_response, $options);
 
-    $this->setExpectedException('google\appengine\runtime\RPCFailedError');
+    $this->expectException('google\appengine\runtime\RPCFailedError');
     ApiProxy::makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,
