@@ -144,7 +144,8 @@ class GlobTest extends \PHPUnit_Framework_TestCase {
   public function testErrors() {
     // Match the semantics of glob as observed in
     // https://github.com/php/php-src/blob/master/ext/standard/tests/file/glob_error.phpt
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
+    $this->expectException(ArgumentCountError::class);
+    $this->expectExceptionMessage('Too few arguments to function');
     Glob::doGlob();  // Not enough arguments
     $this->setExpectedException('PHPUnit_Framework_Error_Warning');
     Glob::doGlob("*", GLOB_ERR, 2);  // Too many arguments
