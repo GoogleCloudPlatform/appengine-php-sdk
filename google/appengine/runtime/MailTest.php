@@ -69,7 +69,7 @@ class MailTest extends ApiProxyTestBase {
    * @dataProvider invalidAddressProvider
    */
   public function testInvalidAddress($headers) {
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning',
+    $this->expectException('PHPUnit_Framework_Error_Warning',
                                 'mail(): Invalid');
 
     $ret = Mail::sendMail('foo@foo.com', 'subject', 'body', $headers);

@@ -61,7 +61,7 @@ class ApiProxyTest extends \PHPUnit_Framework_TestCase {
    * given error value (via the ApiProxyBase lookup table).
    */
   public function throwsException($exception, $errorNumber) {
-    $this->setExpectedException("google\\appengine\\runtime\\" . $exception);
+    $this->expectException("google\\appengine\\runtime\\" . $exception);
     $realApiProxy = new RealApiProxy();
     $requestProto = new VoidProto();
     $responseProto = "";

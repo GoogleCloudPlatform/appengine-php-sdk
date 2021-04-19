@@ -156,7 +156,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
   }
 
   public function testInvalidSuccessPath() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $upload_url = CloudStorageTools::createUploadUrl(10);
   }
 
@@ -199,13 +199,13 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
   }
 
   public function testInvalidMaxBytesPerBlob() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $upload_url = CloudStorageTools::createUploadUrl('http://foo/bar',
         ['max_bytes_per_blob' => 'not an int',]);
   }
 
   public function testNegativeMaxBytesPerBlob() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $upload_url = CloudStorageTools::createUploadUrl('http://foo/bar',
         ['max_bytes_per_blob' => -1,]);
   }
@@ -232,13 +232,13 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
   }
 
   public function testInvalidMaxBytes() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $upload_url = CloudStorageTools::CreateUploadUrl('http://foo/bar',
         ['max_bytes_total' => 'not an int',]);
   }
 
   public function testNegativeMaxBytes() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $upload_url = CloudStorageTools::createUploadUrl('http://foo/bar',
         ['max_bytes_total' => -1,]);
   }
@@ -266,13 +266,13 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
   }
 
   public function testInvalidUrlTimeout() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $upload_url = CloudStorageTools::CreateUploadUrl('http://foo/bar',
         ['url_expiry_time_seconds' => 'not an int',]);
   }
 
   public function testNegativeUrlTimeout() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $upload_url = CloudStorageTools::createUploadUrl('http://foo/bar', [
         'url_expiry_time_seconds' => -1,
     ]);
@@ -280,7 +280,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
 
   public function testTooLargeUrlTimeout() {
     $expiry_time = CloudStorageTools::MAX_URL_EXPIRY_TIME_SECONDS + 1;
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $upload_url = CloudStorageTools::createUploadUrl('http://foo/bar', [
         'url_expiry_time_seconds' => $expiry_time,
     ]);
@@ -304,7 +304,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
   }
 
   public function testInvalidGsBucketName() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $upload_url = CloudStorageTools::createUploadUrl('http://foo/bar',
         ['gs_bucket_name' => null,]);
   }
@@ -338,7 +338,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         BlobstoreServiceError\ErrorCode::URL_TOO_LONG, 'message');
 
-    $this->setExpectedException('\InvalidArgumentException', '');
+    $this->expectException('\InvalidArgumentException', '');
 
     $this->apiProxyMock->expectCall('blobstore', 'CreateUploadURL', $req,
         $exception);
@@ -357,7 +357,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         BlobstoreServiceError\ErrorCode::PERMISSION_DENIED, 'message');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\cloud_storage\CloudStorageException',
         'Permission Denied');
 
@@ -378,7 +378,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         BlobstoreServiceError\ErrorCode::INTERNAL_ERROR, 'message');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\cloud_storage\CloudStorageException', '');
 
     $this->apiProxyMock->expectCall('blobstore', 'CreateUploadURL', $req,
@@ -392,33 +392,33 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
 
   public function testNoDefaultBucketException() {
     $this->expectGetDefaultBucketName('');
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $this->expectApcFetch('__DEFAULT_GCS_BUCKET_NAME__', false, false);
     $upload_url = CloudStorageTools::createUploadUrl('http://foo/bar');
     $this->apiProxyMock->verify();
   }
 
   public function testInvalidOptions() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $upload_url = CloudStorageTools::createUploadUrl('http://foo/bar',
         ['gs_bucket_name' => 'bucket',
          'foo' => 'bar']);
   }
 
   public function testServeInvalidGsPrefix() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     CloudStorageTools::serve("/goo/bar.png");
   }
 
   public function testServeInvalidBucketObjectName() {
-    $this->setExpectedException(
+    $this->expectException(
         '\InvalidArgumentException',
         'Invalid Google Cloud Storage filename: gs://some_bucket');
     CloudStorageTools::serve("gs://some_bucket");
   }
 
   public function testServeInvalidOptionArray() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     CloudStorageTools::serve("gs://foo/bar.png", ["foo" => true]);
   }
 
@@ -436,7 +436,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
   }
 
   public function testServeRangeIndexDoNotMatchRangeHeader() {
-    $this->setExpectedException("\InvalidArgumentException");
+    $this->expectException("\InvalidArgumentException");
     $_SERVER["HTTP_RANGE"] = "bytes=1-2";
     CloudStorageTools::serve("gs://foo/bar.png", ["start" => 1, "end" => 3,
         "use_range" => true]);
@@ -542,18 +542,18 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
   // getImageServingUrl tests.
 
   public function testGetImageUrlInvalidFilenameType() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $url = CloudStorageTools::getImageServingUrl(123);
   }
 
   public function testGetImageUrlInvalidFilename() {
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $url = CloudStorageTools::getImageServingUrl('not-gs://abucket/photo');
   }
 
   public function testGetImageUrlCropInvalidType() {
     $this->expectFilenameTranslation('/gs/mybucket/photo.jpg', 'some_blob_key');
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $url = CloudStorageTools::getImageServingUrl('gs://mybucket/photo.jpg',
                                                 ['crop' => 5]);
     $this->apiProxyMock->verify();
@@ -561,7 +561,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
 
   public function testGetImageUrlCropRequiresSize() {
     $this->expectFilenameTranslation('/gs/mybucket/photo.jpg', 'some_blob_key');
-    $this->setExpectedException('\InvalidArgumentException');
+    $this->expectException('\InvalidArgumentException');
     $url = CloudStorageTools::getImageServingUrl('gs://mybucket/photo.jpg',
                                                 ['crop' => true]);
     $this->apiProxyMock->verify();
@@ -569,7 +569,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
 
   public function testGetImageUrlSizeInvalidType() {
     $this->expectFilenameTranslation('/gs/mybucket/photo.jpg', 'some_blob_key');
-    $this->setExpectedException(
+    $this->expectException(
         '\InvalidArgumentException',
         '$options[\'size\'] must be an integer. Actual type: string');
     $url = CloudStorageTools::getImageServingUrl('gs://mybucket/photo.jpg',
@@ -579,7 +579,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
 
   public function testGetImageUrlSizeTooSmall() {
     $this->expectFilenameTranslation('/gs/mybucket/photo.jpg', 'some_blob_key');
-    $this->setExpectedException(
+    $this->expectException(
         '\InvalidArgumentException',
         '$options[\'size\'] must be >= 0 and <= 1600. Actual value: -1');
     $url = CloudStorageTools::getImageServingUrl('gs://mybucket/photo.jpg',
@@ -589,7 +589,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
 
   public function testGetImageUrlSizeTooBig() {
     $this->expectFilenameTranslation('/gs/mybucket/photo.jpg', 'some_blob_key');
-    $this->setExpectedException(
+    $this->expectException(
         '\InvalidArgumentException',
         '$options[\'size\'] must be >= 0 and <= 1600. Actual value: 1601');
     $url = CloudStorageTools::getImageServingUrl('gs://mybucket/photo.jpg',
@@ -599,7 +599,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
 
   public function testGetImageUrlSecureUrlWrongType() {
     $this->expectFilenameTranslation('/gs/mybucket/photo.jpg', 'some_blob_key');
-    $this->setExpectedException(
+    $this->expectException(
         '\InvalidArgumentException',
         '$options[\'secure_url\'] must be a boolean. Actual type: integer');
     $url = CloudStorageTools::getImageServingUrl('gs://mybucket/photo.jpg',
@@ -637,7 +637,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         $error_code, 'a message');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\cloud_storage\CloudStorageException',
         $expected_message);
     $this->apiProxyMock->expectCall('images',
@@ -735,7 +735,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
   // deleteImageServingUrl tests.
 
   public function testDeleteImageUrlInvalidFilenameType() {
-    $this->setExpectedException('\InvalidArgumentException',
+    $this->expectException('\InvalidArgumentException',
         'Invalid Google Cloud Storage filename: 2468');
     $url = CloudStorageTools::deleteImageServingUrl(2468);
   }
@@ -756,7 +756,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
     $exception = new \google\appengine\runtime\ApplicationError(
         ImagesServiceError\ErrorCode::ACCESS_DENIED, 'a message');
 
-    $this->setExpectedException(
+    $this->expectException(
         '\google\appengine\api\cloud_storage\CloudStorageException',
         'Access denied to image.');
     $this->apiProxyMock->expectCall('images',
@@ -908,7 +908,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
    * @dataProvider invalidBucketNames
    */
   public function testGetFilenameFromInvalidBucketNames($bucket) {
-    $this->setExpectedException(
+    $this->expectException(
         "\InvalidArgumentException",
         sprintf("Invalid cloud storage bucket name '%s'", $bucket));
      CloudStorageTools::getFilename($bucket, 'foo.txt');
@@ -918,7 +918,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
    * @dataProvider invalidObjectNames
    */
   public function testGetFilenameFromInvalidObjecNames($object) {
-    $this->setExpectedException(
+    $this->expectException(
         "\InvalidArgumentException",
         sprintf("Invalid cloud storage object name '%s'", $object));
     CloudStorageTools::getFilename('foo', $object);
