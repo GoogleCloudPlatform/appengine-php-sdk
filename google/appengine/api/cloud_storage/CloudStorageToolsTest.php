@@ -48,11 +48,11 @@ function ini_get($key) {
 $expected_apc_fetch_calls = [];
 function apc_fetch($key, &$success = null) {
   if (count($GLOBALS['expected_apc_fetch_calls']) == 0) {
-    \PHPUnit_Framework_Assert::fail("Unexpected apc_fetch($key, $success)");
+    \PHPUnit\Framework\Assert::fail("Unexpected apc_fetch($key, $success)");
   }
 
   $call = array_shift($GLOBALS['expected_apc_fetch_calls']);
-  \PHPUnit_Framework_Assert::assertEquals($call['args'][0], $key);
+  \PHPUnit\Framework\Assert::assertEquals($call['args'][0], $key);
   if ($success !== null) {
     $success = $call['args'][1];
   }
@@ -62,12 +62,12 @@ function apc_fetch($key, &$success = null) {
 $expected_apc_store_calls = [];
 function apc_store($key, $value) {
   if (count($GLOBALS['expected_apc_store_calls']) == 0) {
-    \PHPUnit_Framework_Assert::fail("Unexpected apc_store($key, $value)");
+    \PHPUnit\Framework\Assert::fail("Unexpected apc_store($key, $value)");
   }
 
   $call = array_shift($GLOBALS['expected_apc_store_calls']);
-  \PHPUnit_Framework_Assert::assertEquals($call['args'][0], $key);
-  \PHPUnit_Framework_Assert::assertEquals($call['args'][1], $value);
+  \PHPUnit\Framework\Assert::assertEquals($call['args'][0], $key);
+  \PHPUnit\Framework\Assert::assertEquals($call['args'][1], $value);
   return $call['ret'];
 }
 
@@ -80,7 +80,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
 
   public static $mock_upload_max_filesize = 0;
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
     $this->_SERVER = $_SERVER;
     self::$mock_upload_max_filesize = '0';
@@ -97,7 +97,7 @@ class CloudStorageToolsTest extends ApiProxyTestBase {
     $GLOBALS['expected_apc_store_calls'] = [];
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     $_SERVER = $this->_SERVER;
 
     // Reset environmental variables.
