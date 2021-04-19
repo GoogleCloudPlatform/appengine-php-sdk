@@ -18,7 +18,7 @@ namespace google\appengine\api\search;
 
 use \google\appengine\IndexDocumentRequest;
 
-class SearchProtoTest extends\PHPUnit_Framework_TestCase {
+class SearchProtoTest extends\PHPUnit\Framework\TestCase {
   public function testIndexSpecInstantiation() {
     $request = new IndexDocumentRequest();
     $this->assertEquals("", $request->serializePartialToString());
