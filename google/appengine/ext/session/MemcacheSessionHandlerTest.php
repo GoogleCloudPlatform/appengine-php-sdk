@@ -25,9 +25,13 @@ namespace google\appengine\ext\session;
 require_once 'google/appengine/ext/session/MemcacheSessionHandler.php';
 
 class MemcacheSessionHandlerTest extends \PHPUnit\Framework\TestCase {
+  
+  public function setUp(): void {
+    parent::setUp();
+    $this->markTestSkipped('TODO: Implement PHP7 Compatibility.');
+  }
 
   public function testSession() {
-    $this->markTestSkipped('TODO: Implement PHP7 Compatibility.');
 
     $stub = $this->getMockBuilder(MemcacheContainer::class)
                      ->setMethods(['close', 'get', 'set', 'delete'])

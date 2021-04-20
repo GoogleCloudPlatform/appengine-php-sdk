@@ -69,7 +69,6 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     $this->_SERVER = $_SERVER;
     $GLOBALS['fetch_calls'] = 0;
     $GLOBALS['store_calls'] = 0;
-     $this->markTestSkipped('TODO: Implement PHP7 Compatibility.');
   }
 
   public function testDown(): void {
