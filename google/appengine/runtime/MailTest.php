@@ -29,7 +29,7 @@ use google\appengine\testing\ApiProxyTestBase;
  */
 class MailTest extends ApiProxyTestBase {
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
     ini_set('sendmail_from', '');
     putenv('APPLICATION_ID=');
@@ -69,7 +69,7 @@ class MailTest extends ApiProxyTestBase {
    * @dataProvider invalidAddressProvider
    */
   public function testInvalidAddress($headers) {
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning',
+    $this->expectException('PHPUnit_Framework_Error_Warning',
                                 'mail(): Invalid');
 
     $ret = Mail::sendMail('foo@foo.com', 'subject', 'body', $headers);

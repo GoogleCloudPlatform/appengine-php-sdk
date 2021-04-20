@@ -27,7 +27,7 @@ namespace google\appengine\ext\session;
 /**
  * Remove direct interaction with Memcache object for ease of mocking in tests.
  */
-final class MemcacheContainer {
+class MemcacheContainer {
 
   /**
    * The memcache object for storing sessions.

@@ -26,14 +26,14 @@ use google\appengine\UserServiceError;
  * Unittest for User class.
  */
 class UserTest extends ApiProxyTestBase {
-  public function tearDown() {
+  public function tearDown(): void {
     putenv('AUTH_DOMAIN');
     parent::tearDown();
   }
 
   public function testException() {
     putenv('AUTH_DOMAIN=gmail.com');
-    $this->setExpectedException(
+    $this->expectException(
         '\InvalidArgumentException',
         'One of $email or $federated_identity must be set.');
     new User();

@@ -22,7 +22,7 @@ use \google\appengine\ext\remote_api\Request;
 
 # TODO: delete this test when we finalize the layout of the SDK
 
-class RemoteApiProtoTest extends\PHPUnit_Framework_TestCase {
+class RemoteApiProtoTest extends\PHPUnit\Framework\TestCase {
   public function testRequestInstantiation() {
     $req = new Request();
     $this->assertEquals("", $req->serializePartialToString());

@@ -31,7 +31,7 @@ class CurlLiteTest extends ApiProxyTestBase {
 
   private $expected_log_messages = [];
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
     TestUtils::setStaticProperty('google\appengine\runtime\CurlLite',
                                  'logging_callback',
