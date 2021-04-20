@@ -28,7 +28,7 @@ class MemcacheSessionHandlerTest extends \PHPUnit\Framework\TestCase {
   
   public function setUp(): void {
     parent::setUp();
-    $this->markTestSkipped('TODO: Implement PHP7 Compatibility.');
+    $this->markTestSkipped('TODO: Debug test.');
   }
 
   public function testSession() {
