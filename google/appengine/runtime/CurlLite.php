@@ -418,7 +418,7 @@ final class CurlLite {
         $this->request->setDeadline($value);
         break;
       case CURLOPT_TIMEOUT_MS:
-        $this->request->setDeadline($value * 1000);
+        $this->request->setDeadline($value / 1000.0);
         break;
       case CURLOPT_CUSTOMREQUEST:
         if (!in_array($value, array_keys(static::$custom_request_map))) {
@@ -509,7 +509,7 @@ final class CurlLite {
         $payload = $value;
       } else if (is_array($value)) {
         $payload = http_build_query($value);
-        // TODO: Arrays need to be mulitpart encoded.
+        // TODO: Arrays need to be multipart encoded.
       }
       if (!$this->tryGetRequestHeaderValue(self::CONTENT_TYPE_HEADER, $val)) {
         $header = $this->request->addHeader();

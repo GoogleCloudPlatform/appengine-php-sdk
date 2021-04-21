@@ -19,22 +19,30 @@
  */
 
 namespace google\appengine\runtime {
-  use google\appengine\ext\session\MemcacheSessionHandler;
 
   // Ensure that the class autoloader is the first include.
+  // @codingStandardsIgnoreStart
   require_once 'google/appengine/runtime/autoloader.php';
+  require_once 'google/appengine/api/log/LogService.php';
+  require_once
+    'google/appengine/ext/cloud_storage_streams/CloudStorageStreamWrapper.php';
+  require_once 'google/appengine/ext/session/MemcacheSessionHandler.php';
   require_once 'google/appengine/runtime/Memcache.php';
   require_once 'google/appengine/runtime/Memcached.php';
+  // @codingStandardsIgnoreEnd
 
-  // Setup the Memcache session handler
-  MemcacheSessionHandler::configure();
+  // Set up the Memcache session handler.
+  \google\appengine\ext\session\MemcacheSessionHandler::configure();
 
   if (!empty($_FILES)) {
-    // TODO: b/13132830: Remove once feature releases.
     if (ini_get('google_app_engine.direct_file_upload')) {
       VirtualFileSystem::getInstance()->initialize();
       DirectUploadHandler::handle();
     }
+
+    // @codingStandardsIgnoreStart
+    require_once 'google/appengine/runtime/UnlinkUploads.php';
+    // @codingStandardsIgnoreEnd
     register_shutdown_function(
       'google\appengine\runtime\UnlinkUploads::shutdownHook', $_FILES);
     UnlinkUploads::removeEmptyFiles($_FILES);
@@ -42,7 +50,7 @@ namespace google\appengine\runtime {
 
   register_shutdown_function('google\appengine\api\log\LogService::flush');
 
-  // Setup the GS stream wrapper
+  // Set up the GS stream wrapper.
   $url_flags = STREAM_IS_URL;
   if (GAE_INCLUDE_REQUIRE_GS_STREAMS === 1) {
     // By clearing the STREAM_IS_URL flag we allow this stream handler to be
@@ -55,6 +63,8 @@ namespace google\appengine\runtime {
       $url_flags);
 
   if (ini_get('google_app_engine.enable_curl_lite')) {
+    // @codingStandardsIgnoreStart
     require_once 'google/appengine/runtime/CurlLiteStub.php';
+    // @codingStandardsIgnoreEnd
   }
 }

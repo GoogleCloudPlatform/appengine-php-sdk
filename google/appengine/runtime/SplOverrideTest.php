@@ -34,7 +34,7 @@ use google\appengine\util\StringUtil;
 
 class SplOverrideTest extends ApiProxyTestBase {
 
-  public static function setUpBeforeClass() {
+  public static function setUpBeforeClass(): void {
     VirtualFileSystem::getInstance()->initialize();
   }
 

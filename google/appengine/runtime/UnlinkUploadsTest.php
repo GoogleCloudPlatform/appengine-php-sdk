@@ -18,10 +18,10 @@ namespace google\appengine\runtime;
 
 use org\bovigo\vfs\vfsStream;
 
-class UnlinkUploadsTest extends \PHPUnit_Framework_TestCase {
+class UnlinkUploadsTest extends \PHPUnit\Framework\TestCase {
   protected $files;
 
-  protected function setUp() {
+  protected function setUp(): void {
     vfsStream::setup('root');
 
     vfsStream::create(['uploads' => [

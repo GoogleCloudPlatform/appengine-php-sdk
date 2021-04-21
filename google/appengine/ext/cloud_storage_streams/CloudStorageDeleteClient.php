@@ -14,15 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * Cloud Storage Delete Client handles deleting objects from buckets.
- *
- */
 
 namespace google\appengine\ext\cloud_storage_streams;
 
 /**
- * Client for deleting objects from Google Cloud Storage.
+ * Cloud Storage Delete Client handles deleting objects from buckets.
  */
 final class CloudStorageDeleteClient extends CloudStorageClient {
   /**

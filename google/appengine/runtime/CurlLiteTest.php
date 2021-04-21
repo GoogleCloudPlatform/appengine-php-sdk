@@ -22,11 +22,16 @@ use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchServiceError\ErrorCode;
 use google\appengine\runtime\ApplicationError;
 
+// This file is included in Setup.php if google_app_engine.enable_curl_lite is
+// set in php.ini. Include it here unconditionally for the sake of testing
+// curl lite.
+require_once 'google/appengine/runtime/CurlLiteStub.php';
+
 class CurlLiteTest extends ApiProxyTestBase {
 
   private $expected_log_messages = [];
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
     TestUtils::setStaticProperty('google\appengine\runtime\CurlLite',
                                  'logging_callback',
@@ -443,6 +448,24 @@ class CurlLiteTest extends ApiProxyTestBase {
     $this->assertEquals(222, $curl_lite->getInfo(CURLINFO_SIZE_DOWNLOAD));
     $this->assertEquals(1, $curl_lite->getInfo(CURLINFO_REDIRECT_COUNT));
     $this->apiProxyMock->verify();
+  }
+
+  public function testSetTimeoutMS() {
+    $url = 'http://google.com';
+    $this->setupRequest($url);
+    $this->request->setDeadline(0.5);
+    $this->apiProxyMock->expectCall('urlfetch',
+                                    'Fetch',
+                                    $this->request,
+                                    $this->response);
+
+    $curl_lite = new CurlLite();
+    $result = $curl_lite->setOptionsArray([
+      CURLOPT_TIMEOUT_MS => 500,
+      CURLOPT_URL => $url
+    ]);
+    $curl_lite->exec();
+    $this->assertEquals($result, true);
   }
 
   public function mockLog($log_level, $log_message) {

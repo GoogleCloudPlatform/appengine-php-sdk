@@ -29,28 +29,28 @@ use google\appengine\testing\ApiProxyTestBase;
 class AdminMessageTest extends ApiProxyTestBase {
   public function testConstructorBadValues() {
     $options = array("to" => "test");
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException", "Message received an invalid option: to");
     $message = new AdminMessage($options);
   }
 
   public function testConstructNonString() {
     $options = "test";
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException", "Message expects an array, not string");
     $message = new AdminMessage($options);
   }
 
   public function testSendNoSender() {
     $message = new AdminMessage();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException", "Required field sender is not provided.");
     $message->send();
   }
 
   public function testSendNoSubject() {
     $message = new AdminMessage();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Required field subject is not provided.");
     $message->setSender("test@example.com");
@@ -59,7 +59,7 @@ class AdminMessageTest extends ApiProxyTestBase {
 
   public function testSendNoBody() {
     $message = new AdminMessage();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Neither a plain-text nor HTML body is provided - at least one is " .
         "required.");
@@ -71,7 +71,7 @@ class AdminMessageTest extends ApiProxyTestBase {
 
   public function testInvalidContentId() {
     $message = new AdminMessage();
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Content-id must begin and end with angle brackets.");
     $message->addAttachment("foo.jpg", "image data", "invalid content id");
@@ -271,7 +271,7 @@ class AdminMessageTest extends ApiProxyTestBase {
     $this->setupMessageSimple($message, $message_proto);
 
     $exception = new ApplicationError(ErrorCode::INTERNAL_ERROR, "test");
-    $this->setExpectedException("RuntimeException", "test");
+    $this->expectException("RuntimeException", "test");
 
     $this->apiProxyMock->expectCall(
         'mail', 'SendToAdmins', $message_proto, $exception);
@@ -285,7 +285,7 @@ class AdminMessageTest extends ApiProxyTestBase {
     $this->setupMessageSimple($message, $message_proto);
 
     $exception = new ApplicationError(ErrorCode::BAD_REQUEST, "test");
-    $this->setExpectedException("RuntimeException", "test");
+    $this->expectException("RuntimeException", "test");
 
     $this->apiProxyMock->expectCall(
         'mail', 'SendToAdmins', $message_proto, $exception);
@@ -299,7 +299,7 @@ class AdminMessageTest extends ApiProxyTestBase {
     $this->setupMessageSimple($message, $message_proto);
 
     $exception = new ApplicationError(ErrorCode::UNAUTHORIZED_SENDER, "test");
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Mail Service Error: Sender (test@example.com) is not an ".
         "authorized email address.");
@@ -318,7 +318,7 @@ class AdminMessageTest extends ApiProxyTestBase {
 
     $exception = new ApplicationError(ErrorCode::INVALID_ATTACHMENT_TYPE,
                                       "test");
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Mail Service Error: Invalid attachment type.");
 
@@ -335,7 +335,7 @@ class AdminMessageTest extends ApiProxyTestBase {
     $this->setupMessageSimple($message, $message_proto);
 
     $exception = new ApplicationError(ErrorCode::INVALID_HEADER_NAME, "test");
-    $this->setExpectedException(
+    $this->expectException(
         "InvalidArgumentException",
         "Mail Service Error: Invalid header name.");
 

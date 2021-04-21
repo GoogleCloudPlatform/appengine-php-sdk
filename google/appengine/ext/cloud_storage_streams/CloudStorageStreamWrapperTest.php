@@ -150,7 +150,7 @@ class CloudStorageStreamWrapperTest extends ApiProxyTestBase {
    * @dataProvider invalidGCSPaths
    */
   public function testInvalidPathName($path) {
-    $this->setExpectedException(
+    $this->expectException(
       'PHPUnit_Framework_Error_Warning',
       'fopen(' . $path . '): failed to open stream: "\google\appengine\ext' .
       '\cloud_storage_streams\CloudStorageStreamWrapper::stream_open" call ' .
@@ -773,7 +773,7 @@ class CloudStorageStreamWrapperTest extends ApiProxyTestBase {
                              null,
                              $response);
 
-    $this->setExpectedException(
+    $this->expectException(
         "PHPUnit_Framework_Error",
         "Cloud Storage Error: No Such Bucket (NoSuchBucket)");
     $this->assertFalse(unlink("gs://bucket/object.png"));
@@ -1136,7 +1136,7 @@ class CloudStorageStreamWrapperTest extends ApiProxyTestBase {
   }
 
   public function testRenameInvalidFromPath() {
-    $this->setExpectedException(
+    $this->expectException(
         "PHPUnit_Framework_Error",
         "Invalid Google Cloud Storage path: gs://bucket/");
     $this->assertFalse(rename("gs://bucket/", "gs://to/object.png"));
@@ -2618,7 +2618,6 @@ class CloudStorageStreamWrapperTest extends ApiProxyTestBase {
  * by gae extension, but is not on devappserver. INI will always be true during
  * these tests.
  *
- * - google_app_engine.enable_additional_cloud_storage_headers: true
  * - google_app_engine.enable_gcs_stat_cache: true
  *
  * @param string $varname
@@ -2630,10 +2629,7 @@ class CloudStorageStreamWrapperTest extends ApiProxyTestBase {
  *
  * @see http://php.net/ini_get
  */
-function ini_get($varname)  {
-  if ($varname == 'google_app_engine.enable_additional_cloud_storage_headers') {
-    return true;
-  }
+function ini_get($varname) {
   if ($varname == 'google_app_engine.enable_gcs_stat_cache') {
     return true;
   }

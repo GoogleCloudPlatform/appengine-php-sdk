@@ -54,7 +54,7 @@ namespace google\appengine\api\log {
     const RPC_FLUSH_METHOD = 'Flush';
     const DEFAULT_BATCH_SIZE = 20;
 
-    public function setUp() {
+    public function setUp(): void {
       parent::setUp();
       error_reporting(E_ALL);
       putenv('APPLICATION_ID='. self::APPLICATION_ID);
@@ -420,55 +420,55 @@ namespace google\appengine\api\log {
     }
 
     public function testInvalidStart() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       $options = ['start_time' => 'wrong'];
       LogService::fetch($options);
     }
 
     public function testInvalidLevel() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       $options = ['minimum_log_level' => 10];
       LogService::fetch($options);
     }
 
     public function testInvalidIncomplete() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       $options = ['include_imcomplete' => 10];
       LogService::fetch($options);
     }
 
     public function testInvalidOffset() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       $options = ['offset' => 10];
       LogService::fetch($options);
     }
 
     public function testInvalidVersionIdTypes() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       $options = ['versions' => [5, 20, 40]];
       LogService::fetch($options);
     }
 
     public function testInvalidVersionIds() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       $options = ['versions' => ['thisIsOk', 'this one is not']];
       LogService::fetch($options);
     }
 
     public function testInvalidModules() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       $options = ['module_versions' => ["foo" => false, "bar" => 9]];
       LogService::fetch($options);
     }
 
     public function testOversizeBatch() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       $options = ['batch_size' => LogService::MAX_BATCH_SIZE + 1];
       LogService::fetch($options);
     }
 
     public function testSetModuleVersionsAndVersions() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       $options = [
         'versions' => ["foo", "bar"],
         'module_veresions' => ["1" => "a", "2" => "b"],
@@ -557,7 +557,7 @@ namespace google\appengine\api\log {
     }
 
     public function testInvalidRequestId() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       // Request Ids must be hex values
       LogService::fetchById("T2");
     }
@@ -565,7 +565,7 @@ namespace google\appengine\api\log {
     public function testApplicationError() {
       $request = $this->createDefaultRequest();
       $exception = new ApplicationError(ErrorCode::INVALID_REQUEST, "test");
-      $this->setExpectedException('\google\appengine\api\log\LogException',
+      $this->expectException('\google\appengine\api\log\LogException',
                                   'Invalid Request');
 
       $this->apiProxyMock->expectCall(self::RPC_PACKAGE,
@@ -585,7 +585,7 @@ namespace google\appengine\api\log {
       $response->addLog();
       $response->addLog();
 
-      $this->setExpectedException('\LogicException', 'Invalid iterator state');
+      $this->expectException('\LogicException', 'Invalid iterator state');
 
       $this->apiProxyMock->expectCall(self::RPC_PACKAGE,
                                       self::RPC_READ_METHOD,
@@ -602,6 +602,7 @@ namespace google\appengine\api\log {
      * @dataProvider logLevelMappings
      */
     public function testGetAppEngineLogLevel($syslog_level, $gae_level) {
+      $this->markTestSkipped('TODO: Enable Windows Compatibility.');
       $this->assertEquals($gae_level,
           LogService::getAppEngineLogLevel($syslog_level));
     }
@@ -618,22 +619,22 @@ namespace google\appengine\api\log {
     }
 
     public function testNonIntegerLogLevel() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       LogService::log('not_an_integer', 'message');
     }
 
     public function testLogLevelTooLow() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       LogService::log(LogService::LEVEL_DEBUG - 1, 'message');
     }
 
     public function testLogLevelTooHigh() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       LogService::log(LogService::LEVEL_CRITICAL + 1, 'message');
     }
 
     public function testNonStringLogMessage() {
-      $this->setExpectedException('InvalidArgumentException');
+      $this->expectException('InvalidArgumentException');
       $non_string = 123;
       LogService::log(LogService::LEVEL_DEBUG, $non_string);
     }
