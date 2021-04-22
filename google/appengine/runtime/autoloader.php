@@ -265,7 +265,7 @@ if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
         'google\appengine\urlfetchrequest' => 'google/appengine/api/urlfetch_service_pb.php',
         'google\appengine\urlfetchresponse\header' => 'google/appengine/api/urlfetch_service_pb.php',
         'google\appengine\urlfetchresponse' => 'google/appengine/api/urlfetch_service_pb.php',
-        'google\appengine\sourcelocation' => 'google/appengine/api/source_pb.php',,
+        'google\appengine\sourcelocation' => 'google/appengine/api/source_pb.php',
         'google\appengine\base\stringproto' => 'google/appengine/api/api_base_pb.php',
         'google\appengine\base\integer32proto' => 'google/appengine/api/api_base_pb.php',
         'google\appengine\base\integer64proto' => 'google/appengine/api/api_base_pb.php',
