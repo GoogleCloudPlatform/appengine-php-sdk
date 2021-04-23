@@ -122,8 +122,6 @@ if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
         'google\net\protocolbufferdecodeerror' => 'google/appengine/runtime/proto/ProtocolBufferDecodeError.php',
         'google\net\encoder' => 'google/appengine/runtime/proto/Encoder.php',
         'google\net\decoder' => 'google/appengine/runtime/proto/Decoder.php',
-        'google\appengine\ext\session\memcachecontainer' => 'google/appengine/ext/session/MemcacheSessionHandler.php',
-        'google\appengine\ext\session\memcachesessionhandler' => 'google/appengine/ext/session/MemcacheSessionHandler.php',
         'google\appengine\ext\remote_api\request' => 'google/appengine/ext/remote_api/remote_api_pb.php',
         'google\appengine\ext\remote_api\applicationerror' => 'google/appengine/ext/remote_api/remote_api_pb.php',
         'google\appengine\ext\remote_api\rpcerror\errorcode' => 'google/appengine/ext/remote_api/remote_api_pb.php',
