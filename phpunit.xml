@@ -7,9 +7,9 @@
   </testsuites>
   <filter>
     <whitelist>
-      <directory suffix=".php">tests</directory>
+      <directory>tests</directory>
       <exclude>
-        <directory  <directory>src</directory>
+        <directory>src</directory>
       </exclude>
     </whitelist>
   </filter>
