@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace google\net;
+namespace google\appengine\runtime\proto;
 
 if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
   require_once 'google/appengine/runtime/proto/Decoder.php';

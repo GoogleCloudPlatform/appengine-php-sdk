@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace google\net;
+namespace google\appengine\runtime\proto;
 
 /**
  * Exception thrown by protocol buffer encoder if the input protocol message is

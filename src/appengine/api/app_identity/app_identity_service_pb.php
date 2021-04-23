@@ -22,7 +22,7 @@ namespace dummy {
     require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
   }
 }
-namespace google\appengine\AppIdentityServiceError {
+namespace google\appengine\api\app_identity\AppIdentityServiceError {
   class ErrorCode {
     const SUCCESS = 0;
     const UNKNOWN_SCOPE = 9;
@@ -35,8 +35,8 @@ namespace google\appengine\AppIdentityServiceError {
     const NOT_IMPLEMENTED = 1006;
   }
 }
-namespace google\appengine {
-  class AppIdentityServiceError extends \google\net\ProtocolMessage {
+namespace google\appengine\api\app_identity {
+  class AppIdentityServiceError extends \google\appengine\runtime\proto\ProtocolMessage {
     public function clear() {
     }
     public function byteSizePartial() {
@@ -50,7 +50,7 @@ namespace google\appengine {
         $tt = $d->getVarInt32();
         switch ($tt) {
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -73,8 +73,8 @@ namespace google\appengine {
     }
   }
 }
-namespace google\appengine {
-  class SignForAppRequest extends \google\net\ProtocolMessage {
+namespace google\appengine\api\app_identity {
+  class SignForAppRequest extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getBytesToSign() {
       if (!isset($this->bytes_to_sign)) {
         return '';
@@ -119,7 +119,7 @@ namespace google\appengine {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -150,8 +150,8 @@ namespace google\appengine {
     }
   }
 }
-namespace google\appengine {
-  class SignForAppResponse extends \google\net\ProtocolMessage {
+namespace google\appengine\api\app_identity {
+  class SignForAppResponse extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getKeyName() {
       if (!isset($this->key_name)) {
         return '';
@@ -227,7 +227,7 @@ namespace google\appengine {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -266,8 +266,8 @@ namespace google\appengine {
     }
   }
 }
-namespace google\appengine {
-  class GetPublicCertificateForAppRequest extends \google\net\ProtocolMessage {
+namespace google\appengine\api\app_identity {
+  class GetPublicCertificateForAppRequest extends \google\appengine\runtime\proto\ProtocolMessage {
     public function clear() {
     }
     public function byteSizePartial() {
@@ -281,7 +281,7 @@ namespace google\appengine {
         $tt = $d->getVarInt32();
         switch ($tt) {
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -304,8 +304,8 @@ namespace google\appengine {
     }
   }
 }
-namespace google\appengine {
-  class PublicCertificate extends \google\net\ProtocolMessage {
+namespace google\appengine\api\app_identity {
+  class PublicCertificate extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getKeyName() {
       if (!isset($this->key_name)) {
         return '';
@@ -381,7 +381,7 @@ namespace google\appengine {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -420,8 +420,8 @@ namespace google\appengine {
     }
   }
 }
-namespace google\appengine {
-  class GetPublicCertificateForAppResponse extends \google\net\ProtocolMessage {
+namespace google\appengine\api\app_identity {
+  class GetPublicCertificateForAppResponse extends \google\appengine\runtime\proto\ProtocolMessage {
     private $public_certificate_list = array();
     public function getPublicCertificateListSize() {
       return sizeof($this->public_certificate_list);
@@ -444,7 +444,7 @@ namespace google\appengine {
       if ($idx >= end(array_keys($this->public_certificate_list))) {
         throw new \OutOfRangeException('index out of range: ' + $idx);
       }
-      return new \google\appengine\PublicCertificate();
+      return new \google\appengine\api\app_identity\PublicCertificate();
     }
     public function addPublicCertificateList() {
       $val = new \google\appengine\PublicCertificate();
@@ -510,7 +510,7 @@ namespace google\appengine {
         switch ($tt) {
           case 10:
             $length = $d->getVarInt32();
-            $tmp = new \google\net\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
+            $tmp = new \google\appengine\runtime\proto\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
             $d->skip($length);
             $this->addPublicCertificateList()->tryMerge($tmp);
             break;
@@ -518,7 +518,7 @@ namespace google\appengine {
             $this->setMaxClientCacheTimeInSecond($d->getVarInt64());
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -562,8 +562,8 @@ namespace google\appengine {
     }
   }
 }
-namespace google\appengine {
-  class GetServiceAccountNameRequest extends \google\net\ProtocolMessage {
+namespace google\appengine\api\app_identity {
+  class GetServiceAccountNameRequest extends \google\appengine\runtime\proto\ProtocolMessage {
     public function clear() {
     }
     public function byteSizePartial() {
@@ -577,7 +577,7 @@ namespace google\appengine {
         $tt = $d->getVarInt32();
         switch ($tt) {
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -600,8 +600,8 @@ namespace google\appengine {
     }
   }
 }
-namespace google\appengine {
-  class GetServiceAccountNameResponse extends \google\net\ProtocolMessage {
+namespace google\appengine\api\app_identity {
+  class GetServiceAccountNameResponse extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getServiceAccountName() {
       if (!isset($this->service_account_name)) {
         return '';
@@ -646,7 +646,7 @@ namespace google\appengine {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -677,8 +677,8 @@ namespace google\appengine {
     }
   }
 }
-namespace google\appengine {
-  class GetAccessTokenRequest extends \google\net\ProtocolMessage {
+namespace google\appengine\api\app_identity {
+  class GetAccessTokenRequest extends \google\appengine\runtime\proto\ProtocolMessage {
     private $scope = array();
     public function getScopeSize() {
       return sizeof($this->scope);
@@ -793,7 +793,7 @@ namespace google\appengine {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -842,8 +842,8 @@ namespace google\appengine {
     }
   }
 }
-namespace google\appengine {
-  class GetAccessTokenResponse extends \google\net\ProtocolMessage {
+namespace google\appengine\api\app_identity {
+  class GetAccessTokenResponse extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getAccessToken() {
       if (!isset($this->access_token)) {
         return '';
@@ -921,7 +921,7 @@ namespace google\appengine {
             $this->setExpirationTime($d->getVarInt64());
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -960,8 +960,8 @@ namespace google\appengine {
     }
   }
 }
-namespace google\appengine {
-  class GetDefaultGcsBucketNameRequest extends \google\net\ProtocolMessage {
+namespace google\appengine\api\app_identity {
+  class GetDefaultGcsBucketNameRequest extends \google\appengine\runtime\proto\ProtocolMessage {
     public function clear() {
     }
     public function byteSizePartial() {
@@ -975,7 +975,7 @@ namespace google\appengine {
         $tt = $d->getVarInt32();
         switch ($tt) {
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -998,8 +998,8 @@ namespace google\appengine {
     }
   }
 }
-namespace google\appengine {
-  class GetDefaultGcsBucketNameResponse extends \google\net\ProtocolMessage {
+namespace google\appengine\api\app_identity {
+  class GetDefaultGcsBucketNameResponse extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getDefaultGcsBucketName() {
       if (!isset($this->default_gcs_bucket_name)) {
         return '';
@@ -1044,7 +1044,7 @@ namespace google\appengine {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);

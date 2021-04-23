@@ -18,6 +18,13 @@
         "php-coveralls/php-coveralls": "dev-master"
     },
     "autoload": {
-        "files": ["google/appengine/runtime/autoloader.php"]
-    }
+        "psr-4": {
+          "google\\": "src"
+        }
+      },
+      "autoload-dev": {
+        "psr-4": {
+          "google\\": "tests"
+        }
+      }
 }

@@ -17,7 +17,7 @@
 /**
  * ProtocolMessage defines the base class for all protocol buffers.
  */
-namespace google\net;
+namespace google\appengine\runtime\proto;
 
 if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
   require_once 'google/appengine/runtime/proto/Decoder.php';
