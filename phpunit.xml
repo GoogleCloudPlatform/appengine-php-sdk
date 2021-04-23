@@ -1,32 +1,9 @@
 <phpunit
   bootstrap="vendor/autoload.php">
   <testsuites>
-    <testsuite name="API Tests">
-      <!-- Tests are Indivudually listed as they may have different requirements. -->
-      <directory>google/appengine/api/</directory>
-    </testsuite>
-    <testsuite name="Datastore Tests">
-      <directory>google/appengine/datastore/</directory>
-    </testsuite>
-    <testsuite name="Ext Tests">
-      <file>google/appengine/ext/remote_api/RemoteApiProtoTest.php</file>
-      <file>google/appengine/ext/session/MemcacheSessionHandlerTest.php</file>
-      <!-- Needs fixing to work with memcache Mocks -->
-      <exclude>
-        google/appengine/ext/cloud_storage_streams/CloudStorageStreamWrapperTest.php
-      </exclude>
-    </testsuite>
-    <testsuite name="Runtime Tests">
-      <directory>google/appengine/runtime/</directory>
-      <exclude>google/appengine/runtime/CurlLiteTest.php</exclude>
-      <!-- No way to exclude tests automatically if memcache compiled in. -->
-      <exclude>google/appengine/runtime/MemcacheTest.php</exclude>
-      <exclude>google/appengine/runtime/MemcachedTest.php</exclude>
-    </testsuite>
-    <testsuite name="CurlLite Tests">
-      <file phpVersion="5.5.0" phpVersionOperator=">=">
-        google/appengine/runtime/CurlLiteTest.php
-      </file>
+    <testsuite name="PHP AppEngine SDK">
+      <directory>tests</directory>
     </testsuite>
   </testsuites>
 </phpunit>
+
