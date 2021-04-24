@@ -17,20 +17,20 @@
 /**
  */
 
-require_once 'google/appengine/api/api_base_pb.php';
-require_once 'google/appengine/runtime/ApiProxyBase.php';
-require_once 'google/appengine/runtime/ApplicationError.php';
-require_once 'google/appengine/runtime/ArgumentError.php';
-require_once 'google/appengine/runtime/CallNotFoundError.php';
-require_once 'google/appengine/runtime/CancelledError.php';
-require_once 'google/appengine/runtime/CapabilityDisabledError.php';
-require_once 'google/appengine/runtime/DeadlineExceededError.php';
-require_once 'google/appengine/runtime/FeatureNotEnabledError.php';
-require_once 'google/appengine/runtime/OverQuotaError.php';
-require_once 'google/appengine/runtime/RealApiProxy.php';
-require_once 'google/appengine/runtime/RequestTooLargeError.php';
-require_once 'google/appengine/runtime/ResponseTooLargeError.php';
-require_once 'google/appengine/runtime/RPCFailedError.php';
+// require_once 'google/appengine/api/api_base_pb.php';
+// require_once 'google/appengine/runtime/ApiProxyBase.php';
+// require_once 'google/appengine/runtime/ApplicationError.php';
+// require_once 'google/appengine/runtime/ArgumentError.php';
+// require_once 'google/appengine/runtime/CallNotFoundError.php';
+// require_once 'google/appengine/runtime/CancelledError.php';
+// require_once 'google/appengine/runtime/CapabilityDisabledError.php';
+// require_once 'google/appengine/runtime/DeadlineExceededError.php';
+// require_once 'google/appengine/runtime/FeatureNotEnabledError.php';
+// require_once 'google/appengine/runtime/OverQuotaError.php';
+// require_once 'google/appengine/runtime/RealApiProxy.php';
+// require_once 'google/appengine/runtime/RequestTooLargeError.php';
+// require_once 'google/appengine/runtime/ResponseTooLargeError.php';
+// require_once 'google/appengine/runtime/RPCFailedError.php';
 
 use google\appengine\base\VoidProto;
 use google\appengine\runtime\ApiProxyBase;
