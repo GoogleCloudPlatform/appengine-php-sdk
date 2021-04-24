@@ -2,14 +2,14 @@
   bootstrap="vendor/autoload.php">
   <testsuites>
     <testsuite name="PHP AppEngine SDK">
-      <directory>tests</directory>
+      <directory>./tests</directory>
     </testsuite>
   </testsuites>
   <filter>
     <whitelist>
-      <directory>tests</directory>
+      <directory>./tests</directory>
       <exclude>
-        <directory>src</directory>
+        <directory>./src</directory>
       </exclude>
     </whitelist>
   </filter>

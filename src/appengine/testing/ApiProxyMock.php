@@ -16,8 +16,8 @@
  */
 namespace google\appengine\testing;
 
-require_once 'google/appengine/runtime/ApiProxy.php';
-require_once 'google/appengine/runtime/ApiProxyBase.php';
+// require_once 'google/appengine/runtime/ApiProxy.php';
+// require_once 'google/appengine/runtime/ApiProxyBase.php';
 
 use google\appengine\runtime\ApiProxy;
 use google\appengine\runtime\ApiProxyBase;
