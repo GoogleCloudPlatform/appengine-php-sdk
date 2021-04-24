@@ -16,8 +16,6 @@
  */
 namespace google\appengine\ext\remote_api;
 
-require_once 'google/appengine/ext/remote_api/remote_api_pb.php';
-
 use \google\appengine\ext\remote_api\Request;
 
 # TODO: delete this test when we finalize the layout of the SDK

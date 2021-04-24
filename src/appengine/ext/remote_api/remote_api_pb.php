@@ -25,7 +25,7 @@ namespace dummy {
   }
 }
 namespace google\appengine\ext\remote_api {
-  class Request extends \google\net\ProtocolMessage {
+  class Request extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getServiceName() {
       if (!isset($this->service_name)) {
         return '';
@@ -163,7 +163,7 @@ namespace google\appengine\ext\remote_api {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -222,7 +222,7 @@ namespace google\appengine\ext\remote_api {
   }
 }
 namespace google\appengine\ext\remote_api {
-  class ApplicationError extends \google\net\ProtocolMessage {
+  class ApplicationError extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getCode() {
       if (!isset($this->code)) {
         return 0;
@@ -296,7 +296,7 @@ namespace google\appengine\ext\remote_api {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -355,7 +355,7 @@ namespace google\appengine\ext\remote_api\RpcError {
   }
 }
 namespace google\appengine\ext\remote_api {
-  class RpcError extends \google\net\ProtocolMessage {
+  class RpcError extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getCode() {
       if (!isset($this->code)) {
         return 0;
@@ -429,7 +429,7 @@ namespace google\appengine\ext\remote_api {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -470,7 +470,7 @@ namespace google\appengine\ext\remote_api {
   }
 }
 namespace google\appengine\ext\remote_api {
-  class Response extends \google\net\ProtocolMessage {
+  class Response extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getResponse() {
       if (!isset($this->response)) {
         return '';
@@ -637,7 +637,7 @@ namespace google\appengine\ext\remote_api {
             break;
           case 26:
             $length = $d->getVarInt32();
-            $tmp = new \google\net\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
+            $tmp = new \google\appengine\runtime\proto\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
             $d->skip($length);
             $this->mutableApplicationError()->tryMerge($tmp);
             break;
@@ -648,12 +648,12 @@ namespace google\appengine\ext\remote_api {
             break;
           case 42:
             $length = $d->getVarInt32();
-            $tmp = new \google\net\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
+            $tmp = new \google\appengine\runtime\proto\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
             $d->skip($length);
             $this->mutableRpcError()->tryMerge($tmp);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -719,7 +719,7 @@ namespace google\appengine\ext\remote_api {
   }
 }
 namespace google\appengine\ext\remote_api\TransactionRequest {
-  class Precondition extends \google\net\ProtocolMessage {
+  class Precondition extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getKey() {
       if (!isset($this->key)) {
         return new \storage_onestore_v3\Reference();
@@ -793,7 +793,7 @@ namespace google\appengine\ext\remote_api\TransactionRequest {
           case 12: return;
           case 18:
             $length = $d->getVarInt32();
-            $tmp = new \google\net\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
+            $tmp = new \google\appengine\runtime\proto\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
             $d->skip($length);
             $this->mutableKey()->tryMerge($tmp);
             break;
@@ -803,7 +803,7 @@ namespace google\appengine\ext\remote_api\TransactionRequest {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -844,7 +844,7 @@ namespace google\appengine\ext\remote_api\TransactionRequest {
   }
 }
 namespace google\appengine\ext\remote_api {
-  class TransactionRequest extends \google\net\ProtocolMessage {
+  class TransactionRequest extends \google\appengine\runtime\proto\ProtocolMessage {
     private $precondition = array();
     public function getPreconditionSize() {
       return sizeof($this->precondition);
@@ -995,13 +995,13 @@ namespace google\appengine\ext\remote_api {
             break;
           case 34:
             $length = $d->getVarInt32();
-            $tmp = new \google\net\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
+            $tmp = new \google\appengine\runtime\proto\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
             $d->skip($length);
             $this->mutablePuts()->tryMerge($tmp);
             break;
           case 42:
             $length = $d->getVarInt32();
-            $tmp = new \google\net\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
+            $tmp = new \google\appengine\runtime\proto\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
             $d->skip($length);
             $this->mutableDeletes()->tryMerge($tmp);
             break;
@@ -1009,7 +1009,7 @@ namespace google\appengine\ext\remote_api {
             $this->setAllowMultipleEg($d->getBoolean());
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -1072,7 +1072,7 @@ namespace google\appengine\ext\remote_api {
   }
 }
 namespace google\appengine\ext\remote_api {
-  class TransactionQueryResult extends \google\net\ProtocolMessage {
+  class TransactionQueryResult extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getResult() {
       if (!isset($this->result)) {
         return new \google\appengine_datastore_v3\QueryResult();
@@ -1183,24 +1183,24 @@ namespace google\appengine\ext\remote_api {
         switch ($tt) {
           case 10:
             $length = $d->getVarInt32();
-            $tmp = new \google\net\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
+            $tmp = new \google\appengine\runtime\proto\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
             $d->skip($length);
             $this->mutableResult()->tryMerge($tmp);
             break;
           case 18:
             $length = $d->getVarInt32();
-            $tmp = new \google\net\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
+            $tmp = new \google\appengine\runtime\proto\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
             $d->skip($length);
             $this->mutableEntityGroupKey()->tryMerge($tmp);
             break;
           case 26:
             $length = $d->getVarInt32();
-            $tmp = new \google\net\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
+            $tmp = new \google\appengine\runtime\proto\Decoder($d->buffer(), $d->pos(), $d->pos() + $length);
             $d->skip($length);
             $this->mutableEntityGroup()->tryMerge($tmp);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
