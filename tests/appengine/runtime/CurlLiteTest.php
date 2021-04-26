@@ -34,8 +34,8 @@ class CurlLiteTest extends ApiProxyTestBase {
   }
 
   private function setupRequest($url, $body = null) {
-    $this->request = new \google\appengine\URLFetchRequest();
-    $this->response = new \google\appengine\URLFetchResponse();
+    $this->request = new \google\appengine\api\URLFetchRequest();
+    $this->response = new \google\appengine\api\URLFetchResponse();
 
     $this->request->setMethod(RequestMethod::GET);
     $this->request->setUrl($url);
