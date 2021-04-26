@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace google\appengine\runtime;
+namespace google\tests\appengine\runtime;
 
+use google\appengine\runtime;
 use google\appengine\testing\ApiProxyTestBase;
 use google\appengine\testing\TestUtils;
 use google\appengine\api\URLFetchRequest\RequestMethod;
@@ -25,7 +26,7 @@ use google\appengine\runtime\ApplicationError;
 // This file is included in Setup.php if google_app_engine.enable_curl_lite is
 // set in php.ini. Include it here unconditionally for the sake of testing
 // curl lite.
-require_once 'google/appengine/runtime/CurlLiteStub.php';
+// require_once 'src//appengine/runtime/CurlLiteStub.php';
 
 class CurlLiteTest extends ApiProxyTestBase {
 
@@ -82,7 +83,7 @@ class CurlLiteTest extends ApiProxyTestBase {
     ];
 
     foreach($supported_options as $option) {
-      $option = 'CURLOPT_' . $option;
+      $option = 'runtime\CURLOPT_' . $option;
       assert(defined($option), 'Check ' . $option . ' is correct');
       yield [constant($option), true, false];
     }
