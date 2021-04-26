@@ -20,6 +20,7 @@
  */
 
 // Constant Definitions
+namespace google\appengine\runtime;
 
 if (!defined('CURLAUTH_ANYSAFE')) {
   define('CURLAUTH_ANYSAFE', -18);
