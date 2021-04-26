@@ -16,6 +16,7 @@
  */
 namespace google\appengine\runtime;
 
+use google\appengine\runtime;
 use google\appengine\testing\ApiProxyTestBase;
 use google\appengine\testing\TestUtils;
 use google\appengine\api\URLFetchRequest\RequestMethod;
