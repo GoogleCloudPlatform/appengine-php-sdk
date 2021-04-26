@@ -14,9 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace google\tests\appengine\runtime;
+namespace google\appengine\runtime;
 
-use google\appengine\runtime;
 use google\appengine\testing\ApiProxyTestBase;
 use google\appengine\testing\TestUtils;
 use google\appengine\api\URLFetchRequest\RequestMethod;
