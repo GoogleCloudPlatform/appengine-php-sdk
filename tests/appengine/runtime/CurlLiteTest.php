@@ -18,8 +18,8 @@ namespace google\appengine\runtime;
 
 use google\appengine\testing\ApiProxyTestBase;
 use google\appengine\testing\TestUtils;
-use google\appengine\URLFetchRequest\RequestMethod;
-use google\appengine\URLFetchServiceError\ErrorCode;
+use google\appengine\api\URLFetchRequest\RequestMethod;
+use google\appengine\api\URLFetchServiceError\ErrorCode;
 use google\appengine\runtime\ApplicationError;
 
 class CurlLiteTest extends ApiProxyTestBase {
