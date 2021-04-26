@@ -18,8 +18,8 @@ namespace google\appengine\runtime;
 
 use google\appengine\testing\ApiProxyTestBase;
 use google\appengine\testing\TestUtils;
-use google\appengine\api\URLFetchRequest\RequestMethod;
-use google\appengine\api\URLFetchServiceError\ErrorCode;
+use google\appengine\URLFetchRequest\RequestMethod;
+use google\appengine\URLFetchServiceError\ErrorCode;
 use google\appengine\runtime\ApplicationError;
 
 // This file is included in Setup.php if google_app_engine.enable_curl_lite is
@@ -39,8 +39,8 @@ class CurlLiteTest extends ApiProxyTestBase {
   }
 
   private function setupRequest($url, $body = null) {
-    $this->request = new \google\appengine\api\URLFetchRequest();
-    $this->response = new \google\appengine\api\URLFetchResponse();
+    $this->request = new \google\appengine\URLFetchRequest();
+    $this->response = new \google\appengine\URLFetchResponse();
 
     $this->request->setMethod(RequestMethod::GET);
     $this->request->setUrl($url);
