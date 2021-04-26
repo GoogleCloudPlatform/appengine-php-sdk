@@ -22,8 +22,8 @@ namespace dummy {
     require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
   }
 }
-namespace google\appengine\base {
-  class StringProto extends \google\net\ProtocolMessage {
+namespace google\appengine\api {
+  class StringProto extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getValue() {
       if (!isset($this->value)) {
         return '';
@@ -68,7 +68,7 @@ namespace google\appengine\base {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -100,8 +100,8 @@ namespace google\appengine\base {
     }
   }
 }
-namespace google\appengine\base {
-  class Integer32Proto extends \google\net\ProtocolMessage {
+namespace google\appengine\api {
+  class Integer32Proto extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getValue() {
       if (!isset($this->value)) {
         return 0;
@@ -144,7 +144,7 @@ namespace google\appengine\base {
             $this->setValue($d->getVarInt32());
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -176,8 +176,8 @@ namespace google\appengine\base {
     }
   }
 }
-namespace google\appengine\base {
-  class Integer64Proto extends \google\net\ProtocolMessage {
+namespace google\appengine\api {
+  class Integer64Proto extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getValue() {
       if (!isset($this->value)) {
         return "0";
@@ -224,7 +224,7 @@ namespace google\appengine\base {
             $this->setValue($d->getVarInt64());
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -256,8 +256,8 @@ namespace google\appengine\base {
     }
   }
 }
-namespace google\appengine\base {
-  class BoolProto extends \google\net\ProtocolMessage {
+namespace google\appengine\api {
+  class BoolProto extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getValue() {
       if (!isset($this->value)) {
         return false;
@@ -299,7 +299,7 @@ namespace google\appengine\base {
             $this->setValue($d->getBoolean());
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -331,8 +331,8 @@ namespace google\appengine\base {
     }
   }
 }
-namespace google\appengine\base {
-  class DoubleProto extends \google\net\ProtocolMessage {
+namespace google\appengine\api {
+  class DoubleProto extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getValue() {
       if (!isset($this->value)) {
         return 0.0;
@@ -374,7 +374,7 @@ namespace google\appengine\base {
             $this->setValue($d->getDouble());
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -406,8 +406,8 @@ namespace google\appengine\base {
     }
   }
 }
-namespace google\appengine\base {
-  class BytesProto extends \google\net\ProtocolMessage {
+namespace google\appengine\api {
+  class BytesProto extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getValue() {
       if (!isset($this->value)) {
         return '';
@@ -452,7 +452,7 @@ namespace google\appengine\base {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -484,8 +484,8 @@ namespace google\appengine\base {
     }
   }
 }
-namespace google\appengine\base {
-  class VoidProto extends \google\net\ProtocolMessage {
+namespace google\appengine\api {
+  class VoidProto extends \google\appengine\runtime\proto\ProtocolMessage {
     public function clear() {
     }
     public function byteSizePartial() {
@@ -499,7 +499,7 @@ namespace google\appengine\base {
         $tt = $d->getVarInt32();
         switch ($tt) {
           case 0:
-            throw new \google\net\ProtocolBufferDecodeError();
+            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);

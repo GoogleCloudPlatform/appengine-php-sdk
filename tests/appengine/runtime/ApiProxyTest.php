@@ -17,7 +17,7 @@
 /**
  */
 
-use google\appengine\base\VoidProto;
+use google\appengine\api\VoidProto;
 use google\appengine\runtime\ApiProxyBase;
 use google\appengine\runtime\RealApiProxy;
 
