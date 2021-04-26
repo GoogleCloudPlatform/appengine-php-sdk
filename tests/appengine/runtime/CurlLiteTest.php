@@ -83,7 +83,7 @@ class CurlLiteTest extends ApiProxyTestBase {
     ];
 
     foreach($supported_options as $option) {
-      $option = 'runtime\CURLOPT_' . $option;
+      $option = 'google\appengine\runtime\CURLOPT_' . $option;
       assert(defined($option), 'Check ' . $option . ' is correct');
       yield [constant($option), true, false];
     }
