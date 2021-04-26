@@ -26,7 +26,7 @@ use google\appengine\runtime\ApplicationError;
 // This file is included in Setup.php if google_app_engine.enable_curl_lite is
 // set in php.ini. Include it here unconditionally for the sake of testing
 // curl lite.
-// require_once 'src//appengine/runtime/CurlLiteStub.php';
+require_once __DIR__ . '/CurlLiteStub.php';
 
 class CurlLiteTest extends ApiProxyTestBase {
 
@@ -83,7 +83,7 @@ class CurlLiteTest extends ApiProxyTestBase {
     ];
 
     foreach($supported_options as $option) {
-      $option = 'google\appengine\runtime\CURLOPT_' . $option;
+      $option = 'CURLOPT_' . $option;
       assert(defined($option), 'Check ' . $option . ' is correct');
       yield [constant($option), true, false];
     }

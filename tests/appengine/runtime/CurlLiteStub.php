@@ -599,8 +599,7 @@ if (!defined('CURLE_SSL_PEER_CERTIFICATE')) {
   define('CURLE_SSL_PEER_CERTIFICATE', 51);
 }
 if (!defined('CURLOPT_FOLLOWLOCATION')) {
-  // define('CURLOPT_FOLLOWLOCATION', 52);
-  const CURLOPT_FOLLOWLOCATION = 52;
+  define('CURLOPT_FOLLOWLOCATION', 52);
 }
 if (!defined('CURLE_GOT_NOTHING')) {
   define('CURLE_GOT_NOTHING', 52);
