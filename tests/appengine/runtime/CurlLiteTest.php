@@ -16,12 +16,16 @@
  */
 namespace google\appengine\runtime;
 
-use google\appengine\runtime;
 use google\appengine\testing\ApiProxyTestBase;
 use google\appengine\testing\TestUtils;
 use google\appengine\api\URLFetchRequest\RequestMethod;
 use google\appengine\api\URLFetchServiceError\ErrorCode;
 use google\appengine\runtime\ApplicationError;
+
+// This file is included in Setup.php if google_app_engine.enable_curl_lite is
+// set in php.ini. Include it here unconditionally for the sake of testing
+// curl lite.
+require_once 'google/appengine/runtime/CurlLiteStub.php';
 
 class CurlLiteTest extends ApiProxyTestBase {
 
