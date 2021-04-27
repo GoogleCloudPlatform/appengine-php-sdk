@@ -15,12 +15,18 @@
     "require-dev": {
         "mikey179/vfsstream": "~1",
         "phpunit/phpunit": "^8",
-        "php-coveralls/php-coveralls": "dev-master"
+        "php-coveralls/php-coveralls": "dev-master",
+        "mockery/mockery": "dev-master"
     },
     "autoload": {
         "psr-4": {
-          "google\\": "src"
-        }
+            "google\\": "src"
+        },
+        "classmap": [
+            "src/appengine/api/api_base_pb.php", 
+            "src/appengine/api/memcache/memcache_service_pb.php"
+        ],
+        "files": ["src/appengine/runtime/Memcache.php"]
       },
       "autoload-dev": {
         "psr-4": {

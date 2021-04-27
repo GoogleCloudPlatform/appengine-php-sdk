@@ -19,34 +19,33 @@
  *
  */
 
-require_once 'google/appengine/api/memcache/memcache_service_pb.php';
-require_once 'google/appengine/runtime/Memcache.php';
-require_once 'google/appengine/testing/ApiProxyTestBase.php';
+namespace google\tests\appengine\runtime;
 
-use google\appengine\MemcacheDeleteRequest;
-use google\appengine\MemcacheDeleteResponse;
-use google\appengine\MemcacheDeleteResponse\DeleteStatusCode;
-use google\appengine\MemcacheFlushRequest;
-use google\appengine\MemcacheFlushResponse;
-use google\appengine\MemcacheGetRequest;
-use google\appengine\MemcacheGetResponse;
-use google\appengine\MemcacheIncrementRequest;
-use google\appengine\MemcacheIncrementResponse;
-use google\appengine\MemcacheSetRequest;
-use google\appengine\MemcacheSetRequest\SetPolicy;
-use google\appengine\MemcacheSetResponse;
-use google\appengine\MemcacheSetResponse\SetStatusCode;
+use google\appengine\runtime\Memcache;
+use google\appengine\api\memcache\MemcacheDeleteRequest;
+use google\appengine\api\memcache\MemcacheDeleteResponse;
+use google\appengine\api\memcache\MemcacheDeleteResponse\DeleteStatusCode;
+use google\appengine\api\memcache\MemcacheFlushRequest;
+use google\appengine\api\memcache\MemcacheFlushResponse;
+use google\appengine\api\memcache\MemcacheGetRequest;
+use google\appengine\api\memcache\MemcacheGetResponse;
+use google\appengine\api\memcache\MemcacheIncrementRequest;
+use google\appengine\api\memcache\MemcacheIncrementResponse;
+use src\appengine\api\memcache\MemcacheSetRequest;
+use google\appengine\api\memcache\MemcacheSetRequest\SetPolicy;
+use google\appengine\api\memcache\MemcacheSetResponse;
+use google\appengine\api\memcache\MemcacheSetResponse\SetStatusCode;
 use google\appengine\testing\ApiProxyTestBase;
-
 
 class MemcacheTest extends ApiProxyTestBase {
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
     $this->_SERVER = $_SERVER;
+    // $this->markTestSkipped('TODO: .');
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     $_SERVER = $this->_SERVER;
     parent::tearDown();
   }
@@ -69,7 +68,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Set',
                                     $request,
                                     $response);
-    $this->assertTrue(memcache_add($memcache, "float", 2.0, null, 30));
+    $this->assertTrue($memcache->add("float", 2.0, null, 30));
     $this->apiProxyMock->verify();
   }
 
@@ -91,7 +90,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Set',
                                     $request,
                                     $response);
-    $this->assertFalse(memcache_add($memcache, "float", 2.0, null, 30));
+    $this->assertFalse($memcache->add("float", 2.0, null, 30));
     $this->apiProxyMock->verify();
   }
 
@@ -127,7 +126,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Delete',
                                     $request,
                                     $response);
-    $this->assertFalse(memcache_delete($memcache, "delete_key"));
+    $this->assertFalse($memcache->delete("delete_key"));
     $this->apiProxyMock->verify();
   }
 
