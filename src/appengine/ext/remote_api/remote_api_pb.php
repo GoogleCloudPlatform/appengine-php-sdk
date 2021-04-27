@@ -19,13 +19,13 @@
 
 namespace google\appengine\ext\remote_api;
 
-namespace dummy {
-  if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
-    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
-    require_once 'google/appengine/datastore/datastore_v3_pb.php';
-    require_once 'google/appengine/datastore/entity_pb.php';
-  }
-}
+// namespace dummy {
+//   if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
+//     require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+//     require_once 'google/appengine/datastore/datastore_v3_pb.php';
+//     require_once 'google/appengine/datastore/entity_pb.php';
+//   }
+// }
 
 
   class Request extends \google\appengine\runtime\proto\ProtocolMessage {

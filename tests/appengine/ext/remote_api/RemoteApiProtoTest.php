@@ -16,7 +16,7 @@
  */
 namespace google\tests\appengine\ext\remote_api;
 
-use \google\appengine\ext\remote_api\Request;
+use google\appengine\ext\remote_api\Request;
 
 # TODO: delete this test when we finalize the layout of the SDK
 
