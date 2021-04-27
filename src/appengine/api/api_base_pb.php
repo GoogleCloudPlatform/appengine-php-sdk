@@ -19,6 +19,9 @@
 
 namespace google\appengine\api;
 
+class api_base_pb {
+}
+
 namespace dummy {
   if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
     require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
@@ -486,7 +489,7 @@ namespace google\appengine\api {
     }
   }
 }
-namespace google\appengine\api {
+// namespace google\appengine\api {
   class VoidProto extends \google\appengine\runtime\proto\ProtocolMessage {
     public function clear() {
     }
@@ -523,4 +526,4 @@ namespace google\appengine\api {
       return $res;
     }
   }
-}
+// }
