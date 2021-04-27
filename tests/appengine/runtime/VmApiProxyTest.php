@@ -22,9 +22,9 @@ namespace google\appengine\runtime;
 
 use google\appengine\ext\remote_api\Request;
 use google\appengine\ext\remote_api\Response;
-use google\appengine\ext\remote_api\RpcError\ErrorCode;
-use google\appengine\SignForAppRequest;
-use google\appengine\SignForAppResponse;
+use src\appengine\ext\remote_api\RpcError\ErrorCode;
+use google\appengine\api\app_identity\SignForAppRequest;
+use google\appengine\api\app_identity\SignForAppResponse;
 use google\appengine\runtime\ApiProxy;
 use google\appengine\runtime\ApplicationError;
 

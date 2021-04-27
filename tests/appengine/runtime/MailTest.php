@@ -35,6 +35,7 @@ class MailTest extends ApiProxyTestBase {
     parent::setUp();
     ini_set('sendmail_from', '');
     putenv('APPLICATION_ID=');
+    $this->markTestSkipped('TODO: enable test after add api/Mail service');
   }
 
   public function testSetSenderUsingIniSetting() {

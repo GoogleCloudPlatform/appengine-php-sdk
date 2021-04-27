@@ -23,7 +23,9 @@
         },
         "classmap": [
             "src/appengine/api/api_base_pb.php", 
-            "src/appengine/api/memcache/memcache_service_pb.php"
+            "src/appengine/api/memcache/memcache_service_pb.php", 
+            "src/appengine/ext/remote_api/remote_api_pb.php",
+            "src/appengine/api/app_identity/app_identity_service_pb.php" 
         ],
         "files": ["src/appengine/runtime/Memcache.php"]
       },
