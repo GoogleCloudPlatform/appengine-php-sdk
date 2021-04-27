@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace google\appengine\ext\remote_api;
+namespace google\tests\appengine\ext\remote_api;
 
 use \google\appengine\ext\remote_api\Request;
 
