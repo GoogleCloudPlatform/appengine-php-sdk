@@ -22,7 +22,7 @@ namespace dummy {
     require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
   }
 }
-namespace google\appengine\api\URLFetchServiceError {
+namespace google\appengine\api\urlfetch\URLFetchServiceError {
   class ErrorCode {
     const OK = 0;
     const INVALID_URL = 1;
@@ -40,7 +40,7 @@ namespace google\appengine\api\URLFetchServiceError {
     const PAYLOAD_TOO_LARGE = 13;
   }
 }
-namespace google\appengine\api {
+namespace google\appengine\api\urlfetch {
   class URLFetchServiceError extends \google\appengine\runtime\proto\ProtocolMessage {
     public function clear() {
     }
@@ -78,7 +78,7 @@ namespace google\appengine\api {
     }
   }
 }
-namespace google\appengine\api\URLFetchRequest {
+namespace google\appengine\api\urlfetch\URLFetchRequest {
   class RequestMethod {
     const GET = 1;
     const POST = 2;
@@ -88,7 +88,7 @@ namespace google\appengine\api\URLFetchRequest {
     const PATCH = 6;
   }
 }
-namespace google\appengine\api\URLFetchRequest {
+namespace google\appengine\api\urlfetch\URLFetchRequest {
   class Header extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getKey() {
       if (!isset($this->Key)) {
@@ -207,7 +207,7 @@ namespace google\appengine\api\URLFetchRequest {
     }
   }
 }
-namespace google\appengine\api {
+namespace google\appengine\api\urlfetch {
   class URLFetchRequest extends \google\appengine\runtime\proto\ProtocolMessage {
     private $header = array();
     public function getMethod() {
@@ -252,7 +252,7 @@ namespace google\appengine\api {
     }
     public function mutableHeader($idx) {
       if (!isset($this->header[$idx])) {
-        $val = new \google\appengine\api\URLFetchRequest\Header();
+        $val = new \google\appengine\api\urlfetch\URLFetchRequest\Header();
         $this->header[$idx] = $val;
         return $val;
       }
@@ -265,10 +265,10 @@ namespace google\appengine\api {
       if ($idx >= end(array_keys($this->header))) {
         throw new \OutOfRangeException('index out of range: ' + $idx);
       }
-      return new \google\appengine\api\URLFetchRequest\Header();
+      return new \google\appengine\api\urlfetch\URLFetchRequest\Header();
     }
     public function addHeader() {
-      $val = new \google\appengine\api\URLFetchRequest\Header();
+      $val = new \google\appengine\api\urlfetch\URLFetchRequest\Header();
       $this->header[] = $val;
       return $val;
     }
@@ -530,7 +530,7 @@ namespace google\appengine\api {
     }
   }
 }
-namespace google\appengine\api\URLFetchResponse {
+namespace google\appengine\api\urlfetch\URLFetchResponse {
   class Header extends \google\appengine\runtime\proto\ProtocolMessage {
     public function getKey() {
       if (!isset($this->Key)) {
@@ -649,7 +649,7 @@ namespace google\appengine\api\URLFetchResponse {
     }
   }
 }
-namespace google\appengine\api {
+namespace google\appengine\api\urlfetch {
   class URLFetchResponse extends \google\appengine\runtime\proto\ProtocolMessage {
     private $header = array();
     public function getContent() {
@@ -694,7 +694,7 @@ namespace google\appengine\api {
     }
     public function mutableHeader($idx) {
       if (!isset($this->header[$idx])) {
-        $val = new \google\appengine\api\URLFetchResponse\Header();
+        $val = new \google\appengine\api\urlfetch\URLFetchResponse\Header();
         $this->header[$idx] = $val;
         return $val;
       }
@@ -707,10 +707,10 @@ namespace google\appengine\api {
       if ($idx >= end(array_keys($this->header))) {
         throw new \OutOfRangeException('index out of range: ' + $idx);
       }
-      return new \google\appengine\api\URLFetchResponse\Header();
+      return new \google\appengine\api\urlfetch\URLFetchResponse\Header();
     }
     public function addHeader() {
-      $val = new \google\appengine\api\URLFetchResponse\Header();
+      $val = new \google\appengine\api\urlfetch\URLFetchResponse\Header();
       $this->header[] = $val;
       return $val;
     }
