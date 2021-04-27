@@ -17,6 +17,9 @@
 /**
  */
 
+namespace google\tests\appengine\runtime;
+
+use google\appengine\runtime;
 use google\appengine\api\VoidProto;
 use google\appengine\runtime\ApiProxyBase;
 use google\appengine\runtime\RealApiProxy;
