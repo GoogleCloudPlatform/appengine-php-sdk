@@ -20,7 +20,7 @@
 namespace google\tests\appengine\runtime;
 
 use google\appengine\runtime;
-use google\appengine\api\api_base_pb\VoidProto;
+use google\appengine\api\api_base_pb;
 use google\appengine\runtime\ApiProxyBase;
 use google\appengine\runtime\RealApiProxy;
 
@@ -51,7 +51,7 @@ class ApiProxyTest extends \PHPUnit\Framework\TestCase {
   public function throwsException($exception, $errorNumber) {
     $this->expectException("google\\appengine\\runtime\\" . $exception);
     $realApiProxy = new RealApiProxy();
-    $requestProto = new VoidProto();
+    $requestProto = new api_base_pb\VoidProto();
     $responseProto = "";
     $resultArray = [];
 
