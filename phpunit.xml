@@ -1,17 +1,8 @@
-<phpunit
-  bootstrap="vendor/autoload.php">
+<phpunit bootstrap="vendor/autoload.php">
   <testsuites>
     <testsuite name="PHP AppEngine SDK">
       <directory>./tests</directory>
     </testsuite>
   </testsuites>
-  <filter>
-    <whitelist>
-      <directory>./tests</directory>
-      <exclude>
-        <directory>./src</directory>
-      </exclude>
-    </whitelist>
-  </filter>
 </phpunit>
 
