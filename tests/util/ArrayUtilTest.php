@@ -17,7 +17,6 @@
 namespace google\appengine\util;
 
 use google\appengine\util\ArrayUtil;
-
 use \PHPUnit\Framework\TestCase;
 
 class ArrayUtilTest extends TestCase {

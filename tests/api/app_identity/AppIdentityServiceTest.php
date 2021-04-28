@@ -33,7 +33,7 @@ function apc_fetch($name, &$success) {
     $item = array_shift($GLOBALS['apc_fetch_result']);
     $result = $item['value'] ?? false;
     $success = $item['result'] ?? false;
-    return $result; 
+    return $result;
   }
   $success = false;
   return false;
