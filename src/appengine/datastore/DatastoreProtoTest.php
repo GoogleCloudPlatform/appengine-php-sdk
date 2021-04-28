@@ -16,7 +16,7 @@
  */
 namespace google\appengine\datastore;
 
-require_once 'google/appengine/datastore/datastore_v3_pb.php';
+require_once 'src/appengine/datastore/datastore_v3_pb.php';
 
 use \google\appengine_datastore_v3\Transaction;
 

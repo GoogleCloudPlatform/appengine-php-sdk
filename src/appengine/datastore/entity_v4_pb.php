@@ -19,7 +19,7 @@
 
 namespace dummy {
   if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
-    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+    require_once 'src/appengine/runtime/proto/ProtocolMessage.php';
   }
 }
 namespace google\appengine\datastore\v4\PartitionId {

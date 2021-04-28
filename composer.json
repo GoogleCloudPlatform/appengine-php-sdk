@@ -30,12 +30,7 @@
             "src/appengine/datastore/action_pb.php",
             "src/appengine/datastore/datastore_v3_pb.php",
             "src/appengine/datastore/datastore_v4_pb.php",
-            "src/appengine/ext/remote_api/remote_api_pb.php",
-            "src/appengine/runtime/proto/ProtocolMessage.php", 
-            "src/appengine/runtime/proto/ProtocolBufferEncodeError.php", 
-            "src/appengine/runtime/proto/ProtocolBufferDecodeError.php", 
-            "src/appengine/runtime/proto/Encoder.php",
-            "src/appengine/runtime/proto/Decoder.php"
+            "src/appengine/ext/remote_api/remote_api_pb.php"
         ],
         "files": ["src/appengine/runtime/Memcache.php"]
       },

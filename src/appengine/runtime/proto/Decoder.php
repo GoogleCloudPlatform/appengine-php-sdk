@@ -16,10 +16,6 @@
  */
 namespace google\net;
 
-if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
-  require_once 'src/appengine/runtime/proto/ProtocolBufferDecodeError.php';
-}
-
 /**
  * Class to decode protocol buffer from serialized form. Used by protocol
  * buffer implementation.
