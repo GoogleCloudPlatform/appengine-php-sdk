@@ -29,12 +29,10 @@
 
 namespace google\appengine\runtime;
 
-require "vendor/autoload.php";
-
 use google\appengine\runtime\ApiProxy;
 use google\appengine\runtime\ApplicationError;
-use google\appengine\api\urlfetch\URLFetchRequest\RequestMethod;
-use google\appengine\api\urlfetch\URLFetchServiceError\ErrorCode;
+use google\appengine\URLFetchRequest\RequestMethod;
+use google\appengine\URLFetchServiceError\ErrorCode;
 use google\appengine\util\ArrayUtil;
 use google\appengine\util\HttpUtil;
 
@@ -187,7 +185,7 @@ final class CurlLite {
    */
   public function __construct($url = null) {
     // Set the request defaults.
-    $this->request = new \google\appengine\api\URLFetchRequest();
+    $this->request = new \google\appengine\URLFetchRequest();
     $this->request->setMethod(RequestMethod::GET);
     $this->request->setMustValidateServerCertificate(true);
     $this->request->setFollowRedirects(true);
