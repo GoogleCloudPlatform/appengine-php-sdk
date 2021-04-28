@@ -16,9 +16,7 @@
  */
 namespace google\appengine\datastore;
 
-require_once 'src/appengine/datastore/datastore_v4_pb.php';
-
-use \google\appengine\datastore\v4\Error\ErrorCode;
+use google\appengine\datastore\v4\Error\ErrorCode;
 
 class DatastoreV4ProtoTest extends\PHPUnit\Framework\TestCase {
   public function testTrivial() {
