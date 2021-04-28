@@ -20,6 +20,8 @@
 namespace dummy {
   if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
     require_once 'src/appengine/runtime/proto/ProtocolMessage.php';
+    require_once 'src/appengine/datastore/datastore_v3_pb.php';
+    require_once 'src/appengine/datastore/entity_pb.php';
   }
 }
 
