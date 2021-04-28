@@ -38,10 +38,5 @@
             "src/appengine/runtime/proto/Decoder.php"
         ],
         "files": ["src/appengine/runtime/Memcache.php"]
-      },
-      "autoload-dev": {
-        "psr-4": {
-          "google\\tests\\": "tests"
-        }
-      }
+    }
 }
