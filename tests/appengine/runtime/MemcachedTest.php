@@ -19,10 +19,9 @@
  *
  */
 
-require_once 'google/appengine/api/memcache/memcache_service_pb.php';
-require_once 'google/appengine/runtime/Memcached.php';
-require_once 'google/appengine/testing/ApiProxyTestBase.php';
+namespace google\tests\appengine\runtime;
 
+use google\appengine\runtime\Memcached;
 use google\appengine\MemcacheDeleteRequest;
 use google\appengine\MemcacheDeleteResponse;
 use google\appengine\MemcacheDeleteResponse\DeleteStatusCode;
@@ -40,12 +39,12 @@ use google\appengine\testing\ApiProxyTestBase;
 
 class MemcachedTest extends ApiProxyTestBase {
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
     $this->_SERVER = $_SERVER;
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     $_SERVER = $this->_SERVER;
     parent::tearDown();
   }

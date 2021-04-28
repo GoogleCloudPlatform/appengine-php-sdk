@@ -20,7 +20,8 @@
  */
 namespace google\appengine\api\app_identity;
 
-use google\appengine\api\app_identity\AppIdentityServiceError\ErrorCode;
+
+use google\appengine\AppIdentityServiceError\ErrorCode;
 use google\appengine\api\app_identity\AppIdentityService;
 use google\appengine\testing\ApiProxyTestBase;
 
@@ -69,7 +70,6 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     $this->_SERVER = $_SERVER;
     $GLOBALS['fetch_calls'] = 0;
     $GLOBALS['store_calls'] = 0;
-    $this->markTestSkipped('TODO: Resolve MemcachePool::get() errors in this test.');
   }
 
   public function testDown(): void {
@@ -103,8 +103,8 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetPublicCertificates() {
-    $req = new \google\appengine\api\app_identity\GetPublicCertificateForAppRequest();
-    $resp = new \google\appengine\api\app_identity\GetPublicCertificateForAppResponse();
+    $req = new \google\appengine\GetPublicCertificateForAppRequest();
+    $resp = new \google\appengine\GetPublicCertificateForAppResponse();
 
     $cert = $resp->mutablePublicCertificateList(0);
     $cert->setKeyName('key1');
@@ -130,10 +130,10 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetServiceAccountName() {
-    $req = new \google\appengine\api\app_identity\GetServiceAccountNameRequest();
+    $req = new \google\appengine\GetServiceAccountNameRequest();
 
     $service_account_result = 'foobar@gserviceaccount.google.com';
-    $resp = new \google\appengine\api\app_identity\GetServiceAccountNameResponse();
+    $resp = new \google\appengine\GetServiceAccountNameResponse();
     $resp->setServiceAccountName($service_account_result);
 
     $this->apiProxyMock->expectCall('app_identity_service',
@@ -148,12 +148,12 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
 
   private function expectGetAccessTokenRequest($scopes, $cached,
       $exception = null) {
-    $req = new \google\appengine\runtime\MemcacheGetRequest();
+    $req = new \google\appengine\MemcacheGetRequest();
     $memcache_key = AppIdentityService::MEMCACHE_KEY_PREFIX .
         AppIdentityService::DOMAIN_SEPARATOR .
         implode(AppIdentityService::DOMAIN_SEPARATOR, $scopes);
     $req->addKey($memcache_key);
-    $resp = new \google\appengine\runtime\MemcacheGetResponse();
+    $resp = new \google\appengine\MemcacheGetResponse();
 
     if ($cached) {
       $item = $resp->addItem();
@@ -173,13 +173,13 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     if ($cached) {
       return;
     }
-    $req = new \google\appengine\api\app_identity\GetAccessTokenRequest();
+    $req = new \google\appengine\GetAccessTokenRequest();
     foreach ($scopes as $scope) {
       $req->addScope($scope);
     }
 
     if (is_null($exception)) {
-      $resp = new \google\appengine\api\app_identity\GetAccessTokenResponse();
+      $resp = new \google\appengine\GetAccessTokenResponse();
       $resp->setAccessToken('foo token');
       $resp->setExpirationTime(12345);
     } else {
@@ -195,7 +195,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
       return;
     }
 
-    $req = new \google\appengine\runtime\MemcacheSetRequest();
+    $req = new \google\appengine\MemcacheSetRequest();
     $item = $req->addItem();
     $item->setKey($memcache_key);
     $item->setValue(serialize([
@@ -208,7 +208,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     $item->setFlags(
         \google\appengine\runtime\MemcacheUtils::TYPE_PHP_SERIALIZED);
     $item->setSetPolicy(1); // Add
-    $resp = new \google\appengine\runtime\MemcacheSetResponse();
+    $resp = new \google\appengine\MemcacheSetResponse();
     $resp->addSetStatus(1); // Stored
 
     $this->apiProxyMock->expectCall('memcache',
@@ -315,12 +315,12 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   private function expectMemcacheGetRequest($scopes) {
-    $req = new \google\appengine\runtime\MemcacheGetRequest();
+    $req = new \google\appengine\MemcacheGetRequest();
     $memcache_key = AppIdentityService::MEMCACHE_KEY_PREFIX .
         AppIdentityService::DOMAIN_SEPARATOR .
         implode(AppIdentityService::DOMAIN_SEPARATOR, $scopes);
     $req->addKey($memcache_key);
-    $resp = new \google\appengine\runtime\MemcacheGetResponse();
+    $resp = new \google\appengine\MemcacheGetResponse();
     $this->apiProxyMock->expectCall('memcache',
                                     'Get',
                                     $req,
@@ -335,7 +335,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetAccessTokenServiceInvalidScope() {
-    $req = new \google\appengine\api\app_identity\GetAccessTokenRequest();
+    $req = new \google\appengine\GetAccessTokenRequest();
 
     $scope = 'mail.google.com/invalid-scope';
     $req->addScope($scope);
@@ -397,7 +397,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   private function executeServiceErrorTest($error, $expected_response) {
-    $req = new \google\appengine\api\app_identity\GetAccessTokenRequest();
+    $req = new \google\appengine\GetAccessTokenRequest();
 
     $scope = 'mail.google.com/invalid-scope';
     $req->addScope($scope);

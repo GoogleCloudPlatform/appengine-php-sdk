@@ -35,7 +35,6 @@
             "src/appengine/runtime/proto/ProtocolBufferEncodeError.php", 
             "src/appengine/runtime/proto/ProtocolBufferDecodeError.php", 
             "src/appengine/runtime/proto/Encoder.php",
-
             "src/appengine/runtime/proto/Decoder.php"
         ],
         "files": ["src/appengine/runtime/Memcache.php"]

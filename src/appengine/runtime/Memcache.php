@@ -27,20 +27,20 @@
 
 namespace google\appengine\runtime;
 
-use google\appengine\api\memcache\MemcacheDeleteRequest;
-use google\appengine\api\memcache\MemcacheDeleteResponse;
-use google\appengine\api\memcache\MemcacheDeleteResponse\DeleteStatusCode;
-use google\appengine\api\memcache\MemcacheFlushRequest;
-use google\appengine\api\memcache\MemcacheFlushResponse;
-use google\appengine\api\memcache\MemcacheGetRequest;
-use google\appengine\api\memcache\MemcacheGetResponse;
-use google\appengine\api\memcache\MemcacheIncrementRequest;
-use google\appengine\api\memcache\MemcacheIncrementResponse;
-use google\appengine\api\memcache\MemcacheIncrementResponse\IncrementStatusCode;
-use google\appengine\api\memcache\MemcacheSetRequest;
-use google\appengine\api\memcache\MemcacheSetRequest\SetPolicy;
-use google\appengine\api\memcache\MemcacheSetResponse;
-use google\appengine\api\memcache\MemcacheSetResponse\SetStatusCode;
+use google\appengine\MemcacheDeleteRequest;
+use google\appengine\MemcacheDeleteResponse;
+use google\appengine\MemcacheDeleteResponse\DeleteStatusCode;
+use google\appengine\MemcacheFlushRequest;
+use google\appengine\MemcacheFlushResponse;
+use google\appengine\MemcacheGetRequest;
+use google\appengine\MemcacheGetResponse;
+use google\appengine\MemcacheIncrementRequest;
+use google\appengine\MemcacheIncrementResponse;
+use google\appengine\MemcacheIncrementResponse\IncrementStatusCode;
+use google\appengine\MemcacheSetRequest;
+use google\appengine\MemcacheSetRequest\SetPolicy;
+use google\appengine\MemcacheSetResponse;
+use google\appengine\MemcacheSetResponse\SetStatusCode;
 use google\appengine\runtime\ApiProxy;
 use google\appengine\runtime\Error;
 use google\appengine\runtime\MemcacheUtils;

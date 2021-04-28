@@ -31,6 +31,7 @@ use google\appengine\SignForAppRequest;
 use google\appengine\SignForAppResponse;
 use google\appengine\runtime\ApiProxy;
 use google\appengine\runtime\ApplicationError;
+use google\appengine\runtime\Memcache;
 
 /**
  * The AppIdentityService allows you to sign arbitrary byte
@@ -276,7 +277,7 @@ final class AppIdentityService {
   private static function putTokenInCache($name, $value, $expiry_secs) {
     $expiry_time_from_epoch = $expiry_secs - self::EXPIRY_SAFETY_MARGIN_SECS -
         self::EXPIRY_SHORT_MARGIN_SECS;
-    $memcache = new \Memcache();
+    $memcache = new Memcache();
     $memcache->set($name, $value, null, $expiry_time_from_epoch);
     // Record the expiry time in the object being cached, so we can check it
     // when read from APC.
@@ -318,7 +319,7 @@ final class AppIdentityService {
       unset($result['eviction_time_epoch']);
       return $result;
     }
-    $memcache = new \Memcache();
+    $memcache = new Memcache();
     $result = $memcache->get($name);
     // If there was a result in memcache but not in apc we can add using a
     // short timeout.
