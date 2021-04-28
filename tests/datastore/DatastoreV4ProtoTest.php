@@ -17,8 +17,9 @@
 namespace google\appengine\datastore;
 
 use google\appengine\datastore\v4\Error\ErrorCode;
+use \PHPUnit\Framework\TestCase;
 
-class DatastoreV4ProtoTest extends\PHPUnit\Framework\TestCase {
+class DatastoreV4ProtoTest extends TestCase {
   public function testTrivial() {
     $this->assertEquals(1, ErrorCode::BAD_REQUEST);
   }

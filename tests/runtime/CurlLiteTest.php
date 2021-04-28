@@ -21,6 +21,12 @@ use google\appengine\testing\TestUtils;
 use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchServiceError\ErrorCode;
 use google\appengine\runtime\ApplicationError;
+use google\appengine\runtime\CurlLiteStub;
+
+// This file is included in Setup.php if google_app_engine.enable_curl_lite is
+// set in php.ini. Include it here unconditionally for the sake of testing
+// curl lite.
+require_once __DIR__ . '/CurlLiteStub.php';
 
 class CurlLiteTest extends ApiProxyTestBase {
 
