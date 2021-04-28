@@ -18,6 +18,24 @@
         "php-coveralls/php-coveralls": "dev-master"
     },
     "autoload": {
-        "files": ["google/appengine/runtime/autoloader.php"]
+        "psr-4": {
+            "google\\appengine\\": "src"
+        },
+        "classmap": [
+            "src/api/api_base_pb.php", 
+            "src/api/memcache/memcache_service_pb.php", 
+            "src/api/urlfetch/urlfetch_service_pb.php",
+            "src/api/app_identity/app_identity_service_pb.php",
+            "src/api/app_identity/app_identity_service_pb.php", 
+            "src/datastore/action_pb.php",
+            "src/datastore/datastore_v3_pb.php",
+            "src/datastore/datastore_v4_pb.php",
+            "src/ext/remote_api/remote_api_pb.php",
+            "src/runtime/proto/ProtocolMessage.php", 
+            "src/runtime/proto/ProtocolBufferEncodeError.php", 
+            "src/runtime/proto/ProtocolBufferDecodeError.php", 
+            "src/runtime/proto/Encoder.php",
+            "src/runtime/proto/Decoder.php"
+        ]
     }
 }
