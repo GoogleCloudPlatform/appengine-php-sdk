@@ -21,8 +21,8 @@
 
 namespace google\appengine\runtime;
 
-use google\appengine\api\VoidProto;
-use google\appengine\api\MailMessage;
+use google\appengine\base\VoidProto;
+use google\appengine\MailMessage;
 use google\appengine\runtime\Mail;
 use google\appengine\testing\ApiProxyTestBase;
 
