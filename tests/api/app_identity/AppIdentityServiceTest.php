@@ -31,11 +31,9 @@ function apc_fetch($name, &$success) {
   $GLOBALS['fetch_calls']++;
   if (isset($GLOBALS['apc_fetch_result'])) {
     $item = array_shift($GLOBALS['apc_fetch_result']);
-    if (isset($item)){
-      $result = $item['value'];
-      $success = $item['result'];
-      return $result;
-    }
+    $result = $item['value'] ?? false;
+    $success = $item['result'] ?? false;
+    return $result; 
   }
   $success = false;
   return false;

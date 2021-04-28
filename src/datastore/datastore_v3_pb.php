@@ -19,11 +19,11 @@
 
 namespace dummy {
   if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
-    require_once 'src/appengine/runtime/proto/ProtocolMessage.php';
-    require_once 'src/appengine/api/api_base_pb.php';
-    require_once 'src/appengine/datastore/action_pb.php';
-    require_once 'src/appengine/datastore/entity_pb.php';
-    require_once 'src/appengine/datastore/snapshot_pb.php';
+    require_once 'src/runtime/proto/ProtocolMessage.php';
+    require_once 'src/api/api_base_pb.php';
+    require_once 'src/datastore/action_pb.php';
+    require_once 'src/datastore/entity_pb.php';
+    require_once 'src/datastore/snapshot_pb.php';
   }
 }
 namespace google\appengine_datastore_v3 {

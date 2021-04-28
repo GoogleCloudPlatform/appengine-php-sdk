@@ -20,10 +20,10 @@
 namespace google\net;
 
 if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
-  require_once 'src/appengine/runtime/proto/Decoder.php';
-  require_once 'src/appengine/runtime/proto/Encoder.php';
-  require_once 'src/appengine/runtime/proto/ProtocolBufferDecodeError.php';
-  require_once 'src/appengine/runtime/proto/ProtocolBufferEncodeError.php';
+  require_once 'src/runtime/proto/Decoder.php';
+  require_once 'src/runtime/proto/Encoder.php';
+  require_once 'src/runtime/proto/ProtocolBufferDecodeError.php';
+  require_once 'src/runtime/proto/ProtocolBufferEncodeError.php';
 }
 
 /**
