@@ -19,7 +19,7 @@
  *
  */
 
-namespace google\tests\appengine\runtime;
+namespace google\appengine\runtime;
 
 use google\appengine\api\VoidProto;
 use google\appengine\api\MailMessage;

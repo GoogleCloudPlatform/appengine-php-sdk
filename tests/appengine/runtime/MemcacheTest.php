@@ -19,7 +19,7 @@
  *
  */
 
-namespace google\tests\appengine\runtime;
+namespace google\appengine\runtime;
 
 use google\appengine\runtime\Memcache;
 use google\appengine\api\memcache\MemcacheDeleteRequest;
@@ -31,7 +31,7 @@ use google\appengine\api\memcache\MemcacheGetRequest;
 use google\appengine\api\memcache\MemcacheGetResponse;
 use google\appengine\api\memcache\MemcacheIncrementRequest;
 use google\appengine\api\memcache\MemcacheIncrementResponse;
-use src\appengine\api\memcache\MemcacheSetRequest;
+use google\appengine\api\memcache\MemcacheSetRequest;
 use google\appengine\api\memcache\MemcacheSetRequest\SetPolicy;
 use google\appengine\api\memcache\MemcacheSetResponse;
 use google\appengine\api\memcache\MemcacheSetResponse\SetStatusCode;

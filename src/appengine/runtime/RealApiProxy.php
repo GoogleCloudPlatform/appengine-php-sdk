@@ -40,7 +40,7 @@ class RealApiProxy extends ApiProxyBase {
 
     $result_array = array();
 
-    \make_call($package,
+    make_call($package,
                $call_name,
                $request->serializeToString(),
                $result_array,

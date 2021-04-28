@@ -19,7 +19,7 @@
  *
  */
 
-namespace google\tests\appengine\runtime;
+namespace google\appengine\runtime;
 
 use google\appengine\runtime\Memcached;
 use google\appengine\MemcacheDeleteRequest;

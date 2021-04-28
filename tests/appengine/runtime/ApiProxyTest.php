@@ -17,9 +17,9 @@
 /**
  */
 
-namespace google\tests\appengine\runtime;
+namespace google\appengine\runtime;
 
-use google\appengine\api\VoidProto;
+use google\appengine\base\VoidProto;
 use google\appengine\runtime\ApiProxyBase;
 use google\appengine\runtime\RealApiProxy;
 
@@ -42,10 +42,6 @@ function make_call($package,
  * Unittest for ApiProxy class.
  */
 class ApiProxyTest extends \PHPUnit\Framework\TestCase {
-  
-  protected function setUp(): void {
-    $this->markTestSkipped('TODO: define make_call() in the global scope of RealApiProxy.');
-  }
 
   /**
    * Checks that an expected exception corresponds to a
