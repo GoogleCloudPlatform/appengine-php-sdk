@@ -19,10 +19,10 @@
 
 namespace dummy {
   if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
-    require_once 'google/appengine/runtime/proto/ProtocolMessage.php';
+    require_once 'src/appengine/runtime/proto/ProtocolMessage.php';
   }
 }
-namespace google\appengine\api\urlfetch\URLFetchServiceError {
+namespace google\appengine\URLFetchServiceError {
   class ErrorCode {
     const OK = 0;
     const INVALID_URL = 1;
@@ -40,8 +40,8 @@ namespace google\appengine\api\urlfetch\URLFetchServiceError {
     const PAYLOAD_TOO_LARGE = 13;
   }
 }
-namespace google\appengine\api\urlfetch {
-  class URLFetchServiceError extends \google\appengine\runtime\proto\ProtocolMessage {
+namespace google\appengine {
+  class URLFetchServiceError extends \google\net\ProtocolMessage {
     public function clear() {
     }
     public function byteSizePartial() {
@@ -55,7 +55,7 @@ namespace google\appengine\api\urlfetch {
         $tt = $d->getVarInt32();
         switch ($tt) {
           case 0:
-            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
+            throw new \google\net\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -78,7 +78,7 @@ namespace google\appengine\api\urlfetch {
     }
   }
 }
-namespace google\appengine\api\urlfetch\URLFetchRequest {
+namespace google\appengine\URLFetchRequest {
   class RequestMethod {
     const GET = 1;
     const POST = 2;
@@ -88,8 +88,8 @@ namespace google\appengine\api\urlfetch\URLFetchRequest {
     const PATCH = 6;
   }
 }
-namespace google\appengine\api\urlfetch\URLFetchRequest {
-  class Header extends \google\appengine\runtime\proto\ProtocolMessage {
+namespace google\appengine\URLFetchRequest {
+  class Header extends \google\net\ProtocolMessage {
     public function getKey() {
       if (!isset($this->Key)) {
         return '';
@@ -166,7 +166,7 @@ namespace google\appengine\api\urlfetch\URLFetchRequest {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
+            throw new \google\net\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -207,8 +207,8 @@ namespace google\appengine\api\urlfetch\URLFetchRequest {
     }
   }
 }
-namespace google\appengine\api\urlfetch {
-  class URLFetchRequest extends \google\appengine\runtime\proto\ProtocolMessage {
+namespace google\appengine {
+  class URLFetchRequest extends \google\net\ProtocolMessage {
     private $header = array();
     public function getMethod() {
       if (!isset($this->Method)) {
@@ -252,7 +252,7 @@ namespace google\appengine\api\urlfetch {
     }
     public function mutableHeader($idx) {
       if (!isset($this->header[$idx])) {
-        $val = new \google\appengine\api\urlfetch\URLFetchRequest\Header();
+        $val = new \google\appengine\URLFetchRequest\Header();
         $this->header[$idx] = $val;
         return $val;
       }
@@ -265,10 +265,10 @@ namespace google\appengine\api\urlfetch {
       if ($idx >= end(array_keys($this->header))) {
         throw new \OutOfRangeException('index out of range: ' + $idx);
       }
-      return new \google\appengine\api\urlfetch\URLFetchRequest\Header();
+      return new \google\appengine\URLFetchRequest\Header();
     }
     public function addHeader() {
-      $val = new \google\appengine\api\urlfetch\URLFetchRequest\Header();
+      $val = new \google\appengine\URLFetchRequest\Header();
       $this->header[] = $val;
       return $val;
     }
@@ -444,7 +444,7 @@ namespace google\appengine\api\urlfetch {
             $this->setMustvalidateservercertificate($d->getBoolean());
             break;
           case 0:
-            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
+            throw new \google\net\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -530,8 +530,8 @@ namespace google\appengine\api\urlfetch {
     }
   }
 }
-namespace google\appengine\api\urlfetch\URLFetchResponse {
-  class Header extends \google\appengine\runtime\proto\ProtocolMessage {
+namespace google\appengine\URLFetchResponse {
+  class Header extends \google\net\ProtocolMessage {
     public function getKey() {
       if (!isset($this->Key)) {
         return '';
@@ -608,7 +608,7 @@ namespace google\appengine\api\urlfetch\URLFetchResponse {
             $d->skip($length);
             break;
           case 0:
-            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
+            throw new \google\net\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -649,8 +649,8 @@ namespace google\appengine\api\urlfetch\URLFetchResponse {
     }
   }
 }
-namespace google\appengine\api\urlfetch {
-  class URLFetchResponse extends \google\appengine\runtime\proto\ProtocolMessage {
+namespace google\appengine {
+  class URLFetchResponse extends \google\net\ProtocolMessage {
     private $header = array();
     public function getContent() {
       if (!isset($this->Content)) {
@@ -694,7 +694,7 @@ namespace google\appengine\api\urlfetch {
     }
     public function mutableHeader($idx) {
       if (!isset($this->header[$idx])) {
-        $val = new \google\appengine\api\urlfetch\URLFetchResponse\Header();
+        $val = new \google\appengine\URLFetchResponse\Header();
         $this->header[$idx] = $val;
         return $val;
       }
@@ -707,10 +707,10 @@ namespace google\appengine\api\urlfetch {
       if ($idx >= end(array_keys($this->header))) {
         throw new \OutOfRangeException('index out of range: ' + $idx);
       }
-      return new \google\appengine\api\urlfetch\URLFetchResponse\Header();
+      return new \google\appengine\URLFetchResponse\Header();
     }
     public function addHeader() {
-      $val = new \google\appengine\api\urlfetch\URLFetchResponse\Header();
+      $val = new \google\appengine\URLFetchResponse\Header();
       $this->header[] = $val;
       return $val;
     }
@@ -995,7 +995,7 @@ namespace google\appengine\api\urlfetch {
             $this->setApibytesreceived($d->getVarInt64());
             break;
           case 0:
-            throw new \google\appengine\runtime\proto\ProtocolBufferDecodeError();
+            throw new \google\net\ProtocolBufferDecodeError();
             break;
           default:
             $d->skipData($tt);
@@ -1104,3 +1104,4 @@ namespace google\appengine\api\urlfetch {
     }
   }
 }
+
