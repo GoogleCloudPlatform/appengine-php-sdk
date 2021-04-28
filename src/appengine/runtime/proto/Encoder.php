@@ -14,7 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace google\appengine\runtime\proto;
+namespace google\net;
+
+if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
+  require_once 'src/appengine/runtime/proto/Decoder.php';
+  require_once 'src/appengine/runtime/proto/ProtocolBufferEncodeError.php';
+}
 
 /**
  * Class to encode protocol buffer into serialized form. Used by protocol
