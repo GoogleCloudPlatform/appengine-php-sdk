@@ -405,7 +405,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
         $error, "not initialized");
 
     $this->expectException(
-        '\Google\Appengine\Api\AppIdentity\AppIdentityException',
+        '\Google\AppEngine\Api\AppIdentity\AppIdentityException',
         $expected_response);
 
     self::expectGetAccessTokenRequest(array($scope), false, $exception);

@@ -16,9 +16,9 @@
  */
 namespace Google\AppEngine\Runtime;
 
-use Google\Appengine\Ext\RemoteApi\Request;
-use Google\Appengine\Ext\RemoteApi\Response;
-use Google\Appengine\Runtime\RPCFailedError;
+use Google\AppEngine\Ext\RemoteApi\Request;
+use Google\AppEngine\Ext\RemoteApi\Response;
+use Google\AppEngine\Runtime\RPCFailedError;
 
 class RemoteApiProxy extends ApiProxyBase{
 

@@ -1294,8 +1294,8 @@ if (!defined('CURLAUTH_ONLY')) {
 
 // Function Definitions
 
-use Google\Appengine\Runtime\CurlLite;
-use Roogle\Appengine\Runtime\CurlLiteMethodNotSupportedException;
+use Google\AppEngine\Runtime\CurlLite;
+use Google\AppEngine\Runtime\CurlLiteMethodNotSupportedException;
 
 if (!function_exists('curl_init')) {
   function curl_init($url = null) {
