@@ -19,7 +19,7 @@
  *
  */
 
-namespace Google\Appengine\Runtime;
+namespace Google\AppEngine\Runtime;
 
 use google\appengine\MemcacheSetRequest;
 use google\appengine\MemcacheSetResponse;

@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Google\\Appengine\\": "src"
+            "Google\\AppEngine\\": "src"
         },
         "classmap": [
             "src/Api/api_base_pb.php", 

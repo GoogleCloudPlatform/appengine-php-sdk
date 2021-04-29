@@ -17,7 +17,7 @@
 /**
  */
 
-namespace Google\Appengine\Api\AppIdentity;
+namespace Google\AppEngine\Api\AppIdentity;
 
 /**
  * Thrown when there is a general failure using the AppIdentityService.

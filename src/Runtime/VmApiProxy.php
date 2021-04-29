@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Appengine\Runtime;
+namespace Google\AppEngine\Runtime;
 
 use google\appengine\ext\remote_api\Request;
 use google\appengine\ext\remote_api\Response;
 use google\appengine\ext\remote_api\RpcError\ErrorCode;
-use Google\Appengine\Runtime\RPCFailedError;
+use Google\AppEngine\Runtime\RPCFailedError;
 
 /**
  * An ApiProxy implementation that communicates with the VMRuntime Service
@@ -46,43 +46,43 @@ class VmApiProxy extends ApiProxyBase{
   // Map of Rpc Error Codes to the corresponging runtime exception.
   protected static $exceptionLookupTable = [
     ErrorCode::UNKNOWN => [
-      '\Google\Appengine\Runtime\RPCFailedError',
+      '\Google\AppEngine\Runtime\RPCFailedError',
       'The remote RPC to the application server failed for the call %s.%s().',
     ],
     ErrorCode::CALL_NOT_FOUND => [
-      '\Google\Appengine\Runtime\CallNotFoundError',
+      '\Google\AppEngine\Runtime\CallNotFoundError',
       "The API package '%s' or call '%s()' was not found.",
     ],
     ErrorCode::PARSE_ERROR => [
-      '\Google\Appengine\Runtime\ArgumentError',
+      '\Google\AppEngine\Runtime\ArgumentError',
       'There was an error parsing arguments for API call %s.%s().',
     ],
     ErrorCode::OVER_QUOTA => [
-      '\Google\Appengine\Runtime\OverQuotaError',
+      '\Google\AppEngine\Runtime\OverQuotaError',
       'The API call %s.%s() required more quota than is available.',
     ],
     ErrorCode::REQUEST_TOO_LARGE => [
-      '\Google\Appengine\Runtime\RequestTooLargeError',
+      '\Google\AppEngine\Runtime\RequestTooLargeError',
       'The request to API call %s.%s() was too large.',
     ],
     ErrorCode::CAPABILITY_DISABLED => [
-      '\Google\Appengine\Runtime\CapabilityDisabledError',
+      '\Google\AppEngine\Runtime\CapabilityDisabledError',
       'The API call %s.%s() is temporarily disabled.',
     ],
     ErrorCode::FEATURE_DISABLED => [
-      '\Google\Appengine\Runtime\FeatureNotEnabledError',
+      '\Google\AppEngine\Runtime\FeatureNotEnabledError',
       'The API call %s.%s() is currently not enabled.',
     ],
     ErrorCode::RESPONSE_TOO_LARGE => [
-      '\Google\Appengine\Runtime\ResponseTooLargeError',
+      '\Google\AppEngine\Runtime\ResponseTooLargeError',
       'The response from API call %s.%s() was too large.',
     ],
     ErrorCode::CANCELLED => [
-      '\Google\Appengine\Runtime\CancelledError',
+      '\Google\AppEngine\Runtime\CancelledError',
       'The API call %s.%s() was explicitly cancelled.',
     ],
     ErrorCode::DEADLINE_EXCEEDED => [
-      '\Google\Appengine\Runtime\DeadlineExceededError',
+      '\Google\AppEngine\Runtime\DeadlineExceededError',
       'The API call %s.%s() took too long to respond and was cancelled.',
     ],
   ];

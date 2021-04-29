@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Appengine\Runtime;
+namespace Google\AppEngine\Runtime;
 
 /**
  * Called by the CurlLite implementation if an unsupported option is set.

@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Appengine\Util;
+namespace Google\AppEngine\Util;
 
-use Google\Appengine\Util\ArrayUtil;
+use Google\AppEngine\Util\ArrayUtil;
 use \PHPUnit\Framework\TestCase;
 
 class ArrayUtilTest extends TestCase {
 
-  private $merge_fn = "Google\Appengine\Util\ArrayUtil::arrayMergeIgnoreCase";
+  private $merge_fn = "Google\AppEngine\Util\ArrayUtil::arrayMergeIgnoreCase";
   /**
    * @dataProvider arrayMergeDataProvider
    */

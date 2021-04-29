@@ -17,11 +17,11 @@
 /**
  */
 
-namespace Google\Appengine\Runtime;
+namespace Google\AppEngine\Runtime;
 
 use google\appengine\base\VoidProto;
-use Google\Appengine\Runtime\ApiProxyBase;
-use Google\Appengine\Runtime\RealApiProxy;
+use Google\AppEngine\Runtime\ApiProxyBase;
+use Google\AppEngine\Runtime\RealApiProxy;
 use \PHPUnit\Framework\TestCase;
 
 /**

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Appengine\Runtime;
+namespace Google\AppEngine\Runtime;
 
 abstract class ApiProxyBase {
   const OK                  =  0;
@@ -33,32 +33,32 @@ abstract class ApiProxyBase {
 
   protected static $exceptionLookupTable = array(
     self::RPC_FAILED => array(
-      '\Google\Appengine\Runtime\RPCFailedError',
+      '\Google\AppEngine\Runtime\RPCFailedError',
       'The remote RPC to the application server failed for the call %s.%s().'),
     self::CALL_NOT_FOUND => array(
-      '\Google\Appengine\Runtime\CallNotFoundError',
+      '\Google\AppEngine\Runtime\CallNotFoundError',
       "The API package '%s' or call '%s()' was not found."),
     self::ARGUMENT_ERROR => array(
-      '\Google\Appengine\Runtime\ArgumentError',
+      '\Google\AppEngine\Runtime\ArgumentError',
       'An error occurred parsing (locally or remotely) the arguments to %s.%s().'
     ),
     self::DEADLINE_EXCEEDED => array(
-      '\Google\Appengine\Runtime\DeadlineExceededError',
+      '\Google\AppEngine\Runtime\DeadlineExceededError',
       'The API call %s.%s() took too long to respond and was cancelled.'),
     self::CANCELLED => array(
-      '\Google\Appengine\Runtime\CancelledError',
+      '\Google\AppEngine\Runtime\CancelledError',
       'The API call %s.%s() was explicitly cancelled.'),
     self::OTHER_ERROR => array(
-      '\Google\Appengine\Runtime\Error',
+      '\Google\AppEngine\Runtime\Error',
       'An error occurred for the API request %s.%s().'),
     self::OVER_QUOTA => array(
-      '\Google\Appengine\Runtime\OverQuotaError',
+      '\Google\AppEngine\Runtime\OverQuotaError',
       'The API call %s.%s() required more quota than is available.'),
     self::REQUEST_TOO_LARGE => array(
-      '\Google\Appengine\Runtime\RequestTooLargeError',
+      '\Google\AppEngine\Runtime\RequestTooLargeError',
       'The request to API call %s.%s() was too large.'),
     self::RESPONSE_TOO_LARGE => array(
-      '\Google\Appengine\Runtime\ResponseTooLargeError',
+      '\Google\AppEngine\Runtime\ResponseTooLargeError',
       'The response from API call %s.%s() was too large.'),
 
     # APPLICATION_ERROR is special-cased to create an ApplicationError

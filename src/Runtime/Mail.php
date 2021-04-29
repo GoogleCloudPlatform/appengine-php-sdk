@@ -19,12 +19,12 @@
  *
  */
 
-namespace Google\Appengine\Runtime;
+namespace Google\AppEngine\Runtime;
 
-use Google\Appengine\Api\AppIdentity\AppIdentityService;
-use Google\Appengine\Api\Mail\Message;
-use Google\Appengine\Util\ArrayUtil;
-use Google\Appengine\Util\StringUtil;
+use Google\AppEngine\Api\AppIdentity\AppIdentityService;
+use Google\AppEngine\Api\Mail\Message;
+use Google\AppEngine\Util\ArrayUtil;
+use Google\AppEngine\Util\StringUtil;
 
 final class Mail {
 

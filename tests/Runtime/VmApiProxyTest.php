@@ -18,15 +18,15 @@
 // File defines two classes and the funtion names are not CamelCase as they are
 // following the streamWrapper interface.
 
-namespace Google\Appengine\Runtime;
+namespace Google\AppEngine\Runtime;
 
 use google\appengine\ext\remote_api\Request;
 use google\appengine\ext\remote_api\Response;
 use google\appengine\ext\remote_api\RpcError\ErrorCode;
 use google\appengine\SignForAppRequest;
 use google\appengine\SignForAppResponse;
-use Google\Appengine\Runtime\ApiProxy;
-use Google\Appengine\Runtime\ApplicationError;
+use Google\AppEngine\Runtime\ApiProxy;
+use Google\AppEngine\Runtime\ApplicationError;
 use \PHPUnit\Framework\TestCase;
 
 
@@ -266,7 +266,7 @@ class VmAPiProxyTest extends TestCase {
 
     $this->expectRpc($expected_request, $expected_response, $options);
 
-    $this->expectException('Google\Appengine\Runtime\\' . $exception);
+    $this->expectException('Google\AppEngine\Runtime\\' . $exception);
     ApiProxy::makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,
@@ -305,7 +305,7 @@ class VmAPiProxyTest extends TestCase {
 
     $this->expectRpc($expected_request, $expected_response, $options);
 
-    $this->expectException('Google\Appengine\Runtime\ApplicationError');
+    $this->expectException('Google\AppEngine\Runtime\ApplicationError');
     ApiProxy::makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,
@@ -323,7 +323,7 @@ class VmAPiProxyTest extends TestCase {
 
     $this->expectRpc($expected_request, $expected_response, $options);
 
-    $this->expectException('Google\Appengine\Runtime\RPCFailedError');
+    $this->expectException('Google\AppEngine\Runtime\RPCFailedError');
     ApiProxy::makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,
@@ -363,7 +363,7 @@ class VmAPiProxyTest extends TestCase {
 
     $this->expectRpc($expected_request, $expected_response, $options);
 
-    $this->expectException('Google\Appengine\Runtime\RPCFailedError');
+    $this->expectException('Google\AppEngine\Runtime\RPCFailedError');
     ApiProxy::makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,

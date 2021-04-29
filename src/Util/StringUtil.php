@@ -18,7 +18,7 @@
  * Various utilities for working with Strings.
  *
  */
-namespace Google\Appengine\Util;
+namespace Google\AppEngine\Util;
 
 /**
  * Various PHP string related utility functions.

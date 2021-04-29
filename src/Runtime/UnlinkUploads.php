@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace google\appengine\runtime;
+namespace Google\AppEngine\Runtime;
 
 /**
  * Handles removing (unlink()) uploaded files that are left at tmp_name.

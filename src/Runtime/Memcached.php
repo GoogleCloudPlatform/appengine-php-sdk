@@ -23,7 +23,7 @@
  *
  */
 
-namespace Google\Appengine\Runtime;
+namespace Google\AppEngine\Runtime;
 
 use google\appengine\MemcacheDeleteRequest;
 use google\appengine\MemcacheDeleteResponse;
@@ -36,9 +36,9 @@ use google\appengine\MemcacheSetRequest;
 use google\appengine\MemcacheSetRequest\SetPolicy;
 use google\appengine\MemcacheSetResponse;
 use google\appengine\MemcacheSetResponse\SetStatusCode;
-use Google\Appengine\Runtime\ApiProxy;
-use Google\Appengine\Runtime\Error;
-use Google\Appengine\Runtime\MemcacheUtils;
+use Google\AppEngine\Runtime\ApiProxy;
+use Google\AppEngine\Runtime\Error;
+use Google\AppEngine\Runtime\MemcacheUtils;
 
 class Memcached {
 

@@ -18,11 +18,11 @@
  * PHP Unit tests for the AppIdentityService.
  *
  */
-namespace Google\Appengine\Api\AppIdentity;
+namespace Google\AppEngine\Api\AppIdentity;
 
 use google\appengine\AppIdentityServiceError\ErrorCode;
-use Google\Appengine\Api\AppIdentity\AppIdentityService;
-use Google\Appengine\Testing\ApiProxyTestBase;
+use Google\AppEngine\Api\AppIdentity\AppIdentityService;
+use Google\AppEngine\Testing\ApiProxyTestBase;
 
 /**
  * Mock functions for APC cache functions.
@@ -162,7 +162,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
           'expiration_time' => 12345,
       ]));
       $item->setFlags(
-          \Google\Appengine\Runtime\MemcacheUtils::TYPE_PHP_SERIALIZED);
+          \Google\AppEngine\Runtime\MemcacheUtils::TYPE_PHP_SERIALIZED);
     }
 
     $this->apiProxyMock->expectCall('memcache',
@@ -205,7 +205,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
                              AppIdentityService::EXPIRY_SAFETY_MARGIN_SECS -
                              AppIdentityService::EXPIRY_SHORT_MARGIN_SECS);
     $item->setFlags(
-        \Google\Appengine\Runtime\MemcacheUtils::TYPE_PHP_SERIALIZED);
+        \Google\AppEngine\Runtime\MemcacheUtils::TYPE_PHP_SERIALIZED);
     $item->setSetPolicy(1); // Add
     $resp = new \google\appengine\MemcacheSetResponse();
     $resp->addSetStatus(1); // Stored
@@ -339,7 +339,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     $scope = 'mail.google.com/invalid-scope';
     $req->addScope($scope);
 
-    $exception = new \Google\Appengine\Runtime\ApplicationError(
+    $exception = new \Google\AppEngine\Runtime\ApplicationError(
         ErrorCode::UNKNOWN_SCOPE, "unknown scope");
 
     $this->expectException('\InvalidArgumentException',
@@ -401,7 +401,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     $scope = 'mail.google.com/invalid-scope';
     $req->addScope($scope);
 
-    $exception = new \Google\Appengine\Runtime\ApplicationError(
+    $exception = new \Google\AppEngine\Runtime\ApplicationError(
         $error, "not initialized");
 
     $this->expectException(

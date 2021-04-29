@@ -18,7 +18,7 @@
  * Various utilities for working with PHP arrays.
  *
  */
-namespace Google\Appengine\Util;
+namespace Google\AppEngine\Util;
 
 /**
  * Various PHP array related utility functions.

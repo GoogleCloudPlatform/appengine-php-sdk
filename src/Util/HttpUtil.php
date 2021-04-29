@@ -18,7 +18,7 @@
  * Various HTTP utility functions.
  *
  */
-namespace Google\Appengine\Util;
+namespace Google\AppEngine\Util;
 
 /**
  * HTTP related Utilities.

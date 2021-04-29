@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Appengine\Testing;
+namespace Google\AppEngine\Testing;
 
 class ApiCallArguments {
   public function __construct($package, $call_name, $req, $resp) {

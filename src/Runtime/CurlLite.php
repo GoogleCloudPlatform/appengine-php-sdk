@@ -27,14 +27,14 @@
  *
  */
 
-namespace Google\Appengine\Runtime;
+namespace Google\AppEngine\Runtime;
 
-use Google\Appengine\Runtime\ApiProxy;
-use Google\Appengine\Runtime\ApplicationError;
+use Google\AppEngine\Runtime\ApiProxy;
+use Google\AppEngine\Runtime\ApplicationError;
 use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchServiceError\ErrorCode;
-use Google\Appengine\Util\ArrayUtil;
-use Google\Appengine\Util\HttpUtil;
+use Google\AppEngine\Util\ArrayUtil;
+use Google\AppEngine\Util\HttpUtil;
 
 final class CurlLite {
   // The list of requests protocols supported by this implementation.
@@ -242,7 +242,7 @@ final class CurlLite {
     if (!$this->prepareRequest()) {
       return false;
     }
-    $this->response = new \Google\Appengine\URLFetchResponse();
+    $this->response = new \google\appengine\URLFetchResponse();
 
     try {
       ApiProxy::makeSyncCall('urlfetch',

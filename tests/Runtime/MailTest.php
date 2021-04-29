@@ -19,12 +19,12 @@
  *
  */
 
-namespace Google\Appengine\Runtime;
+namespace Google\AppEngine\Runtime;
 
 use google\appengine\base\VoidProto;
 use google\appengine\MailMessage;
-use Google\Appengine\Runtime\Mail;
-use Google\Appengine\Testing\ApiProxyTestBase;
+use Google\AppEngine\Runtime\Mail;
+use Google\AppEngine\Testing\ApiProxyTestBase;
 
 /**
  * @requires extension mailparse

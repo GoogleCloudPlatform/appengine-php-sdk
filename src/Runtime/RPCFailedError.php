@@ -17,7 +17,7 @@
 /**
  */
 
-namespace Google\Appengine\Runtime;
+namespace Google\AppEngine\Runtime;
 
 /**
  * Thrown by APIProxy calls when the RPC to the application server

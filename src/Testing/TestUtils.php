@@ -18,7 +18,7 @@
  * Useful utility functions for SDK testing.
  */
 
-namespace Google\Appengine\Testing;
+namespace Google\AppEngine\Testing;
 
 final class TestUtils {
   /**

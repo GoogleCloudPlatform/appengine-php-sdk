@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Appengine\Runtime;
+namespace Google\AppEngine\Runtime;
 
-use Google\Appengine\Testing\ApiProxyTestBase;
-use Google\Appengine\Testing\TestUtils;
+use Google\AppEngine\Testing\ApiProxyTestBase;
+use Google\AppEngine\Testing\TestUtils;
 use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchServiceError\ErrorCode;
-use Google\Appengine\Runtime\ApplicationError;
-use Google\Appengine\Runtime\CurlLiteStub;
+use Google\AppEngine\Runtime\ApplicationError;
+use Google\AppEngine\Runtime\CurlLiteStub;
 
 // This file is included in Setup.php if google_app_engine.enable_curl_lite is
 // set in php.ini. Include it here unconditionally for the sake of testing
@@ -34,7 +34,7 @@ class CurlLiteTest extends ApiProxyTestBase {
 
   public function setUp(): void {
     parent::setUp();
-    TestUtils::setStaticProperty('Google\Appengine\Runtime\CurlLite',
+    TestUtils::setStaticProperty('Google\AppEngine\Runtime\CurlLite',
                                  'logging_callback',
                                  [$this, 'mockLog']);
   }

@@ -18,7 +18,7 @@
  */
 
 
-namespace Google\Appengine\Api\AppIdentity;
+namespace Google\AppEngine\Api\AppIdentity;
 
 use google\appengine\AppIdentityServiceError\ErrorCode;
 use google\appengine\GetAccessTokenRequest;
@@ -29,9 +29,9 @@ use google\appengine\GetServiceAccountNameRequest;
 use google\appengine\GetServiceAccountNameResponse;
 use google\appengine\SignForAppRequest;
 use google\appengine\SignForAppResponse;
-use Google\Appengine\Runtime\ApiProxy;
-use Google\Appengine\Runtime\ApplicationError;
-use Google\Appengine\Runtime\Memcache;
+use Google\AppEngine\Runtime\ApiProxy;
+use Google\AppEngine\Runtime\ApplicationError;
+use Google\AppEngine\Runtime\Memcache;
 
 /**
  * The AppIdentityService allows you to sign arbitrary byte

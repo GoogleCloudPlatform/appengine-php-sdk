@@ -19,7 +19,7 @@
  * underlying vfs stream.
  */
 
-namespace google\appengine\runtime;
+namespace Google\AppEngine\Runtime;
 
 use org\bovigo\vfs\vfsStream;
 

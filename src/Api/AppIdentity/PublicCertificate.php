@@ -17,7 +17,7 @@
 /**
  */
 
-namespace Google\Appengine\Api\AppIdentity;
+namespace Google\AppEngine\Api\AppIdentity;
 
 /**
  * PublicCertificate contains an X509 public certificate in PEM format and a

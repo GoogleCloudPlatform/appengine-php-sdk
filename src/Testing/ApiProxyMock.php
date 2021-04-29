@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Appengine\Testing;
+namespace Google\AppEngine\Testing;
 
-use Google\Appengine\Runtime\ApiProxy;
-use Google\Appengine\Runtime\ApiProxyBase;
+use Google\AppEngine\Runtime\ApiProxy;
+use Google\AppEngine\Runtime\ApiProxyBase;
 
 class ApiProxyMock extends ApiProxyBase {
   public function init($testcase) {
