@@ -47,12 +47,24 @@ class ApiProxyMock extends ApiProxyBase {
     if ($expectedCall->resp instanceof \Exception) {
       throw $expectedCall->resp;
     } else {
-      $resp->copyFrom($expectedCall->resp);
+      $this->copyFrom($resp, $expectedCall->resp);
+
     }
   }
 
   public function verify() {
     $this->testcase->assertSame(array(), $this->expected);
+  }
+
+  /**
+   * Copies data from another protocol buffer pb2 to pb1.
+   */
+  private function copyFrom($pb1, $pb2) {
+    if ($pb1 === $pb2) {
+      return;
+    }
+    $pb1->clear();
+    $pb1->mergeFrom($pb2);
   }
 }
 

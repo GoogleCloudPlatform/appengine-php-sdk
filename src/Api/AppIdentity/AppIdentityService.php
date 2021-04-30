@@ -20,15 +20,15 @@
 
 namespace Google\AppEngine\Api\AppIdentity;
 
-use google\appengine\AppIdentityServiceError\ErrorCode;
-use google\appengine\GetAccessTokenRequest;
-use google\appengine\GetAccessTokenResponse;
-use google\appengine\GetPublicCertificateForAppRequest;
-use google\appengine\GetPublicCertificateForAppResponse;
-use google\appengine\GetServiceAccountNameRequest;
-use google\appengine\GetServiceAccountNameResponse;
-use google\appengine\SignForAppRequest;
-use google\appengine\SignForAppResponse;
+use Google\AppEngine\Api\AppIdentity\AppIdentityServiceError\ErrorCode;
+use Google\AppEngine\Api\AppIdentity\GetAccessTokenRequest;
+use Google\AppEngine\Api\AppIdentity\GetAccessTokenResponse;
+use Google\AppEngine\Api\AppIdentity\GetPublicCertificateForAppRequest;
+use Google\AppEngine\Api\AppIdentity\GetPublicCertificateForAppResponse;
+use Google\AppEngine\Api\AppIdentity\GetServiceAccountNameRequest;
+use Google\AppEngine\Api\AppIdentity\GetServiceAccountNameResponse;
+use Google\AppEngine\Api\AppIdentity\SignForAppRequest;
+use Google\AppEngine\Api\AppIdentity\SignForAppResponse;
 use Google\AppEngine\Runtime\ApiProxy;
 use Google\AppEngine\Runtime\ApplicationError;
 use Google\AppEngine\Runtime\Memcache;
@@ -137,7 +137,7 @@ final class AppIdentityService {
 
     $result = [];
 
-    foreach ($resp->getPublicCertificateListList() as $cert) {
+    foreach ($resp->getPublicCertificateList() as $cert) {
       $result[] = new PublicCertificate($cert->getKeyName(),
                                         $cert->getX509CertificatePem());
     }
@@ -155,7 +155,7 @@ final class AppIdentityService {
    * safe to cache and reuse until they expire.
    *
    * @param array $scopes The scopes to acquire the access token for.
-   * Can be either a single string or an array of strings.
+   * CagetPublicCertificateListn be either a single string or an array of strings.
    *
    * @throws \InvalidArgumentException If $scopes is not a string or an array of
    * strings.
