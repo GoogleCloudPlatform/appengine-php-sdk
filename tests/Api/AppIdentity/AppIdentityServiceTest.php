@@ -106,7 +106,8 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     $req = new \Google\AppEngine\Api\AppIdentity\GetPublicCertificateForAppRequest();
     $resp = new \Google\AppEngine\Api\AppIdentity\GetPublicCertificateForAppResponse();
     
-    $public_certificate_list = $resp->getPublicCertificateList();
+    // $public_certificate_list = $resp->getPublicCertificateList();
+    $public_certificate_list = [];
     $cert = new PublicCertificate(); 
     $cert->setKeyName('key1');
     $cert->setX509CertificatePem('cert1');
@@ -127,11 +128,11 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     $certs = AppIdentityService::getPublicCertificates();
 
     $cert = $certs[0];
-    $this->assertEquals($cert->getCertificateName(), 'key1');
-    $this->assertEquals($cert->getX509CertificateInPemFormat(), 'cert1');
+    $this->assertEquals($cert->getKeyName(), 'key1');
+    $this->assertEquals($cert->getX509CertificatePem(), 'cert1');
     $cert = $certs[1];
-    $this->assertEquals($cert->getCertificateName(), 'key2');
-    $this->assertEquals($cert->getX509CertificateInPemFormat(), 'cert2');
+    $this->assertEquals($cert->getKeyName(), 'key2');
+    $this->assertEquals($cert->getX509CertificatePem(), 'cert2');
     $this->apiProxyMock->verify();
   }
 
@@ -180,9 +181,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
       return;
     }
     $req = new \Google\AppEngine\Api\AppIdentity\GetAccessTokenRequest();
-    foreach ($scopes as $scope) {
-      $req->setScope($scope);
-    }
+    $req->setScope($scopes);
 
     if (is_null($exception)) {
       $resp = new \Google\AppEngine\Api\AppIdentity\GetAccessTokenResponse();
@@ -334,7 +333,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetAccessTokenInvalidScopeArray() {
-    $scopes = ["foo", 1];
+    $scopes = ['foo', 1];
     self::expectMemcacheGetRequest($scopes);
     $this->expectException('\InvalidArgumentException');
     $sign_result = AppIdentityService::getAccessToken($scopes);
@@ -344,7 +343,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     $req = new \Google\AppEngine\Api\AppIdentity\GetAccessTokenRequest();
 
     $scope = 'mail.google.com/invalid-scope';
-    $req->setScope($scope);
+    $req->setScope([$scope]);
 
     $exception = new \Google\AppEngine\Runtime\ApplicationError(
         ErrorCode::UNKNOWN_SCOPE, "unknown scope");
@@ -406,7 +405,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     $req = new \Google\AppEngine\Api\AppIdentity\GetAccessTokenRequest();
 
     $scope = 'mail.google.com/invalid-scope';
-    $req->setScope($scope);
+    $req->setScope([$scope]);
 
     $exception = new \Google\AppEngine\Runtime\ApplicationError(
         $error, "not initialized");

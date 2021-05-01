@@ -138,8 +138,12 @@ final class AppIdentityService {
     $result = [];
 
     foreach ($resp->getPublicCertificateList() as $cert) {
-      $result[] = new PublicCertificate($cert->getKeyName(),
-                                        $cert->getX509CertificatePem());
+      $pub_cert = new PublicCertificate();
+      $pub_cert->setKeyName($cert->getKeyName());
+      $pub_cert->setX509CertificatePem($cert->getX509CertificatePem());
+      $result[] = $pub_cert;
+      // $result[] = new PublicCertificate($cert->getKeyName(),
+      //                                   $cert->getX509CertificatePem());
     }
 
     return $result;
@@ -155,7 +159,7 @@ final class AppIdentityService {
    * safe to cache and reuse until they expire.
    *
    * @param array $scopes The scopes to acquire the access token for.
-   * CagetPublicCertificateListn be either a single string or an array of strings.
+   * Can be either a single string or an array of strings.
    *
    * @throws \InvalidArgumentException If $scopes is not a string or an array of
    * strings.
@@ -212,16 +216,15 @@ final class AppIdentityService {
     $resp = new GetAccessTokenResponse();
 
     if (is_string($scopes)) {
-      $req->addScope($scopes);
+      $req->setScope([$scopes]);
     } else if (is_array($scopes)) {
       foreach($scopes as $scope) {
-        if (is_string($scope)) {
-          $req->addScope($scope);
-        } else {
+        if (!is_string($scope)) {
           throw new \InvalidArgumentException(
             'Invalid scope ' . htmlspecialchars($scope));
         }
       }
+      $req->setScope($scopes);
     } else {
       throw new \InvalidArgumentException(
           'Invalid scope ' . htmlspecialchars($scopes));
