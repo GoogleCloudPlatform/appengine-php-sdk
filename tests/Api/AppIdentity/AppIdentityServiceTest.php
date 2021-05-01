@@ -20,8 +20,7 @@
  */
 namespace Google\AppEngine\Api\AppIdentity;
 
-use Google\AppEngine\Api\AppIdentity\AppIdentityServiceError\ErrorCode;
-use Google\AppEngine\Api\AppIdentity\PublicCertificate;
+use google\appengine\AppIdentityServiceError\ErrorCode;
 use Google\AppEngine\Api\AppIdentity\AppIdentityService;
 use Google\AppEngine\Testing\ApiProxyTestBase;
 
@@ -78,10 +77,10 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testSignForApp() {
-    $req = new \Google\AppEngine\Api\AppIdentity\SignForAppRequest();
+    $req = new \google\appengine\SignForAppRequest();
     $req->setBytesToSign('these are the bytes');
 
-    $resp = new \Google\AppEngine\Api\AppIdentity\SignForAppResponse();
+    $resp = new \google\appengine\SignForAppResponse();
     $resp->setSignatureBytes('signed bytes.');
     $resp->setKeyName('the key_name');
 
@@ -103,21 +102,15 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetPublicCertificates() {
-    $req = new \Google\AppEngine\Api\AppIdentity\GetPublicCertificateForAppRequest();
-    $resp = new \Google\AppEngine\Api\AppIdentity\GetPublicCertificateForAppResponse();
-    
-    $public_certificate_list = $resp->getPublicCertificateList();
-    $cert = new PublicCertificate(); 
+    $req = new \google\appengine\GetPublicCertificateForAppRequest();
+    $resp = new \google\appengine\GetPublicCertificateForAppResponse();
+
+    $cert = $resp->mutablePublicCertificateList(0);
     $cert->setKeyName('key1');
     $cert->setX509CertificatePem('cert1');
-    $public_certificate_list[0] = $cert;
-     
-    $cert = new PublicCertificate(); 
+    $cert = $resp->mutablePublicCertificateList(1);
     $cert->setKeyName('key2');
     $cert->setX509CertificatePem('cert2');
-    $public_certificate_list[1] = $cert;
-
-    $resp->setPublicCertificateList($public_certificate_list);
 
     $this->apiProxyMock->expectCall('app_identity_service',
                                     'GetPublicCertificatesForApp',
@@ -136,10 +129,10 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetServiceAccountName() {
-    $req = new \Google\AppEngine\Api\AppIdentity\GetServiceAccountNameRequest();
+    $req = new \google\appengine\GetServiceAccountNameRequest();
 
     $service_account_result = 'foobar@gserviceaccount.google.com';
-    $resp = new \Google\AppEngine\Api\AppIdentity\GetServiceAccountNameResponse();
+    $resp = new \google\appengine\GetServiceAccountNameResponse();
     $resp->setServiceAccountName($service_account_result);
 
     $this->apiProxyMock->expectCall('app_identity_service',
@@ -179,13 +172,13 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     if ($cached) {
       return;
     }
-    $req = new \Google\AppEngine\Api\AppIdentity\GetAccessTokenRequest();
+    $req = new \google\appengine\GetAccessTokenRequest();
     foreach ($scopes as $scope) {
-      $req->setScope($scope);
+      $req->addScope($scope);
     }
 
     if (is_null($exception)) {
-      $resp = new \Google\AppEngine\Api\AppIdentity\GetAccessTokenResponse();
+      $resp = new \google\appengine\GetAccessTokenResponse();
       $resp->setAccessToken('foo token');
       $resp->setExpirationTime(12345);
     } else {
@@ -341,10 +334,10 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetAccessTokenServiceInvalidScope() {
-    $req = new \Google\AppEngine\Api\AppIdentity\GetAccessTokenRequest();
+    $req = new \google\appengine\GetAccessTokenRequest();
 
     $scope = 'mail.google.com/invalid-scope';
-    $req->setScope($scope);
+    $req->addScope($scope);
 
     $exception = new \Google\AppEngine\Runtime\ApplicationError(
         ErrorCode::UNKNOWN_SCOPE, "unknown scope");
@@ -403,10 +396,10 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   private function executeServiceErrorTest($error, $expected_response) {
-    $req = new \Google\AppEngine\Api\AppIdentity\GetAccessTokenRequest();
+    $req = new \google\appengine\GetAccessTokenRequest();
 
     $scope = 'mail.google.com/invalid-scope';
-    $req->setScope($scope);
+    $req->addScope($scope);
 
     $exception = new \Google\AppEngine\Runtime\ApplicationError(
         $error, "not initialized");
