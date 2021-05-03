@@ -21,6 +21,9 @@
         "psr-4": {
             "Google\\AppEngine\\": "src"
         },
+        "files": [
+            "src/aliases.php"
+        ],
         "classmap": [
             "src/Api/api_base_pb.php", 
             "src/Api/Memcache/memcache_service_pb.php", 
