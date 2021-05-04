@@ -137,7 +137,6 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetServiceAccountName() {
-
     $req = new \Google\AppEngine\Api\AppIdentity\GetServiceAccountNameRequest();
 
     $service_account_result = 'foobar@gserviceaccount.google.com';
@@ -335,7 +334,6 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
 
   public function testGetAccessTokenInvalidScopeArray() {
     $scopes = ['foo', 1];
-
     self::expectMemcacheGetRequest($scopes);
     $this->expectException('\InvalidArgumentException');
     $sign_result = AppIdentityService::getAccessToken($scopes);

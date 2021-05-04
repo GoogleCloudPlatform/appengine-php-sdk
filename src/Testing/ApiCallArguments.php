@@ -31,7 +31,6 @@ class ApiCallArguments {
 
     return $this->package === $other->package
         && $this->call_name === $other->call_name
-
         && $this->equals($this->req,$other->req);
   }
 
