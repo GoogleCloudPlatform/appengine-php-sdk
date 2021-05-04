@@ -31,6 +31,7 @@ class ApiCallArguments {
 
     return $this->package === $other->package
         && $this->call_name === $other->call_name
+
         && $this->equals($this->req,$other->req);
   }
 
@@ -39,7 +40,7 @@ class ApiCallArguments {
         . "Call: " . $this->call_name . "\n"
         . $this->req->shortDebugString();
   }
-
+  
   private function equals($a, $b) {
     if ($a === $b) { return true; }
     if (isset($a->bytes_to_sign) !== isset($b->bytes_to_sign)) return false;

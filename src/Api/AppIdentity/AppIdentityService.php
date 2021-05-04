@@ -142,8 +142,6 @@ final class AppIdentityService {
       $pub_cert->setKeyName($cert->getKeyName());
       $pub_cert->setX509CertificatePem($cert->getX509CertificatePem());
       $result[] = $pub_cert;
-      // $result[] = new PublicCertificate($cert->getKeyName(),
-      //                                   $cert->getX509CertificatePem());
     }
 
     return $result;

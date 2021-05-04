@@ -48,7 +48,6 @@ class ApiProxyMock extends ApiProxyBase {
       throw $expectedCall->resp;
     } else {
       $this->copyFrom($resp, $expectedCall->resp);
-
     }
   }
 
