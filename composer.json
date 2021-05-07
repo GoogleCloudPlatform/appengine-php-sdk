@@ -16,10 +16,30 @@
     },
     "require-dev": {
         "mikey179/vfsstream": "~1",
-        "phpunit/phpunit": "4.6.*",
+        "phpunit/phpunit": "^8",
         "php-coveralls/php-coveralls": "dev-master"
     },
     "autoload": {
-        "files": ["google/appengine/runtime/autoloader.php"]
+        "psr-4": {
+            "Google\\AppEngine\\": "src"
+        },
+        "files": [
+            "src/aliases.php"
+        ],
+        "classmap": [
+            "src/Api/api_base_pb.php", 
+            "src/Api/Memcache/memcache_service_pb.php", 
+            "src/Api/Urlfetch/urlfetch_service_pb.php",
+            "src/Api/AppIdentity/app_identity_service_pb.php",
+            "src/Datastore/action_pb.php",
+            "src/Datastore/datastore_v3_pb.php",
+            "src/Datastore/datastore_v4_pb.php",
+            "src/Ext/RemoteApi/remote_api_pb.php",
+            "src/Runtime/Proto/ProtocolMessage.php", 
+            "src/Runtime/Proto/ProtocolBufferEncodeError.php", 
+            "src/Runtime/Proto/ProtocolBufferDecodeError.php", 
+            "src/Runtime/Proto/Encoder.php",
+            "src/Runtime/Proto/Decoder.php"
+        ]
     }
 }
