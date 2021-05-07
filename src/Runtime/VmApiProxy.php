@@ -19,7 +19,7 @@ namespace Google\AppEngine\Runtime;
 use google\appengine\ext\remote_api\Request;
 use google\appengine\ext\remote_api\Response;
 use google\appengine\ext\remote_api\RpcError\ErrorCode;
-use google\appengine\runtime\RPCFailedError;
+use Google\AppEngine\Runtime\RPCFailedError;
 use GuzzleHttp\Client;
 
 
