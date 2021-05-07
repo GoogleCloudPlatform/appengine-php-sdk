@@ -24,13 +24,13 @@ use google\appengine\URLFetchResponse;
 
 class UrlFetchTest extends ApiProxyTestBase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->_SERVER = $_SERVER;
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $_SERVER = $this->_SERVER;
         parent::tearDown();
