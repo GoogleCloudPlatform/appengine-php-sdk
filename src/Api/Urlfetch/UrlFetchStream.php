@@ -16,9 +16,9 @@
  */
 
 
-namespace google\appengine\api\urlfetch;
+namespace Google\Appengine\Api\Urlfetch;
 
-use google\appengine\runtime\ApplicationError;
+use Google\Appengine\Runtime\ApplicationError;
 use google\appengine\URLFetchServiceError\ErrorCode;
 use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Stream\CachingStream;

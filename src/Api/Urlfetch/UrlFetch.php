@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-namespace google\appengine\api\urlfetch;
+namespace Google\Appengine\Api\Urlfetch;
 
-use google\appengine\runtime\ApiProxy;
-use google\appengine\runtime\ApplicationError;
+use Google\Appengine\Runtime\ApiProxy;
+use Google\Appengine\Runtime\ApplicationError;
 use google\appengine\URLFetchRequest;
 use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchResponse;
