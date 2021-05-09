@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace Google\Appengine\Api\Urlfetch;
+namespace Google\AppEngine\Api\Urlfetch;
 
 use Google\Appengine\Runtime\ApiProxy;
 use Google\Appengine\Runtime\ApplicationError;

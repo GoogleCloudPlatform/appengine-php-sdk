@@ -16,7 +16,7 @@
  */
 
 
-namespace Google\Appengine\Api\Urlfetch;
+namespace Google\AppEngine\Api\Urlfetch;
 
 use Google\Appengine\Runtime\ApplicationError;
 use google\appengine\URLFetchServiceError\ErrorCode;

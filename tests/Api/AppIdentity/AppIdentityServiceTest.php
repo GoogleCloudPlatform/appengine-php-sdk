@@ -21,7 +21,7 @@
 namespace Google\AppEngine\Api\AppIdentity;
 
 use google\appengine\AppIdentityServiceError\ErrorCode;
-use google\appengine\api\appidentity\AppIdentityService;
+use Google\AppEngine\Api\AppIdentity\AppIdentityService;
 use Google\AppEngine\Testing\ApiProxyTestBase;
 
 /**

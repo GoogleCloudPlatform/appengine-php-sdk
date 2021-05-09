@@ -148,11 +148,26 @@ class VmApiProxy extends ApiProxyBase{
     // Headers are sorted so we can do a string comparison in the unit test.
     ksort($headers);
 
+    // $opts = [
+    //   'headers' => $headers,
+    //   'body' => $serialized_remote_request,
+    //   'read_timeout' => $deadline + self::DEADLINE_DELTA_SECONDS,
+    // ];
+
+    $header_str = "";
+    foreach($headers as $k => $v) {
+      $header_str .= sprintf("%s: %s\r\n", $k, $v);
+    }
+
     $opts = [
-      'headers' => $headers,
-      'body' => $serialized_remote_request,
-      'read_timeout' => $deadline + self::DEADLINE_DELTA_SECONDS,
+      'http' => [
+        'method' => 'POST',
+        'header' => $header_str,
+        'content' => $serialized_remote_request,
+        'timeout' => $deadline + self::DEADLINE_DELTA_SECONDS,
+      ],
     ];
+    $context = stream_context_create($opts);
 
     $api_host = static::getEnvOrDefault('API_HOST', self::SERVICE_BRIDGE_HOST);
     $api_port = static::getEnvOrDefault('API_PORT', self::API_PORT);
@@ -162,12 +177,16 @@ class VmApiProxy extends ApiProxyBase{
                             $api_port,
                             self::PROXY_PATH);
 
-    $client = new Client();
+    // $client = new Client();
     // We silence the error here to prevent spamming the users application.
     // @codingStandardsIgnoreStart
-    $resp = @$client->request('POST', $endpoint_url, $opts);
+    // $resp = @$client->request('POST', $endpoint_url, $opts);
     // @codingStandardsIgnoreEnd
-    $serialized_remote_respone = (string) $resp->getBody();
+    // $serialized_remote_respone = (string) $resp->getBody();
+
+    $serialized_remote_respone = @file_get_contents($endpoint_url,
+                                                false,
+                                                $context);
 
     if ($serialized_remote_respone === false) {
       throw new RPCFailedError(sprintf('Remote implementation for %s.%s failed',

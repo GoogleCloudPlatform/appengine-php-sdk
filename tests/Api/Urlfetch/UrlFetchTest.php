@@ -61,10 +61,9 @@ class UrlFetchTest extends ApiProxyTestBase
         $req->setMethod(RequestMethod::GET);
         $req->setFollowredirects(true);
         $req->setMustvalidateservercertificate(false);
-        $header = new URLFetchRequest\Header();
+        $header = $req->addHeader();
         $header->setKey('header1');
         $header->setValue('value1');
-        $req->addHeader($header);
         $header_arr = ['header1' => 'value1'];
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         $result = $urlfetch->fetch($url, 'GET', $header_arr);

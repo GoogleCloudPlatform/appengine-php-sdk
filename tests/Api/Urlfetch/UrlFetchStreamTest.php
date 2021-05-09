@@ -48,10 +48,9 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $req->setMethod(RequestMethod::POST);
         $req->setFollowredirects(true);
         $req->setMustvalidateservercertificate(false);
-        $header = new URLFetchRequest\Header();
+        $header = $req->addHeader();
         $header->setKey('key');
         $header->setValue('value');
-        $req->addHeader($header);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
         $header_arr = ['key' => 'value'];
@@ -79,10 +78,9 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $req->setMethod(RequestMethod::POST);
         $req->setFollowredirects(true);
         $req->setMustvalidateservercertificate(false);
-        $header = new URLFetchRequest\Header();
+        $header = $req->addHeader();
         $header->setKey('key');
         $header->setValue('value');
-        $req->addHeader($header);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
         $header_str = 'key: value';
@@ -110,27 +108,21 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $req->setMethod(RequestMethod::POST);
         $req->setFollowredirects(true);
         $req->setMustvalidateservercertificate(false);
-        $header = new URLFetchRequest\Header();
+        $header = $req->addHeader();
         $header->setKey('Content-Type');
         $header->setValue('application/octet-stream');
-        $req->addHeader($header);
-        $header = new URLFetchRequest\Header();
+        $header = $req->addHeader();
         $header->setKey('X-Google-RPC-Service-Deadline');
         $header->setValue('60');
-        $req->addHeader($header);
-        $header = new URLFetchRequest\Header();
+         $header = $req->addHeader();
         $header->setKey('X-Google-RPC-Service-Endpoint');
         $header->setValue('app-engine-apis');
-        $req->addHeader($header);
-        $header = new URLFetchRequest\Header();
+        $header = $req->addHeader();
         $header->setKey('X-Google-RPC-Service-Method');
         $header->setValue('/VMRemoteAPI.CallRemoteAPI');
-        $header = new URLFetchRequest\Header();
+        $header = $req->addHeader();
         $header->setKey('User-Agent');
         $header->setValue('some_user_agent_string');
-        $req->addHeader($header);
-
-        $req->addHeader($header);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
         $header_str = "Content-Type: application/octet-stream\r\n" .
