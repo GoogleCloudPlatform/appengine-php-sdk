@@ -20,7 +20,6 @@ use google\appengine\ext\remote_api\Request;
 use google\appengine\ext\remote_api\Response;
 use google\appengine\ext\remote_api\RpcError\ErrorCode;
 use Google\AppEngine\Runtime\RPCFailedError;
-use GuzzleHttp\Client;
 
 
 /**
@@ -148,12 +147,6 @@ class VmApiProxy extends ApiProxyBase{
     // Headers are sorted so we can do a string comparison in the unit test.
     ksort($headers);
 
-    // $opts = [
-    //   'headers' => $headers,
-    //   'body' => $serialized_remote_request,
-    //   'read_timeout' => $deadline + self::DEADLINE_DELTA_SECONDS,
-    // ];
-
     $header_str = "";
     foreach($headers as $k => $v) {
       $header_str .= sprintf("%s: %s\r\n", $k, $v);
@@ -177,16 +170,12 @@ class VmApiProxy extends ApiProxyBase{
                             $api_port,
                             self::PROXY_PATH);
 
-    // $client = new Client();
     // We silence the error here to prevent spamming the users application.
     // @codingStandardsIgnoreStart
-    // $resp = @$client->request('POST', $endpoint_url, $opts);
-    // @codingStandardsIgnoreEnd
-    // $serialized_remote_respone = (string) $resp->getBody();
-
     $serialized_remote_respone = @file_get_contents($endpoint_url,
                                                 false,
                                                 $context);
+    // @codingStandardsIgnoreEnd
 
     if ($serialized_remote_respone === false) {
       throw new RPCFailedError(sprintf('Remote implementation for %s.%s failed',

@@ -62,7 +62,8 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         ];
         $opts = stream_context_create($opts);
         $urlfetch_stream->context = $opts;
-        $result = $urlfetch_stream->stream_open($url, 'a+', $unused1, $unused2);
+        $opened_path = '';
+        $result = $urlfetch_stream->stream_open($url, 'a+', 0, $opened_path);
         $this->assertEquals(true, $result);
     }
   
@@ -92,7 +93,8 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         ];
         $opts = stream_context_create($opts);
         $urlfetch_stream->context = $opts;
-        $result = $urlfetch_stream->stream_open($url, 'a+', $unused1, $unused2);
+        $opened_path = '';
+        $result = $urlfetch_stream->stream_open($url, 'a+', 0, $opened_path);
         $this->assertEquals(true, $result);
     }
 
@@ -138,7 +140,8 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         ];
         $opts = stream_context_create($opts);
         $urlfetch_stream->context = $opts;
-        $result = $urlfetch_stream->stream_open($url, 'a+', $unused1, $unused2);
+        $opened_path = '';
+        $result = $urlfetch_stream->stream_open($url, 'a+', 0, $opened_path);
         $this->assertEquals(true, $result);
     }
 
@@ -171,7 +174,8 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         // Result.
         $opts = stream_context_create($opts);
         $urlfetch_stream->context = $opts;
-        $result = $urlfetch_stream->stream_open($url, 'a+', $unused1, $unused2);
+        $opened_path = '';
+        $result = $urlfetch_stream->stream_open($url, 'a+', 0, $opened_path);
         $this->assertEquals(true, $result);
     }
 
@@ -198,7 +202,8 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         // Result.
         $opts = stream_context_create($opts);
         $urlfetch_stream->context = $opts;
-        $result = $urlfetch_stream->stream_open($url, 'a+', $unused1, $unused2);
+        $opened_path = '';
+        $result = $urlfetch_stream->stream_open($url, 'a+', 0, $opened_path);
         $this->assertEquals(true, $result);
     }
 
