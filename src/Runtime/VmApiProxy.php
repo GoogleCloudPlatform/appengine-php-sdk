@@ -21,7 +21,6 @@ use google\appengine\ext\remote_api\Response;
 use google\appengine\ext\remote_api\RpcError\ErrorCode;
 use Google\AppEngine\Runtime\RPCFailedError;
 
-
 /**
  * An ApiProxy implementation that communicates with the VMRuntime Service
  * bridge.
@@ -146,7 +145,6 @@ class VmApiProxy extends ApiProxyBase{
 
     // Headers are sorted so we can do a string comparison in the unit test.
     ksort($headers);
-
     $header_str = "";
     foreach($headers as $k => $v) {
       $header_str .= sprintf("%s: %s\r\n", $k, $v);
@@ -173,8 +171,8 @@ class VmApiProxy extends ApiProxyBase{
     // We silence the error here to prevent spamming the users application.
     // @codingStandardsIgnoreStart
     $serialized_remote_respone = @file_get_contents($endpoint_url,
-                                                false,
-                                                $context);
+                                                    false,
+                                                    $context);
     // @codingStandardsIgnoreEnd
 
     if ($serialized_remote_respone === false) {
