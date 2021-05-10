@@ -19,7 +19,5 @@
 
 namespace google\appengine_datastore_v3;
 
-require_once 'src/Runtime/Proto/ProtocolMessage.php';
-
 abstract class Action extends \google\net\ProtocolMessage {
 }
