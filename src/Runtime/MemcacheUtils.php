@@ -23,7 +23,7 @@ namespace Google\AppEngine\Runtime;
 
 use google\appengine\MemcacheSetRequest;
 use google\appengine\MemcacheSetResponse;
-use Google\AppEngine\Runtime\ApiProxy;
+use google\appengine\runtime\ApiProxy;
 
 class MemcacheUtils {
 
