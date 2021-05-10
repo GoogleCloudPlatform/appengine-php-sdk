@@ -31,7 +31,7 @@ use google\appengine\SignForAppRequest;
 use google\appengine\SignForAppResponse;
 use Google\AppEngine\Runtime\ApiProxy;
 use Google\AppEngine\Runtime\ApplicationError;
-use Google\AppEngine\Runtime\Memcache;
+use Google\AppEngine\Api\Memcache\Memcache;
 
 /**
  * The AppIdentityService allows you to sign arbitrary byte
