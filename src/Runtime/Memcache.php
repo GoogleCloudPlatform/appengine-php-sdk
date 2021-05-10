@@ -41,14 +41,9 @@ use google\appengine\MemcacheSetRequest;
 use google\appengine\MemcacheSetRequest\SetPolicy;
 use google\appengine\MemcacheSetResponse;
 use google\appengine\MemcacheSetResponse\SetStatusCode;
-<<<<<<< HEAD:src/Api/Memcache/Memcache.php
-use google\appengine\runtime\ApiProxy;
-use google\appengine\runtime\Error;
-=======
 use Google\AppEngine\Runtime\ApiProxy;
 use Google\AppEngine\Runtime\Error;
 use Google\AppEngine\Runtime\MemcacheUtils;
->>>>>>> master:src/Runtime/Memcache.php
 
 // Define constants for compatibility, but they will be ignored.
 const MEMCACHE_COMPRESSED = 2;
