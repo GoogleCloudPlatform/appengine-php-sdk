@@ -8,7 +8,7 @@
  */
 
 $classMap = [
-    'Google\AppEngine\Api\AppIdentity\AppIdentityService' => 'google\appengine\api\appidentity\AppIdentityService'
+    'Google\AppEngine\Api\AppIdentity\AppIdentityService' => 'google\appengine\api\app_identity\AppIdentityService'
 ];
 
 foreach ($classMap as $class => $alias) {
