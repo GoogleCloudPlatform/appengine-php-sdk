@@ -29,7 +29,6 @@ namespace Google\Appengine\Runtime {
   require_once 'google/appengine/ext/session/MemcacheSessionHandler.php';
   // @codingStandardsIgnoreEnd
 
-
   // Set up the Memcache session handler.
   \google\appengine\ext\session\MemcacheSessionHandler::configure();
 
