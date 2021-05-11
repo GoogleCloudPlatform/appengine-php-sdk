@@ -205,7 +205,7 @@ class VmApiProxy extends ApiProxyBase{
                                           $call_name);
     }
 
-    $response->parseFromString($remote_response->getResponse());
+    $response->mergeFromString($remote_response->getResponse());
   }
 
   /**

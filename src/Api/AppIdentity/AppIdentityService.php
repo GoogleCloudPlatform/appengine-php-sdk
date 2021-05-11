@@ -20,15 +20,15 @@
 
 namespace Google\AppEngine\Api\AppIdentity;
 
-use google\appengine\AppIdentityServiceError\ErrorCode;
-use google\appengine\GetAccessTokenRequest;
-use google\appengine\GetAccessTokenResponse;
-use google\appengine\GetPublicCertificateForAppRequest;
-use google\appengine\GetPublicCertificateForAppResponse;
-use google\appengine\GetServiceAccountNameRequest;
-use google\appengine\GetServiceAccountNameResponse;
-use google\appengine\SignForAppRequest;
-use google\appengine\SignForAppResponse;
+use Google\AppEngine\Api\AppIdentity\AppIdentityServiceError\ErrorCode;
+use Google\AppEngine\Api\AppIdentity\GetAccessTokenRequest;
+use Google\AppEngine\Api\AppIdentity\GetAccessTokenResponse;
+use Google\AppEngine\Api\AppIdentity\GetPublicCertificateForAppRequest;
+use Google\AppEngine\Api\AppIdentity\GetPublicCertificateForAppResponse;
+use Google\AppEngine\Api\AppIdentity\GetServiceAccountNameRequest;
+use Google\AppEngine\Api\AppIdentity\GetServiceAccountNameResponse;
+use Google\AppEngine\Api\AppIdentity\SignForAppRequest;
+use Google\AppEngine\Api\AppIdentity\SignForAppResponse;
 use Google\AppEngine\Runtime\ApiProxy;
 use Google\AppEngine\Runtime\ApplicationError;
 use Google\AppEngine\Api\Memcache\Memcache;
@@ -137,9 +137,11 @@ final class AppIdentityService {
 
     $result = [];
 
-    foreach ($resp->getPublicCertificateListList() as $cert) {
-      $result[] = new PublicCertificate($cert->getKeyName(),
-                                        $cert->getX509CertificatePem());
+    foreach ($resp->getPublicCertificateList() as $cert) {
+      $pub_cert = new PublicCertificate();
+      $pub_cert->setKeyName($cert->getKeyName());
+      $pub_cert->setX509CertificatePem($cert->getX509CertificatePem());
+      $result[] = $pub_cert;
     }
 
     return $result;
@@ -212,16 +214,15 @@ final class AppIdentityService {
     $resp = new GetAccessTokenResponse();
 
     if (is_string($scopes)) {
-      $req->addScope($scopes);
+      $req->setScope([$scopes]);
     } else if (is_array($scopes)) {
       foreach($scopes as $scope) {
-        if (is_string($scope)) {
-          $req->addScope($scope);
-        } else {
+        if (!is_string($scope)) {
           throw new \InvalidArgumentException(
             'Invalid scope ' . htmlspecialchars($scope));
         }
       }
+      $req->setScope($scopes);
     } else {
       throw new \InvalidArgumentException(
           'Invalid scope ' . htmlspecialchars($scopes));

@@ -31,13 +31,20 @@ class ApiCallArguments {
 
     return $this->package === $other->package
         && $this->call_name === $other->call_name
-        && $this->req->equals($other->req);
+        && $this->equals($this->req,$other->req);
   }
 
   public function toString() {
     return "Package: " . $this->package . "\n"
         . "Call: " . $this->call_name . "\n"
         . $this->req->shortDebugString();
+  }
+  
+  private function equals($a, $b) {
+    if ($a === $b) { return true; }
+    if (isset($a->bytes_to_sign) !== isset($b->bytes_to_sign)) return false;
+    if (isset($a->bytes_to_sign) && $a->bytes_to_sign !== $b->bytes_to_sign) return false;
+    return true;
   }
 };
 

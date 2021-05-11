@@ -20,8 +20,9 @@
  */
 namespace Google\AppEngine\Api\AppIdentity;
 
-use google\appengine\AppIdentityServiceError\ErrorCode;
-use google\appengine\api\appidentity\AppIdentityService;
+use Google\AppEngine\Api\AppIdentity\AppIdentityServiceError\ErrorCode;
+use Google\AppEngine\Api\AppIdentity\PublicCertificate;
+use Google\AppEngine\Api\AppIdentity\AppIdentityService;
 use Google\AppEngine\Testing\ApiProxyTestBase;
 
 /**
@@ -77,10 +78,10 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testSignForApp() {
-    $req = new \google\appengine\SignForAppRequest();
+    $req = new \Google\AppEngine\Api\AppIdentity\SignForAppRequest();
     $req->setBytesToSign('these are the bytes');
 
-    $resp = new \google\appengine\SignForAppResponse();
+    $resp = new \Google\AppEngine\Api\AppIdentity\SignForAppResponse();
     $resp->setSignatureBytes('signed bytes.');
     $resp->setKeyName('the key_name');
 
@@ -102,15 +103,22 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetPublicCertificates() {
-    $req = new \google\appengine\GetPublicCertificateForAppRequest();
-    $resp = new \google\appengine\GetPublicCertificateForAppResponse();
-
-    $cert = $resp->mutablePublicCertificateList(0);
+    $req = new \Google\AppEngine\Api\AppIdentity\GetPublicCertificateForAppRequest();
+    $resp = new \Google\AppEngine\Api\AppIdentity\GetPublicCertificateForAppResponse();
+    
+    // $public_certificate_list = $resp->getPublicCertificateList();
+    $public_certificate_list = [];
+    $cert = new PublicCertificate(); 
     $cert->setKeyName('key1');
     $cert->setX509CertificatePem('cert1');
-    $cert = $resp->mutablePublicCertificateList(1);
+    $public_certificate_list[0] = $cert;
+     
+    $cert = new PublicCertificate(); 
     $cert->setKeyName('key2');
     $cert->setX509CertificatePem('cert2');
+    $public_certificate_list[1] = $cert;
+
+    $resp->setPublicCertificateList($public_certificate_list);
 
     $this->apiProxyMock->expectCall('app_identity_service',
                                     'GetPublicCertificatesForApp',
@@ -120,19 +128,19 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     $certs = AppIdentityService::getPublicCertificates();
 
     $cert = $certs[0];
-    $this->assertEquals($cert->getCertificateName(), 'key1');
-    $this->assertEquals($cert->getX509CertificateInPemFormat(), 'cert1');
+    $this->assertEquals($cert->getKeyName(), 'key1');
+    $this->assertEquals($cert->getX509CertificatePem(), 'cert1');
     $cert = $certs[1];
-    $this->assertEquals($cert->getCertificateName(), 'key2');
-    $this->assertEquals($cert->getX509CertificateInPemFormat(), 'cert2');
+    $this->assertEquals($cert->getKeyName(), 'key2');
+    $this->assertEquals($cert->getX509CertificatePem(), 'cert2');
     $this->apiProxyMock->verify();
   }
 
   public function testGetServiceAccountName() {
-    $req = new \google\appengine\GetServiceAccountNameRequest();
+    $req = new \Google\AppEngine\Api\AppIdentity\GetServiceAccountNameRequest();
 
     $service_account_result = 'foobar@gserviceaccount.google.com';
-    $resp = new \google\appengine\GetServiceAccountNameResponse();
+    $resp = new \Google\AppEngine\Api\AppIdentity\GetServiceAccountNameResponse();
     $resp->setServiceAccountName($service_account_result);
 
     $this->apiProxyMock->expectCall('app_identity_service',
@@ -172,13 +180,11 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
     if ($cached) {
       return;
     }
-    $req = new \google\appengine\GetAccessTokenRequest();
-    foreach ($scopes as $scope) {
-      $req->addScope($scope);
-    }
+    $req = new \Google\AppEngine\Api\AppIdentity\GetAccessTokenRequest();
+    $req->setScope($scopes);
 
     if (is_null($exception)) {
-      $resp = new \google\appengine\GetAccessTokenResponse();
+      $resp = new \Google\AppEngine\Api\AppIdentity\GetAccessTokenResponse();
       $resp->setAccessToken('foo token');
       $resp->setExpirationTime(12345);
     } else {
@@ -327,17 +333,17 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetAccessTokenInvalidScopeArray() {
-    $scopes = ["foo", 1];
+    $scopes = ['foo', 1];
     self::expectMemcacheGetRequest($scopes);
     $this->expectException('\InvalidArgumentException');
     $sign_result = AppIdentityService::getAccessToken($scopes);
   }
 
   public function testGetAccessTokenServiceInvalidScope() {
-    $req = new \google\appengine\GetAccessTokenRequest();
+    $req = new \Google\AppEngine\Api\AppIdentity\GetAccessTokenRequest();
 
     $scope = 'mail.google.com/invalid-scope';
-    $req->addScope($scope);
+    $req->setScope([$scope]);
 
     $exception = new \Google\AppEngine\Runtime\ApplicationError(
         ErrorCode::UNKNOWN_SCOPE, "unknown scope");
@@ -396,10 +402,10 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   private function executeServiceErrorTest($error, $expected_response) {
-    $req = new \google\appengine\GetAccessTokenRequest();
+    $req = new \Google\AppEngine\Api\AppIdentity\GetAccessTokenRequest();
 
     $scope = 'mail.google.com/invalid-scope';
-    $req->addScope($scope);
+    $req->setScope([$scope]);
 
     $exception = new \Google\AppEngine\Runtime\ApplicationError(
         $error, "not initialized");
