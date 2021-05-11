@@ -23,7 +23,7 @@
  *
  */
 
-namespace Google\AppEngine\Runtime;
+namespace Google\AppEngine\Api\Memcache;
 
 use google\appengine\MemcacheDeleteRequest;
 use google\appengine\MemcacheDeleteResponse;

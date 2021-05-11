@@ -27,8 +27,6 @@ namespace Google\Appengine\Runtime {
   require_once
     'google/appengine/ext/cloud_storage_streams/CloudStorageStreamWrapper.php';
   require_once 'google/appengine/ext/session/MemcacheSessionHandler.php';
-  require_once 'google/appengine/runtime/Memcache.php';
-  require_once 'google/appengine/runtime/Memcached.php';
   // @codingStandardsIgnoreEnd
 
   // Set up the Memcache session handler.
