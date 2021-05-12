@@ -1,6 +1,6 @@
 <?php
 
-public function loadClass($class_name) {
+function loadClass($class_name) {
 	$classmap = [
 		'Memcache' => __DIR__ . '/Memcache.php',
 		'Memcached' => __DIR__ . '/Memcached.php'
