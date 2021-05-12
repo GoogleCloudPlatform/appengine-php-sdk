@@ -19,7 +19,7 @@
 
 namespace dummy {
   if (!defined('GOOGLE_APPENGINE_CLASSLOADER')) {
-    require_once __DIR__ . '/src/Runtime/Proto/ProtocolMessage.php';
+    require_once 'src/Runtime/Proto/ProtocolMessage.php';
   }
 }
 namespace google\appengine\MemcacheServiceError {
