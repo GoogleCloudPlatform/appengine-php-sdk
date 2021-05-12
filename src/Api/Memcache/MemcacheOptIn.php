@@ -23,7 +23,8 @@ final class ClassLoader {
 	public static function loadClass($class_name) {
 	  if (self::$classmap === null) {
 	    self::$classmap = [
-	 		'Memcache' => __DIR__ . 'src/Api/Memcache/Memcache.php'
+	 		'Memcache' => __DIR__ . 'src/Api/Memcache/Memcache.php',
+	 		'Memcached' => __DIR__ . 'src/Api/Memcache/Memcached.php'
 	    ];
 	    $base_dir = dirname(__FILE__);
 	    self::$sdk_root = dirname(dirname(dirname($base_dir))) .
