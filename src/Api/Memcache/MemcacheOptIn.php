@@ -22,26 +22,14 @@ final class ClassLoader {
 
 	public static function loadClass($class_name) {
 	    self::$classmap = [
-	 		'Memcache' => 'src/Api/Memcache/Memcache.php',
-	 		'Memcached' => 'src/Api/Memcache/Memcached.php'
+	 		'Memcache' => __DIR__ . '/Memcache.php',
+	 		'Memcached' => __DIR__ . '/Memcached.php'
 	    ];
-	    // $base_dir = dirname(__FILE__);
-	    // self::$sdk_root = dirname(dirname(dirname($base_dir))) .
-	    //                   DIRECTORY_SEPARATOR;
-	  
-	  // $class_name = strtolower($class_name);
-	  // if (array_key_exists($class_name, self::$classmap)) {
-	    // $target_file = self::$classmap[$class_name];
-	    // $full_path = self::$sdk_root . $target_file;
-	    // if (file_exists($full_path)) {
-	    //   require $full_path;
-	    // } else {
-	    //   require $target_file;
-	    // }
+	  if (array_key_exists($class_name, self::$classmap)) {
+	    	$target_file = self::$classmap[$class_name];
+	  		require  $target_file;
+	  }
 
-	  // }
-	  $target_file = self::$classmap[$class_name];
-	  include  $target_file;
 	}
 }
 
