@@ -40,8 +40,5 @@
             "src/Runtime/Proto/Encoder.php",
             "src/Runtime/Proto/Decoder.php"
         ]
-    },
-    "autoload-dev": {
-        "psr-4": { "Google\\AppEngine\\Tests\\": "tests/" }
     }
 }
