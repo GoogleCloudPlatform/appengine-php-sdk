@@ -23,7 +23,7 @@
         },
         "files": [
             "src/aliases.php",
-            "src/Api/Memcache/MemcacheOptinn.php"
+            "src/Api/Memcache/MemcacheOptInn.php"
         ],
         "classmap": [
             "src/Api/api_base_pb.php", 
