@@ -4,7 +4,7 @@
  * MemcacheOptIn.php creates aliases for the classes to match the 
  * original behavior used in the Memcache php55 sdk. This is for the
  * convenience of migration to php7+ sdk. To opt in, please add 
- * "src/Api/Memcache/MemcacheOptIn.php" to the autoload::files section of the 
+ * this file to the autoload::files section of the 
  * composer.json. 
  */
 
