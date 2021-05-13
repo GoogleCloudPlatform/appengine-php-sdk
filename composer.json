@@ -22,8 +22,7 @@
             "Google\\AppEngine\\": "src"
         },
         "files": [
-            "src/aliases.php",
-            "src/Api/Memcache/MemcacheOptInn.php"
+            "src/aliases.php"
         ],
         "classmap": [
             "src/Api/api_base_pb.php", 
