@@ -23,6 +23,8 @@
  *
  */
 
+// namespace Google\AppEngine\Api\Memcache;
+
 use google\appengine\MemcacheDeleteRequest;
 use google\appengine\MemcacheDeleteResponse;
 use google\appengine\MemcacheDeleteResponse\DeleteStatusCode;
