@@ -17,9 +17,9 @@
 /**
  */
 
-use google\appengine\api\users\User;
-use google\appengine\api\users\UserService;
-use google\appengine\testing\ApiProxyTestBase;
+use Google\AppEngine\Api\Users\User;
+use Google\AppEngine\Api\Users\UserService;
+use Google\AppEngine\Testing\ApiProxyTestBase;
 use google\appengine\UserServiceError;
 
 /**
