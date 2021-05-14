@@ -17,10 +17,11 @@
 /**
  */
 
-namespace google\appengine\api\taskqueue;
+namespace Google\AppEngine\Api\TaskQueue;
 
 /**
- * Thrown when there is a failure using the Task Queue service.
+ * Thrown when adding a task, but a task with the same name already exists in
+ * the queue.
  */
-class TaskQueueException extends \Exception {
+class TaskAlreadyExistsException extends TaskQueueException {
 }

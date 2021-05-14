@@ -8,7 +8,9 @@
  */
 
 $classMap = [
-    'Google\AppEngine\Api\AppIdentity\AppIdentityService' => 'google\appengine\api\app_identity\AppIdentityService'
+    'Google\AppEngine\Api\AppIdentity\AppIdentityService' => 'google\appengine\api\app_identity\AppIdentityService',
+    'Google\AppEngine\Api\TaskQueue\PushTask' => 'google\appengine\api\taskqueue\PushTask',
+	'Google\AppEngine\Api\TaskQueue\PushQueue' => 'google\appengine\api\taskqueue\PushQueue'
 ];
 
 foreach ($classMap as $class => $alias) {

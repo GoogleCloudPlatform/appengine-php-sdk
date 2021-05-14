@@ -19,10 +19,10 @@
  *
  */
 
-namespace google\appengine\api\taskqueue;
+namespace Google\AppEngine\Api\TaskQueue;
 
-use google\appengine\api\taskqueue\PushTask;
-use google\appengine\testing\ApiProxyTestBase;
+use Google\AppEngine\Api\TaskQueue\PushTask;
+use Google\AppEngine\Testing\ApiProxyTestBase;
 use google\appengine\TaskQueueAddRequest\RequestMethod;
 use google\appengine\TaskQueueBulkAddRequest;
 use google\appengine\TaskQueueBulkAddResponse;
@@ -204,7 +204,7 @@ class PushTaskTest extends ApiProxyTestBase {
 
   public function testAddTaskTooBig() {
     $this->expectException(
-        '\google\appengine\api\taskqueue\TaskQueueException',
+        '\Google\AppEngine\Api\TaskQueue\TaskQueueException',
         'Task greater than maximum size of ' . PushTask::MAX_TASK_SIZE_BYTES);
     // Althought 102400 is the max size, it's for the serialized proto which
     // includes the URL etc.
@@ -366,11 +366,11 @@ class PushTaskTest extends ApiProxyTestBase {
 
   public function testUnknownQueueError() {
     $req = self::buildBulkAddRequest();
-    $exception = new \google\appengine\runtime\ApplicationError(
+    $exception = new \Google\AppEngine\Runtime\ApplicationError(
         ErrorCode::UNKNOWN_QUEUE, 'message');
 
     $this->expectException(
-        '\google\appengine\api\taskqueue\TaskQueueException',
+        '\Google\AppEngine\Api\TaskQueue\TaskQueueException',
         'Unknown queue');
 
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $exception);
@@ -380,11 +380,11 @@ class PushTaskTest extends ApiProxyTestBase {
 
   public function testTransientError() {
     $req = self::buildBulkAddRequest();
-    $exception = new \google\appengine\runtime\ApplicationError(
+    $exception = new \Google\AppEngine\Runtime\ApplicationError(
         ErrorCode::TRANSIENT_ERROR, 'message');
 
     $this->expectException(
-        '\google\appengine\api\taskqueue\TransientTaskQueueException');
+        '\Google\AppEngine\Api\TaskQueue\TransientTaskQueueException');
 
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $exception);
 
@@ -393,11 +393,11 @@ class PushTaskTest extends ApiProxyTestBase {
 
   public function testPermissionDeniedError() {
     $req = self::buildBulkAddRequest();
-    $exception = new \google\appengine\runtime\ApplicationError(
+    $exception = new \Google\AppEngine\Runtime\ApplicationError(
         ErrorCode::PERMISSION_DENIED, 'message');
 
     $this->expectException(
-        '\google\appengine\api\taskqueue\TaskQueueException',
+        '\Google\AppEngine\Api\TaskQueue\TaskQueueException',
         'Permission Denied');
 
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $exception);
@@ -407,11 +407,11 @@ class PushTaskTest extends ApiProxyTestBase {
 
   public function testTombstonedTaskError() {
     $req = self::buildBulkAddRequest();
-    $exception = new \google\appengine\runtime\ApplicationError(
+    $exception = new \Google\AppEngine\Runtime\ApplicationError(
         ErrorCode::TOMBSTONED_TASK, 'message');
 
     $this->expectException(
-        '\google\appengine\api\taskqueue\TaskAlreadyExistsException');
+        '\Google\AppEngine\Api\TaskQueue\TaskAlreadyExistsException');
 
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $exception);
 
@@ -420,11 +420,11 @@ class PushTaskTest extends ApiProxyTestBase {
 
   public function testTaskAlreadyExistsError() {
     $req = self::buildBulkAddRequest();
-    $exception = new \google\appengine\runtime\ApplicationError(
+    $exception = new \Google\AppEngine\Runtime\ApplicationError(
         ErrorCode::TASK_ALREADY_EXISTS, 'message');
 
     $this->expectException(
-        '\google\appengine\api\taskqueue\TaskAlreadyExistsException');
+        '\Google\AppEngine\Api\TaskQueue\TaskAlreadyExistsException');
 
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $exception);
 
@@ -433,11 +433,11 @@ class PushTaskTest extends ApiProxyTestBase {
 
   public function testTaskInvalidQueueModeError() {
     $req = self::buildBulkAddRequest();
-    $exception = new \google\appengine\runtime\ApplicationError(
+    $exception = new \Google\AppEngine\Runtime\ApplicationError(
         ErrorCode::INVALID_QUEUE_MODE, 'message');
 
     $this->expectException(
-        '\google\appengine\api\taskqueue\TaskQueueException',
+        '\Google\AppEngine\Api\TaskQueue\TaskQueueException',
         'Cannot add a PushTask to a pull queue.');
 
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $exception);

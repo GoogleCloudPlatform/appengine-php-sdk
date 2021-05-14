@@ -18,7 +18,7 @@
  * Test helpers shared between various tasks queue tests.
  */
 
-namespace google\appengine\api\taskqueue;
+namespace Google\AppEngine\Api\TaskQueue;
 
 // This mocks out PHP's microtime() function in the taskqueue namespace.
 // A test that wants to mock out microtime should call MockMicrotime::reset
