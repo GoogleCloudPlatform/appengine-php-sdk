@@ -17,7 +17,7 @@
 /**
  */
 
-namespace google\appengine\api\taskqueue;
+namespace Google\AppEngine\Api\TaskQueue;
 
 /**
  * Thrown when there is a transient failure using Task Queue service, i.e.

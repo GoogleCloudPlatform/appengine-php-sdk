@@ -30,7 +30,7 @@
 # - Consider adding a Queue base class with common functionality between Push
 #   and Pull queues.
 
-namespace google\appengine\api\taskqueue;
+namespace Google\AppEngine\Api\TaskQueue;
 
 use google\appengine\TaskQueueAddRequest\RequestMethod;
 

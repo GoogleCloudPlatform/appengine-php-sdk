@@ -19,10 +19,10 @@
  *
  */
 
-namespace google\appengine\api\taskqueue;
+namespace Google\AppEngine\Api\TaskQueue;
 
-use google\appengine\api\taskqueue\PushTask;
-use google\appengine\testing\ApiProxyTestBase;
+use Google\AppEngine\Api\TaskQueue\PushTask;
+use Google\AppEngine\Testing\ApiProxyTestBase;
 use google\appengine\TaskQueueAddRequest\RequestMethod;
 use google\appengine\TaskQueueBulkAddRequest;
 use google\appengine\TaskQueueBulkAddResponse;
@@ -86,7 +86,7 @@ class PushQueueTest extends ApiProxyTestBase {
 
   public function testAddTaskTooBig() {
     $this->expectException(
-        '\google\appengine\api\taskqueue\TaskQueueException',
+        '\Google\AppEngine\Api\TaskQueue\TaskQueueException',
         'Task greater than maximum size of ' . PushTask::MAX_TASK_SIZE_BYTES);
     // Althought 102400 is the max size, it's for the serialized proto which
     // includes the URL etc.
@@ -198,7 +198,7 @@ class PushQueueTest extends ApiProxyTestBase {
     $task_result->setChosenTaskName('bob');
 
     $this->expectException(
-        '\google\appengine\api\taskqueue\TaskAlreadyExistsException');
+        '\Google\AppEngine\Api\TaskQueue\TaskAlreadyExistsException');
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $resp);
 
     $task1 = new PushTask('/someUrl');
@@ -220,7 +220,7 @@ class PushQueueTest extends ApiProxyTestBase {
     $task_result->setChosenTaskName('bob');
 
     $this->expectException(
-        '\google\appengine\api\taskqueue\TaskQueueException',
+        '\Google\AppEngine\Api\TaskQueue\TaskQueueException',
         'Unknown queue');
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $resp);
 
@@ -244,7 +244,7 @@ class PushQueueTest extends ApiProxyTestBase {
     $task_result->setChosenTaskName('bob');
 
     $this->expectException(
-        '\google\appengine\api\taskqueue\TaskQueueException',
+        '\Google\AppEngine\Api\TaskQueue\TaskQueueException',
         'Unknown queue');
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $resp);
 
@@ -267,7 +267,7 @@ class PushQueueTest extends ApiProxyTestBase {
     $task_result->setChosenTaskName('bob');
 
     $this->expectException(
-        '\google\appengine\api\taskqueue\TaskQueueException',
+        '\Google\AppEngine\Api\TaskQueue\TaskQueueException',
         'Too many tasks in request.');
     $this->apiProxyMock->expectCall('taskqueue', 'BulkAdd', $req, $resp);
 

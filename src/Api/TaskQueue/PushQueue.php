@@ -19,10 +19,10 @@
  *
  */
 
-namespace google\appengine\api\taskqueue;
+namespace Google\AppEngine\Api\TaskQueue;
 
-use google\appengine\runtime\ApiProxy;
-use google\appengine\runtime\ApplicationError;
+use Google\AppEngine\Runtime\ApiProxy;
+use Google\AppEngine\Runtime\ApplicationError;
 use google\appengine\TaskQueueAddRequest;
 use google\appengine\TaskQueueAddRequest\RequestMethod;
 use google\appengine\TaskQueueAddResponse;
