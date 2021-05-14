@@ -9,10 +9,10 @@
  */
 
 $classMap = [
-    'Google\AppEngine\Api\Memcache\Memcache' => 'Memcache',
-    'Google\AppEngine\Api\Memcache\Memcached' => 'Memcached'
+    'Memcache' => 'Google\AppEngine\Api\Memcache\Memcache',
+    'Memcached' => 'Google\AppEngine\Api\Memcache\Memcached'
 ];
 
-foreach ($classMap as $class => $alias) {
+foreach ($classMap as $alias => $class) {
     class_alias($class, $alias);
 }
