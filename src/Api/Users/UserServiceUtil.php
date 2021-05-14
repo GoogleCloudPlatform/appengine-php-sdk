@@ -19,7 +19,7 @@
  *
  */
 
-namespace google\appengine\api\users;
+namespace Google\AppEngine\Api\Users;
 
 final class UserServiceUtil {
   const HTTP_X_APPENGINE = 'HTTP_X_APPENGINE_';

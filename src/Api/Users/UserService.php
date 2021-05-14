@@ -17,14 +17,14 @@
 /**
  */
 
-namespace google\appengine\api\users;
+namespace Google\AppEngine\Api\Users;
 
 use google\appengine\CreateLoginURLRequest;
 use google\appengine\CreateLoginURLResponse;
 use google\appengine\CreateLogoutURLRequest;
 use google\appengine\CreateLogoutURLResponse;
-use google\appengine\runtime\ApiProxy;
-use google\appengine\runtime\ApplicationError;
+use Google\AppEngine\Runtime\ApiProxy;
+use Google\AppEngine\Runtime\ApplicationError;
 use google\appengine\UserServiceError\ErrorCode;
 
 final class UserService {

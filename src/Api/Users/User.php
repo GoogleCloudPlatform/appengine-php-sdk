@@ -17,9 +17,9 @@
 /**
  */
 
-namespace google\appengine\api\users;
+namespace Google\AppEngine\Api\Users;
 
-use google\appengine\util\StringUtil;
+use Google\AppEngine\Util\StringUtil;
 
 /**
  * A user.

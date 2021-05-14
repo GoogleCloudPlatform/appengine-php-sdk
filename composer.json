@@ -30,6 +30,7 @@
             "src/Api/Urlfetch/urlfetch_service_pb.php",
             "src/Api/AppIdentity/app_identity_service_pb.php",
             "src/Api/TaskQueue/taskqueue_service_pb.php",
+            "src/Api/Users/user_service_pb.php",
             "src/Datastore/action_pb.php",
             "src/Datastore/datastore_v3_pb.php",
             "src/Datastore/datastore_v4_pb.php",
