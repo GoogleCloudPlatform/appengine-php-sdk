@@ -19,10 +19,10 @@
  *
  */
 
-namespace google\appengine\api\modules;
+namespace Google\AppEngine\Api\Modules;
 
-use google\appengine\runtime\ApiProxy;
-use google\appengine\runtime\ApplicationError;
+use Google\AppEngine\Runtime\ApiProxy;
+use Google\AppEngine\Runtime\ApplicationError;
 use google\appengine\GetDefaultVersionRequest;
 use google\appengine\GetDefaultVersionResponse;
 use google\appengine\GetHostnameRequest;

@@ -17,7 +17,7 @@
 /**
  */
 
-namespace google\appengine\api\modules;
+namespace Google\AppEngine\Api\Modules;
 
 /**
  * Thrown when there is a failure using the Modules API.

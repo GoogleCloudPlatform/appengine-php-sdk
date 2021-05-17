@@ -17,7 +17,7 @@
 /**
  */
 
-namespace google\appengine\api\modules;
+namespace Google\AppEngine\Api\Modules;
 
 /**
  * Thrown when the current state was unexpected when starting/stopping a

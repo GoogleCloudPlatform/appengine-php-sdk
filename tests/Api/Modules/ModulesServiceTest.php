@@ -19,10 +19,10 @@
  *
  */
 
-namespace google\appengine\api\modules;
+namespace Google\AppEngine\Api\Modules;
 
-use google\appengine\runtime\ApplicationError;
-use google\appengine\testing\ApiProxyTestBase;
+use Google\AppEngine\Runtime\ApplicationError;
+use Google\AppEngine\Testing\ApiProxyTestBase;
 use google\appengine\GetDefaultVersionRequest;
 use google\appengine\GetDefaultVersionResponse;
 use google\appengine\GetHostnameRequest;
@@ -164,7 +164,7 @@ class ModulesTest extends ApiProxyTestBase {
     $resp = new ApplicationError(ErrorCode::INVALID_MODULE, 'invalid module');
 
     $this->expectException(
-        '\google\appengine\api\modules\ModulesException');
+        '\Google\AppEngine\Api\Modules\ModulesException');
     $this->apiProxyMock->expectCall('modules', 'GetNumInstances', $req, $resp);
 
     $this->assertEquals(3, ModulesService::getNumInstances());
@@ -220,7 +220,7 @@ class ModulesTest extends ApiProxyTestBase {
     $req->setInstances(3);
 
     $this->expectException(
-        '\google\appengine\api\modules\ModulesException');
+        '\Google\AppEngine\Api\Modules\ModulesException');
     $this->apiProxyMock->expectCall('modules', 'SetNumInstances', $req, $resp);
 
     ModulesService::setNumInstances(3);
@@ -261,7 +261,7 @@ class ModulesTest extends ApiProxyTestBase {
     $req->setVersion('v1');
 
     $this->expectException(
-        '\google\appengine\api\modules\TransientModulesException');
+        '\Google\AppEngine\Api\Modules\TransientModulesException');
     $this->apiProxyMock->expectCall('modules', 'StartModule', $req, $resp);
 
     ModulesService::startVersion('module1', 'v1');
@@ -312,7 +312,7 @@ class ModulesTest extends ApiProxyTestBase {
     $req->setVersion('v1');
 
     $this->expectException(
-        '\google\appengine\api\modules\TransientModulesException');
+        '\Google\AppEngine\Api\Modules\TransientModulesException');
     $this->apiProxyMock->expectCall('modules', 'StopModule', $req, $resp);
 
     ModulesService::stopVersion('module1', 'v1');
@@ -387,7 +387,7 @@ class ModulesTest extends ApiProxyTestBase {
                                  'invalid instances');
 
     $this->expectException(
-        '\google\appengine\api\modules\ModulesException');
+        '\Google\AppEngine\Api\Modules\ModulesException');
     $this->apiProxyMock->expectCall('modules', 'GetHostname', $req, $resp);
 
     $this->assertEquals('hostname', ModulesService::getHostname());
