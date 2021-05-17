@@ -17,7 +17,7 @@
 /**
  */
 
-namespace google\appengine\api\modules;
+namespace Google\AppEngine\Api\Modules;
 
 /**
  * Thrown when a temporary error occurred. Retry the operation.
