@@ -18,7 +18,7 @@
 namespace Google\AppEngine\Api\Urlfetch;
 
 use Google\Appengine\Runtime\ApiProxy;
-use Google\Appengine\Runtime\ApplicationError;
+use Google\AppEngine\Runtime\ApplicationError;
 use google\appengine\URLFetchRequest;
 use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchResponse;
