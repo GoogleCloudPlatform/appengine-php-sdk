@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Copyright 2021 Google Inc.
  *
@@ -36,7 +38,7 @@ class UrlFetchTest extends ApiProxyTestBase
         parent::tearDown();
     }
 
-    public function testGetFetchWithDefaultArgs()
+    public function testGetFetchWithDefaultArgs(): void
     {
         $urlfetch = new UrlFetch();
         $url = "http://www.google.com";
@@ -51,7 +53,7 @@ class UrlFetchTest extends ApiProxyTestBase
         $this->assertEquals($resp, $result);
     }
 
-    public function testGetFetchWithHeader()
+    public function testGetFetchWithHeader(): void
     {
         $urlfetch = new UrlFetch();
         $url = "http://www.google.com";
@@ -70,7 +72,7 @@ class UrlFetchTest extends ApiProxyTestBase
         $this->assertEquals($resp, $result);
     }
 
-    public function testGetFetchWithBasicPayload()
+    public function testGetFetchWithBasicPayload(): void
     {
         $urlfetch = new UrlFetch();
         $url = "http://www.google.com";
@@ -87,7 +89,7 @@ class UrlFetchTest extends ApiProxyTestBase
         $this->assertEquals($resp, $result);
     }
 
-    public function testGetFetchWithUrlEncodedPayload()
+    public function testGetFetchWithUrlEncodedPayload(): void
     {
         $urlfetch = new UrlFetch();
         $url = "http://www.google.com";
@@ -109,7 +111,7 @@ class UrlFetchTest extends ApiProxyTestBase
         $this->assertEquals($resp, $result);
     }
 
-    public function testMiscConfiguration()
+    public function testMiscConfiguration(): void
     {
         $follow_redirects = true;
         $allow_truncated = false;

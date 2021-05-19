@@ -32,7 +32,7 @@
             "src/Api/Memcache/memcache_service_pb.php", 
             "src/Api/Modules/modules_service_pb.php", 
             "src/Api/TaskQueue/taskqueue_service_pb.php",
-            "src/Api/Urlfetch/urlfetch_service_pb.php",
+            "src/Api/UrlFetch/urlfetch_service_pb.php",
             "src/Api/Users/user_service_pb.php",
             "src/Datastore/action_pb.php",
             "src/Datastore/datastore_v3_pb.php",

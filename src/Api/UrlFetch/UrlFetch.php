@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Copyright 2021 Google Inc.
  *
@@ -15,10 +17,10 @@
  * limitations under the License.
  */
 
-namespace Google\AppEngine\Api\Urlfetch;
+namespace Google\AppEngine\Api\UrlFetch;
 
-use Google\AppEngine\Runtime\ApiProxy;
-use Google\AppEngine\Runtime\ApplicationError;
+use Google\Appengine\Runtime\ApiProxy;
+use Google\Appengine\Runtime\ApplicationError;
 use google\appengine\URLFetchRequest;
 use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchResponse;
@@ -27,6 +29,7 @@ use Exception;
 
 final class UrlFetch
 {
+
     /**
      * Maps UrlFetch error codes.
      *
@@ -34,42 +37,32 @@ final class UrlFetch
      *
      * @throws \Exception with error information.
      */
-    private static function errorCodeToException($error)
+    private static function errorCodeToException(int $error): Exception
     {
-        $urlfetch_exception = "UrlFetch Exception with Error Code: ";
-        $message = ' with message: ' . $error->getMessage() . " \n";
-        switch ($error->getApplicationError()) {
-            case ErrorCode::OK:
-                return new Exception($urlfetch_exception . 'Module Return OK.' . $message);
-            case ErrorCode::INVALID_URL:
-                return new Exception($urlfetch_exception . 'Invalid URL.' . $message);
-            case ErrorCode::FETCH_ERROR:
-                return new Exception($urlfetch_exception . 'Fetch Error.' . $message);
-            case ErrorCode::UNSPECIFIED_ERROR:
-                return new Exception($urlfetch_exception . 'Unexpected Error.' . $message);
-            case ErrorCode::RESPONSE_TOO_LARGE:
-                return new Exception($urlfetch_exception . 'Response Too Large.' . $message);
-            case ErrorCode::DEADLINE_EXCEEDED:
-                return new Exception($urlfetch_exception . 'Deadline Exceeded.' . $message);
-            case ErrorCode::SSL_CERTIFICATE_ERROR:
-                return new Exception($urlfetch_exception . 'Ssl Certificate Error.' . $message);
-            case ErrorCode::DNS_ERROR:
-                return new Exception($urlfetch_exception . 'Dns Error.' . $message);
-            case ErrorCode::CLOSED:
-                return new Exception($urlfetch_exception . 'Closed Error.' . $message);
-            case ErrorCode::INTERNAL_TRANSIENT_ERROR:
-                return new Exception($urlfetch_exception . 'Internal Transient Error.' . $message);
-            case ErrorCode::TOO_MANY_REDIRECTS:
-                return new Exception($urlfetch_exception . 'Too Many Redirects.' . $message);
-            case ErrorCode::MALFORMED_REPLY:
-                return new Exception($urlfetch_exception . 'Malformed Reply.' . $message);
-            case ErrorCode::CONNECTION_ERROR:
-                return new Exception($urlfetch_exception . 'Connection Error.' . $message);
-            case ErrorCode::PAYLOAD_TOO_LARGE:
-                return new Exception($urlfetch_exception . 'Payload Too Large.' . $message);
-            default:
-                return new Exception($urlfetch_exception . $error . $message);
-        }
+        $errorCodeMap = [
+            ErrorCode::OK => 'Module Return OK',
+            ErrorCode::INVALID_URL => 'Invalid URL',
+            ErrorCode::FETCH_ERROR => 'Fetch Error',
+            ErrorCode::UNSPECIFIED_ERROR => 'Unexpected Error',
+            ErrorCode::RESPONSE_TOO_LARGE => 'Response Too Large',
+            ErrorCode::DEADLINE_EXCEEDED => 'Deadline Exceeded',
+            ErrorCode::SSL_CERTIFICATE_ERROR => 'Ssl Certificate Error',
+            ErrorCode::DNS_ERROR => 'Dns Error',
+            ErrorCode::CLOSED => 'Closed Error',
+            ErrorCode::INTERNAL_TRANSIENT_ERROR => 'Internal Transient Error',
+            ErrorCode::TOO_MANY_REDIRECTS => 'Too Many Redirects',
+            ErrorCode::MALFORMED_REPLY => 'Malformed Reply',
+            ErrorCode::CONNECTION_ERROR => 'Connection Error',
+            ErrorCode::PAYLOAD_TOO_LARGE => 'Payload Too Large',
+        ];
+
+        $errorCode = $errorCodeMap[$error->getApplicationError()] ?? (string) $error;
+
+        return new Exception(sprintf(
+            'UrlFetch Exception with Error Code: %s with message: %s',
+            $errorCode,
+            $error->getMessage()
+        ) . PHP_EOL);
     }
 
     /**
@@ -81,7 +74,7 @@ final class UrlFetch
      *
      * @return URLFetchRequest\RequestMethod type.
      */
-    private function getRequestMethod($request_method)
+    private function getRequestMethod(string $request_method): int
     {
         switch ($request_method) {
             case 'GET':
@@ -136,7 +129,7 @@ final class UrlFetch
         bool $follow_redirects = true,
         float $deadline = 0.0,
         bool $validate_certificate = false
-    ) {
+    ): URLFetchResponse {
         if (strncmp($url,'http://', 7) != 0 && strncmp($url,'https://', 8)!= 0) {
             throw new Exception('URL input must use http:// or https://');
         }

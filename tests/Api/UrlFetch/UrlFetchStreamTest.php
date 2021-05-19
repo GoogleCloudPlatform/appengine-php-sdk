@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Copyright 2021 Google Inc.
  *
@@ -36,7 +38,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         parent::tearDown();
     }
 
-    public function testStreamWithHeaderArray()
+    public function testStreamWithHeaderArray(): void
     {
         $urlfetch_stream = new UrlFetchStream();
         $url = "http://www.google.com";
@@ -67,7 +69,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $this->assertEquals(true, $result);
     }
   
-    public function testStreamWithHeaderString()
+    public function testStreamWithHeaderString(): void
     {
         $urlfetch_stream = new UrlFetchStream();
         $url = "http://www.google.com";
@@ -98,7 +100,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $this->assertEquals(true, $result);
     }
 
-    public function testStreamWithMultiHeaderString()
+    public function testStreamWithMultiHeaderString(): void
     {
         $urlfetch_stream = new UrlFetchStream();
         $url = "http://www.google.com";
@@ -131,8 +133,8 @@ class UrlFetchStreamTest extends ApiProxyTestBase
             "X-Google-RPC-Service-Deadline: 60\n" . "X-Google-RPC-Service-Endpoint: app-engine-apis\r" .
             "X-Google-RPC-Service-Method: /VMRemoteAPI.CallRemoteAPI\n";
 
-        $opts = ['http' =>
-            [
+        $opts = [
+            'http' => [
                 'method' => 'POST',
                 'header'  => $header_str,
                 'user_agent' => 'some_user_agent_string',
@@ -145,7 +147,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $this->assertEquals(true, $result);
     }
 
-    public function testGetFetchWithPayload()
+    public function testGetFetchWithPayload(): void
     {
         $urlfetch_stream = new UrlFetchStream();
         $url = "http://www.google.com";
@@ -179,7 +181,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $this->assertEquals(true, $result);
     }
 
-    public function testGetFetchWithDeadline()
+    public function testGetFetchWithDeadline(): void
     {
         $urlfetch_stream = new UrlFetchStream();
         $url = "http://www.google.com";
@@ -207,7 +209,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $this->assertEquals(true, $result);
     }
 
-    public function testGetFetchWithFileGetContents()
+    public function testGetFetchWithFileGetContents(): void
     {
         $url = "http://www.google.com";
         $deadline = 5.0;

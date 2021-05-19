@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Copyright 2021 Google Inc.
  *
@@ -16,13 +18,13 @@
  */
 
 
-namespace Google\AppEngine\Api\UrlFetch;
+namespace Google\AppEngine\Api\Urlfetch;
 
 use Google\Appengine\Runtime\ApplicationError;
 use google\appengine\URLFetchServiceError\ErrorCode;
 use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Stream\CachingStream;
-use \Exception as Exception;
+use Exception;
 use ArrayAccess;
 use ArrayIterator;
 use IteratorAggregate;
@@ -79,13 +81,13 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *    https://www.php.net/manual/en/context.ssl.php
      *
      * @param string $context_key: Specifies the context type.
-     * @param string $context_value: Specifies the context value to be set.
+     * @param string|int|bool|array $context_value: Specifies the context value to be set.
      *
      * @throws \Exception if illegal or unsupported context option given.
      *
      * @return void.
      */
-    private function setContextOptions($context_key, $context_value)
+    private function setContextOptions(string $context_key, $context_value): void
     {
         switch ($context_key) {
             // HTTP Context Options.
@@ -93,6 +95,9 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
                 $this->setMethod($context_value);
                 break;
             case 'header':
+                if (is_string($context_value)) {
+                    $context_value = $this->splitHeaderString($context_value);
+                }
                 $this->setHeaders($context_value);
                 break;
             case 'content':
@@ -147,7 +152,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @return void.
      *
      */
-    private function setMethod($method)
+    private function setMethod(string $method): void
     {
         if (!is_string($method) || !in_array($method, self::HTTP_METHODS)) {
             throw new Exception('Method value: ' . $method . ' is illegal, ' .
@@ -166,28 +171,44 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @return void.
      *
      */
-    private function setHeaders($headers)
+    private function setHeaders(array $headers): void
     {
-        if (is_string($headers)) {
-            $headers_array = preg_split(self::NEWLINE_SEPARATOR, $headers);
-            foreach ($headers_array as $header) {
-                $h_array = explode(self::DOMAIN_SEPARATOR, $header);
-                if (!isset($h_array[1])) {
-                    $h_array[1] = null;
-                }
-                $h_pair = [$h_array[0] => $h_array[1]];
-                // Empty value check for cases when there are excessive \r\n values.
-                if (empty($h_array[0])) {
-                    continue;
-                }
-                $this->headers = array_merge($this->headers, $h_pair);
-            }
-        } elseif (is_array($headers)) {
-            $this->headers = $this->headers + $headers;
-        } else {
-            throw new Exception('Header value must be string or array');
+        if (!is_array($headers)) {
+            throw new Exception('Header value must be array');
         }
+        $this->headers = $this->headers + $headers;
     }
+
+
+    /**
+     * Split header string to an array.
+     *
+     * @param string $headers: Contains header(s) to be parsed.
+     *
+     * @throws \Exception if $headers is of an illegal type.
+     *
+     * @return array.
+     *
+     */
+    private function splitHeaderString(string $headers): array
+    {
+        $headers_array = [];
+        $headers_split = preg_split(self::NEWLINE_SEPARATOR, $headers);
+        foreach ($headers_split as $header) {
+            $h_array = explode(self::DOMAIN_SEPARATOR, $header);
+            if (!isset($h_array[1])) {
+                $h_array[1] = null;
+            }
+            $h_pair = [$h_array[0] => $h_array[1]];
+            // Empty value check for cases when there are excessive \r\n values.
+            if (empty($h_array[0])) {
+                continue;
+            }
+            $headers_array = array_merge($headers_array, $h_pair);
+        }
+        return $headers_array;
+    }
+
 
     /**
      * Save content.
@@ -200,7 +221,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @return void.
      *
      */
-    private function setContent($content)
+    private function setContent(string $content): void
     {
         if (!is_string($content)) {
             throw new Exception('Content value must of type string');
@@ -218,7 +239,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @return void.
      *
      */
-    private function setTimeout($timeout)
+    private function setTimeout($timeout): void
     {
         if (!is_float($timeout)) {
             throw new Exception('Content value must of type float');
@@ -236,7 +257,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @return void.
      *
      */
-    private function setUserAgent($user_agent)
+    private function setUserAgent($user_agent): void
     {
         if (!is_string($user_agent)) {
             throw new Exception('User Agent value must of type string');
@@ -254,7 +275,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @return void.
      *
      */
-    private function setVerifyPeer($verify_peer)
+    private function setVerifyPeer(bool $verify_peer): void 
     {
         if (!is_bool($verify_peer)) {
             throw new Exception('Verify Peer value must of type bool');
@@ -268,14 +289,14 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @param string $url: Specifies the URL that was passed to the original function.
      * @param string $mode: UNUSED in the context of URLs.
      * @param int $options_stream: UNUSED in the context of URLs.
-     * @param string $opened_path: UNUSED in the context of URLs.
+     * @param null $opened_path: UNUSED in the context of URLs.
      *
      * @throws \Exception if URLFetch request is nto successful.
      *
      * @return bool Returns true on success or false on failure.
      *
      */
-    public function stream_open($url, $mode, $options_stream, &$opened_path)
+    public function stream_open(string $url, string $mode, int $options_stream, &$opened_path): bool
     {
         if ($this->context == null) {
             throw new Exception('ERROR: Context not set for stream wrapper.');
@@ -326,7 +347,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     * @return void.
     *
     */
-    public function stream_close()
+    public function stream_close(): void
     {
         $this->stream = null;
         $this->url_fetch_response = null;
@@ -345,7 +366,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *     no more data is available to be read, or false otherwise.
      *
      */
-    public function stream_eof()
+    public function stream_eof(): bool
     {
         return $this->stream->eof();
     }
@@ -357,7 +378,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @return void.
      *
      */
-    public function stream_stat()
+    public function stream_stat(): void
     {
     }
 
@@ -366,12 +387,12 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @param int $count: How many bytes of data from the current position should be returned.
      *
-     * @return Return number of bytes. 
+     * @return string Return number of bytes. 
      *     If there are less than count bytes available, return as many as are available. 
      *     If no more data is available, return either false or an empty string.
      *
      */
-    public function stream_read($count)
+    public function stream_read(int $count): string
     {
         return $this->stream->read($count);
     }
@@ -389,7 +410,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
       * @return bool Return true if the position was updated, false otherwise.
       *
       */
-    public function stream_seek($offset, $whence = SEEK_SET)
+    public function stream_seek(int $offset, int $whence = SEEK_SET): bool
     {
         if ($this->stream->isSeekable()) {
             $this->stream->seek($offset, $whence);
@@ -404,7 +425,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
       * @return the current position of the stream as int.
       *
       */
-    public function stream_tell()
+    public function stream_tell(): int
     {
         return $this->stream->tell();
     }
@@ -412,10 +433,10 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     /**
       * Build the UrlFetch response header array.
       *
-      * @return the current position of the stream as int.
+      * @return Header array.
       *
       */
-    private function buildHeaderArray($status_code, $header_list)
+    private function buildHeaderArray(int $status_code, array $header_list): array
     {
         $s_row = 'error';
         if ($status_code === 200) {
