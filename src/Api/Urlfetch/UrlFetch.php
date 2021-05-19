@@ -23,7 +23,7 @@ use google\appengine\URLFetchRequest;
 use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchResponse;
 use google\appengine\URLFetchServiceError\ErrorCode;
-use \Exception as Exception;
+use Exception;
 
 final class UrlFetch
 {
