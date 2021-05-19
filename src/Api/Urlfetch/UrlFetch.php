@@ -27,7 +27,6 @@ use \Exception as Exception;
 
 final class UrlFetch
 {
-
     /**
      * Maps UrlFetch error codes.
      *
