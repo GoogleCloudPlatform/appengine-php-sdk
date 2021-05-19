@@ -54,23 +54,25 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     */
 
     /* IteratorAggregate */
-    public function getIterator() {
+    public function getIterator(): Traversable 
+    {
         return new ArrayIterator($this->response_headers);
     }
     /* ArrayAccess */
-    public function offsetExists($offset) 
+    public function offsetExists($offset): bool 
     { 
         return array_key_exists($offset, $this->response_headers); 
     }
-    public function offsetGet($offset) 
+    public function offsetGet($offset): mixed 
     { 
         return $this->response_headers[$offset]; 
     }
-    public function offsetSet($offset, $value) 
+    public function offsetSet($offset, $value): void 
     { 
         $this->response_headers[$offset] = $value; 
     }
-    public function offsetUnset($offset) { 
+    public function offsetUnset($offset): void 
+    { 
         unset($this->response_headers[$offset]); 
     }
 
@@ -239,7 +241,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @return void.
      *
      */
-    private function setTimeout($timeout): void
+    private function setTimeout(float $timeout): void
     {
         if (!is_float($timeout)) {
             throw new Exception('Content value must of type float');
@@ -257,7 +259,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @return void.
      *
      */
-    private function setUserAgent($user_agent): void
+    private function setUserAgent(string $user_agent): void
     {
         if (!is_string($user_agent)) {
             throw new Exception('User Agent value must of type string');
