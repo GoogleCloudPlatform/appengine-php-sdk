@@ -10,7 +10,7 @@
         "forum": "https://groups.google.com/forum/#!forum/google-appengine"
     },
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.2.0",
         "guzzlehttp/streams": "^3.0",
         "guzzlehttp/guzzle": "^7.2"
     },
