@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace Google\AppEngine\Api\Urlfetch;
+namespace Google\AppEngine\Api\UrlFetch;
 
 use Google\AppEngine\Testing\ApiProxyTestBase;
 use google\appengine\URLFetchRequest;
