@@ -68,15 +68,15 @@ final class UrlFetch
     /**
      * Maps Request method string to URLFetch Request type.
      *
-     * @param string $request_method: Specifies the HTTP request type.
+     * @param string $requestMethod: Specifies the HTTP request type.
      *
-     * @throws \Exception for invalid $request_method input strings.
+     * @throws \Exception for invalid $requestMethod input strings.
      *
      * @return URLFetchRequest\RequestMethod type.
      */
-    private function getRequestMethod(string $request_method): int
+    private function getRequestMethod(string $requestMethod): int
     {
-        switch ($request_method) {
+        switch ($requestMethod) {
             case 'GET':
                 return RequestMethod::GET;
             case 'POST':
@@ -90,7 +90,7 @@ final class UrlFetch
             case 'PATCH':
                 return RequestMethod::PATCH;
             default:
-                throw new Exception('Invalid Request Method Input: ' . $request_method);
+                throw new Exception('Invalid Request Method Input: ' . $requestMethod);
         }
     }
 
@@ -98,7 +98,7 @@ final class UrlFetch
      * Fetches a URL.
      *
      * @param string $url: Specifies the URL.
-     * @param string $request_method: Optional, The HTTP method.
+     * @param string $requestMethod: Optional, The HTTP method.
      *     URLs are fetched using one of the following HTTP methods:
      *     - GET
      *     - POST
@@ -108,10 +108,10 @@ final class UrlFetch
      *     - PATCH
      * @param array $headers: Optional, array containing values in the format of {key => value} pairs.
      * @param string $payload: Optional, payload for a URL Request when using POST, PUT, and PATCH requests.
-     * @param bool $allow_truncated: Optional, specify if content is truncated.
-     * @param bool $follow_redirects: Optional, specify if redirects are followed.
+     * @param bool $allowTruncated: Optional, specify if content is truncated.
+     * @param bool $followRedirects: Optional, specify if redirects are followed.
      * @param int $deadline: Optional, the timeout for the request in seconds.
-     * @param bool $validate_certificate: Optional, If set to `true`, requests are not
+     * @param bool $validateCertificate: Optional, If set to `true`, requests are not
      *     sent to the server unless the certificate is valid and signed by a trusted CA.
      *
      * @throws \Exception If UrlFetchRequest has an application failure, if illegal web protocol used,
@@ -122,13 +122,13 @@ final class UrlFetch
      */
     public function fetch(
         string $url,
-        string $request_method = 'GET',
+        string $requestMethod = 'GET',
         array $headers = [],
         string $payload = '',
-        bool $allow_truncated = true,
-        bool $follow_redirects = true,
+        bool $allowTruncated = true,
+        bool $followRedirects = true,
         float $deadline = 0.0,
-        bool $validate_certificate = false
+        bool $validateCertificate = false
     ): URLFetchResponse {
         if (strncmp($url,'http://', 7) != 0 && strncmp($url,'https://', 8)!= 0) {
             throw new Exception('URL input must use http:// or https://');
@@ -136,7 +136,7 @@ final class UrlFetch
 
         // Only allow validate certificate for https requests.
         if (strncmp($url,'http://', 7) == 0) {
-          $validate_certificate = false;
+          $validateCertificate = false;
         }
     
         $req = new URLFetchRequest();
@@ -144,8 +144,8 @@ final class UrlFetch
 
         // Request Method and URL.
         $req->setUrl($url);
-        $req_method = $this->getRequestMethod($request_method);
-        $req->setMethod($req_method);
+        $reqMethod = $this->getRequestMethod($requestMethod);
+        $req->setMethod($reqMethod);
     
         // Headers.
         if (!empty($headers)) {
@@ -157,8 +157,8 @@ final class UrlFetch
         }
 
         // Payload.
-        if ($payload != '' && ($req_method == RequestMethod::POST || $req_method == RequestMethod::PUT 
-                || $req_method == RequestMethod::PATCH)) {
+        if ($payload != '' && ($reqMethod == RequestMethod::POST || $reqMethod == RequestMethod::PUT 
+                || $reqMethod == RequestMethod::PATCH)) {
             $req->setPayload($payload);
         }
 
@@ -167,8 +167,8 @@ final class UrlFetch
             $req->setDeadline($deadline);
         }
     
-        $req->setFollowredirects($follow_redirects);
-        $req->setMustvalidateservercertificate($validate_certificate);
+        $req->setFollowredirects($followRedirects);
+        $req->setMustvalidateservercertificate($validateCertificate);
 
         try {
             ApiProxy::makeSyncCall(
@@ -178,8 +178,8 @@ final class UrlFetch
         }
 
         // Allow Truncated.
-        if ($resp->getContentwastruncated() == true && !$allow_truncated) {
-            throw new Exception('Output was truncated and allow_truncated option is not enabled.');
+        if ($resp->getContentwastruncated() == true && !$allowTruncated) {
+            throw new Exception('Output was truncated and allowTruncated option is not enabled.');
         }
 
         return $resp;

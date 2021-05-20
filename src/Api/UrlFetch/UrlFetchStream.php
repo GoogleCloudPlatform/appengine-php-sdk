@@ -37,16 +37,16 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
 
     public $context;
     private $stream = null;
-    private $url_fetch_response= null;
+    private $urlFetchResponse = null;
   
     // Context options parameters
     private $headers = [];
     private $content = '';
     private $timeout = 0.0;
     private $method = 'GET';
-    private $user_agent = '';
-    private $verify_peer = true;
-    protected $response_headers = null;
+    private $userAgent = '';
+    private $verifyPeer = true;
+    protected $responseHeaders = null;
     
     /**
     * IteratorAggregate and ArrayAccess implements access to http response header data.
@@ -56,24 +56,24 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     /* IteratorAggregate */
     public function getIterator(): Traversable 
     {
-        return new ArrayIterator($this->response_headers);
+        return new ArrayIterator($this->responseHeaders);
     }
     /* ArrayAccess */
     public function offsetExists($offset): bool 
     { 
-        return array_key_exists($offset, $this->response_headers); 
+        return array_key_exists($offset, $this->responseHeaders); 
     }
     public function offsetGet($offset): mixed 
     { 
-        return $this->response_headers[$offset]; 
+        return $this->responseHeaders[$offset]; 
     }
     public function offsetSet($offset, $value): void 
     { 
-        $this->response_headers[$offset] = $value; 
+        $this->responseHeaders[$offset] = $value; 
     }
     public function offsetUnset($offset): void 
     { 
-        unset($this->response_headers[$offset]); 
+        unset($this->responseHeaders[$offset]); 
     }
 
     /**
@@ -82,45 +82,45 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *    https://www.php.net/manual/en/context.http.php
      *    https://www.php.net/manual/en/context.ssl.php
      *
-     * @param string $context_key: Specifies the context type.
-     * @param string|int|bool|array $context_value: Specifies the context value to be set.
+     * @param string $contextKey: Specifies the context type.
+     * @param string|int|bool|array $contextValue: Specifies the context value to be set.
      *
      * @throws \Exception if illegal or unsupported context option given.
      *
      * @return void.
      */
-    private function setContextOptions(string $context_key, $context_value): void
+    private function setContextOptions(string $contextKey, $contextValue): void
     {
-        switch ($context_key) {
+        switch ($contextKey) {
             // HTTP Context Options.
             case 'method':
-                $this->setMethod($context_value);
+                $this->setMethod($contextValue);
                 break;
             case 'header':
-                if (is_string($context_value)) {
-                    $context_value = $this->splitHeaderString($context_value);
+                if (is_string($contextValue)) {
+                    $contextValue = $this->splitHeaderString($contextValue);
                 }
-                $this->setHeaders($context_value);
+                $this->setHeaders($contextValue);
                 break;
             case 'content':
-                $this->setContent($context_value);
+                $this->setContent($contextValue);
                 break;
             case 'timeout':
-                $this->setTimeout($context_value);
+                $this->setTimeout($contextValue);
                 break;
             case 'user_agent':
-                $this->setUserAgent($context_value);
+                $this->setUserAgent($contextValue);
                 break;
             case 'proxy':
             case 'request_fulluri':
             case 'max_redirects':
             case 'protocol_version':
             case 'ignore_errors':
-                throw new Exception('URLFetch does not support HTTP stream context option ' . $context_key);
+                throw new Exception('URLFetch does not support HTTP stream context option ' . $contextKey);
                 break;
             // SSL Context Options.
             case 'verify_peer':
-                $this->setVerifyPeer($context_value);
+                $this->setVerifyPeer($contextValue);
                 break;
             case 'peer_name':
             case 'verify_peer_name':
@@ -138,10 +138,10 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
             case 'capture_peer_cert':
             case 'capture_peer_cert_chain':
             case 'SNI_enabled':
-                throw new Exception('URLFetch does not support SSL stream context option ' . $context_key);
+                throw new Exception('URLFetch does not support SSL stream context option ' . $contextKey);
                 break;
             default:
-                throw new Exception('Invalid $context_key value ' . $context_key);
+                throw new Exception('Invalid $contextKey value ' . $contextKey);
         }
     }
 
@@ -194,21 +194,21 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      */
     private function splitHeaderString(string $headers): array
     {
-        $headers_array = [];
-        $headers_split = preg_split(self::NEWLINE_SEPARATOR, $headers);
-        foreach ($headers_split as $header) {
-            $h_array = explode(self::DOMAIN_SEPARATOR, $header);
-            if (!isset($h_array[1])) {
-                $h_array[1] = null;
+        $headersArray = [];
+        $headersSplit = preg_split(self::NEWLINE_SEPARATOR, $headers);
+        foreach ($headersSplit as $header) {
+            $hArray = explode(self::DOMAIN_SEPARATOR, $header);
+            if (!isset($hArray[1])) {
+                $hArray[1] = null;
             }
-            $h_pair = [$h_array[0] => $h_array[1]];
+            $hPair = [$hArray[0] => $hArray[1]];
             // Empty value check for cases when there are excessive \r\n values.
-            if (empty($h_array[0])) {
+            if (empty($hArray[0])) {
                 continue;
             }
-            $headers_array = array_merge($headers_array, $h_pair);
+            $headersArray = array_merge($headersArray, $hPair);
         }
-        return $headers_array;
+        return $headersArray;
     }
 
 
@@ -252,37 +252,37 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     /**
      * Save User-Agent as header.
      *
-     * @param string $user_agent: 'User-Agent' header string.
+     * @param string $userAgent: 'User-Agent' header string.
      *
-     * @throws \Exception if $user_agent is not of string type.
+     * @throws \Exception if $userAgent is not of string type.
      *
      * @return void.
      *
      */
-    private function setUserAgent(string $user_agent): void
+    private function setUserAgent(string $userAgent): void
     {
-        if (!is_string($user_agent)) {
+        if (!is_string($userAgent)) {
             throw new Exception('User Agent value must of type string');
         }
-        $this->user_agent = $user_agent;
+        $this->userAgent = $userAgent;
     }
 
     /**
      * Set requirement verification of SSL certificate.
      *
-     * @param bool $verify_peer
+     * @param bool $verifyPeer
      *
-     * @throws \Exception if $verify_peer is not of bool type.
+     * @throws \Exception if $verifyPeer is not of bool type.
      *
      * @return void.
      *
      */
-    private function setVerifyPeer(bool $verify_peer): void 
+    private function setVerifyPeer(bool $verifyPeer): void 
     {
-        if (!is_bool($verify_peer)) {
+        if (!is_bool($verifyPeer)) {
             throw new Exception('Verify Peer value must of type bool');
         }
-        $this->verify_peer = $verify_peer;
+        $this->verifyPeer = $verifyPeer;
     }
 
     /**
@@ -290,31 +290,31 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @param string $url: Specifies the URL that was passed to the original function.
      * @param string $mode: UNUSED in the context of URLs.
-     * @param int $options_stream: UNUSED in the context of URLs.
-     * @param null $opened_path: UNUSED in the context of URLs.
+     * @param int $optionsStream: UNUSED in the context of URLs.
+     * @param null $openedPath: UNUSED in the context of URLs.
      *
      * @throws \Exception if URLFetch request is nto successful.
      *
      * @return bool Returns true on success or false on failure.
      *
      */
-    public function stream_open(string $url, string $mode, int $options_stream, &$opened_path): bool
+    public function stream_open(string $url, string $mode, int $optionsStream, &$openedPath): bool
     {
         if ($this->context == null) {
             throw new Exception('ERROR: Context not set for stream wrapper.');
         }
         $options = stream_context_get_options($this->context);
 
-        foreach ($options as $web_protocol => $context_array) {
-            foreach ($context_array as $context_key => $context_value) {
-                $this->setContextOptions($context_key, $context_value);
+        foreach ($options as $webProtocol => $contextArray) {
+            foreach ($contextArray as $contextKey => $contextValue) {
+                $this->setContextOptions($contextKey, $contextValue);
             }
         }
 
         // Check and store User-agent if specified separately from header.
-        if (!in_array('User-Agent', $this->headers) && $this->user_agent != '') {
-            $header_arr = ['User-Agent' => $this->user_agent];
-            $this->headers = $this->headers + $header_arr;
+        if (!in_array('User-Agent', $this->headers) && $this->userAgent != '') {
+            $headerArr = ['User-Agent' => $this->userAgent];
+            $this->headers = $this->headers + $headerArr;
         }
 
         try {
@@ -328,10 +328,10 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
                     true,
                     true,
                     $this->timeout,
-                    $this->verify_peer);
-            $this->url_fetch_response = $resp;
+                    $this->verifyPeer);
+            $this->urlFetchResponse = $resp;
             $this->stream = new CachingStream(Stream::factory($resp->getContent()));
-            $this->response_headers = $this->buildHeaderArray($resp->getStatuscode(), $resp->getHeaderList());
+            $this->responseHeaders = $this->buildHeaderArray($resp->getStatuscode(), $resp->getHeaderList());
         } catch (Exception $e) {
             echo "Caught Exception: " . $e->getMessage();
             exit;    
@@ -352,13 +352,13 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     public function stream_close(): void
     {
         $this->stream = null;
-        $this->url_fetch_response = null;
+        $this->urlFetchResponse = null;
         $this->headers = [];
         $this->content = '';
         $this->timeout = 0.0;
         $this->method = 'GET';
-        $this->user_agent = '';
-        $this->verify_peer = true;
+        $this->userAgent = '';
+        $this->verifyPeer = true;
     }
 
     /**
@@ -438,17 +438,17 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
       * @return Header array.
       *
       */
-    private function buildHeaderArray(int $status_code, array $header_list): array
+    private function buildHeaderArray(int $statusCode, array $headerList): array
     {
-        $s_row = 'error';
-        if ($status_code === 200) {
-            $s_row = sprintf('HTTP/1.1 %s OK', $status_code);
+        $sRow = 'error';
+        if ($statusCode === 200) {
+            $sRow = sprintf('HTTP/1.1 %s OK', $statusCode);
         } 
-        $header_arr = [$s_row];
-        foreach($header_list as $header) {
+        $headerArr = [$sRow];
+        foreach($headerList as $header) {
             $row = sprintf('%s: %s', $header->getKey(), $header->getValue());
-            array_push($header_arr, $row);
+            array_push($headerArr, $row);
         }
-        return $header_arr;
+        return $headerArr;
     }
 }

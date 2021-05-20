@@ -66,9 +66,9 @@ class UrlFetchTest extends ApiProxyTestBase
         $header = $req->addHeader();
         $header->setKey('header1');
         $header->setValue('value1');
-        $header_arr = ['header1' => 'value1'];
+        $headerArr = ['header1' => 'value1'];
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
-        $result = $urlfetch->fetch($url, 'GET', $header_arr);
+        $result = $urlfetch->fetch($url, 'GET', $headerArr);
         $this->assertEquals($resp, $result);
     }
 
@@ -113,8 +113,8 @@ class UrlFetchTest extends ApiProxyTestBase
 
     public function testMiscConfiguration(): void
     {
-        $follow_redirects = true;
-        $allow_truncated = false;
+        $followRedirects = true;
+        $allowTruncated = false;
         $deadline = 5.0;
         $urlfetch = new UrlFetch();
         $url = "http://www.google.com";
@@ -122,7 +122,7 @@ class UrlFetchTest extends ApiProxyTestBase
         $resp = new URLFetchResponse();
         $req->setUrl($url);
         $req->setMethod(RequestMethod::GET);
-        $req->setFollowredirects($follow_redirects);
+        $req->setFollowredirects($followRedirects);
         $req->setMustvalidateservercertificate(false);
         $req->setDeadline($deadline);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
@@ -131,10 +131,10 @@ class UrlFetchTest extends ApiProxyTestBase
             'GET',
             [],
             '',
-            $allow_truncated,
-            $follow_redirects,
+            $allowTruncated,
+            $followRedirects,
             $deadline);
         $this->assertEquals($resp, $result);
-        $this->assertEquals($resp->getContentwastruncated(), $allow_truncated);
+        $this->assertEquals($resp->getContentwastruncated(), $allowTruncated);
     }
 }
