@@ -36,5 +36,5 @@ $classMap = [
 ];
 
 foreach ($classMap as $class => $alias) {
-    class_alias($class, $alias);
+    @class_alias($class, $alias);
 }
