@@ -72,7 +72,7 @@ final class UrlFetch
      *
      * @throws Exception for invalid $requestMethod input strings.
      *
-     * @return URLFetchRequest\RequestMethod type.
+     * @return RequestMethod type.
      */
     private function getRequestMethod(string $requestMethod): int
     {

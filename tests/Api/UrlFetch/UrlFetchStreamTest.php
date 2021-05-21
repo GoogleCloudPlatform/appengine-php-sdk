@@ -130,7 +130,8 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
         $headerStr = "Content-Type: application/octet-stream\r\n" .
-            "X-Google-RPC-Service-Deadline: 60\n" . "X-Google-RPC-Service-Endpoint: app-engine-apis\r" .
+            "X-Google-RPC-Service-Deadline: 60\n" . 
+            "X-Google-RPC-Service-Endpoint: app-engine-apis\r" .
             "X-Google-RPC-Service-Method: /VMRemoteAPI.CallRemoteAPI\n";
 
         $opts = [
