@@ -33,11 +33,11 @@ final class UrlFetch
     /**
      * Maps UrlFetch error codes.
      *
-     * @param ApplicationError: UrlFetch application error.
+     * @param ApplicationError UrlFetch application error.
      *
-     * @throws \Exception with error information.
+     * @return Exception with error information.
      */
-    private static function errorCodeToException(int $error): Exception
+    private static function errorCodeToException(ApplicationError $error): Exception
     {
         $errorCodeMap = [
             ErrorCode::OK => 'Module Return OK',
@@ -68,9 +68,9 @@ final class UrlFetch
     /**
      * Maps Request method string to URLFetch Request type.
      *
-     * @param string $requestMethod: Specifies the HTTP request type.
+     * @param string $requestMethod Specifies the HTTP request type.
      *
-     * @throws \Exception for invalid $requestMethod input strings.
+     * @throws Exception for invalid $requestMethod input strings.
      *
      * @return URLFetchRequest\RequestMethod type.
      */
@@ -97,8 +97,8 @@ final class UrlFetch
     /**
      * Fetches a URL.
      *
-     * @param string $url: Specifies the URL.
-     * @param string $requestMethod: Optional, The HTTP method.
+     * @param string $url Specifies the URL.
+     * @param string $requestMethod Optional, The HTTP method.
      *     URLs are fetched using one of the following HTTP methods:
      *     - GET
      *     - POST
@@ -106,15 +106,15 @@ final class UrlFetch
      *     - PUT
      *     - DELETE
      *     - PATCH
-     * @param array $headers: Optional, array containing values in the format of {key => value} pairs.
-     * @param string $payload: Optional, payload for a URL Request when using POST, PUT, and PATCH requests.
-     * @param bool $allowTruncated: Optional, specify if content is truncated.
-     * @param bool $followRedirects: Optional, specify if redirects are followed.
-     * @param int $deadline: Optional, the timeout for the request in seconds.
-     * @param bool $validateCertificate: Optional, If set to `true`, requests are not
+     * @param array $headers Optional, array containing values in the format of {key => value} pairs.
+     * @param string $payload Optional, payload for a URL Request when using POST, PUT, and PATCH requests.
+     * @param bool $allowTruncated Optional, specify if content is truncated.
+     * @param bool $followRedirects Optional, specify if redirects are followed.
+     * @param int $deadline Optional, the timeout for the request in seconds.
+     * @param bool $validateCertificate Optional, If set to `true`, requests are not
      *     sent to the server unless the certificate is valid and signed by a trusted CA.
      *
-     * @throws \Exception If UrlFetchRequest has an application failure, if illegal web protocol used,
+     * @throws Exception If UrlFetchRequest has an application failure, if illegal web protocol used,
      *     or if content is illegally truncated.
      *
      * @return URLFetchResponse Returns URLFetchResponse object upon success, else throws application error.
@@ -130,13 +130,13 @@ final class UrlFetch
         float $deadline = 0.0,
         bool $validateCertificate = false
     ): URLFetchResponse {
-        if (strncmp($url,'http://', 7) != 0 && strncmp($url,'https://', 8)!= 0) {
+        if (strncmp($url, 'http://', 7) !== 0 && strncmp($url, 'https://', 8)!== 0) {
             throw new Exception('URL input must use http:// or https://');
         }
 
         // Only allow validate certificate for https requests.
-        if (strncmp($url,'http://', 7) == 0) {
-          $validateCertificate = false;
+        if (strncmp($url, 'http://', 7) === 0) {
+            $validateCertificate = false;
         }
     
         $req = new URLFetchRequest();

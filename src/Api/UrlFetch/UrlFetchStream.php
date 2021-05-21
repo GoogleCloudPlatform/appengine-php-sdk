@@ -82,8 +82,8 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *    https://www.php.net/manual/en/context.http.php
      *    https://www.php.net/manual/en/context.ssl.php
      *
-     * @param string $contextKey: Specifies the context type.
-     * @param string|int|bool|array $contextValue: Specifies the context value to be set.
+     * @param string $contextKey Specifies the context type.
+     * @param string|int|bool|array $contextValue Specifies the context value to be set.
      *
      * @throws \Exception if illegal or unsupported context option given.
      *
@@ -148,7 +148,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     /**
      * Save method.
      *
-     * @param string $method:
+     * @param string $method
      *    Input must be one of 'GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH'.
      *
      * @return void.
@@ -166,9 +166,9 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     /**
      * Save headers.
      *
-     * @param (string or array) $headers: Contains header to be parsed.
+     * @param (string or array) $headers Contains header to be parsed.
      *
-     * @throws \Exception if $headers is of an illegal type.
+     * @throws Exception if $headers is of an illegal type.
      *
      * @return void.
      *
@@ -185,9 +185,9 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     /**
      * Split header string to an array.
      *
-     * @param string $headers: Contains header(s) to be parsed.
+     * @param string $headers Contains header(s) to be parsed.
      *
-     * @throws \Exception if $headers is of an illegal type.
+     * @throws Exception if $headers is of an illegal type.
      *
      * @return array.
      *
@@ -215,10 +215,10 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     /**
      * Save content.
      *
-     * @param string $content: URL-encoded query string,
+     * @param string $content URL-encoded query string,
      *     typically generated from http_build_query().
      *
-     * @throws \Exception if $content is not of string type.
+     * @throws Exception if $content is not of string type.
      *
      * @return void.
      *
@@ -252,9 +252,9 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     /**
      * Save User-Agent as header.
      *
-     * @param string $userAgent: 'User-Agent' header string.
+     * @param string $userAgent 'User-Agent' header string.
      *
-     * @throws \Exception if $userAgent is not of string type.
+     * @throws Exception if $userAgent is not of string type.
      *
      * @return void.
      *
@@ -272,7 +272,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @param bool $verifyPeer
      *
-     * @throws \Exception if $verifyPeer is not of bool type.
+     * @throws Exception if $verifyPeer is not of bool type.
      *
      * @return void.
      *
@@ -288,12 +288,12 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     /**
      * Opens URL Stream.
      *
-     * @param string $url: Specifies the URL that was passed to the original function.
-     * @param string $mode: UNUSED in the context of URLs.
-     * @param int $optionsStream: UNUSED in the context of URLs.
-     * @param null $openedPath: UNUSED in the context of URLs.
+     * @param string $url Specifies the URL that was passed to the original function.
+     * @param string $mode UNUSED in the context of URLs.
+     * @param int $optionsStream UNUSED in the context of URLs.
+     * @param null $openedPath UNUSED in the context of URLs.
      *
-     * @throws \Exception if URLFetch request is nto successful.
+     * @throws Exception if URLFetch request is nto successful.
      *
      * @return bool Returns true on success or false on failure.
      *
@@ -387,7 +387,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     /**
      * Read from stream.
      *
-     * @param int $count: How many bytes of data from the current position should be returned.
+     * @param int $count How many bytes of data from the current position should be returned.
      *
      * @return string Return number of bytes. 
      *     If there are less than count bytes available, return as many as are available. 
@@ -402,9 +402,9 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     /**
       * Seeks to specific location in a stream.
       *
-      * @param int $offset: The stream offset to seek to.
+      * @param int $offset The stream offset to seek to.
       *
-      * @param int $whence:
+      * @param int $whence
       *     SEEK_SET: - Set position equal to offset bytes.
       *     SEEK_CUR: - Set position to current location plus offset.
       *     SEEK_END: - Set position to end-of-file plus offset.
