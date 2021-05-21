@@ -36,7 +36,6 @@
             "src/Api/Users/user_service_pb.php",
             "src/Datastore/action_pb.php",
             "src/Datastore/datastore_v3_pb.php",
-            "src/Datastore/datastore_v4_pb.php",
             "src/Ext/RemoteApi/remote_api_pb.php",
             "src/Runtime/Proto/ProtocolMessage.php", 
             "src/Runtime/Proto/ProtocolBufferEncodeError.php", 
