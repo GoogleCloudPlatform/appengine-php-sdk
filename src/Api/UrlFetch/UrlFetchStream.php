@@ -18,7 +18,6 @@ declare(strict_types=1);
  * limitations under the License.
  */
 
-
 namespace Google\AppEngine\Api\UrlFetch;
 
 use Google\Appengine\Runtime\ApplicationError;
