@@ -275,7 +275,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @throws Exception if $verifyPeer is not of bool type.
      *
      * @return void.
-     *
      */
     private function setVerifyPeer(bool $verifyPeer): void 
     {
