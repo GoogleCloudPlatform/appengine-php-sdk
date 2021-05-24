@@ -344,7 +344,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     * Closes URL Stream.
     *
     * @return void.
-    *
     */
     public function stream_close(): void
     {
