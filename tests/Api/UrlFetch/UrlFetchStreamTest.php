@@ -224,7 +224,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
         stream_wrapper_unregister("http");
-        stream_wrapper_register("http", "Google\AppEngine\Api\Urlfetch\UrlFetchStream")
+        stream_wrapper_register("http", "Google\AppEngine\Api\UrlFetch\UrlFetchStream")
         or die("Failed to register http protocol for UrlFetchStream");
         $opts = stream_context_create($opts);
         $result = file_get_contents($url, false, $opts);
