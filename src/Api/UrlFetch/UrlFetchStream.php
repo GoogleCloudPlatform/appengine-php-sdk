@@ -295,7 +295,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @throws Exception if URLFetch request is nto successful.
      *
      * @return bool Returns true on success or false on failure.
-     *
      */
     public function stream_open(string $url, string $mode, int $optionsStream, &$openedPath): bool
     {
