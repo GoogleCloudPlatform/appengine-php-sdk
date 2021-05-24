@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -29,7 +30,6 @@ use Exception;
 
 final class UrlFetch
 {
-
     /**
      * Maps UrlFetch error codes.
      *
@@ -72,7 +72,7 @@ final class UrlFetch
      *
      * @throws Exception for invalid $requestMethod input strings.
      *
-     * @return RequestMethod type.
+     * @return RequestMethod
      */
     private function getRequestMethod(string $requestMethod): int
     {
@@ -130,7 +130,7 @@ final class UrlFetch
         float $deadline = 0.0,
         bool $validateCertificate = false
     ): URLFetchResponse {
-        if (strncmp($url, 'http://', 7) !== 0 && strncmp($url, 'https://', 8)!== 0) {
+        if (strncmp($url, 'http://', 7) !== 0 && strncmp($url, 'https://', 8) !== 0) {
             throw new Exception('URL input must use http:// or https://');
         }
 
@@ -157,13 +157,13 @@ final class UrlFetch
         }
 
         // Payload.
-        if ($payload != '' && ($reqMethod == RequestMethod::POST || $reqMethod == RequestMethod::PUT 
+        if (!empty($payload) && ($reqMethod == RequestMethod::POST || $reqMethod == RequestMethod::PUT 
                 || $reqMethod == RequestMethod::PATCH)) {
             $req->setPayload($payload);
         }
 
         // Deadline.
-        if ($deadline  > 0.0) {
+        if ($deadline > 0.0) {
             $req->setDeadline($deadline);
         }
     
