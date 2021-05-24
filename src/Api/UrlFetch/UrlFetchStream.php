@@ -235,7 +235,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @param float $timeout: Timeout for URL request in seconds.
      *
-     * @throws \Exception if $timeout is not of float type.
+     * @throws Exception if $timeout is not of float type.
      *
      * @return void.
      *
