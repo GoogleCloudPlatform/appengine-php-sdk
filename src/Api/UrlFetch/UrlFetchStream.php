@@ -389,7 +389,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @return string Return number of bytes. 
      *     If there are less than count bytes available, return as many as are available. 
      *     If no more data is available, return either false or an empty string.
-     *
      */
     public function stream_read(int $count): string
     {
