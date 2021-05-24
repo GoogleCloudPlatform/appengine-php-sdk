@@ -139,7 +139,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
             case 'capture_peer_cert_chain':
             case 'SNI_enabled':
                 throw new Exception('URLFetch does not support SSL stream context option ' . $contextKey);
-                break;
             default:
                 throw new Exception('Invalid $contextKey value ' . $contextKey);
         }
