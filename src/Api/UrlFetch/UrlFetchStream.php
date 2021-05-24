@@ -375,7 +375,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * Must be implemented for stream wrapper.
      *
      * @return void.
-     *
      */
     public function stream_stat(): void
     {
