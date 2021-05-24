@@ -46,7 +46,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     private $method = 'GET';
     private $userAgent = '';
     private $verifyPeer = true;
-    protected $responseHeaders = null;
+    private $responseHeaders = null;
     
     /**
     * IteratorAggregate and ArrayAccess implements access to http response header data.
@@ -156,8 +156,10 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     private function setMethod(string $method): void
     {
         if (!is_string($method) || !in_array($method, self::HTTP_METHODS)) {
-            throw new Exception('Method value: ' . $method . ' is illegal, ' .
-                'please use one of:' . print_r(self::HTTP_METHODS, true));
+            throw new Exception(sprintf( 
+                'Method value: %s is illegal, please use one of: %s', 
+                $method, print_r(self::HTTP_METHODS, true) 
+            ));
         }
         $this->method = $method;
     }
@@ -167,16 +169,11 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @param (string or array) $headers Contains header to be parsed.
      *
-     * @throws Exception if $headers is of an illegal type.
-     *
      * @return void.
      *
      */
     private function setHeaders(array $headers): void
     {
-        if (!is_array($headers)) {
-            throw new Exception('Header value must be array');
-        }
         $this->headers = $this->headers + $headers;
     }
 
@@ -217,16 +214,11 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @param string $content URL-encoded query string,
      *     typically generated from http_build_query().
      *
-     * @throws Exception if $content is not of string type.
-     *
      * @return void.
      *
      */
     private function setContent(string $content): void
     {
-        if (!is_string($content)) {
-            throw new Exception('Content value must of type string');
-        }
         $this->content = $content;
     }
 
@@ -235,16 +227,11 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @param float $timeout: Timeout for URL request in seconds.
      *
-     * @throws Exception if $timeout is not of float type.
-     *
      * @return void.
      *
      */
     private function setTimeout(float $timeout): void
     {
-        if (!is_float($timeout)) {
-            throw new Exception('Content value must of type float');
-        }
         $this->timeout = $timeout;
     }
 
@@ -253,16 +240,11 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @param string $userAgent 'User-Agent' header string.
      *
-     * @throws Exception if $userAgent is not of string type.
-     *
      * @return void.
      *
      */
     private function setUserAgent(string $userAgent): void
     {
-        if (!is_string($userAgent)) {
-            throw new Exception('User Agent value must of type string');
-        }
         $this->userAgent = $userAgent;
     }
 
@@ -271,15 +253,10 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @param bool $verifyPeer
      *
-     * @throws Exception if $verifyPeer is not of bool type.
-     *
      * @return void.
      */
     private function setVerifyPeer(bool $verifyPeer): void 
     {
-        if (!is_bool($verifyPeer)) {
-            throw new Exception('Verify Peer value must of type bool');
-        }
         $this->verifyPeer = $verifyPeer;
     }
 
@@ -330,8 +307,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
             $this->stream = new CachingStream(Stream::factory($resp->getContent()));
             $this->responseHeaders = $this->buildHeaderArray($resp->getStatuscode(), $resp->getHeaderList());
         } catch (Exception $e) {
-            echo "Caught Exception: " . $e->getMessage();
-            exit;    
+            throw new Exception(sprintf("Caught Exception:  %s", $e->getMessage()));
         }
 
         if ($resp->getStatuscode() >= 400) {

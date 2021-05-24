@@ -25,20 +25,11 @@ use google\appengine\URLFetchRequest;
 use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchResponse;
 
+/** 
+* @runTestsInSeparateProcesses 
+*/
 class UrlFetchTest extends ApiProxyTestBase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->_SERVER = $_SERVER;
-    }
-
-    public function tearDown(): void
-    {
-        $_SERVER = $this->_SERVER;
-        parent::tearDown();
-    }
-
     public function testGetFetchWithDefaultArgs(): void
     {
         $urlfetch = new UrlFetch();

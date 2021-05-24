@@ -171,8 +171,7 @@ final class UrlFetch
         $req->setMustvalidateservercertificate($validateCertificate);
 
         try {
-            ApiProxy::makeSyncCall(
-                'urlfetch', 'Fetch', $req, $resp);
+            ApiProxy::makeSyncCall('urlfetch', 'Fetch', $req, $resp);
         } catch (ApplicationError $e) {
             throw self::errorCodeToException($e);
         }
