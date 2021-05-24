@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -16,7 +17,6 @@ declare(strict_types=1);
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 
 namespace Google\AppEngine\Api\UrlFetch;
 
@@ -139,7 +139,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
             case 'capture_peer_cert_chain':
             case 'SNI_enabled':
                 throw new Exception('URLFetch does not support SSL stream context option ' . $contextKey);
-                break;
             default:
                 throw new Exception('Invalid $contextKey value ' . $contextKey);
         }
@@ -236,7 +235,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @param float $timeout: Timeout for URL request in seconds.
      *
-     * @throws \Exception if $timeout is not of float type.
+     * @throws Exception if $timeout is not of float type.
      *
      * @return void.
      *
@@ -275,7 +274,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @throws Exception if $verifyPeer is not of bool type.
      *
      * @return void.
-     *
      */
     private function setVerifyPeer(bool $verifyPeer): void 
     {
@@ -296,7 +294,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @throws Exception if URLFetch request is nto successful.
      *
      * @return bool Returns true on success or false on failure.
-     *
      */
     public function stream_open(string $url, string $mode, int $optionsStream, &$openedPath): bool
     {
@@ -347,7 +344,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     * Closes URL Stream.
     *
     * @return void.
-    *
     */
     public function stream_close(): void
     {
@@ -378,7 +374,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * Must be implemented for stream wrapper.
      *
      * @return void.
-     *
      */
     public function stream_stat(): void
     {
@@ -392,7 +387,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @return string Return number of bytes. 
      *     If there are less than count bytes available, return as many as are available. 
      *     If no more data is available, return either false or an empty string.
-     *
      */
     public function stream_read(int $count): string
     {
