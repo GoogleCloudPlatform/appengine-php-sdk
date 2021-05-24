@@ -20,6 +20,18 @@
  * convenience of migration to php7+ sdk. To opt in, please add 
  * this file to the autoload::files section of the 
  * composer.json. 
+ *
+ * Example: 
+ * {
+ *   "require": {
+ *     "google/appengine-php-sdk": "^2.0"
+ *   },
+ *   "autoload": {
+ *     "files": [
+ *     "./vendor/google/appengine-php-sdk/src/Api/Memcache/MemcacheOptIn.php"
+ *     ]
+ *   }
+ * }
  */
 
 $classMap = [
