@@ -54,7 +54,6 @@ const MEMCACHE_HAVE_SESSION = 1; // See ext/session/MemcacheSessionHandler.
  *              otherwise.
  */
 
-
 // runkit7_function_redefine(memcache_add, 
 // runkit7_function_remove('memcache_add');
 $arglist = "$memcache_obj, $key, $value, $flag, $expire";
