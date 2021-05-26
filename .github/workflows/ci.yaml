@@ -28,9 +28,6 @@ jobs:
 
         - name: Install dependencies     
           run: composer install --prefer-dist --no-interaction
-       
-        - name: Update PECL
-          run: pecl channel-update pecl.php.net 
 
         - name: Install Runkit7     
           run: git update-index --chmod +x vendor/bin/install-runkit.sh
