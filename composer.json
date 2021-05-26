@@ -16,7 +16,7 @@
     "require-dev": {
         "mikey179/vfsstream": "~1",
         "phpunit/phpunit": "^8",
-        "stevegrunwell/runkit7-installer": "^1.2"
+        "php-coveralls/php-coveralls": "dev-master"
     },
     "autoload": {
         "psr-4": {
