@@ -30,7 +30,7 @@ jobs:
           run: composer install --prefer-dist --no-interaction
 
         - name: Install Runkit7     
-          run: git update-index --chmod +x vendor/bin/install-runkit.sh
+          run:  ./vendor/bin/install-runkit.sh
 
         - name: Create log directory
           run: mkdir -p build/logs
