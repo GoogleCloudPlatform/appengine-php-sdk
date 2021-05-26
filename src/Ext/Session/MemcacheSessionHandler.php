@@ -27,7 +27,7 @@ namespace Google\AppEngine\Ext\Session;
 /**
  * A session handler interface using the GAE Memcache API.
  */
-class MemcacheSessionHandler implements \SessionHandlerInterface {
+final class MemcacheSessionHandler implements \SessionHandlerInterface {
 
   const SESSION_PREFIX = '_ah_sess_';
 
