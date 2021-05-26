@@ -24,13 +24,9 @@ jobs:
           uses: shivammathur/setup-php@v2
           with:
             php-version: ${{ matrix.php-versions }}
-            extensions: imagick, swoole, runkit7    
 
         - name: Install dependencies     
           run: composer install --prefer-dist --no-interaction
-
-        - name: Install Runkit7     
-          run:  ./vendor/bin/install-runkit.sh
 
         - name: Create log directory
           run: mkdir -p build/logs
