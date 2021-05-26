@@ -20,13 +20,17 @@ jobs:
         - name: Setup dependencies
           uses: actions/checkout@v2
 
-        - name: Setup PHP
+        - name: Setup PHP with PECL extension
           uses: shivammathur/setup-php@v2
           with:
             php-version: ${{ matrix.php-versions }}
+            extensions: imagick, swoole    
 
         - name: Install dependencies     
           run: composer install --prefer-dist --no-interaction
+       
+        - name: Install Runkit7     
+          run: vendor/bin/install-runkit.sh
 
         - name: Create log directory
           run: mkdir -p build/logs

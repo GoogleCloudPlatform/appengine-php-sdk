@@ -10,7 +10,9 @@
         "forum": "https://groups.google.com/forum/#!forum/google-appengine"
     },
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "stevegrunwell/runkit7-installer": "^1.2",
+        "pear/pear": "^1.10"
     },
     "require-dev": {
         "mikey179/vfsstream": "~1",

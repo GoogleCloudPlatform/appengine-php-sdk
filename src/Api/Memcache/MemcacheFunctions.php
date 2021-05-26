@@ -53,6 +53,10 @@ const MEMCACHE_HAVE_SESSION = 1; // See ext/session/MemcacheSessionHandler.
  * @return bool true if the item was successfully added to the cache, false
  *              otherwise.
  */
+// $arglist = "$memcache_obj, $key, $value, $flag = null, $expire = 0";;
+
+// runkit7_function_redefine(memcache_add, 
+runkit7_function_remove('memcache_add');
 function memcache_add($memcache_obj, $key, $value, $flag = null, $expire = 0) {
   return $memcache_obj->add($key, $value, $flag, $expire);
 }
