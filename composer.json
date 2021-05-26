@@ -11,13 +11,13 @@
     },
     "require": {
         "php": ">=5.4.0",
-        "stevegrunwell/runkit7-installer": "^1.2",
         "pear/pear": "^1.10"
     },
     "require-dev": {
         "mikey179/vfsstream": "~1",
         "phpunit/phpunit": "^8",
-        "php-coveralls/php-coveralls": "dev-master"
+        "php-coveralls/php-coveralls": "dev-master",
+        "stevegrunwell/runkit7-installer": "^1.2"
     },
     "autoload": {
         "psr-4": {

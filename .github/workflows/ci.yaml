@@ -31,9 +31,9 @@ jobs:
        
         - name: Update PECL
           run: pecl channel-update pecl.php.net 
- 
+
         - name: Install Runkit7     
-          run: vendor/bin/install-runkit.sh
+          run: git update-index --chmod +x vendor/bin/install-runkit.sh
 
         - name: Create log directory
           run: mkdir -p build/logs
