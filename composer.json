@@ -10,7 +10,8 @@
         "forum": "https://groups.google.com/forum/#!forum/google-appengine"
     },
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=7.2",
+        "composer/xdebug-handler": "^2.0"
     },
     "require-dev": {
         "mikey179/vfsstream": "~1",
@@ -22,7 +23,8 @@
             "Google\\AppEngine\\": "src"
         },
         "files": [
-            "src/aliases.php"
+            "src/aliases.php",
+            "src/Api/Memcache/MemcacheConstants.php"
         ],
         "classmap": [
             "src/Api/api_base_pb.php",
