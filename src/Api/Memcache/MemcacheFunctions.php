@@ -58,7 +58,7 @@ const MEMCACHE_HAVE_SESSION = 1; // See ext/session/MemcacheSessionHandler.
 // runkit7_function_remove('memcache_add');
 // $arglist = "$memcache_obj,$key,$value,$flag,$expire";
 // $code = "return $memcache_obj->add($key, $value, $flag, $expire);";
-ini_set('runkit.internal_override', '1');
+ini_set('runkit.internal_override', 1);
 runkit7_function_redefine(
     'memcache_add',
     '$memcache_obj,$key,$value,$flag,$expire', 
