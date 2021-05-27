@@ -36,7 +36,7 @@ class MemcacheSessionHandlerTest extends TestCase {
                      ->getMock();
 
     MemcacheSessionHandler::configure($stub);
-    
+
     $sessionId = 'my_session_id';
     $mySessionId = '_ah_sess_' . $sessionId;
 
