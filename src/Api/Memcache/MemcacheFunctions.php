@@ -67,10 +67,16 @@ const MEMCACHE_HAVE_SESSION = 1; // See ext/session/MemcacheSessionHandler.
 //       '$memcache_obj,$key,$value,$flag,$expire', 
 //       "return $memcache_obj->add($key, $value, $flag, $expire);");
 // }
-function memcache_add($memcache_obj, $key, $value, $flag = null, $expire = 0) {
-  return $memcache_obj->add($key, $value, $flag, $expire);
-}
 
+
+
+
+if(!function_exists ('memcache_add')) {
+
+  function memcache_add($memcache_obj, $key, $value, $flag = null, $expire = 0) {
+    return $memcache_obj->add($key, $value, $flag, $expire);
+  }
+}
 
 
 
