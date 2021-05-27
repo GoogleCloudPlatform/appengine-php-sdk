@@ -92,317 +92,317 @@ class MemcacheTest extends ApiProxyTestBase {
     $this->apiProxyMock->verify();
   }
 
-  public function testDeleteSuccess() {
-    $memcache = new Memcache();
+  // public function testDeleteSuccess() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheDeleteRequest();
-    $item = $request->addItem();
-    $item->setKey("delete_key");
+  //   $request = new MemcacheDeleteRequest();
+  //   $item = $request->addItem();
+  //   $item->setKey("delete_key");
 
-    $response = new MemcacheDeleteResponse();
-    $response->addDeleteStatus(DeleteStatusCode::DELETED);
+  //   $response = new MemcacheDeleteResponse();
+  //   $response->addDeleteStatus(DeleteStatusCode::DELETED);
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Delete',
-                                    $request,
-                                    $response);
-    $this->assertTrue(memcache_delete($memcache, "delete_key"));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Delete',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertTrue(memcache_delete($memcache, "delete_key"));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testDeleteNotThere() {
-    $memcache = new Memcache();
+  // public function testDeleteNotThere() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheDeleteRequest();
-    $item = $request->addItem();
-    $item->setKey("delete_key");
+  //   $request = new MemcacheDeleteRequest();
+  //   $item = $request->addItem();
+  //   $item->setKey("delete_key");
 
-    $response = new MemcacheDeleteResponse();
-    $response->addDeleteStatus(DeleteStatusCode::NOT_FOUND);
+  //   $response = new MemcacheDeleteResponse();
+  //   $response->addDeleteStatus(DeleteStatusCode::NOT_FOUND);
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Delete',
-                                    $request,
-                                    $response);
-    $this->assertFalse(memcache_delete($memcache, "delete_key"));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Delete',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertFalse(memcache_delete($memcache, "delete_key"));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testFlush() {
-    $req = new MemcacheFlushRequest();
-    $resp = new MemcacheFlushResponse();
-    $memcache = new Memcache();
+  // public function testFlush() {
+  //   $req = new MemcacheFlushRequest();
+  //   $resp = new MemcacheFlushResponse();
+  //   $memcache = new Memcache();
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'FlushAll',
-                                    $req,
-                                    $resp);
-    memcache_flush($memcache);
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'FlushAll',
+  //                                   $req,
+  //                                   $resp);
+  //   memcache_flush($memcache);
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testGetStringSuccess() {
-    $memcache = new Memcache();
+  // public function testGetStringSuccess() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheGetRequest();
-    $request->addKey("key");
+  //   $request = new MemcacheGetRequest();
+  //   $request->addKey("key");
 
-    $response = new MemcacheGetResponse();
-    $item = $response->addItem();
-    $item->setKey("key");
-    $item->setValue("value");
-    $item->setFlags(0);  // String.
+  //   $response = new MemcacheGetResponse();
+  //   $item = $response->addItem();
+  //   $item->setKey("key");
+  //   $item->setValue("value");
+  //   $item->setFlags(0);  // String.
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Get',
-                                    $request,
-                                    $response);
-    $this->assertEquals("value", memcache_get($memcache, "key"));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Get',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertEquals("value", memcache_get($memcache, "key"));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testGetUnicodeSuccess() {
-    $memcache = new Memcache();
+  // public function testGetUnicodeSuccess() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheGetRequest();
-    $request->addKey("key");
+  //   $request = new MemcacheGetRequest();
+  //   $request->addKey("key");
 
-    $response = new MemcacheGetResponse();
-    $item = $response->addItem();
-    $item->setKey("key");
-    $item->setValue("value");
-    $item->setFlags(1);  // Unicode.
+  //   $response = new MemcacheGetResponse();
+  //   $item = $response->addItem();
+  //   $item->setKey("key");
+  //   $item->setValue("value");
+  //   $item->setFlags(1);  // Unicode.
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Get',
-                                    $request,
-                                    $response);
-    $this->assertEquals("value", memcache_get($memcache, "key"));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Get',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertEquals("value", memcache_get($memcache, "key"));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testGetMissing() {
-    $memcache = new Memcache();
+  // public function testGetMissing() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheGetRequest();
-    $request->addKey("key");
+  //   $request = new MemcacheGetRequest();
+  //   $request->addKey("key");
 
-    $response = new MemcacheGetResponse();
+  //   $response = new MemcacheGetResponse();
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Get',
-                                    $request,
-                                    $response);
-    $this->assertFalse(memcache_get($memcache, "key"));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Get',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertFalse(memcache_get($memcache, "key"));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testGetUnexpectedValue() {
-    $memcache = new Memcache();
+  // public function testGetUnexpectedValue() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheGetRequest();
-    $request->addKey("key");
+  //   $request = new MemcacheGetRequest();
+  //   $request->addKey("key");
 
-    $response = new MemcacheGetResponse();
-    $item = $response->addItem();
-    $item->setKey("key");
-    $item->setValue("value");
-    $item->setFlags(2);  // Python's picked type.
+  //   $response = new MemcacheGetResponse();
+  //   $item = $response->addItem();
+  //   $item->setKey("key");
+  //   $item->setValue("value");
+  //   $item->setFlags(2);  // Python's picked type.
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Get',
-                                    $request,
-                                    $response);
-    $this->assertFalse(memcache_get($memcache, "key"));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Get',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertFalse(memcache_get($memcache, "key"));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testGetMany() {
-    $memcache = new Memcache();
+  // public function testGetMany() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheGetRequest();
-    $request->addKey("key1");
-    $request->addKey("key2");
-    $request->addKey("key3");
+  //   $request = new MemcacheGetRequest();
+  //   $request->addKey("key1");
+  //   $request->addKey("key2");
+  //   $request->addKey("key3");
 
-    $response = new MemcacheGetResponse();
-    $item3 = $response->addItem();
-    $item3->setKey("key3");
-    $item3->setValue("value3");
-    $item3->setFlags(0);  // string.
-    $item1 = $response->addItem();
-    $item1->setKey("key1");
-    $item1->setValue("value1");
-    $item1->setFlags(0);  // string.
+  //   $response = new MemcacheGetResponse();
+  //   $item3 = $response->addItem();
+  //   $item3->setKey("key3");
+  //   $item3->setValue("value3");
+  //   $item3->setFlags(0);  // string.
+  //   $item1 = $response->addItem();
+  //   $item1->setKey("key1");
+  //   $item1->setValue("value1");
+  //   $item1->setFlags(0);  // string.
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Get',
-                                    $request,
-                                    $response);
-    $this->assertEquals(array("key1" => "value1", "key3" => "value3"),
-                        memcache_get($memcache, array("key1", "key2", "key3")));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Get',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertEquals(array("key1" => "value1", "key3" => "value3"),
+  //                       memcache_get($memcache, array("key1", "key2", "key3")));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testGetManyAllMissing() {
-    $memcache = new Memcache();
+  // public function testGetManyAllMissing() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheGetRequest();
-    $request->addKey("key1");
-    $request->addKey("key2");
-    $request->addKey("key3");
+  //   $request = new MemcacheGetRequest();
+  //   $request->addKey("key1");
+  //   $request->addKey("key2");
+  //   $request->addKey("key3");
 
-    $response = new MemcacheGetResponse();
+  //   $response = new MemcacheGetResponse();
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Get',
-                                    $request,
-                                    $response);
-    $this->assertFalse(memcache_get($memcache, array("key1", "key2", "key3")));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Get',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertFalse(memcache_get($memcache, array("key1", "key2", "key3")));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testIncrementSuccess() {
-    $memcache = new Memcache();
+  // public function testIncrementSuccess() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheIncrementRequest();
-    $request->setKey("key");
-    $request->setDelta(5);
+  //   $request = new MemcacheIncrementRequest();
+  //   $request->setKey("key");
+  //   $request->setDelta(5);
 
-    $response = new MemcacheIncrementResponse();
-    $response->setNewValue(7);
+  //   $response = new MemcacheIncrementResponse();
+  //   $response->setNewValue(7);
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Increment',
-                                    $request,
-                                    $response);
-    $this->assertEquals(7, memcache_increment($memcache, "key", 5));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Increment',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertEquals(7, memcache_increment($memcache, "key", 5));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testIncrementNonExistingValue() {
-    $memcache = new Memcache();
+  // public function testIncrementNonExistingValue() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheIncrementRequest();
-    $request->setKey("key");
-    $request->setDelta(5);
+  //   $request = new MemcacheIncrementRequest();
+  //   $request->setKey("key");
+  //   $request->setDelta(5);
 
-    $response = new MemcacheIncrementResponse();
+  //   $response = new MemcacheIncrementResponse();
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Increment',
-                                    $request,
-                                    $response);
-    $this->assertFalse(memcache_increment($memcache, "key", 5));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Increment',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertFalse(memcache_increment($memcache, "key", 5));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testDecrementSuccess() {
-    $memcache = new Memcache();
+  // public function testDecrementSuccess() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheIncrementRequest();
-    $request->setKey("key");
-    $request->setDelta(4);
-    $request->setDirection(MemcacheIncrementRequest\Direction::DECREMENT);
+  //   $request = new MemcacheIncrementRequest();
+  //   $request->setKey("key");
+  //   $request->setDelta(4);
+  //   $request->setDirection(MemcacheIncrementRequest\Direction::DECREMENT);
 
-    $response = new MemcacheIncrementResponse();
-    $response->setNewValue(8);
+  //   $response = new MemcacheIncrementResponse();
+  //   $response->setNewValue(8);
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Increment',
-                                    $request,
-                                    $response);
-    $this->assertEquals(8, memcache_decrement($memcache, "key", 4));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Increment',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertEquals(8, memcache_decrement($memcache, "key", 4));
+  //   $this->apiProxyMock->verify();
+  // }
 
 
-  public function testReplaceSuccess() {
-    $memcache = new Memcache();
+  // public function testReplaceSuccess() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheSetRequest();
-    $item = $request->addItem();
-    $item->setKey("float");
-    $item->setValue("2");
-    $item->setFlags(6);  // float
-    $item->setSetPolicy(SetPolicy::REPLACE);
-    $item->setExpirationTime(30);
+  //   $request = new MemcacheSetRequest();
+  //   $item = $request->addItem();
+  //   $item->setKey("float");
+  //   $item->setValue("2");
+  //   $item->setFlags(6);  // float
+  //   $item->setSetPolicy(SetPolicy::REPLACE);
+  //   $item->setExpirationTime(30);
 
-    $response = new MemcacheSetResponse();
-    $response->addSetStatus(SetStatusCode::STORED);
+  //   $response = new MemcacheSetResponse();
+  //   $response->addSetStatus(SetStatusCode::STORED);
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Set',
-                                    $request,
-                                    $response);
-    $this->assertTrue(memcache_replace($memcache, "float", 2.0, null, 30));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Set',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertTrue(memcache_replace($memcache, "float", 2.0, null, 30));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testReplaceNotThere() {
-    $memcache = new Memcache();
+  // public function testReplaceNotThere() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheSetRequest();
-    $item = $request->addItem();
-    $item->setKey("float");
-    $item->setValue("2");
-    $item->setFlags(6);  // float
-    $item->setSetPolicy(SetPolicy::REPLACE);
-    $item->setExpirationTime(30);
+  //   $request = new MemcacheSetRequest();
+  //   $item = $request->addItem();
+  //   $item->setKey("float");
+  //   $item->setValue("2");
+  //   $item->setFlags(6);  // float
+  //   $item->setSetPolicy(SetPolicy::REPLACE);
+  //   $item->setExpirationTime(30);
 
-    $response = new MemcacheSetResponse();
-    $response->addSetStatus(SetStatusCode::NOT_STORED);
+  //   $response = new MemcacheSetResponse();
+  //   $response->addSetStatus(SetStatusCode::NOT_STORED);
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Set',
-                                    $request,
-                                    $response);
-    $this->assertFalse(memcache_replace($memcache, "float", 2.0, null, 30));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Set',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertFalse(memcache_replace($memcache, "float", 2.0, null, 30));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testSetSuccess() {
-    $memcache = new Memcache();
+  // public function testSetSuccess() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheSetRequest();
-    $item = $request->addItem();
-    $item->setKey("float");
-    $item->setValue("2");
-    $item->setFlags(6);  // float
-    $item->setSetPolicy(SetPolicy::SET);
-    $item->setExpirationTime(30);
+  //   $request = new MemcacheSetRequest();
+  //   $item = $request->addItem();
+  //   $item->setKey("float");
+  //   $item->setValue("2");
+  //   $item->setFlags(6);  // float
+  //   $item->setSetPolicy(SetPolicy::SET);
+  //   $item->setExpirationTime(30);
 
-    $response = new MemcacheSetResponse();
-    $response->addSetStatus(SetStatusCode::STORED);
+  //   $response = new MemcacheSetResponse();
+  //   $response->addSetStatus(SetStatusCode::STORED);
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Set',
-                                    $request,
-                                    $response);
-    $this->assertTrue(memcache_set($memcache, "float", 2.0, null, 30));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Set',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertTrue(memcache_set($memcache, "float", 2.0, null, 30));
+  //   $this->apiProxyMock->verify();
+  // }
 
-  public function testSetSuccessCompressed() {
-    $memcache = new Memcache();
+  // public function testSetSuccessCompressed() {
+  //   $memcache = new Memcache();
 
-    $request = new MemcacheSetRequest();
-    $item = $request->addItem();
-    $item->setKey("float");
-    $item->setValue("3");
-    $item->setFlags(6);  // float
-    $item->setSetPolicy(SetPolicy::SET);
-    $item->setExpirationTime(30);
+  //   $request = new MemcacheSetRequest();
+  //   $item = $request->addItem();
+  //   $item->setKey("float");
+  //   $item->setValue("3");
+  //   $item->setFlags(6);  // float
+  //   $item->setSetPolicy(SetPolicy::SET);
+  //   $item->setExpirationTime(30);
 
-    $response = new MemcacheSetResponse();
-    $response->addSetStatus(SetStatusCode::STORED);
+  //   $response = new MemcacheSetResponse();
+  //   $response->addSetStatus(SetStatusCode::STORED);
 
-    $this->apiProxyMock->expectCall('memcache',
-                                    'Set',
-                                    $request,
-                                    $response);
-    $this->assertTrue(memcache_set($memcache, "float", 3.0, MEMCACHE_COMPRESSED,
-                                   30));
-    $this->apiProxyMock->verify();
-  }
+  //   $this->apiProxyMock->expectCall('memcache',
+  //                                   'Set',
+  //                                   $request,
+  //                                   $response);
+  //   $this->assertTrue(memcache_set($memcache, "float", 3.0, MEMCACHE_COMPRESSED,
+  //                                  30));
+  //   $this->apiProxyMock->verify();
+  // }
 }
