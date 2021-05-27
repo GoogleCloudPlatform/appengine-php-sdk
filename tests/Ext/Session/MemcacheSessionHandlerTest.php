@@ -31,7 +31,7 @@ class MemcacheSessionHandlerTest extends TestCase {
   
   public function testSession() {
 
-    $stub = $this->getMockBuilder(\Google\AppEngine\Ext\Session\MemcacheContainer::class)
+    $stub = $this->getMockBuilder(MemcacheContainer::class)
                      ->setMethods(['close', 'get', 'set', 'delete'])
                      ->getMock();
 
