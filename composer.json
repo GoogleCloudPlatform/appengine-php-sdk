@@ -10,8 +10,7 @@
         "forum": "https://groups.google.com/forum/#!forum/google-appengine"
     },
     "require": {
-        "php": ">=7.2",
-        "composer/xdebug-handler": "^2.0"
+        "php": ">=7.2"
     },
     "require-dev": {
         "mikey179/vfsstream": "~1",
