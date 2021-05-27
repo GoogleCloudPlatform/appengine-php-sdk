@@ -29,8 +29,7 @@
         },
         "files": [
             "src/aliases.php",
-            "src/Api/Memcache/MemcacheFunctions.php",
-            "php.ini"
+            "src/Api/Memcache/MemcacheFunctions.php"
         ],
         "classmap": [
             "src/Api/api_base_pb.php",
