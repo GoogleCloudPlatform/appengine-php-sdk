@@ -89,8 +89,7 @@ class UrlFetchTest extends ApiProxyTestBase
         $resp = new URLFetchResponse();
         $req->setUrl($url);
         $req->setMethod(RequestMethod::PUT);
-        $payload = http_build_query(
-            [
+        $payload = http_build_query([
                 'var1' => 'some content',
                 'var2' => 'some content2'
             ]
