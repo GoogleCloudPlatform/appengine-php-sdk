@@ -125,7 +125,8 @@ class UrlFetchTest extends ApiProxyTestBase
             '',
             $allowTruncated,
             $followRedirects,
-            $deadline);
+            $deadline
+        );
         $this->assertEquals($resp, $result);
         $this->assertEquals($resp->getContentwastruncated(), $allowTruncated);
     }

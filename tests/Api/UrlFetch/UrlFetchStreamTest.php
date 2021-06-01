@@ -58,7 +58,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $urlfetchStream->context = $opts;
         $openedPath = '';
         $result = $urlfetchStream->stream_open($url, 'a+', 0, $openedPath);
-        $this->assertEquals(true, $result);
+        $this->assertTrue($result);
     }
   
     public function testStreamWithHeaderString(): void
@@ -89,7 +89,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $urlfetchStream->context = $opts;
         $openedPath = '';
         $result = $urlfetchStream->stream_open($url, 'a+', 0, $openedPath);
-        $this->assertEquals(true, $result);
+        $this->assertTrue($result);
     }
 
     public function testStreamWithMultiHeaderString(): void
@@ -171,7 +171,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $urlfetchStream->context = $opts;
         $openedPath = '';
         $result = $urlfetchStream->stream_open($url, 'a+', 0, $openedPath);
-        $this->assertEquals(true, $result);
+        $this->assertTrue($result);
     }
 
     public function testGetFetchWithDeadline(): void
@@ -199,7 +199,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $urlfetchStream->context = $opts;
         $openedPath = '';
         $result = $urlfetchStream->stream_open($url, 'a+', 0, $openedPath);
-        $this->assertEquals(true, $result);
+        $this->assertTrue($result);
     }
 
     public function testGetFetchWithFileGetContents(): void
@@ -223,7 +223,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $req->setDeadline($deadline);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
-        stream_wrapper_unregister("http");
+        stream_wrapper_unregister('http');
         stream_wrapper_register("http", "Google\AppEngine\Api\UrlFetch\UrlFetchStream")
         or die("Failed to register http protocol for UrlFetchStream");
         $opts = stream_context_create($opts);
