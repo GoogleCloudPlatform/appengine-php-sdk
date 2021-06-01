@@ -26,14 +26,14 @@ use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchResponse;
 
 /** 
-* @runTestsInSeparateProcesses 
-*/
+ * @runTestsInSeparateProcesses 
+ */
 class UrlFetchTest extends ApiProxyTestBase
 {
     public function testGetFetchWithDefaultArgs(): void
     {
         $urlfetch = new UrlFetch();
-        $url = "http://www.google.com";
+        $url = 'http://www.google.com';
         $req = new URLFetchRequest();
         $resp = new URLFetchResponse();
         $req->setUrl($url);
@@ -48,7 +48,7 @@ class UrlFetchTest extends ApiProxyTestBase
     public function testGetFetchWithHeader(): void
     {
         $urlfetch = new UrlFetch();
-        $url = "http://www.google.com";
+        $url = 'http://www.google.com';
         $req = new URLFetchRequest();
         $resp = new URLFetchResponse();
         $req->setUrl($url);
@@ -67,7 +67,7 @@ class UrlFetchTest extends ApiProxyTestBase
     public function testGetFetchWithBasicPayload(): void
     {
         $urlfetch = new UrlFetch();
-        $url = "http://www.google.com";
+        $url = 'http://www.google.com';
         $req = new URLFetchRequest();
         $resp = new URLFetchResponse();
         $req->setUrl($url);
@@ -84,7 +84,7 @@ class UrlFetchTest extends ApiProxyTestBase
     public function testGetFetchWithUrlEncodedPayload(): void
     {
         $urlfetch = new UrlFetch();
-        $url = "http://www.google.com";
+        $url = 'http://www.google.com';
         $req = new URLFetchRequest();
         $resp = new URLFetchResponse();
         $req->setUrl($url);
@@ -109,7 +109,7 @@ class UrlFetchTest extends ApiProxyTestBase
         $allowTruncated = false;
         $deadline = 5.0;
         $urlfetch = new UrlFetch();
-        $url = "http://www.google.com";
+        $url = 'http://www.google.com';
         $req = new URLFetchRequest();
         $resp = new URLFetchResponse();
         $req->setUrl($url);

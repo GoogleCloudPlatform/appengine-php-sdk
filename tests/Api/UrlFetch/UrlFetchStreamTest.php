@@ -33,7 +33,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
     public function testStreamWithHeaderArray(): void
     {
         $urlfetchStream = new UrlFetchStream();
-        $url = "http://www.google.com";
+        $url = 'http://www.google.com';
 
         // Mock behavior of result.
         $req = new URLFetchRequest();
@@ -48,8 +48,8 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
         $headerArr = ['key' => 'value'];
-        $opts = ['http' =>
-            [
+        $opts = [
+            'http' => [
                 'method' => 'POST',
                 'header'  => $headerArr,
             ]
@@ -58,13 +58,13 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $urlfetchStream->context = $opts;
         $openedPath = '';
         $result = $urlfetchStream->stream_open($url, 'a+', 0, $openedPath);
-        $this->assertEquals(true, $result);
+        $this->assertTrue($result);
     }
   
     public function testStreamWithHeaderString(): void
     {
         $urlfetchStream = new UrlFetchStream();
-        $url = "http://www.google.com";
+        $url = 'http://www.google.com';
 
         // Mock behavior of result.
         $req = new URLFetchRequest();
@@ -79,8 +79,8 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
         $headerStr = 'key: value';
-        $opts = ['http' =>
-            [
+        $opts = [
+            'http' => [
                 'method' => 'POST',
                 'header'  => $headerStr,
             ]
@@ -89,13 +89,13 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $urlfetchStream->context = $opts;
         $openedPath = '';
         $result = $urlfetchStream->stream_open($url, 'a+', 0, $openedPath);
-        $this->assertEquals(true, $result);
+        $this->assertTrue($result);
     }
 
     public function testStreamWithMultiHeaderString(): void
     {
         $urlfetchStream = new UrlFetchStream();
-        $url = "http://www.google.com";
+        $url = 'http://www.google.com';
 
         // Mock behavior of result.
         $req = new URLFetchRequest();
@@ -137,22 +137,20 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $urlfetchStream->context = $opts;
         $openedPath = '';
         $result = $urlfetchStream->stream_open($url, 'a+', 0, $openedPath);
-        $this->assertEquals(true, $result);
+        $this->assertTrue($result);
     }
 
     public function testGetFetchWithPayload(): void
     {
         $urlfetchStream = new UrlFetchStream();
-        $url = "http://www.google.com";
+        $url = 'http://www.google.com';
     
-        $payload = http_build_query(
-            [
-                'var1' => 'some_content',
-                'var2' => 'some_content2'
-            ]
-        );
-        $opts = ['http' =>
-            [
+        $payload = http_build_query([
+            'var1' => 'some_content',
+            'var2' => 'some_content2'
+        ]);
+        $opts = [
+            'http' => [
                 'method' => 'POST',
                 'content' => $payload
             ]
@@ -171,16 +169,16 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $urlfetchStream->context = $opts;
         $openedPath = '';
         $result = $urlfetchStream->stream_open($url, 'a+', 0, $openedPath);
-        $this->assertEquals(true, $result);
+        $this->assertTrue($result);
     }
 
     public function testGetFetchWithDeadline(): void
     {
         $urlfetchStream = new UrlFetchStream();
-        $url = "http://www.google.com";
+        $url = 'http://www.google.com';
         $deadline = 5.0;
-        $opts = ['http' =>
-            [
+        $opts = [
+            'http' => [
                 'method' => 'POST',
                 'timeout' => $deadline
             ]
@@ -199,15 +197,15 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $urlfetchStream->context = $opts;
         $openedPath = '';
         $result = $urlfetchStream->stream_open($url, 'a+', 0, $openedPath);
-        $this->assertEquals(true, $result);
+        $this->assertTrue($result);
     }
 
     public function testGetFetchWithFileGetContents(): void
     {
-        $url = "http://www.google.com";
+        $url = 'http://www.google.com'; 
         $deadline = 5.0;
-        $opts = ['http' =>
-            [
+        $opts = [
+            'http' => [
                 'method' => 'GET',
                 'timeout' => $deadline
             ]
@@ -223,10 +221,11 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $req->setDeadline($deadline);
         $this->apiProxyMock->expectCall('urlfetch', 'Fetch', $req, $resp);
         // Result.
-        stream_wrapper_unregister("http");
-        stream_wrapper_register("http", "Google\AppEngine\Api\UrlFetch\UrlFetchStream")
-        or die("Failed to register http protocol for UrlFetchStream");
+        stream_wrapper_unregister('http');
+        $success = stream_wrapper_register('http', 'Google\AppEngine\Api\UrlFetch\UrlFetchStream');
+        $this->assertTrue($success);
         $opts = stream_context_create($opts);
         $result = file_get_contents($url, false, $opts);
+        $this->assertEquals('', $result);
     }
 }

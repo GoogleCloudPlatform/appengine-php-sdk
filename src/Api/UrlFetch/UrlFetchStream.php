@@ -49,9 +49,9 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     private $responseHeaders = null;
     
     /**
-    * IteratorAggregate and ArrayAccess implements access to http response header data.
-    * This data can be fetched by using stream_get_meta_data().
-    */
+     * IteratorAggregate and ArrayAccess implements access to http response header data.
+     * This data can be fetched by using stream_get_meta_data().
+     */
 
     /* IteratorAggregate */
     public function getIterator(): Traversable 
@@ -151,7 +151,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *    Input must be one of 'GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH'.
      *
      * @return void.
-     *
      */
     private function setMethod(string $method): void
     {
@@ -170,11 +169,10 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @param (string or array) $headers Contains header to be parsed.
      *
      * @return void.
-     *
      */
     private function setHeaders(array $headers): void
     {
-        $this->headers = $this->headers + $headers;
+        $this->headers += $headers;
     }
 
 
@@ -186,7 +184,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      * @throws Exception if $headers is of an illegal type.
      *
      * @return array.
-     *
      */
     private function splitHeaderString(string $headers): array
     {
@@ -215,7 +212,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *     typically generated from http_build_query().
      *
      * @return void.
-     *
      */
     private function setContent(string $content): void
     {
@@ -317,10 +313,10 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     }
 
     /**
-    * Closes URL Stream.
-    *
-    * @return void.
-    */
+     * Closes URL Stream.
+     *
+     * @return void.
+     */
     public function stream_close(): void
     {
         $this->stream = null;
@@ -338,7 +334,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @return bool Return true if the read/write position is at the end of the stream and if
      *     no more data is available to be read, or false otherwise.
-     *
      */
     public function stream_eof(): bool
     {
@@ -370,18 +365,17 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     }
 
     /**
-      * Seeks to specific location in a stream.
-      *
-      * @param int $offset The stream offset to seek to.
-      *
-      * @param int $whence
-      *     SEEK_SET: - Set position equal to offset bytes.
-      *     SEEK_CUR: - Set position to current location plus offset.
-      *     SEEK_END: - Set position to end-of-file plus offset.
-      *
-      * @return bool Return true if the position was updated, false otherwise.
-      *
-      */
+     * Seeks to specific location in a stream.
+     *
+     * @param int $offset The stream offset to seek to.
+     *
+     * @param int $whence
+     *     SEEK_SET: - Set position equal to offset bytes.
+     *     SEEK_CUR: - Set position to current location plus offset.
+     *     SEEK_END: - Set position to end-of-file plus offset.
+     *
+     * @return bool Return true if the position was updated, false otherwise.
+     */
     public function stream_seek(int $offset, int $whence = SEEK_SET): bool
     {
         if ($this->stream->isSeekable()) {
@@ -392,22 +386,20 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     }
 
     /**
-      * Retrieve the current position of a stream.
-      *
-      * @return the current position of the stream as int.
-      *
-      */
+     * Retrieve the current position of a stream.
+     *
+     * @return the current position of the stream as int.
+     */
     public function stream_tell(): int
     {
         return $this->stream->tell();
     }
 
     /**
-      * Build the UrlFetch response header array.
-      *
-      * @return Header array.
-      *
-      */
+     * Build the UrlFetch response header array.
+     *
+     * @return Header array.
+     */
     private function buildHeaderArray(int $statusCode, array $headerList): array
     {
         $sRow = 'error';
