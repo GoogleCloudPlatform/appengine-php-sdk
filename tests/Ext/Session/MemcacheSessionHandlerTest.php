@@ -67,7 +67,4 @@ class MemcacheSessionHandlerTest extends TestCase {
     $this->assertEquals('Bar', $_SESSION['Foo'], 'Session data does not match expected value.');
     session_write_close();
   }
-  public function testConstant() {
-    $this->assertEquals(1, MEMCACHE_HAVE_SESSION);
-  }
 }
