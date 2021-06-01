@@ -118,7 +118,6 @@ final class UrlFetch
      *     or if content is illegally truncated.
      *
      * @return URLFetchResponse Returns URLFetchResponse object upon success, else throws application error.
-     *
      */
     public function fetch(
         string $url,
