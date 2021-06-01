@@ -137,7 +137,7 @@ class UrlFetchStreamTest extends ApiProxyTestBase
         $urlfetchStream->context = $opts;
         $openedPath = '';
         $result = $urlfetchStream->stream_open($url, 'a+', 0, $openedPath);
-        $this->assertEquals(true, $result);
+        $this->assertTrue($result);
     }
 
     public function testGetFetchWithPayload(): void
