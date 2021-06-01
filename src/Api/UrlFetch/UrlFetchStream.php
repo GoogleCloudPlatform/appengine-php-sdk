@@ -338,7 +338,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      *
      * @return bool Return true if the read/write position is at the end of the stream and if
      *     no more data is available to be read, or false otherwise.
-     *
      */
     public function stream_eof(): bool
     {
@@ -380,7 +379,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
       *     SEEK_END: - Set position to end-of-file plus offset.
       *
       * @return bool Return true if the position was updated, false otherwise.
-      *
       */
     public function stream_seek(int $offset, int $whence = SEEK_SET): bool
     {
@@ -406,7 +404,6 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
       * Build the UrlFetch response header array.
       *
       * @return Header array.
-      *
       */
     private function buildHeaderArray(int $statusCode, array $headerList): array
     {
