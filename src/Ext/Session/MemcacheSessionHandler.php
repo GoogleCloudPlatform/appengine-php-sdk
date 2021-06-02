@@ -78,7 +78,7 @@ final class MemcacheSessionHandler implements \SessionHandlerInterface {
   /**
    * Read an element from Memcache with the given ID.
    * @param string $id Session ID associated with the data to be retrieved
-   * @return string data associated with that ID or bool false on failure
+   * @return string data associated with that ID or empty string on failure
    */
   public function read($id) {
     $data = $this->memcacheContainer->get(self::SESSION_PREFIX . $id);
