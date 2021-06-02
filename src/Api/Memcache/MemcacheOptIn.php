@@ -44,10 +44,6 @@ foreach ($classMap as $alias => $class) {
 }
 
 // Define constants for compatibility
-if (!defined('MEMCACHE_COMPRESSED')) {
-	define('MEMCACHE_COMPRESSED', 2);
-}
-
 if (!defined('MEMCACHE_HAVE_SESSION')) {
 	define('MEMCACHE_HAVE_SESSION', 1); // See ext/session/MemcacheSessionHandler.
 }
