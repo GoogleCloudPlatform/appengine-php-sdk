@@ -42,3 +42,8 @@ $classMap = [
 foreach ($classMap as $alias => $class) {
     class_alias($class, $alias);
 }
+
+// Define constants for compatibility
+if (!defined('MEMCACHE_HAVE_SESSION')) {
+	define('MEMCACHE_HAVE_SESSION', 1); // See ext/session/MemcacheSessionHandler.
+}

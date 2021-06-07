@@ -20,17 +20,15 @@
  *
  */
 
-namespace google\appengine\ext\session;
+namespace Google\AppEngine\Ext\Session;
 
-require_once 'google/appengine/ext/session/MemcacheSessionHandler.php';
+use PHPUnit\Framework\TestCase;
 
-class MemcacheSessionHandlerTest extends \PHPUnit\Framework\TestCase {
+/** 
+* @runTestsInSeparateProcesses 
+*/
+class MemcacheSessionHandlerTest extends TestCase {
   
-  public function setUp(): void {
-    parent::setUp();
-    $this->markTestSkipped('TODO: Debug test.');
-  }
-
   public function testSession() {
 
     $stub = $this->getMockBuilder(MemcacheContainer::class)
@@ -39,8 +37,8 @@ class MemcacheSessionHandlerTest extends \PHPUnit\Framework\TestCase {
 
     MemcacheSessionHandler::configure($stub);
 
-    $sessionId = "my_session_id";
-    $mySessionId = "_ah_sess_" . $sessionId;
+    $sessionId = 'my_session_id';
+    $mySessionId = '_ah_sess_' . $sessionId;
 
     $stub->expects($this->at(0))
         ->method('get')
@@ -64,15 +62,9 @@ class MemcacheSessionHandlerTest extends \PHPUnit\Framework\TestCase {
       ->will($this->returnValue(true));
 
     session_id($sessionId);
-    // Supress errors to overcome 'cannot write header' error.
-    @session_start();
+    session_start();
     $_SESSION['Foo'] = 'Bar';
+    $this->assertEquals('Bar', $_SESSION['Foo'], 'Session data does not match expected value.');
     session_write_close();
-  }
-
-  public function testConstant() {
-    MemcacheSessionHandler::configure();
-
-    $this->assertEquals(1, MEMCACHE_HAVE_SESSION);
   }
 }
