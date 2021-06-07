@@ -10,18 +10,12 @@
         "forum": "https://groups.google.com/forum/#!forum/google-appengine"
     },
     "require": {
-        "php": ">=5.4.0",
-        "pear/pear": "^1.10",
-        "pear/archive_tar": "^1.4",
-        "pear/console_getopt": "^1.4",
-        "pear/structures_graph": "^1.1",
-        "pear/xml_util": "^1.4"
+        "php": ">=5.4.0"
     },
     "require-dev": {
         "mikey179/vfsstream": "~1",
         "phpunit/phpunit": "^8",
-        "php-coveralls/php-coveralls": "dev-master",
-        "stevegrunwell/runkit7-installer": "^1.2"
+        "php-coveralls/php-coveralls": "dev-master"
     },
     "autoload": {
         "psr-4": {
