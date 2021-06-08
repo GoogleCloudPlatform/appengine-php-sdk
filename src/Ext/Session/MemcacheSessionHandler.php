@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007 Google Inc.
+ * Copyright 2021 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,62 +22,7 @@
  *
  */
 
-namespace google\appengine\ext\session;
-
-/**
- * Remove direct interaction with Memcache object for ease of mocking in tests.
- */
-class MemcacheContainer {
-
-  /**
-   * The memcache object for storing sessions.
-   */
-  private $memcache = null;
-
-  /**
-   * Initialises a Memcache instance
-   */
-  public function __construct() {
-    $this->memcache = new \Memcache();
-  }
-
-  /**
-   * Closes the Memcache instance.
-   * @return bool true if successful, false otherwise
-   */
-  public function close() {
-    return $this->memcache->close();
-  }
-
-  /**
-   * Finds the value associated with input key, from Memcache.
-   * @param string $key Input key from which to find value
-   * @return string value associated with input key
-   */
-  public function get($key) {
-    return $this->memcache->get($key, null);
-  }
-
-  /**
-   * Inserts a key value pair, with expiry time, into Memcache.
-   * @param string $key Input key to associate with the value
-   * @param string $value Input value to be stored
-   * @param int $expire Time until the pair can be garbage collected
-   * @return bool true if successful, false otherwise
-   */
-  public function set($key, $value, $expire) {
-    return $this->memcache->set($key, $value, null, $expire);
-  }
-
-  /**
-   * Removes the key value pair, keyed with the input variable.
-   * @param string $key Input key to remove key value pair
-   * @return bool true if successful, false otherwise
-   */
-  public function delete($key) {
-    return $this->memcache->delete($key);
-  }
-}
+namespace Google\AppEngine\Ext\Session;
 
 /**
  * A session handler interface using the GAE Memcache API.
@@ -133,10 +78,11 @@ final class MemcacheSessionHandler implements \SessionHandlerInterface {
   /**
    * Read an element from Memcache with the given ID.
    * @param string $id Session ID associated with the data to be retrieved
-   * @return string data associated with that ID or bool false on failure
+   * @return string data associated with that ID or empty string on failure
    */
   public function read($id) {
-    return $this->memcacheContainer->get(self::SESSION_PREFIX . $id);
+    $data = $this->memcacheContainer->get(self::SESSION_PREFIX . $id);
+    return  empty($data) ? '' : $data;
   }
 
   /**

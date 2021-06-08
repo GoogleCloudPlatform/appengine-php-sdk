@@ -266,4 +266,3 @@ function memcache_set_compress_threshold($memcache_obj,
                                          $min_savings = 0.2) {
   $memcache_obj->setCompressThreshold($threshold, $min_savings);
 }
-
