@@ -43,6 +43,10 @@ foreach ($classMap as $alias => $class) {
     class_alias($class, $alias);
 }
 
+// Define constants for compatibility
+if (!defined('MEMCACHE_HAVE_SESSION')) {
+	define('MEMCACHE_HAVE_SESSION', 1); // See ext/session/MemcacheSessionHandler.
+}
 
 /**
  * Adds a new item to the cache. Will fail if the key is already present in the
@@ -262,4 +266,3 @@ function memcache_set_compress_threshold($memcache_obj,
                                          $min_savings = 0.2) {
   $memcache_obj->setCompressThreshold($threshold, $min_savings);
 }
-
