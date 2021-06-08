@@ -66,7 +66,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Set',
                                     $request,
                                     $response);
-    $this->assertTrue(memcache_add($memcache, "float", 2.0, null, 30));
+    $this->assertTrue($memcache->add("float", 2.0, null, 30));
     $this->apiProxyMock->verify();
   }
 
@@ -88,7 +88,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Set',
                                     $request,
                                     $response);
-    $this->assertFalse(memcache_add($memcache, "float", 2.0, null, 30));
+    $this->assertFalse($memcache->add("float", 2.0, null, 30));
     $this->apiProxyMock->verify();
   }
 
@@ -106,7 +106,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Delete',
                                     $request,
                                     $response);
-    $this->assertTrue(memcache_delete($memcache, "delete_key"));
+    $this->assertTrue($memcache->delete("delete_key"));
     $this->apiProxyMock->verify();
   }
 
@@ -124,7 +124,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Delete',
                                     $request,
                                     $response);
-    $this->assertFalse(memcache_delete($memcache, "delete_key"));
+    $this->assertFalse($memcache->delete("delete_key"));
     $this->apiProxyMock->verify();
   }
 
@@ -137,7 +137,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'FlushAll',
                                     $req,
                                     $resp);
-    memcache_flush($memcache);
+    $memcache->flush();
     $this->apiProxyMock->verify();
   }
 
@@ -157,7 +157,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Get',
                                     $request,
                                     $response);
-    $this->assertEquals("value", memcache_get($memcache, "key"));
+    $this->assertEquals("value", $memcache->get("key"));
     $this->apiProxyMock->verify();
   }
 
@@ -177,7 +177,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Get',
                                     $request,
                                     $response);
-    $this->assertEquals("value", memcache_get($memcache, "key"));
+    $this->assertEquals("value", $memcache->get("key"));
     $this->apiProxyMock->verify();
   }
 
@@ -193,7 +193,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Get',
                                     $request,
                                     $response);
-    $this->assertFalse(memcache_get($memcache, "key"));
+    $this->assertFalse($memcache->get("key"));
     $this->apiProxyMock->verify();
   }
 
@@ -213,7 +213,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Get',
                                     $request,
                                     $response);
-    $this->assertFalse(memcache_get($memcache, "key"));
+    $this->assertFalse($memcache->get("key"));
     $this->apiProxyMock->verify();
   }
 
@@ -240,7 +240,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     $request,
                                     $response);
     $this->assertEquals(array("key1" => "value1", "key3" => "value3"),
-                        memcache_get($memcache, array("key1", "key2", "key3")));
+                        $memcache->get(array("key1", "key2", "key3")));
     $this->apiProxyMock->verify();
   }
 
@@ -258,7 +258,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Get',
                                     $request,
                                     $response);
-    $this->assertFalse(memcache_get($memcache, array("key1", "key2", "key3")));
+    $this->assertFalse($memcache->get(array("key1", "key2", "key3")));
     $this->apiProxyMock->verify();
   }
 
@@ -276,7 +276,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Increment',
                                     $request,
                                     $response);
-    $this->assertEquals(7, memcache_increment($memcache, "key", 5));
+    $this->assertEquals(7, $memcache->increment("key", 5));
     $this->apiProxyMock->verify();
   }
 
@@ -293,7 +293,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Increment',
                                     $request,
                                     $response);
-    $this->assertFalse(memcache_increment($memcache, "key", 5));
+    $this->assertFalse($memcache->increment("key", 5));
     $this->apiProxyMock->verify();
   }
 
@@ -312,7 +312,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Increment',
                                     $request,
                                     $response);
-    $this->assertEquals(8, memcache_decrement($memcache, "key", 4));
+    $this->assertEquals(8, $memcache->decrement("key", 4));
     $this->apiProxyMock->verify();
   }
 
@@ -335,7 +335,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Set',
                                     $request,
                                     $response);
-    $this->assertTrue(memcache_replace($memcache, "float", 2.0, null, 30));
+    $this->assertTrue($memcache->replace("float", 2.0, null, 30));
     $this->apiProxyMock->verify();
   }
 
@@ -357,7 +357,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Set',
                                     $request,
                                     $response);
-    $this->assertFalse(memcache_replace($memcache, "float", 2.0, null, 30));
+    $this->assertFalse($memcache->replace("float", 2.0, null, 30));
     $this->apiProxyMock->verify();
   }
 
@@ -379,7 +379,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Set',
                                     $request,
                                     $response);
-    $this->assertTrue(memcache_set($memcache, "float", 2.0, null, 30));
+    $this->assertTrue($memcache->set("float", 2.0, null, 30));
     $this->apiProxyMock->verify();
   }
 
@@ -401,8 +401,7 @@ class MemcacheTest extends ApiProxyTestBase {
                                     'Set',
                                     $request,
                                     $response);
-    $this->assertTrue(memcache_set($memcache, "float", 3.0, MEMCACHE_COMPRESSED,
-                                   30));
+    $this->assertTrue($memcache->set("float", 3.0, 0, 30));
     $this->apiProxyMock->verify();
   }
 }

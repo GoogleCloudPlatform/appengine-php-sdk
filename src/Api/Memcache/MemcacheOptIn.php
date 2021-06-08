@@ -43,6 +43,14 @@ foreach ($classMap as $alias => $class) {
     class_alias($class, $alias);
 }
 
+// Define constants for compatibility, but they will be ignored.
+if (!defined('MEMCACHE_COMPRESSED')) {
+	define('MEMCACHE_COMPRESSED', 2);
+}
+
+if (!defined('MEMCACHE_HAVE_SESSION')) {
+	define('MEMCACHE_HAVE_SESSION', 1); // See ext/session/MemcacheSessionHandler.
+}
 
 /**
  * Adds a new item to the cache. Will fail if the key is already present in the
@@ -68,13 +76,9 @@ foreach ($classMap as $alias => $class) {
  *              otherwise.
  */
 
-// if(!function_exists ('memcache_add')) {
-
   function memcache_add($memcache_obj, $key, $value, $flag = null, $expire = 0) {
     return $memcache_obj->add($key, $value, $flag, $expire);
   }
-// }
-
 
 /**
  * This function is present only for compatibility and does nothing.
