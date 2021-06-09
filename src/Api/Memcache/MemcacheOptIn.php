@@ -76,21 +76,27 @@ if (!defined('MEMCACHE_HAVE_SESSION')) {
  *              otherwise.
  */
 
-  function memcache_add($memcache_obj, $key, $value, $flag = null, $expire = 0) {
+  function memcache_add(
+      Google\AppEngine\Api\Memcache\Memcache $memcache_obj, 
+      string $key, 
+      $value, 
+      int $flag = null, 
+      int $expire = 0
+  ): bool {
     return $memcache_obj->add($key, $value, $flag, $expire);
   }
 
 /**
  * This function is present only for compatibility and does nothing.
  */
-function memcache_add_server($memcache_obj, $host) {
+function memcache_add_server(Google\AppEngine\Api\Memcache\Memcache $memcache_obj, $host) {
   return $memcache_obj->addServer($host);
 }
 
 /**
  * This function is present only for compatibility and does nothing.
  */
-function memcache_close($memcache_obj) {
+function memcache_close(Google\AppEngine\Api\Memcache\Memcache $memcache_obj) {
   return $memcache_obj->close();
 }
 
@@ -119,7 +125,7 @@ function memcache_connect($host, $port = null, $timeout = 1) {
  * @return mixed On success, the new value of the item is returned. On
  *               failure, false is returned.
  */
-function memcache_decrement($memcache_obj, $key, $value = 1) {
+function memcache_decrement(Google\AppEngine\Api\Memcache\Memcache $memcache_obj, $key, $value = 1) {
   return $memcache_obj->decrement($key, $value);
 }
 
@@ -134,7 +140,7 @@ function memcache_decrement($memcache_obj, $key, $value = 1) {
  *              false otherwise. Note that this will return false if $key is
  *              not present in the cache.
  */
-function memcache_delete($memcache_obj, $key) {
+function memcache_delete(Google\AppEngine\Api\Memcache\Memcache $memcache_obj, $key) {
   return $memcache_obj->delete($key);
 }
 
@@ -145,7 +151,7 @@ function memcache_delete($memcache_obj, $key) {
  *
  * @return bool true if all items were removed, false otherwise.
  */
-function memcache_flush($memcache_obj) {
+function memcache_flush(Google\AppEngine\Api\Memcache\Memcache $memcache_obj) {
   return $memcache_obj->flush();
 }
 
@@ -164,7 +170,11 @@ function memcache_flush($memcache_obj) {
  *               of key-value pairs when $keys is an array. On failure, false
  *               is returned.
  */
-function memcache_get($memcache_obj, $keys, $flags = null) {
+function memcache_get(
+  Google\AppEngine\Api\Memcache\Memcache $memcache_obj, 
+  $keys, 
+  int $flags = null
+) {
   return $memcache_obj->get($keys, $flags);
 }
 
@@ -182,7 +192,11 @@ function memcache_get($memcache_obj, $keys, $flags = null) {
  *               failure, false is returned.
  */
  
-function memcache_increment($memcache_obj, $key, $value = 1) {
+function memcache_increment(
+    Google\AppEngine\Api\Memcache\Memcache $memcache_obj, 
+    string $key, 
+    int $value = 1
+) {
   return $memcache_obj->increment($key, $value);
 }
 
@@ -222,11 +236,13 @@ function memcache_pconnect($host, $port = null, $timeout = 1) {
  * @return bool true if the item was successfully replaced  in the cache,
  *              false otherwise.
  */
-function memcache_replace($memcache_obj,
-                          $key,
-                          $value,
-                          $flag = null,
-                          $expire = 0) {
+function memcache_replace(
+    Google\AppEngine\Api\Memcache\Memcache $memcache_obj,
+    string $key,
+    $value,
+    int $flag = null,
+    int $expire = 0
+): bool {
   return $memcache_obj->replace($key, $value, $flag, $expire);
 }
 
@@ -254,15 +270,23 @@ function memcache_replace($memcache_obj,
  * @return bool true if the item was successfully replaced the cache, false
  *              otherwise.
  */
-function memcache_set($memcache_obj, $key, $value, $flag = null, $expire = 0) {
+function memcache_set(
+    Google\AppEngine\Api\Memcache\Memcache $memcache_obj, 
+    string $key, 
+    $value, 
+    int $flag = null, 
+    int $expire = 0
+): bool {
   return $memcache_obj->set($key, $value, $flag, $expire);
 }
 
 /**
  * This function is present only for compatibility and does nothing.
  */
-function memcache_set_compress_threshold($memcache_obj,
-                                         $threshold,
-                                         $min_savings = 0.2) {
+function memcache_set_compress_threshold(
+    Google\AppEngine\Api\Memcache\Memcache $memcache_obj,
+    $threshold,
+    $min_savings = 0.2
+) {
   $memcache_obj->setCompressThreshold($threshold, $min_savings);
 }
