@@ -144,7 +144,10 @@ function memcache_decrement(
  *              false otherwise. Note that this will return false if $key is
  *              not present in the cache.
  */
-function memcache_delete(Google\AppEngine\Api\Memcache\Memcache $memcache_obj, $key) {
+function memcache_delete(
+    Google\AppEngine\Api\Memcache\Memcache $memcache_obj, 
+    string $key
+): bool {
   return $memcache_obj->delete($key);
 }
 
@@ -155,7 +158,7 @@ function memcache_delete(Google\AppEngine\Api\Memcache\Memcache $memcache_obj, $
  *
  * @return bool true if all items were removed, false otherwise.
  */
-function memcache_flush(Google\AppEngine\Api\Memcache\Memcache $memcache_obj) {
+function memcache_flush(Google\AppEngine\Api\Memcache\Memcache $memcache_obj): bool {
   return $memcache_obj->flush();
 }
 
