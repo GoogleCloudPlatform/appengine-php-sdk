@@ -125,7 +125,11 @@ function memcache_connect($host, $port = null, $timeout = 1) {
  * @return mixed On success, the new value of the item is returned. On
  *               failure, false is returned.
  */
-function memcache_decrement(Google\AppEngine\Api\Memcache\Memcache $memcache_obj, $key, $value = 1) {
+function memcache_decrement(
+    Google\AppEngine\Api\Memcache\Memcache $memcache_obj, 
+    string $key, 
+    int $value = 1
+) {
   return $memcache_obj->decrement($key, $value);
 }
 
