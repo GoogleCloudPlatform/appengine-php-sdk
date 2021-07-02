@@ -20,11 +20,11 @@
  */
 
 use google\appengine\base\VoidProto;
-use google\appengine\api\mail\Message;
+use Google\AppEngine\Api\Mail\Message;
 use google\appengine\MailMessage;
 use google\appengine\MailServiceError\ErrorCode;
-use google\appengine\runtime\ApplicationError;
-use google\appengine\testing\ApiProxyTestBase;
+use Google\AppEngine\Runtime\ApplicationError;
+use Google\AppEngine\Testing\ApiProxyTestBase;
 
 class MessageTest extends ApiProxyTestBase {
   public function testConstructorBadValues() {

@@ -16,7 +16,7 @@
     },
     "require-dev": {
         "mikey179/vfsstream": "~1",
-        "phpunit/phpunit": "^8",
+        "phpunit/phpunit": "^7",
         "php-coveralls/php-coveralls": "dev-master"
     },
     "autoload": {
@@ -29,6 +29,7 @@
         "classmap": [
             "src/Api/api_base_pb.php",
             "src/Api/AppIdentity/app_identity_service_pb.php", 
+            "src/Api/Mail/mail_service_pb.php", 
             "src/Api/Memcache/memcache_service_pb.php", 
             "src/Api/Modules/modules_service_pb.php", 
             "src/Api/TaskQueue/taskqueue_service_pb.php",

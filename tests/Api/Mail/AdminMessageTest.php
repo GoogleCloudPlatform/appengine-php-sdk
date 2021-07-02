@@ -19,12 +19,12 @@
  *
  */
 
-use google\appengine\api\mail\AdminMessage;
+use Google\AppEngine\Api\Mail\AdminMessage;
 use google\appengine\base\VoidProto;
 use google\appengine\MailMessage;
 use google\appengine\MailServiceError\ErrorCode;
-use google\appengine\runtime\ApplicationError;
-use google\appengine\testing\ApiProxyTestBase;
+use Google\AppEngine\Runtime\ApplicationError;
+use Google\AppEngine\Testing\ApiProxyTestBase;
 
 class AdminMessageTest extends ApiProxyTestBase {
   public function testConstructorBadValues() {
