@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 /**
  * Copyright 2021 Google Inc.
