@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace Google\AppEngine\Api\UrlFetch;
 
-use Google\Appengine\Runtime\ApplicationError;
+use Google\AppEngine\Runtime\ApplicationError;
 use google\appengine\URLFetchServiceError\ErrorCode;
 use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Stream\CachingStream;

@@ -20,8 +20,8 @@ declare(strict_types=1);
 
 namespace Google\AppEngine\Api\UrlFetch;
 
-use Google\Appengine\Runtime\ApiProxy;
-use Google\Appengine\Runtime\ApplicationError;
+use Google\AppEngine\Runtime\ApiProxy;
+use Google\AppEngine\Runtime\ApplicationError;
 use google\appengine\URLFetchRequest;
 use google\appengine\URLFetchRequest\RequestMethod;
 use google\appengine\URLFetchResponse;
