@@ -26,6 +26,7 @@ use Google\AppEngine\Api\Mail\Message;
 use Google\AppEngine\Util\ArrayUtil;
 use Google\AppEngine\Util\StringUtil;
 
+sendMail
 /**
  * Send an email.
  *
@@ -46,11 +47,11 @@ use Google\AppEngine\Util\StringUtil;
  *
  * @see http://php.net/mail
  */
-function sendMail($to,
-                  $subject,
-                  $message,
-                  $additional_headers = null,
-                  $additional_parameters = null) {
+function mail($to,
+              $subject,
+              $message,
+              $additional_headers = null,
+              $additional_parameters = null) {
   echo "in php script\n";
   $raw_mail = "To: $to\r\nSubject: $subject\r\n";
   if ($additional_headers != null) {
