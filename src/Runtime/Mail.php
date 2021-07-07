@@ -47,11 +47,11 @@ use Google\AppEngine\Util\StringUtil;
  *
  * @see http://php.net/mail
  */
-public static function sendMail($to,
-                                $subject,
-                                $message,
-                                $additional_headers = null,
-                                $additional_parameters = null) {
+function sendMail($to,
+                  $subject,
+                  $message,
+                  $additional_headers = null,
+                  $additional_parameters = null) {
   $raw_mail = "To: $to\r\nSubject: $subject\r\n";
   if ($additional_headers != null) {
     $raw_mail .= trim($additional_headers);
