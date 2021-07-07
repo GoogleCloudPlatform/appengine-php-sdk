@@ -52,6 +52,7 @@ function sendMail($to,
                   $message,
                   $additional_headers = null,
                   $additional_parameters = null) {
+  echo "in php script\n";
   $raw_mail = "To: $to\r\nSubject: $subject\r\n";
   if ($additional_headers != null) {
     $raw_mail .= trim($additional_headers);
