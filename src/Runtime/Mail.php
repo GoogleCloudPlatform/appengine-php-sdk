@@ -26,7 +26,6 @@ use Google\AppEngine\Api\Mail\Message;
 use Google\AppEngine\Util\ArrayUtil;
 use Google\AppEngine\Util\StringUtil;
 
-sendMail
 /**
  * Send an email.
  *
@@ -47,6 +46,7 @@ sendMail
  *
  * @see http://php.net/mail
  */
+
 function mail($to,
               $subject,
               $message,
