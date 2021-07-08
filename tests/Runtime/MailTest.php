@@ -19,23 +19,44 @@
  *
  */
 
-namespace Google\AppEngine\Runtime;
+require_once __DIR__ . "/../../src/Runtime/Mail.php";
 
 use google\appengine\base\VoidProto;
+use Google\AppEngine\Api\Mail\Message;
 use google\appengine\MailMessage;
-use Google\AppEngine\Runtime\Mail;
+use google\appengine\MailServiceError\ErrorCode;
+use Google\AppEngine\Runtime\ApplicationError;
 use Google\AppEngine\Testing\ApiProxyTestBase;
 
-/**
- * @requires extension mailparse
- */
-class MailTest extends ApiProxyTestBase {
 
+// Mocking mailparse functions in the global namespaace
+function mailparse_msg_create() {}
+function mailparse_msg_parse($mime, $raw_mail) {
+  return true;
+}
+function mailparse_msg_get_structure($mime) {
+  return [];
+}
+
+function mailparse_msg_get_part_data($mime) {
+  $array = array();
+  $array['headers']['from'] = 'foo@foo.com';
+  $array['headers']['to'] = 'bar@bar.com';
+  $array['headers']['subject'] = 'subject';
+  
+  if ($GLOBALS['htmlBodyFlag']) {
+    $array['content-type'] = 'text/html';
+  } else {
+    $array['content-type'] = 'text/plain';
+  }
+  return $array;
+}
+
+class MailTest extends ApiProxyTestBase {
   public function setUp(): void {
     parent::setUp();
     ini_set('sendmail_from', '');
     putenv('APPLICATION_ID=');
-    $this->markTestSkipped('TODO: enable test after add api/Mail service');
   }
 
   public function testSetSenderUsingIniSetting() {
@@ -48,44 +69,8 @@ class MailTest extends ApiProxyTestBase {
     $message_proto->setTextBody('text');
     $response = new VoidProto();
     $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
-
-    $this->assertTrue(Mail::sendMail('bar@bar.com', 'subject', 'text'));
+    $this->assertTrue(sendmail('bar@bar.com', 'subject', 'text'));
     $this->apiProxyMock->verify();
-  }
-
-  public function testSetSenderUsingDefaultAddress() {
-    putenv('APPLICATION_ID=appid');
-
-    $message_proto = new MailMessage();
-    $message_proto->setSender('mailer@appid.appspotmail.com');
-    $message_proto->addTo('bar@bar.com');
-    $message_proto->setSubject('subject');
-    $message_proto->setTextBody('text');
-    $response = new VoidProto();
-    $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
-
-    $this->assertTrue(Mail::sendMail('bar@bar.com', 'subject', 'text'));
-    $this->apiProxyMock->verify();
-  }
-
-  /**
-   * @dataProvider invalidAddressProvider
-   */
-  public function testInvalidAddress($headers) {
-    $this->expectException('PHPUnit_Framework_Error_Warning',
-                                'mail(): Invalid');
-
-    $ret = Mail::sendMail('foo@foo.com', 'subject', 'body', $headers);
-    $this->assertFalse($ret);
-    $this->apiProxyMock->verify();
-  }
-
-  public function invalidAddressProvider() {
-    return [["From: invalid_address\r\n"],
-            ["From: valid@example.com\r\n" .
-             "Cc: invalid@\r\n"],
-            ["From: valid@example.com\r\n" .
-             "Bcc: another invalid address\r\n"]];
   }
 
   public function testSendSimpleMail() {
@@ -98,7 +83,7 @@ class MailTest extends ApiProxyTestBase {
     $response = new VoidProto();
     $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
 
-    $ret = Mail::sendMail('bar@bar.com', 'subject', 'text', $headers);
+    $ret = sendmail('bar@bar.com', 'subject', 'text', $headers);
     $this->assertTrue($ret);
     $this->apiProxyMock->verify();
   }
@@ -113,62 +98,13 @@ class MailTest extends ApiProxyTestBase {
     $response = new VoidProto();
     $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
 
-    $ret = Mail::sendMail('bar@bar.com', 'subject', 'text', $headers);
-    $this->assertTrue($ret);
-    $this->apiProxyMock->verify();
-  }
-
-  public function testSendMailToMultipleRecipients() {
-    $to = "user@example.com, Another User <anotheruser@example.com>";
-    $cc = "user2@example.com, user3@example.com";
-    $bcc = "User 4 <user4@example.com>";
-    $reply_to = "User5 <user5@example.com";
-    $headers = "From: foo@foo.com\r\n" .
-               "Cc: $cc\r\n" .
-               "Bcc: $bcc\r\n" .
-               "Reply-To: $reply_to\r\n";
-    $message_proto = new MailMessage();
-    $message_proto->setSender('foo@foo.com');
-    $message_proto->addTo($to);
-    $message_proto->addCc($cc);
-    $message_proto->addBcc($bcc);
-    $message_proto->setReplyTo($reply_to);
-    $message_proto->setSubject('subject');
-    $message_proto->setTextBody('text');
-    $response = new VoidProto();
-    $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
-
-    $ret = Mail::sendMail($to, 'subject', 'text', $headers);
-    $this->assertTrue($ret);
-    $this->apiProxyMock->verify();
-  }
-
-  public function testSendMailWithExtraHeaders() {
-    $html = "<b>html</b>";
-    $headers = "From: foo@foo.com\r\n" .
-               "List-Id: 12345\r\n" .
-               "On-Behalf-Of: bar2@bar.com\r\n" .
-               "X-Mailer: foo";  // Expected to be dropped.
-    $message_proto = new MailMessage();
-    $message_proto->setSender('foo@foo.com');
-    $message_proto->addTo('bar@bar.com');
-    $message_proto->setSubject('subject');
-    $message_proto->setTextBody('text');
-    $header = $message_proto->addHeader();
-    $header->setName('list-id');
-    $header->setValue('12345');
-    $header = $message_proto->addHeader();
-    $header->setName('on-behalf-of');
-    $header->setValue('bar2@bar.com');
-    $response = new VoidProto();
-    $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
-
-    $ret = Mail::sendMail('bar@bar.com', 'subject', 'text', $headers);
+    $ret = sendmail('bar@bar.com', 'subject', 'text', $headers);
     $this->assertTrue($ret);
     $this->apiProxyMock->verify();
   }
 
   public function testSendHtmlMail() {
+    $GLOBALS['htmlBodyFlag'] = 1;
     $html = "<b>html</b>";
     $headers = "From: foo@foo.com\r\n" .
                "Content-Type: text/html\r\n";
@@ -180,153 +116,10 @@ class MailTest extends ApiProxyTestBase {
     $response = new VoidProto();
     $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
 
-    $ret = Mail::sendMail('bar@bar.com', 'subject', $html, $headers);
+    $ret = sendmail('bar@bar.com', 'subject', $html, $headers);
     $this->assertTrue($ret);
     $this->apiProxyMock->verify();
-  }
-
-  public function testSendMultipartMail() {
-    $headers = "From: foo@foo.com\r\n" .
-               "Content-Type: multipart/mixed; boundary=\"a-boundary\"\r\n";
-    $message = "--a-boundary\r\n" .
-               "Content-Type: text/plain\r\n" .
-               "\r\n" .
-               "multipart mail\r\n" .
-               "--a-boundary\r\n" .
-               "Content-Type: text/plain\r\n" .
-               "Content-Id: <first_id>\r\n" .
-               "Content-Disposition: attachment; filename=\"first.txt\"\r\n" .
-               "\r\n" .
-               "first part in plain text\r\n" .
-               "--a-boundary\r\n" .
-               "Content-Type: text/plain\r\n" .
-               "Content-Disposition: attachment; filename=\"second.txt\"\r\n" .
-               "\r\n" .
-               "second part in plain text\r\n";
-               "--a-boundary--\r\n";
-
-    $message_proto = new MailMessage();
-    $message_proto->setSender('foo@foo.com');
-    $message_proto->addTo('bar@bar.com');
-    $message_proto->setSubject('subject');
-    $message_proto->setTextBody('multipart mail');
-    $attachment1 = $message_proto->addAttachment();
-    $attachment1->setFilename('first.txt');
-    $attachment1->setData('first part in plain text');
-    $attachment1->setContentId('<first_id>');
-    $attachment2 = $message_proto->addAttachment();
-    $attachment2->setFilename('second.txt');
-    $attachment2->setData('second part in plain text');
-    $response = new VoidProto();
-    $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
-
-    $ret = Mail::sendMail('bar@bar.com', 'subject', $message, $headers);
-    $this->assertTrue($ret);
-    $this->apiProxyMock->verify();
-  }
-
-  public function testSendNestedMultipartMail() {
-    $headers = "From: foo@foo.com\r\n" .
-               "Content-Type: multipart/mixed; boundary=\"boundary-1\"\r\n";
-    $message =
-        "--boundary-1\r\n" .
-        "Content-Type: multipart/alternative; boundary=\"boundary-2\"\r\n" .
-        "\r\n" .
-        "--boundary-2\r\n" .
-        "Content-Type: text/plain\r\n" .
-        "\r\n" .
-        "body in text\r\n" .
-        "--boundary-2\r\n" .
-        "Content-Type: text/html\r\n" .
-        "\r\n" .
-        "<div>body in html</div>\r\n" .
-        "--boundary-2--\r\n" .
-        "--boundary-1\r\n" .
-        "Content-Type: text/plain\r\n" .
-        "Content-Disposition: attachment; filename=\"test.txt\"\r\n" .
-        "\r\n" .
-        "attachment in plain text\r\n";
-        "--boundary-1--\r\n";
-
-    $message_proto = new MailMessage();
-    $message_proto->setSender('foo@foo.com');
-    $message_proto->addTo('bar@bar.com');
-    $message_proto->setSubject('subject');
-    $message_proto->setTextBody('body in text');
-    $message_proto->setHtmlBody('<div>body in html</div>');
-    $attachment1 = $message_proto->addAttachment();
-    $attachment1->setFilename('test.txt');
-    $attachment1->setData('attachment in plain text');
-    $response = new VoidProto();
-    $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
-
-    $ret = Mail::sendMail('bar@bar.com', 'subject', $message, $headers);
-    $this->assertTrue($ret);
-    $this->apiProxyMock->verify();
-  }
-
-  public function testSendQuotedPrintableMultipartMail() {
-    $headers = "From: foo@foo.com\r\n" .
-               "Content-Type: multipart/mixed; boundary=\"a-boundary\"\r\n";
-    $message = "--a-boundary\r\n" .
-               "Content-Type: text/plain\r\n" .
-               "\r\n" .
-               "multipart mail\r\n" .
-               "--a-boundary\r\n" .
-               "Content-Type: text/plain\r\n" .
-               "Content-Transfer-Encoding: quoted-printable\r\n" .
-               "Content-Disposition: attachment; filename=\"first.txt\"\r\n" .
-               "\r\n" .
-               "1+1=3D2, =\r\n" .
-               "2+2=3D4\r\n" .
-               "--a-boundary--\r\n";
-
-    $message_proto = new MailMessage();
-    $message_proto->setSender('foo@foo.com');
-    $message_proto->addTo('bar@bar.com');
-    $message_proto->setSubject('subject');
-    $message_proto->setTextBody('multipart mail');
-    $attachment1 = $message_proto->addAttachment();
-    $attachment1->setFilename('first.txt');
-    $attachment1->setData('1+1=2, 2+2=4');
-    $response = new VoidProto();
-    $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
-
-    $ret = Mail::sendMail('bar@bar.com', 'subject', $message, $headers);
-    $this->assertTrue($ret);
-    $this->apiProxyMock->verify();
-  }
-
-  public function testSendBase64MultipartMail() {
-    $headers = "From: foo@foo.com\r\n" .
-               "Content-Type: multipart/mixed; boundary=\"a-boundary\"\r\n";
-    $message = "--a-boundary\r\n" .
-               "Content-Type: text/plain\r\n" .
-               "\r\n" .
-               "multipart mail\r\n" .
-               "--a-boundary\r\n" .
-               "Content-Type: text/plain\r\n" .
-               "Content-Transfer-Encoding: base64\r\n" .
-               "Content-Disposition: attachment; filename=\"first.txt\"\r\n" .
-               "\r\n" .
-               base64_encode('base64-encoded message') . "\r\n" .
-               "--a-boundary--\r\n";
-
-
-    $message_proto = new MailMessage();
-    $message_proto->setSender('foo@foo.com');
-    $message_proto->addTo('bar@bar.com');
-    $message_proto->setSubject('subject');
-    $message_proto->setTextBody('multipart mail');
-    $attachment1 = $message_proto->addAttachment();
-    $attachment1->setFilename('first.txt');
-    $attachment1->setData('base64-encoded message');
-    $response = new VoidProto();
-    $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
-
-    $ret = Mail::sendMail('bar@bar.com', 'subject', $message, $headers);
-    $this->assertTrue($ret);
-    $this->apiProxyMock->verify();
+    $GLOBALS['htmlBodyFlag'] = 0;
   }
 
 }
