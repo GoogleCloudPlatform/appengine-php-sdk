@@ -48,8 +48,8 @@ use Google\AppEngine\Util\StringUtil;
 function mail($to,
               $subject,
               $message,
-              $additional_headers = [],
-              $additional_parameters = "") {
+              $additional_headers = null,
+              $additional_parameters = null) {
   echo "in php script\n";
   $raw_mail = "To: $to\r\nSubject: $subject\r\n";
   if ($additional_headers != null) {
