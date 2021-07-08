@@ -29,7 +29,9 @@ use Google\AppEngine\Runtime\ApplicationError;
 use Google\AppEngine\Testing\ApiProxyTestBase;
 
 
-// Mocking mailparse functions in the global namespaace
+// Mocking mailparse functions in the global namespace
+
+$htmlBodyFlag = 0;
 function mailparse_msg_create() {}
 function mailparse_msg_parse($mime, $raw_mail) {
   return true;
