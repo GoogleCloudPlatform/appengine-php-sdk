@@ -19,7 +19,7 @@
  *
  */
 
-namespace Google\AppEngine\Runtime;
+// namespace Google\AppEngine\Runtime;
 
 use Google\AppEngine\Api\AppIdentity\AppIdentityService;
 use Google\AppEngine\Api\Mail\Message;
@@ -50,8 +50,8 @@ use Google\AppEngine\Util\StringUtil;
 function mail($to,
               $subject,
               $message,
-              $additional_headers = null,
-              $additional_parameters = null) {
+              $additional_headers = [],
+              $additional_parameters = "") {
   echo "in php script\n";
   $raw_mail = "To: $to\r\nSubject: $subject\r\n";
   if ($additional_headers != null) {
