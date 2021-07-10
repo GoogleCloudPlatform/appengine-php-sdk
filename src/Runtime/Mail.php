@@ -48,8 +48,8 @@ use Google\AppEngine\Util\StringUtil;
 function sendmail($to,
               $subject,
               $message,
-              $additional_headers = null,
-              $additional_parameters = null) {
+              $additional_headers = [],
+              $additional_parameters = "") {
   $raw_mail = "To: $to\r\nSubject: $subject\r\n";
   if ($additional_headers != null) {
     $raw_mail .= trim($additional_headers);
