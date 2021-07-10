@@ -45,7 +45,7 @@ use Google\AppEngine\Util\StringUtil;
  * @see http://php.net/mail
  */
 
-function mail($to,
+function sendMail($to,
               $subject,
               $message,
               $additional_headers = [],
