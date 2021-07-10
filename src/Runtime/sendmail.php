@@ -18,6 +18,7 @@
  * Allow users to send mail using the App Engine mail APIs.
  *
  */
+namespace Google\AppEngine;
 
 use Google\AppEngine\Api\AppIdentity\AppIdentityService;
 use Google\AppEngine\Api\Mail\Message;
@@ -45,7 +46,7 @@ use Google\AppEngine\Util\StringUtil;
  * @see http://php.net/mail
  */
 
-function sendmail($to,
+function mail($to,
               $subject,
               $message,
               $additional_headers = [],
