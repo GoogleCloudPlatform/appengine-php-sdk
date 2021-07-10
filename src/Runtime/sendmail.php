@@ -18,7 +18,6 @@
  * Allow users to send mail using the App Engine mail APIs.
  *
  */
-namespace Google\AppEngine;
 
 use Google\AppEngine\Api\AppIdentity\AppIdentityService;
 use Google\AppEngine\Api\Mail\Message;
@@ -49,8 +48,8 @@ use Google\AppEngine\Util\StringUtil;
 function mail($to,
               $subject,
               $message,
-              $additional_headers = [],
-              $additional_parameters = "") {
+              $additional_headers = null,
+              $additional_parameters = null) {
   $raw_mail = "To: $to\r\nSubject: $subject\r\n";
   if ($additional_headers != null) {
     $raw_mail .= trim($additional_headers);
