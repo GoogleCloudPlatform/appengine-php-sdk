@@ -31,11 +31,51 @@ use Google\AppEngine\Util\StringUtil;
 echo "STDIN Zach ";
 $f = fopen( 'php://stdin', 'r' );
 
-while( $line = fgets( $f ) ) {
+echo "Metadata: ";
+print_r(stream_get_meta_data($f));
+
+
+// TO
+$line = fgets($f);
+$line_arr = explode (":", line);
+if($line_arr[0] != 'To'){
+  throw new Exception('No To field set in mail() call');
+}
+$to = $line_arr[1];
+
+// SUBJECT
+$line = fgets($f);
+$line_arr = explode (":", line);
+if($line_arr[0] != 'Subject'){
+  throw new Exception('No Subject field set in mail() call');
+}
+$subject = $line_arr[1];
+
+// HEADERS and Message
+$headers = '';
+$message = '';
+while($line = fgets($f)) {
+  if(str_contains($line, ':')) {
+    $headers .=  $line . "\r\n";
+  } else {
+    $message .=  $line . "\r\n";
+  }
   echo $line;
 }
 
 fclose($f);
+
+sendmail($to, $subject, $message, $headers);
+
+
+function parse_input_line($line) {
+  $line_arr = explode (":", line);
+
+}
+
+
+
+
 
 /**
  * Send an email.
