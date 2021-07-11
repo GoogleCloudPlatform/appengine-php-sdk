@@ -37,15 +37,15 @@ print_r(stream_get_meta_data($f));
 
 // TO
 $line = fgets($f);
-$line_arr = explode (":", line);
+$line_arr = explode (":", $line);
 if($line_arr[0] != 'To'){
-  throw new Exception('No To field set in mail() call');
+  throw new Exception('No To field set in mail() call, value is: ' . $line);
 }
 $to = $line_arr[1];
 
 // SUBJECT
 $line = fgets($f);
-$line_arr = explode (":", line);
+$line_arr = explode (":", $line);
 if($line_arr[0] != 'Subject'){
   throw new Exception('No Subject field set in mail() call');
 }
