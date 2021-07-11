@@ -24,6 +24,19 @@ use Google\AppEngine\Api\Mail\Message;
 use Google\AppEngine\Util\ArrayUtil;
 use Google\AppEngine\Util\StringUtil;
 
+
+
+
+
+echo "STDIN Zach ";
+$f = fopen( 'php://stdin', 'r' );
+
+while( $line = fgets( $f ) ) {
+  echo $line;
+}
+
+fclose($f);
+
 /**
  * Send an email.
  *
