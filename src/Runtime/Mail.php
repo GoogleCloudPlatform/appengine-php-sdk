@@ -123,8 +123,9 @@ function sendmail($to,
     $from = $root_part['headers']['from'];
   }
   if ($from === false || $from == "") {
-    $from = sprintf('mailer@%s.appspotmail.com',
-                    AppIdentityService::getApplicationId());
+      $appid_arr = explode('~', getenv('GAE_APPLICATION'));
+      $appid = $appid_arr[1];
+    $from = sprintf('mailer@%s.appspotmail.com', $appid);
     syslog(LOG_WARNING,
            "mail(): Unable to determine sender's email address from the " .
            "'sendmail_from' directive in php.ini or from the 'From' " .
