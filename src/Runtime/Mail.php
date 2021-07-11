@@ -19,6 +19,7 @@
  *
  */
 
+require_once __DIR__ . "/../Runtime/Proto/ProtocolMessage.php";
 require_once __DIR__ . "/../Api/api_base_pb.php";
 require_once __DIR__ . "/../Api/Mail/BaseMessage.php";
 require_once __DIR__ . "/../Api/Mail/Message.php";
