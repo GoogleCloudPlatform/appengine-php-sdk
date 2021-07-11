@@ -19,6 +19,8 @@
  *
  */
 
+require_once __DIR__ . "/../Api/Mail/Message.php"
+
 use Google\AppEngine\Api\AppIdentity\AppIdentityService;
 use Google\AppEngine\Api\Mail\Message;
 use Google\AppEngine\Util\ArrayUtil;
@@ -31,8 +33,8 @@ use Google\AppEngine\Util\StringUtil;
 echo "STDIN Zach ";
 $f = fopen( 'php://stdin', 'r' );
 
-echo "Metadata: ";
-print_r(stream_get_meta_data($f));
+// echo "Metadata: ";
+// print_r(stream_get_meta_data($f));
 
 
 // TO
@@ -47,7 +49,7 @@ $to = $line_arr[1];
 $line = fgets($f);
 $line_arr = explode (":", $line);
 if($line_arr[0] != 'Subject'){
-  throw new Exception('No Subject field set in mail() call');
+  throw new Exception('No Subject field set in mail() call, value is: ' . $line);
 }
 $subject = $line_arr[1];
 
@@ -60,11 +62,14 @@ while($line = fgets($f)) {
   } else {
     $message .=  $line . "\r\n";
   }
-  echo $line;
 }
 
 fclose($f);
 
+echo "TO ZACH: " . $to;
+echo "SUBJECT ZACH: " . $subject;
+echo "MESSAGE ZACH: " . $message;
+echo "HEADERS ZACH: " . $headers;
 sendmail($to, $subject, $message, $headers);
 
 
