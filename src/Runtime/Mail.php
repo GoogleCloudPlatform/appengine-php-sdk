@@ -55,7 +55,7 @@ $subject = $line_arr[1];
 $headers = '';
 $message = '';
 while($line = fgets($f)) {
-  if(str_contains($line, ':')) {
+  if(strpos($line, ':') !== false) {
     $headers .=  $line . "\r\n";
   } else {
     $message .=  $line . "\r\n";
