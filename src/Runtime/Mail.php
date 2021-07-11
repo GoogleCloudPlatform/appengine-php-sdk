@@ -19,7 +19,7 @@
  *
  */
 
-require_once __DIR__ . "/../Api/Mail/Message.php"
+require_once __DIR__ . "/../Api/Mail/Message.php";
 
 use Google\AppEngine\Api\AppIdentity\AppIdentityService;
 use Google\AppEngine\Api\Mail\Message;
