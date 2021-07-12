@@ -124,11 +124,11 @@ final class Mail {
                                   $message,
                                   $additional_headers = null,
                                   $additional_parameters = null) {
-    $raw_mail = "To: $to\r\nSubject: $subject\r\n";
+    $raw_mail = "To: {$to}\rSubject: {$subject}\r";
     if ($additional_headers != null) {
       $raw_mail .= trim($additional_headers);
     }
-    $raw_mail .= "\r\n\r\n$message";
+    $raw_mail .= "\r\n\r\n{$message}";
 
     $mime = mailparse_msg_create();
     mailparse_msg_parse($mime, $raw_mail);
