@@ -72,11 +72,6 @@ $subject = $line_arr[1];
 $headers = '';
 $message = '';
 
-$meta_data = stream_get_meta_data($f);
-// $h = $meta_data['wrapper_data'];
-echo "METADATA ZACH: ";
-print_r($meta_data);
-
 $header_section = true; 
 while($line = fgets($f)) {
   if($header_section == true && strpos($line, ':') !== false) {
@@ -90,12 +85,12 @@ while($line = fgets($f)) {
 
 fclose($f);
 
-echo "TO ZACH: " . $to;
-echo "SUBJECT ZACH: " . $subject;
-echo "MESSAGE ZACH: " . $message;
+// echo "TO ZACH: " . $to;
+// echo "SUBJECT ZACH: " . $subject;
+// echo "MESSAGE ZACH: " . $message;
 //URGENT ZACH: MAKE SURE ALL THE HEADERS GET PASSED TO HERE!!!!
 // ESPECIALLY THE MIME ONES AND THE BOUNDARY ONES!!!!!
-echo "HEADERS ZACH: " . $headers;
+// echo "HEADERS ZACH: " . $headers;
 return Mail::sendMail($to, $subject, $message, $headers);
 
 
@@ -151,8 +146,8 @@ final class Mail {
     }
     if ($from === false || $from == "") {
       $appid_arr = explode('~', getenv('GAE_APPLICATION'));
-      echo "PRINTING PHPINFO: ";
-      print_r(phpinfo());
+      // echo "PRINTING PHPINFO: ";
+      // print_r(phpinfo());
       $appid = $appid_arr[1];
       // $host_name = getenv('HTTP_X_APPENGINE_DEFAULT_VERSION_HOSTNAME');
       // $host_name_suffix = '.appspotmail.com';
@@ -186,8 +181,7 @@ final class Mail {
 
       $email->setSubject($subject);
       $parts = mailparse_msg_get_structure($mime);
-      echo "ZACH ABOVE PARTS CNT: ";
-      print_r(count($parts));
+
       if (count($parts) > 1) {
         foreach ($parts as $part_id) {
           $part = mailparse_msg_get_part($mime, $part_id);
@@ -199,8 +193,8 @@ final class Mail {
         $email->setHtmlBody($message);
       }
 
-    echo "ZACH HEADERS22: ";
-    print_r($root_part['headers']);
+    // echo "ZACH HEADERS22: ";
+    // print_r($root_part['headers']);
       $extra_headers = array_diff_key($root_part['headers'], array_flip([
           'from', 'to', 'cc', 'bcc', 'reply-to', 'subject', 'content-type']));
       foreach ($extra_headers as $key => $value) {
@@ -241,7 +235,11 @@ final class Mail {
                                    $encoding);
     echo "ZACH DATA CONTENT: ";
     print_r($content);
+    echo "END ZACH DATA CONTENT: ";
 
+    echo "ZACH DATA: ";
+    print_r($data);
+    echo "END ZACH DATA: ";
     if (isset($data['content-disposition'])) {
       $filename = ArrayUtil::findByKeyOrDefault(
           $data, 'disposition-filename', uniqid());
