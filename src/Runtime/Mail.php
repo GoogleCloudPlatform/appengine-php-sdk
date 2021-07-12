@@ -86,6 +86,9 @@ function parse_input_line($line) {
 
 
 final class Mail {
+  // The format string for the default sender address.
+  const DEFAULT_SENDER_ADDRESS_FORMAT = 'mailer@%s.appspotmail.com';
+
   /**
    * Send an email.
    *
@@ -107,7 +110,7 @@ final class Mail {
    * @see http://php.net/mail
    */
 
-  public function sendmail($to,
+  public static function sendmail($to,
                 $subject,
                 $message,
                 $additional_headers = null,
@@ -158,7 +161,7 @@ final class Mail {
       if (count($parts) > 1) {
         foreach ($parts as $part_id) {
           $part = mailparse_msg_get_part($mime, $part_id);
-          parseMimePart($part, $raw_mail, $email);
+          self::parseMimePart($part, $raw_mail, $email);
         }
       } else if ($root_part['content-type'] == 'text/plain') {
         $email->setTextBody($message);
@@ -192,14 +195,14 @@ final class Mail {
    *    $part is extracted from.
    * @param Message& $email The Message object to be set.
    */
-  public function parseMimePart($part, $raw_mail, &$email) {
+  private static function parseMimePart($part, $raw_mail, &$email) {
     $data = mailparse_msg_get_part_data($part);
     $type = ArrayUtil::findByKeyOrDefault($data, 'content-type', 'text/plain');
 
     $start = $data['starting-pos-body'];
     $end = $data['ending-pos-body'];
     $encoding = ArrayUtil::findByKeyOrDefault($data, 'transfer-encoding', '');
-    $content = decodeContent(substr($raw_mail, $start, $end - $start),
+    $content = self::decodeContent(substr($raw_mail, $start, $end - $start),
                                    $encoding);
 
     if (isset($data['content-disposition'])) {
@@ -230,7 +233,7 @@ final class Mail {
    * @return string The deocded content if the encoding scheme is supported,
    *    otherwise returns the original content.
    */
-  public function decodeContent($content, $encoding) {
+  private static function decodeContent($content, $encoding) {
     switch (strtolower($encoding)) {
       case 'base64':
         return base64_decode($content);
