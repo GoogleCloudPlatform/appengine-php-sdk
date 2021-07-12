@@ -78,7 +78,7 @@ while($line = fgets($f)) {
     $headers .=  $line . "\r";
   } else {
     $header_section = false;
-    $message .=  $line . "\r";
+    $message .=  $line . "\r\n";
   }
 }
 
