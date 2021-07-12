@@ -85,12 +85,6 @@ while($line = fgets($f)) {
 
 fclose($f);
 
-// echo "TO ZACH: " . $to;
-// echo "SUBJECT ZACH: " . $subject;
-// echo "MESSAGE ZACH: " . $message;
-//URGENT ZACH: MAKE SURE ALL THE HEADERS GET PASSED TO HERE!!!!
-// ESPECIALLY THE MIME ONES AND THE BOUNDARY ONES!!!!!
-// echo "HEADERS ZACH: " . $headers;
 return Mail::sendMail($to, $subject, $message, $headers);
 
 
@@ -128,7 +122,7 @@ final class Mail {
     if ($additional_headers != null) {
       $raw_mail .= trim($additional_headers);
     }
-    $raw_mail .= "\r\n\r\n{$message}";
+    $raw_mail .= "\r\n{$message}";
 
     $mime = mailparse_msg_create();
     mailparse_msg_parse($mime, $raw_mail);
@@ -170,7 +164,7 @@ final class Mail {
     $email = new Message();
     try {
       $email->setSender($from);
-      $email->addTo($to);
+      $email->addTo($root_part['headers']['to']);
       if (isset($root_part['headers']['cc'])) {
         $email->AddCc($root_part['headers']['cc']);
       }
@@ -187,8 +181,6 @@ final class Mail {
       if (count($parts) > 1) {
         foreach ($parts as $part_id) {
           $part = mailparse_msg_get_part($mime, $part_id);
-          echo "Mime part: ";
-          print_r($part);
           self::parseMimePart($part, $raw_mail, $email);
         }
       } else if ($root_part['content-type'] == 'text/plain') {
@@ -228,16 +220,11 @@ final class Mail {
    */
   private static function parseMimePart($part, $raw_mail, &$email) {
 
-
-    
-
-
     //THIS NEEDS TO UPDATE THE DATA HEADERS $data['content-disposition']!!
+    // https://github.com/php/pecl-mail-mailparse/blob/ae960dba8cb607296b7f85ca23f9d0a2462607d5/mailparse.c#L1459
     $data = mailparse_msg_get_part_data($part);
   
     $type = ArrayUtil::findByKeyOrDefault($data, 'content-type', 'text/plain');
-
-
     $start = $data['starting-pos-body'];
     $end = $data['ending-pos-body'];
     $encoding = ArrayUtil::findByKeyOrDefault($data, 'transfer-encoding', '');
@@ -247,9 +234,9 @@ final class Mail {
     print_r($content);
     echo "END ZACH DATA CONTENT: ";
 
-    $msg = new MimeMessage("var", $content);
-    echo "\nZach Stream Message VAR: ";
-    print_r($msg);
+    // $msg = new MimeMessage("var", $content);
+    // echo "\nZach Stream Message VAR: ";
+    // print_r($msg);
     
     //This DATA is missing headers from CONTENT
     // content has the headers in the message. Data does not have the headers 
@@ -262,10 +249,10 @@ final class Mail {
     print_r($inline_headers);
     echo "END ZACH DATA HEADERS: ";
 
-    if (isset($inline_headers['content-disposition'])) {
+    if (isset($data['content-disposition'])) {
       $filename = ArrayUtil::findByKeyOrDefault(
-          $inline_headers, 'disposition-filename', uniqid());
-      $content_id = ArrayUtil::findByKeyOrNull($inline_headers, 'content-id');
+          $data, 'disposition-filename', uniqid());
+      $content_id = ArrayUtil::findByKeyOrNull($data, 'content-id');
       if ($content_id != null) {
         $content_id = "<$content_id>";
       }
