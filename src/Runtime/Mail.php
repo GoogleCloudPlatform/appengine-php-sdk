@@ -176,7 +176,7 @@ final class Mail {
           $part = mailparse_msg_get_part($mime, $part_id);
           self::parseMimePart($part, $raw_mail, $email);
         }
-      } else if ($root_part['content-type'] == ) {
+      } else if ($root_part['content-type'] == 'text/plain') {
         $email->setTextBody($message);
       }  else if ($root_part['content-type'] == 'text/html') {
         $email->setHtmlBody($message);
