@@ -79,7 +79,7 @@ print_r($meta_data);
 
 $header_section = true; 
 while($line = fgets($f)) {
-  if( $header_section == true && strpos($line, ':') !== false) {
+  if($header_section == true && strpos($line, ':') !== false) {
     $headers .=  $line . "\r";
   } else {
     $header_section = false;
@@ -100,7 +100,9 @@ return Mail::sendMail($to, $subject, $message, $headers);
 
 
 final class Mail {
-
+  // The format string for the default sender address.
+  const DEFAULT_SENDER_ADDRESS_FORMAT = 'mailer@%s.appspotmail.com';
+  
   /**
    * Send an email.
    *
@@ -152,15 +154,15 @@ final class Mail {
       echo "PRINTING PHPINFO: ";
       print_r(phpinfo());
       $appid = $appid_arr[1];
-      $host_name = getenv('HTTP_X_APPENGINE_DEFAULT_VERSION_HOSTNAME');
-      $host_name_suffix = '.appspotmail.com';
-      $qa_suffix = 'prom-qa.sandbox.google.com';
-      $length = strlen($qa_suffix);
-      echo "HOST NAME: " . $host_name;
-      echo "HOST NAME - LENGTH: " . substr($host_name, - $length);
-      if(substr($host_name, - $length) == $qa_suffix) {
-        $host_name_suffix = '.prommail-qa.corp.google.com';
-      }
+      // $host_name = getenv('HTTP_X_APPENGINE_DEFAULT_VERSION_HOSTNAME');
+      // $host_name_suffix = '.appspotmail.com';
+      // $qa_suffix = 'prom-qa.sandbox.google.com';
+      // $length = strlen($qa_suffix);
+      // echo "HOST NAME: " . $host_name;
+      // echo "HOST NAME - LENGTH: " . substr($host_name, - $length);
+      // if(substr($host_name, - $length) == $qa_suffix) {
+      //   $host_name_suffix = '.prommail-qa.corp.google.com';
+      // }
       $from = sprintf(self::DEFAULT_SENDER_ADDRESS_FORMAT, $appid);
       syslog(LOG_WARNING,
              "mail(): Unable to determine sender's email address from the " .
@@ -181,9 +183,7 @@ final class Mail {
       if (isset($root_part['headers']['reply-to'])) {
         $email->setReplyTo($root_part['headers']['reply-to']);
       }
-      // echo "Zach Content: ". $root_part['content-type'];
-      // print_r($root_part);
-      // echo "Done printing root part ";
+
       $email->setSubject($subject);
       $parts = mailparse_msg_get_structure($mime);
       echo "ZACH ABOVE PARTS CNT: ";
@@ -198,6 +198,9 @@ final class Mail {
       }  else if ($root_part['content-type'] == 'text/html') {
         $email->setHtmlBody($message);
       }
+
+    echo "ZACH HEADERS22: ";
+    print_r($root_part['headers']);
       $extra_headers = array_diff_key($root_part['headers'], array_flip([
           'from', 'to', 'cc', 'bcc', 'reply-to', 'subject', 'content-type']));
       foreach ($extra_headers as $key => $value) {
