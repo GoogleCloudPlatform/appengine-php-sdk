@@ -185,6 +185,8 @@ final class Mail {
       if (count($parts) > 1) {
         foreach ($parts as $part_id) {
           $part = mailparse_msg_get_part($mime, $part_id);
+          echo "Mime part: ";
+          print_r($part);
           self::parseMimePart($part, $raw_mail, $email);
         }
       } else if ($root_part['content-type'] == 'text/plain') {
@@ -223,10 +225,11 @@ final class Mail {
    * @param Message& $email The Message object to be set.
    */
   private static function parseMimePart($part, $raw_mail, &$email) {
+    //THIS NEEDS TO UPDATE THE DATA HEADERS $data['content-disposition']!!
     $data = mailparse_msg_get_part_data($part);
+
     $type = ArrayUtil::findByKeyOrDefault($data, 'content-type', 'text/plain');
-    echo "ZACH DATA PART: ";
-    print_r($data);
+
 
     $start = $data['starting-pos-body'];
     $end = $data['ending-pos-body'];
@@ -237,13 +240,17 @@ final class Mail {
     print_r($content);
     echo "END ZACH DATA CONTENT: ";
 
-    echo "ZACH DATA: ";
-    print_r($data);
-    echo "END ZACH DATA: ";
-    if (isset($data['content-disposition'])) {
+    // echo "ZACH DATA: ";
+    // print_r($data);
+    // echo "END ZACH DATA: ";
+    $inline_headers = $data['headers'];
+    echo "ZACH DATA HEADERS: ";
+    print_r($inline_headers);
+    
+    if (isset($inline_headers['content-disposition'])) {
       $filename = ArrayUtil::findByKeyOrDefault(
-          $data, 'disposition-filename', uniqid());
-      $content_id = ArrayUtil::findByKeyOrNull($data, 'content-id');
+          $inline_headers, 'disposition-filename', uniqid());
+      $content_id = ArrayUtil::findByKeyOrNull($inline_headers, 'content-id');
       if ($content_id != null) {
         $content_id = "<$content_id>";
       }
