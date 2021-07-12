@@ -77,11 +77,12 @@ $meta_data = stream_get_meta_data($f);
 echo "METADATA ZACH: ";
 print_r($meta_data);
 
-
+$header_section = true; 
 while($line = fgets($f)) {
-  if(strpos($line, ':') !== false) {
+  if( $header_section == true && strpos($line, ':') !== false) {
     $headers .=  $line . "\r";
   } else {
+    $header_section = false;
     $message .=  $line . "\r\n";
   }
 }
