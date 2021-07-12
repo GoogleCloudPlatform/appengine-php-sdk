@@ -111,10 +111,10 @@ final class Mail {
    */
 
   public static function sendmail($to,
-                $subject,
-                $message,
-                $additional_headers = null,
-                $additional_parameters = null) {
+                                  $subject,
+                                  $message,
+                                  $additional_headers = null,
+                                  $additional_parameters = null) {
     $raw_mail = "To: $to\r\nSubject: $subject\r\n";
     if ($additional_headers != null) {
       $raw_mail .= trim($additional_headers);
@@ -134,9 +134,9 @@ final class Mail {
       $from = $root_part['headers']['from'];
     }
     if ($from === false || $from == "") {
-        $appid_arr = explode('~', getenv('GAE_APPLICATION'));
-        $appid = $appid_arr[1];
-      $from = sprintf('mailer@%s.appspotmail.com', $appid);
+      $appid_arr = explode('~', getenv('GAE_APPLICATION'));
+      $appid = $appid_arr[1];
+      $from = sprintf(self::DEFAULT_SENDER_ADDRESS_FORMAT,, $appid);
       syslog(LOG_WARNING,
              "mail(): Unable to determine sender's email address from the " .
              "'sendmail_from' directive in php.ini or from the 'From' " .
@@ -156,6 +156,7 @@ final class Mail {
       if (isset($root_part['headers']['reply-to'])) {
         $email->setReplyTo($root_part['headers']['reply-to']);
       }
+      echo "Zach MAIL SUBJECT: ". $root_part['headers']['subject'];
       $email->setSubject($root_part['headers']['subject']);
       $parts = mailparse_msg_get_structure($mime);
       if (count($parts) > 1) {
