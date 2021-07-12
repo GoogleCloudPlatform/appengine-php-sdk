@@ -225,9 +225,15 @@ final class Mail {
    * @param Message& $email The Message object to be set.
    */
   private static function parseMimePart($part, $raw_mail, &$email) {
+    $msg = new MimeMessage("file", $part);
+
+    // Process the message.
+    display_part_info("message", $msg);
+
+
     //THIS NEEDS TO UPDATE THE DATA HEADERS $data['content-disposition']!!
     $data = mailparse_msg_get_part_data($part);
-
+  
     $type = ArrayUtil::findByKeyOrDefault($data, 'content-type', 'text/plain');
 
 
@@ -239,7 +245,10 @@ final class Mail {
     echo "ZACH DATA CONTENT: ";
     print_r($content);
     echo "END ZACH DATA CONTENT: ";
-
+    
+    //This DATA is missing headers from CONTENT
+    // content has the headers in the message. Data does not have the headers 
+    // content is produced using data - which will take the parts out
     echo "ZACH DATA: ";
     print_r($data);
     echo "END ZACH DATA: ";
