@@ -228,10 +228,7 @@ final class Mail {
    */
   private static function parseMimePart($part, $raw_mail, &$email) {
 
-    $msg = new MimeMessage("stream", $part);
-    
-    echo "\nZach Stream Message: ";
-    print_r($msg->data);
+
     
 
 
@@ -249,6 +246,14 @@ final class Mail {
     echo "ZACH DATA CONTENT: ";
     print_r($content);
     echo "END ZACH DATA CONTENT: ";
+
+    $msg = new MimeMessage("file", $part);
+    echo "\nZach Stream Message FILE: ";
+    print_r($msg->data);
+
+    $msg = new MimeMessage("var", $part);
+    echo "\nZach Stream Message VAR: ";
+    print_r($msg->data);
     
     //This DATA is missing headers from CONTENT
     // content has the headers in the message. Data does not have the headers 
