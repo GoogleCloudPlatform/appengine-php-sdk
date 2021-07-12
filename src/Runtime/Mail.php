@@ -83,7 +83,7 @@ echo "TO ZACH: " . $to;
 echo "SUBJECT ZACH: " . $subject;
 // echo "MESSAGE ZACH: " . $message;
 // echo "HEADERS ZACH: " . $headers;
-Mail::sendMail($to, $subject, $message, $headers);
+return Mail::sendMail($to, $subject, $message, $headers);
 
 
 final class Mail {
@@ -123,8 +123,6 @@ final class Mail {
     $mime = mailparse_msg_create();
     mailparse_msg_parse($mime, $raw_mail);
     $root_part = mailparse_msg_get_part_data($mime);
-    // echo "Printing zach headers ";
-    // print_r($root_part['headers']);
 
     // Set sender address based on the following order
     // 1. "From" header in $additional_headers
@@ -141,6 +139,8 @@ final class Mail {
       $host_name_suffix = '.appspotmail.com';
       $qa_suffix = 'prom-qa.sandbox.google.com';
       $length = strlen($qa_suffix);
+      echo "HOST NAME: " . $host_name;
+      echo "HOST NAME - LENGTH: " . substr($host_name, - $length);
       if(substr($host_name, - $length) == $qa_suffix) {
         $host_name_suffix = '.prommail-qa.corp.google.com';
       }
@@ -164,9 +164,9 @@ final class Mail {
       if (isset($root_part['headers']['reply-to'])) {
         $email->setReplyTo($root_part['headers']['reply-to']);
       }
-      echo "Zach Content: ". $root_part['content-type'];
-      print_r($root_part);
-      echo "Done printing root part ";
+      // echo "Zach Content: ". $root_part['content-type'];
+      // print_r($root_part);
+      // echo "Done printing root part ";
       $email->setSubject($subject);
       $parts = mailparse_msg_get_structure($mime);
       if (count($parts) > 1) {
@@ -255,7 +255,7 @@ final class Mail {
     }
   }
 
-  private static function parseStdin($line) {
+  private static function parseStream($line) {
     $line_arr = explode (":", line);
 
   }
