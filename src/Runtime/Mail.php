@@ -26,6 +26,7 @@ require_once __DIR__ . "/../Api/api_base_pb.php";
 require_once __DIR__ . "/../Api/Mail/mail_service_pb.php";
 require_once __DIR__ . "/../Api/Mail/BaseMessage.php";
 require_once __DIR__ . "/../Api/Mail/Message.php";
+require_once __DIR__ . "/../Runtime/VmApiProxy.php";
 require_once __DIR__ . "/../Runtime/ApiProxy.php";
 
 
