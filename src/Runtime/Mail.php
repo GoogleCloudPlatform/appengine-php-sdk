@@ -78,7 +78,7 @@ print_r($h);
 
 while($line = fgets($f)) {
   if(strpos($line, ':') !== false) {
-    $headers .=  $line . "\r\n";
+    $headers .=  $line . "\r";
   } else {
     $message .=  $line . "\r\n";
   }
