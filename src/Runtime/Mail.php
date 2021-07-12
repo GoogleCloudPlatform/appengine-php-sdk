@@ -136,7 +136,6 @@ final class Mail {
       $appid_arr = explode('~', getenv('GAE_APPLICATION'));
       echo "PRINTING PHPINFO: ";
       print_r(phpinfo());
-      
       $appid = $appid_arr[1];
       $host_name = getenv('HTTP_X_APPENGINE_DEFAULT_VERSION_HOSTNAME');
       $host_name_suffix = '.appspotmail.com';
@@ -177,7 +176,7 @@ final class Mail {
           $part = mailparse_msg_get_part($mime, $part_id);
           self::parseMimePart($part, $raw_mail, $email);
         }
-      } else if ($root_part['content-type'] == 'text/plain') {
+      } else if ($root_part['content-type'] == ) {
         $email->setTextBody($message);
       }  else if ($root_part['content-type'] == 'text/html') {
         $email->setHtmlBody($message);
@@ -212,12 +211,16 @@ final class Mail {
   private static function parseMimePart($part, $raw_mail, &$email) {
     $data = mailparse_msg_get_part_data($part);
     $type = ArrayUtil::findByKeyOrDefault($data, 'content-type', 'text/plain');
+    echo "ZACH DATA PART: ";
+    print_f($data);
 
     $start = $data['starting-pos-body'];
     $end = $data['ending-pos-body'];
     $encoding = ArrayUtil::findByKeyOrDefault($data, 'transfer-encoding', '');
     $content = self::decodeContent(substr($raw_mail, $start, $end - $start),
                                    $encoding);
+    echo "ZACH DATA CONTENT: ";
+    print_f($content);
 
     if (isset($data['content-disposition'])) {
       $filename = ArrayUtil::findByKeyOrDefault(
