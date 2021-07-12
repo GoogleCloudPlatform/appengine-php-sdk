@@ -123,8 +123,8 @@ final class Mail {
     $mime = mailparse_msg_create();
     mailparse_msg_parse($mime, $raw_mail);
     $root_part = mailparse_msg_get_part_data($mime);
-    echo "Printing zach headers ";
-    print_r($root_part['headers']);
+    // echo "Printing zach headers ";
+    // print_r($root_part['headers']);
 
     // Set sender address based on the following order
     // 1. "From" header in $additional_headers
@@ -157,7 +157,9 @@ final class Mail {
       if (isset($root_part['headers']['reply-to'])) {
         $email->setReplyTo($root_part['headers']['reply-to']);
       }
-      echo "Zach MAIL SUBJECT: ". $root_part['headers']['subject'];
+      echo "Zach Content: ". $root_part['content-type'];
+      print_r($root_part);
+      echo "Done printing root part ";
       $email->setSubject($subject);
       $parts = mailparse_msg_get_structure($mime);
       if (count($parts) > 1) {
