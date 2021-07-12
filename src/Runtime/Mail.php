@@ -227,7 +227,7 @@ final class Mail {
     $data = mailparse_msg_get_part_data($part);
     $type = ArrayUtil::findByKeyOrDefault($data, 'content-type', 'text/plain');
     echo "ZACH DATA PART: ";
-    print_f($data);
+    print_r($data);
 
     $start = $data['starting-pos-body'];
     $end = $data['ending-pos-body'];
@@ -235,7 +235,7 @@ final class Mail {
     $content = self::decodeContent(substr($raw_mail, $start, $end - $start),
                                    $encoding);
     echo "ZACH DATA CONTENT: ";
-    print_f($content);
+    print_r($content);
 
     if (isset($data['content-disposition'])) {
       $filename = ArrayUtil::findByKeyOrDefault(
