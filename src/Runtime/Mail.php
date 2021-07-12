@@ -174,7 +174,7 @@ final class Mail {
       $email->setSubject($subject);
       $parts = mailparse_msg_get_structure($mime);
       echo "ZACH ABOVE PARTS CNT: ";
-      print_f(count($parts));
+      print_r(count($parts));
       if (count($parts) > 1) {
         foreach ($parts as $part_id) {
           $part = mailparse_msg_get_part($mime, $part_id);
