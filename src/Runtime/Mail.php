@@ -115,7 +115,7 @@ final class Mail {
                                   $message,
                                   $additional_headers = null,
                                   $additional_parameters = null) {
-    $raw_mail = "To: $to\r\nSubject: $subject\r\n";
+    $raw_mail = "to: $to\r\nsubject: $subject\r\n";
     if ($additional_headers != null) {
       $raw_mail .= trim($additional_headers);
     }
@@ -148,7 +148,7 @@ final class Mail {
     $email = new Message();
     try {
       $email->setSender($from);
-      $email->addTo($root_part['headers']['to']);
+      $email->addTo($to);
       if (isset($root_part['headers']['cc'])) {
         $email->AddCc($root_part['headers']['cc']);
       }
@@ -159,7 +159,7 @@ final class Mail {
         $email->setReplyTo($root_part['headers']['reply-to']);
       }
       echo "Zach MAIL SUBJECT: ". $root_part['headers']['subject'];
-      $email->setSubject($root_part['headers']['subject']);
+      $email->setSubject($subject);
       $parts = mailparse_msg_get_structure($mime);
       if (count($parts) > 1) {
         foreach ($parts as $part_id) {
