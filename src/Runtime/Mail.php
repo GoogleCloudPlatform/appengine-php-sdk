@@ -87,8 +87,6 @@ Mail::sendMail($to, $subject, $message, $headers);
 
 
 final class Mail {
-  // The format string for the default sender address.
-  const DEFAULT_SENDER_ADDRESS_FORMAT = 'mailer@%s.appspotmail.com';
 
   /**
    * Send an email.
@@ -139,7 +137,14 @@ final class Mail {
     if ($from === false || $from == "") {
       $appid_arr = explode('~', getenv('GAE_APPLICATION'));
       $appid = $appid_arr[1];
-      $from = sprintf(self::DEFAULT_SENDER_ADDRESS_FORMAT, $appid);
+      $host_name = getenv('HTTP_X_APPENGINE_DEFAULT_VERSION_HOSTNAME');
+      $host_name_suffix = '.appspotmail.com';
+      $qa_suffix = 'prom-qa.sandbox.google.com';
+      $length = strlen($qa_suffix);
+      if(substr($host_name, - $length) == $qa_suffix) {
+        $host_name_suffix = '.prommail-qa.corp.google.com';
+      }
+      $from = sprintf('mailer@%s' . $host_name_suffix, $appid);
       syslog(LOG_WARNING,
              "mail(): Unable to determine sender's email address from the " .
              "'sendmail_from' directive in php.ini or from the 'From' " .
