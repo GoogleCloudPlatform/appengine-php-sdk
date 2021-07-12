@@ -247,11 +247,11 @@ final class Mail {
     print_r($content);
     echo "END ZACH DATA CONTENT: ";
 
-    $msg = new MimeMessage("file", $part);
+    $msg = new MimeMessage("file", $content);
     echo "\nZach Stream Message FILE: ";
     print_r($msg->data);
 
-    $msg = new MimeMessage("var", $part);
+    $msg = new MimeMessage("var", $content);
     echo "\nZach Stream Message VAR: ";
     print_r($msg->data);
     
