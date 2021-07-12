@@ -32,6 +32,7 @@ require_once __DIR__ . "/../Api/Mail/BaseMessage.php";
 require_once __DIR__ . "/../Api/Mail/Message.php";
 require_once __DIR__ . "/../Runtime/ApiProxyBase.php";
 require_once __DIR__ . "/../Runtime/ApplicationError.php";
+require_once __DIR__ . "/../Runtime/Error.php";
 require_once __DIR__ . "/../Runtime/VmApiProxy.php";
 require_once __DIR__ . "/../Runtime/ApiProxy.php";
 require_once __DIR__ . "/../Ext/RemoteApi/remote_api_pb.php";
