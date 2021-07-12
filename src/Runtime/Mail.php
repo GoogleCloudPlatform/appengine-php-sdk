@@ -114,7 +114,7 @@ final class Mail {
                                   $message,
                                   $additional_headers = null,
                                   $additional_parameters = null) {
-    $raw_mail = "to: $to\r\nsubject: $subject\r\n";
+    $raw_mail = "To: $to\r\nSubject: $subject\r\n";
     if ($additional_headers != null) {
       $raw_mail .= trim($additional_headers);
     }
@@ -123,6 +123,8 @@ final class Mail {
     $mime = mailparse_msg_create();
     mailparse_msg_parse($mime, $raw_mail);
     $root_part = mailparse_msg_get_part_data($mime);
+    echo "Zach ROOT PART: ";
+    print_r($root_part);
 
     // Set sender address based on the following order
     // 1. "From" header in $additional_headers
@@ -171,6 +173,8 @@ final class Mail {
       // echo "Done printing root part ";
       $email->setSubject($subject);
       $parts = mailparse_msg_get_structure($mime);
+      echo "ZACH ABOVE PARTS CNT: ";
+      print_f(count($parts));
       if (count($parts) > 1) {
         foreach ($parts as $part_id) {
           $part = mailparse_msg_get_part($mime, $part_id);
