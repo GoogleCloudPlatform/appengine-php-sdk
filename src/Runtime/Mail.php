@@ -73,9 +73,9 @@ $headers = '';
 $message = '';
 
 $meta_data = stream_get_meta_data($f);
-$h = $meta_data['wrapper_data'];
-echo "SECRET HEADERS ZACH: ";
-print_r($h);
+// $h = $meta_data['wrapper_data'];
+echo "METADATA ZACH: ";
+print_r($meta_data);
 
 
 while($line = fgets($f)) {
