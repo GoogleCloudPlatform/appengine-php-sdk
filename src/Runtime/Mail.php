@@ -225,10 +225,12 @@ final class Mail {
    * @param Message& $email The Message object to be set.
    */
   private static function parseMimePart($part, $raw_mail, &$email) {
-    $msg = new MimeMessage("file", $part);
 
-    // Process the message.
-    display_part_info("message", $msg);
+    $msg = new MimeMessage("stream", $part);
+    
+    echo "Zach Stream Message: ";
+    print_r($msg);
+    
 
 
     //THIS NEEDS TO UPDATE THE DATA HEADERS $data['content-disposition']!!
