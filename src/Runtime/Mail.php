@@ -247,22 +247,18 @@ final class Mail {
     print_r($content);
     echo "END ZACH DATA CONTENT: ";
 
-    $msg = new MimeMessage("file", $content);
-    echo "\nZach Stream Message FILE: ";
-    print_r($msg->data);
-
     $msg = new MimeMessage("var", $content);
     echo "\nZach Stream Message VAR: ";
-    print_r($msg->data);
+    print_r($msg);
     
     //This DATA is missing headers from CONTENT
     // content has the headers in the message. Data does not have the headers 
     // content is produced using data - which will take the parts out
-    echo "ZACH DATA: ";
+    echo "\nZACH DATA: ";
     print_r($data);
     echo "END ZACH DATA: ";
     $inline_headers = $data['headers'];
-    echo "ZACH DATA HEADERS: ";
+    echo "\nZACH DATA HEADERS: ";
     print_r($inline_headers);
     echo "END ZACH DATA HEADERS: ";
 
