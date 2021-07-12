@@ -82,7 +82,7 @@ fclose($f);
 echo "TO ZACH: " . $to;
 echo "SUBJECT ZACH: " . $subject;
 // echo "MESSAGE ZACH: " . $message;
-// echo "HEADERS ZACH: " . $headers;
+echo "HEADERS ZACH: " . $headers;
 return Mail::sendMail($to, $subject, $message, $headers);
 
 
