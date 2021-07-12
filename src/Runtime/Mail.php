@@ -136,7 +136,7 @@ final class Mail {
     if ($from === false || $from == "") {
       $appid_arr = explode('~', getenv('GAE_APPLICATION'));
       $appid = $appid_arr[1];
-      $from = sprintf(self::DEFAULT_SENDER_ADDRESS_FORMAT,, $appid);
+      $from = sprintf(self::DEFAULT_SENDER_ADDRESS_FORMAT, $appid);
       syslog(LOG_WARNING,
              "mail(): Unable to determine sender's email address from the " .
              "'sendmail_from' directive in php.ini or from the 'From' " .
