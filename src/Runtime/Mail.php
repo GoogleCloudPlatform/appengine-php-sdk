@@ -240,13 +240,14 @@ final class Mail {
     print_r($content);
     echo "END ZACH DATA CONTENT: ";
 
-    // echo "ZACH DATA: ";
-    // print_r($data);
-    // echo "END ZACH DATA: ";
+    echo "ZACH DATA: ";
+    print_r($data);
+    echo "END ZACH DATA: ";
     $inline_headers = $data['headers'];
     echo "ZACH DATA HEADERS: ";
     print_r($inline_headers);
-    
+    echo "END ZACH DATA HEADERS: ";
+
     if (isset($inline_headers['content-disposition'])) {
       $filename = ArrayUtil::findByKeyOrDefault(
           $inline_headers, 'disposition-filename', uniqid());
