@@ -69,6 +69,13 @@ $subject = $line_arr[1];
 // Parse Headers and Message
 $headers = '';
 $message = '';
+
+$meta_data = stream_get_meta_data($f);
+$h = $meta_data['wrapper_data'];
+echo "SECRET HEADERS ZACH: ";
+print_r($h);
+
+
 while($line = fgets($f)) {
   if(strpos($line, ':') !== false) {
     $headers .=  $line . "\r\n";
@@ -77,11 +84,14 @@ while($line = fgets($f)) {
   }
 }
 
+
 fclose($f);
 
 echo "TO ZACH: " . $to;
 echo "SUBJECT ZACH: " . $subject;
-// echo "MESSAGE ZACH: " . $message;
+echo "MESSAGE ZACH: " . $message;
+//URGENT ZACH: MAKE SURE ALL THE HEADERS GET PASSED TO HERE!!!!
+// ESPECIALLY THE MIME ONES AND THE BOUNDARY ONES!!!!!
 echo "HEADERS ZACH: " . $headers;
 return Mail::sendMail($to, $subject, $message, $headers);
 
