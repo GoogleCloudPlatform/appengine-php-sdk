@@ -133,8 +133,10 @@ final class Mail {
     $mime = mailparse_msg_create();
     mailparse_msg_parse($mime, $raw_mail);
     $root_part = mailparse_msg_get_part_data($mime);
-    echo "Zach ROOT PART: ";
+    echo "\nZach ROOT PART: ";
     print_r($root_part);
+
+
 
     // Set sender address based on the following order
     // 1. "From" header in $additional_headers
@@ -228,8 +230,8 @@ final class Mail {
 
     $msg = new MimeMessage("stream", $part);
     
-    echo "Zach Stream Message: ";
-    print_r($msg);
+    echo "\nZach Stream Message: ";
+    print_r($msg->data);
     
 
 
