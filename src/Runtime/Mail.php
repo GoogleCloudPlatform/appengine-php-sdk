@@ -124,6 +124,8 @@ final class Mail {
     $mime = mailparse_msg_create();
     mailparse_msg_parse($mime, $raw_mail);
     $root_part = mailparse_msg_get_part_data($mime);
+    echo "Printing zach headers ";
+    print_r($root_part['headers']);
 
     // Set sender address based on the following order
     // 1. "From" header in $additional_headers
