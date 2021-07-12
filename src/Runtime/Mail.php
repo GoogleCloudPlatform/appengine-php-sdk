@@ -78,7 +78,8 @@ while($line = fgets($f)) {
     $headers .=  $line . "\r";
   } else {
     $header_section = false;
-    $message .=  $line . "\r\n";
+    //CHANGE THIS TO NOT LEAVE SPACE BETWEEN BOUNDARY AND HEADERS!!!! 
+    $message .=  $line; // . "\r\n";
   }
 }
 
