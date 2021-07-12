@@ -22,6 +22,10 @@
 
 // Must import all dependencies for an independent executable.  
 require_once __DIR__ . "/../Runtime/Proto/ProtocolMessage.php";
+require_once __DIR__ . "/../Runtime/Proto/Encoder.php";
+require_once __DIR__ . "/../Runtime/Proto/Decoder.php";
+require_once __DIR__ . "/../Runtime/Proto/ProtocolBufferEncodeError.php";
+require_once __DIR__ . "/../Runtime/Proto/ProtocolBufferDecodeError.php";
 require_once __DIR__ . "/../Api/api_base_pb.php";
 require_once __DIR__ . "/../Api/Mail/mail_service_pb.php";
 require_once __DIR__ . "/../Api/Mail/BaseMessage.php";
@@ -39,12 +43,12 @@ use Google\AppEngine\Util\StringUtil;
 
 
 echo "STDIN Zach ";
-$f = fopen( 'php://stdin', 'r' );
+$f = fopen('php://stdin', 'r');
 
 // print_r(stream_get_meta_data($f));
 
 
-// TO
+// Parse To
 $line = fgets($f);
 $line_arr = explode (":", $line);
 if($line_arr[0] != 'To'){
@@ -52,7 +56,7 @@ if($line_arr[0] != 'To'){
 }
 $to = $line_arr[1];
 
-// SUBJECT
+// Parse Subject
 $line = fgets($f);
 $line_arr = explode (":", $line);
 if($line_arr[0] != 'Subject'){
@@ -60,7 +64,7 @@ if($line_arr[0] != 'Subject'){
 }
 $subject = $line_arr[1];
 
-// HEADERS and Message
+// Parse Headers and Message
 $headers = '';
 $message = '';
 while($line = fgets($f)) {
@@ -77,15 +81,7 @@ echo "TO ZACH: " . $to;
 echo "SUBJECT ZACH: " . $subject;
 // echo "MESSAGE ZACH: " . $message;
 // echo "HEADERS ZACH: " . $headers;
-Mail::sendmail($to, $subject, $message, $headers);
-
-
-function parse_input_line($line) {
-  $line_arr = explode (":", line);
-
-}
-
-
+Mail::sendMail($to, $subject, $message, $headers);
 
 
 final class Mail {
@@ -113,7 +109,7 @@ final class Mail {
    * @see http://php.net/mail
    */
 
-  public static function sendmail($to,
+  public static function sendMail($to,
                                   $subject,
                                   $message,
                                   $additional_headers = null,
@@ -248,6 +244,11 @@ final class Mail {
       default:
         return $content;
     }
+  }
+
+  private static function parseStdin($line) {
+    $line_arr = explode (":", line);
+
   }
 }
 ?>
