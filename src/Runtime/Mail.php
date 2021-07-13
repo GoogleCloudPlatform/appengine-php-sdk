@@ -80,7 +80,7 @@ while(!feof($f)) {
 echo $message."str";
 fclose($f);
 
-return Mail::sendMail($to, $subject, trim($message), $headers);
+return Mail::sendMail($to, $subject, $message, $headers);
 
 
 final class Mail {
