@@ -44,7 +44,6 @@ use Google\AppEngine\Api\Mail\Message;
 use Google\AppEngine\Util\ArrayUtil;
 use Google\AppEngine\Util\StringUtil;
 
-
 $f = fopen('php://stdin', 'r');
 
 // Parse To
@@ -183,8 +182,8 @@ final class Mail {
         $email->setHtmlBody($message);
       }
 
-    // echo "ZACH HEADERS22: ";
-    // print_r($root_part['headers']);
+      echo "ZACH MESSAGE: " . $message . "here";
+      
       $extra_headers = array_diff_key($root_part['headers'], array_flip([
           'from', 'to', 'cc', 'bcc', 'reply-to', 'subject', 'content-type']));
       foreach ($extra_headers as $key => $value) {
