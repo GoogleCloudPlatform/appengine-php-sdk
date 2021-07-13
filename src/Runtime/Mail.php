@@ -80,7 +80,7 @@ $message = str_replace("<br>", "", $message);
 echo $message."str";
 fclose($f);
 
-return Mail::sendMail($to, $subject, $message, $headers);
+return Mail::sendMail($to, $subject, rtrim($message), $headers);
 
 
 final class Mail {
