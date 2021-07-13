@@ -39,18 +39,13 @@ require_once __DIR__ . "/../Ext/RemoteApi/remote_api_pb.php";
 require_once __DIR__ . "/../Util/ArrayUtil.php";
 require_once __DIR__ . "/../Util/StringUtil.php";
 
-
 use Google\AppEngine\Api\AppIdentity\AppIdentityService;
 use Google\AppEngine\Api\Mail\Message;
 use Google\AppEngine\Util\ArrayUtil;
 use Google\AppEngine\Util\StringUtil;
 
 
-echo "STDIN Zach ";
 $f = fopen('php://stdin', 'r');
-
-// print_r(stream_get_meta_data($f));
-
 
 // Parse To
 $line = fgets($f);
@@ -78,11 +73,9 @@ while($line = fgets($f)) {
     $headers .=  $line;
   } else {
     $header_section = false;
-    //CHANGE THIS TO NOT LEAVE SPACE BETWEEN BOUNDARY AND HEADERS!!!! 
-    $message .=  $line; // . "\r\n";
+    $message .=  $line;
   }
 }
-
 
 fclose($f);
 
