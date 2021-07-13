@@ -78,7 +78,7 @@ while($line = fgets($f)) {
 
 fclose($f);
 
-return Mail::sendMail($to, $subject, trim($message), $headers);
+return Mail::sendMail($to, $subject, rtrim($message, "\r\n"), $headers);
 
 
 final class Mail {
@@ -181,8 +181,6 @@ final class Mail {
       }  else if ($root_part['content-type'] == 'text/html') {
         $email->setHtmlBody($message);
       }
-
-      echo "ZACH MESSAGE: " . $message . "here";
 
       $extra_headers = array_diff_key($root_part['headers'], array_flip([
           'from', 'to', 'cc', 'bcc', 'reply-to', 'subject', 'content-type']));
