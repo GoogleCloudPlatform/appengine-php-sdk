@@ -372,7 +372,7 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetApplicationId() {
-    putenv("GAE_APPLICATION=simple-app-id");
+    putenv("GAE_APPLICATION=part~simple-app-id");
     $this->assertEquals("simple-app-id",
                         AppIdentityService::getApplicationId());
 
