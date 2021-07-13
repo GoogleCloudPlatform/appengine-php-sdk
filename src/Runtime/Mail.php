@@ -67,7 +67,7 @@ $headers = '';
 $message = '';
 
 $header_section = true; 
-while(!$f->eof()) {
+while(!feof($f)) {
   $line = fgets($f);
   if($header_section == true && strpos($line, ':') !== false) {
     $headers .=  $line;
