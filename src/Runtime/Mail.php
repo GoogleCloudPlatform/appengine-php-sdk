@@ -78,7 +78,7 @@ while($line = fgets($f)) {
 
 fclose($f);
 
-return Mail::sendMail($to, $subject, rtrim($message, " \n\r\t"), $headers);
+return Mail::sendMail($to, $subject, rtrim($message), $headers);
 
 
 final class Mail {
