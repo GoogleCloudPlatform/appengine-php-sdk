@@ -67,7 +67,8 @@ $headers = '';
 $message = '';
 
 $header_section = true; 
-while($line = fgets($f)) {
+while(!$f->eof()) {
+  $line = fgets($f);
   if($header_section == true && strpos($line, ':') !== false) {
     $headers .=  $line;
   } else {
@@ -75,7 +76,7 @@ while($line = fgets($f)) {
     $message .=  $line;
   }
 }
-
+echo $message."str";
 fclose($f);
 
 return Mail::sendMail($to, $subject, rtrim($message), $headers);
