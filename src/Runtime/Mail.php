@@ -75,10 +75,10 @@ while($line = fgets($f)) {
     $message .=  $line;
   }
 }
-
+$message = preg_replace('/(<br>)+$/', '', $message);
 fclose($f);
 
-return Mail::sendMail($to, $subject, rtrim($message, "<br>"), $headers);
+return Mail::sendMail($to, $subject, $message, $headers);
 
 
 final class Mail {
