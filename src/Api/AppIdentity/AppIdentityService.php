@@ -245,12 +245,9 @@ final class AppIdentityService {
    * @return string The application id of the app.
    */
   public static function getApplicationId() {
-    $app_id = getenv("APPLICATION_ID");
-    $psep = strpos($app_id, self::PARTITION_SEPARATOR);
-    if ($psep > 0) {
-      $app_id = substr($app_id, $psep + 1);
-    }
-    return $app_id;
+    $appid_arr = explode('~', getenv('GAE_APPLICATION'));
+    $appid = $appid_arr[1];
+    return $appid;
   }
 
   /**
@@ -260,7 +257,7 @@ final class AppIdentityService {
    * application, or FALSE if the call failed.
    */
   public static function getDefaultVersionHostname() {
-    return getenv("DEFAULT_VERSION_HOSTNAME");
+    return getenv('HTTP_X_APPENGINE_DEFAULT_VERSION_HOSTNAME');
   }
 
   /**
