@@ -75,7 +75,7 @@ $message = '';
 $header_section = true; 
 while($line = fgets($f)) {
   if($header_section == true && strpos($line, ':') !== false) {
-    $headers .=  $line . "\r";
+    $headers .=  $line;
   } else {
     $header_section = false;
     //CHANGE THIS TO NOT LEAVE SPACE BETWEEN BOUNDARY AND HEADERS!!!! 
