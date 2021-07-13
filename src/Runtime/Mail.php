@@ -79,7 +79,7 @@ while(!$f->eof()) {
 echo $message."str";
 fclose($f);
 
-return Mail::sendMail($to, $subject, rtrim($message), $headers);
+return Mail::sendMail($to, $subject, $message, $headers);
 
 
 final class Mail {
