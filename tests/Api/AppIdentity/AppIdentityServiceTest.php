@@ -372,25 +372,25 @@ class AppIdentityServiceTest extends ApiProxyTestBase {
   }
 
   public function testGetApplicationId() {
-    putenv("APPLICATION_ID=simple-app-id");
+    putenv("GAE_APPLICATION=simple-app-id");
     $this->assertEquals("simple-app-id",
                         AppIdentityService::getApplicationId());
 
-    putenv("APPLICATION_ID=domain.com:domain-app-id");
+    putenv("GAE_APPLICATION=domain.com:domain-app-id");
     $this->assertEquals("domain.com:domain-app-id",
                         AppIdentityService::getApplicationId());
 
-    putenv("APPLICATION_ID=part~partition-app-id");
+    putenv("GAE_APPLICATION=part~partition-app-id");
     $this->assertEquals("partition-app-id",
                         AppIdentityService::getApplicationId());
 
-    putenv("APPLICATION_ID=part~domain.com:display");
+    putenv("GAE_APPLICATION=part~domain.com:display");
     $this->assertEquals("domain.com:display",
                         AppIdentityService::getApplicationId());
   }
 
   public function testGetDefaultVersionHostname() {
-    putenv("DEFAULT_VERSION_HOSTNAME=my-app.appspot.com");
+    putenv("HTTP_X_APPENGINE_DEFAULT_VERSION_HOSTNAME=my-app.appspot.com");
     $this->assertEquals("my-app.appspot.com",
                         AppIdentityService::getDefaultVersionHostname());
   }
