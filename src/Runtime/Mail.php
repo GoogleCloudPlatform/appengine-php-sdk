@@ -78,7 +78,7 @@ while($line = fgets($f)) {
 
 fclose($f);
 
-return Mail::sendMail($to, $subject, $message, $headers);
+return Mail::sendMail($to, $subject, trim($message), $headers);
 
 
 final class Mail {
@@ -183,7 +183,7 @@ final class Mail {
       }
 
       echo "ZACH MESSAGE: " . $message . "here";
-      
+
       $extra_headers = array_diff_key($root_part['headers'], array_flip([
           'from', 'to', 'cc', 'bcc', 'reply-to', 'subject', 'content-type']));
       foreach ($extra_headers as $key => $value) {
