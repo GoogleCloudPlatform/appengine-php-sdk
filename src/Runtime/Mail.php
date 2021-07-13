@@ -76,6 +76,7 @@ while(!feof($f)) {
     $message .=  $line;
   }
 }
+$message = str_replace("<br>", "", $message);
 echo $message."str";
 fclose($f);
 
