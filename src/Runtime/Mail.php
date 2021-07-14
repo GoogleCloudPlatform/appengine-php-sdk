@@ -15,7 +15,15 @@
  * limitations under the License.
  */
 /**
- * Allow users to send mail using the App Engine mail APIs.
+ * Allow users to send mail from mail() function using the App Engine mail APIs.
+ *
+ * This is a re-implementation of PHP's mail() function using App Engine
+ * mail API. The function relies on mailparse extension to parse emails.
+ * To enable this implementation, please add the following to the php.ini file:
+ *    extension = mailparse.so
+ *    sendmail_path = "php ./vendor/google/appengine-php-sdk/src/Runtime/Mail.php -t -i"
+ *    
+ * @see http://php.net/mail
  *
  */
 
@@ -44,38 +52,12 @@ use Google\AppEngine\Api\Mail\Message;
 use Google\AppEngine\Util\ArrayUtil;
 use Google\AppEngine\Util\StringUtil;
 
-// *
-//  * Send an email.
-//  *
-//  * This is a re-implementation of PHP's mail() function using App Engine
-//  * mail API. The function relies on mailparse extension to parse emails.
-//  *
-//  * @param string $to Receiver, or receivers of the mail.
-//  * @param string $subject Subject of the email to be sent.
-//  * @param string $message Message to be sent.
-//  * @param string $additional_headers optional
-//  *   String to be inserted at the end of the email header.
-//  * @param string $additional_parameters optional
-//  *   Additional flags to be passed to the mail program. This arugment is
-//  *   added only to match the signature of PHP's mail() function. The value is
-//  *   always ignored.
-//  * @return bool
-//  *   TRUE if the message is sent successfully, otherwise return FALSE.
-//  *
-//  * @see http://php.net/mail
 
-
-// $raw_mail = fopen('php://stdin', 'r');
 $raw_mail = file_get_contents('php://stdin');
 $mime = mailparse_msg_create();
 mailparse_msg_parse($mime, $raw_mail);
 $root_part = mailparse_msg_get_part_data($mime);
 
-echo "\nZach RAW POST DATA: ";
-print_r($raw_mail);
-
-echo "\nZach ROOT PART: ";
-print_r($root_part);
 
 // Set sender address based on the following order
 // 1. "From" header in $additional_headers
@@ -111,21 +93,11 @@ try {
 
   $email->setSubject($root_part['headers']['subject']);
   $parts = mailparse_msg_get_structure($mime);
-  echo "Zach parts: ";
-  print_r($parts);
 
-  // if (count($parts) > 1) {
-    foreach ($parts as $part_id) {
-      $part = mailparse_msg_get_part($mime, $part_id);
-      parseMimePart($part, $raw_mail, $email);
-    }
-  //ZACH: If you wanted to use this part you have to parse out the message!
-  // } else if ($root_part['content-type'] == 'text/plain') {
-  //   $email->setTextBody($raw_mail);
-  // }  else if ($root_part['content-type'] == 'text/html') {
-  //   echo "ZACH TEXT HTML IF";
-  //   $email->setHtmlBody($raw_mail);
-  // }
+  foreach ($parts as $part_id) {
+    $part = mailparse_msg_get_part($mime, $part_id);
+    parseMimePart($part, $raw_mail, $email);
+  }
 
   $extra_headers = array_diff_key($root_part['headers'], array_flip([
       'from', 'to', 'cc', 'bcc', 'reply-to', 'subject', 'content-type']));
@@ -163,16 +135,6 @@ function parseMimePart($part, $raw_mail, &$email) {
   $content = decodeContent(substr($raw_mail, $start, $end - $start),
                                  $encoding);
   
-  echo "ZACH DATA CONTENT: ";
-  print_r($content);
-  echo "END ZACH DATA CONTENT: ";
-  echo "\nZACH DATA: ";
-  print_r($data);
-  echo "END ZACH DATA: ";
-  $inline_headers = $data['headers'];
-  echo "\nZACH DATA HEADERS: ";
-  print_r($inline_headers);
-  echo "END ZACH DATA HEADERS: ";
 
   if (isset($data['content-disposition'])) {
     $filename = ArrayUtil::findByKeyOrDefault(
@@ -183,7 +145,6 @@ function parseMimePart($part, $raw_mail, &$email) {
     }
     $email->addAttachment($filename, $content, $content_id);
   } else if ($type == 'text/html') {
-    echo "Zach SAVING HTML BODY";
     $email->setHtmlBody($content);
   } else if ($type == 'text/plain') {
     $email->setTextBody($content);
