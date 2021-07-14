@@ -116,8 +116,8 @@ use Google\AppEngine\Util\StringUtil;
   //                                 $additional_parameters = null) {
 
 
-$raw_post_data = fopen('php://stdin', 'r');
-// $raw_post_data = file_get_contents('php://input');
+// $raw_post_data = fopen('php://stdin', 'r');
+$raw_post_data = file_get_contents('php://input');
 
 // $raw_mail = "To: {$to}\rSubject: {$subject}\r";
 // if ($additional_headers != null) {
