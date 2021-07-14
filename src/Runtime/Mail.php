@@ -125,9 +125,15 @@ $raw_post_data = file_get_contents('php://stdin');
 // }
 // $raw_mail .= "\r\n{$message}";
 
+
+
 $mime = mailparse_msg_create();
 mailparse_msg_parse($mime, $raw_post_data);
 $root_part = mailparse_msg_get_part_data($mime);
+
+echo "\nZach RAW POST DATA: ";
+print_r($raw_post_data);
+
 echo "\nZach ROOT PART: ";
 print_r($root_part);
 
@@ -177,15 +183,15 @@ try {
     $email->setReplyTo($root_part['headers']['reply-to']);
   }
 
-  $email->setSubject($subject);
+  $email->setSubject($root_part['headers']['subject']);
   $parts = mailparse_msg_get_structure($mime);
   echo "Zach parts: ";
   print_r($parts);
-  
+
   if (count($parts) > 1) {
     foreach ($parts as $part_id) {
       $part = mailparse_msg_get_part($mime, $part_id);
-      parseMimePart($part, $raw_mail, $email);
+      parseMimePart($part, $raw_post_data, $email);
     }
   } else if ($root_part['content-type'] == 'text/plain') {
     $email->setTextBody($message);
@@ -232,6 +238,10 @@ function parseMimePart($part, $raw_mail, &$email) {
   $encoding = ArrayUtil::findByKeyOrDefault($data, 'transfer-encoding', '');
   $content = decodeContent(substr($raw_mail, $start, $end - $start),
                                  $encoding);
+  
+
+
+  //CONTENT IS EMPTY - FIX THIS!!
   echo "ZACH DATA CONTENT: ";
   print_r($content);
   echo "END ZACH DATA CONTENT: ";
