@@ -188,16 +188,16 @@ try {
   echo "Zach parts: ";
   print_r($parts);
 
-  // if (count($parts) > 1) {
+  if (count($parts) > 1) {
     foreach ($parts as $part_id) {
       $part = mailparse_msg_get_part($mime, $part_id);
       parseMimePart($part, $raw_post_data, $email);
     }
-  // } else if ($root_part['content-type'] == 'text/plain') {
-  //   $email->setTextBody($message);
-  // }  else if ($root_part['content-type'] == 'text/html') {
-  //   $email->setHtmlBody($message);
-  // }
+  } else if ($root_part['content-type'] == 'text/plain') {
+    $email->setTextBody($message);
+  }  else if ($root_part['content-type'] == 'text/html') {
+    $email->setHtmlBody($message);
+  }
 
   $extra_headers = array_diff_key($root_part['headers'], array_flip([
       'from', 'to', 'cc', 'bcc', 'reply-to', 'subject', 'content-type']));
