@@ -227,9 +227,6 @@ return true;
  * @param Message& $email The Message object to be set.
  */
 function parseMimePart($part, $raw_mail, &$email) {
-
-  //THIS NEEDS TO UPDATE THE DATA HEADERS $data['content-disposition']!!
-  // https://github.com/php/pecl-mail-mailparse/blob/ae960dba8cb607296b7f85ca23f9d0a2462607d5/mailparse.c#L1459
   $data = mailparse_msg_get_part_data($part);
 
   $type = ArrayUtil::findByKeyOrDefault($data, 'content-type', 'text/plain');
@@ -239,9 +236,6 @@ function parseMimePart($part, $raw_mail, &$email) {
   $content = decodeContent(substr($raw_mail, $start, $end - $start),
                                  $encoding);
   
-
-
-  //CONTENT IS EMPTY - FIX THIS!!
   echo "ZACH DATA CONTENT: ";
   print_r($content);
   echo "END ZACH DATA CONTENT: ";
@@ -262,6 +256,7 @@ function parseMimePart($part, $raw_mail, &$email) {
     }
     $email->addAttachment($filename, $content, $content_id);
   } else if ($type == 'text/html') {
+    echo "Zach SAVING HTML BODY";
     $email->setHtmlBody($content);
   } else if ($type == 'text/plain') {
     $email->setTextBody($content);
