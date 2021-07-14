@@ -179,7 +179,9 @@ try {
 
   $email->setSubject($subject);
   $parts = mailparse_msg_get_structure($mime);
-
+  echo "Zach parts: ";
+  print_r($parts);
+  
   if (count($parts) > 1) {
     foreach ($parts as $part_id) {
       $part = mailparse_msg_get_part($mime, $part_id);
