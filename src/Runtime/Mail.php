@@ -188,16 +188,16 @@ try {
   echo "Zach parts: ";
   print_r($parts);
 
-  if (count($parts) > 1) {
+  // if (count($parts) > 1) {
     foreach ($parts as $part_id) {
       $part = mailparse_msg_get_part($mime, $part_id);
       parseMimePart($part, $raw_post_data, $email);
     }
-  } else if ($root_part['content-type'] == 'text/plain') {
-    $email->setTextBody($message);
-  }  else if ($root_part['content-type'] == 'text/html') {
-    $email->setHtmlBody($message);
-  }
+  // } else if ($root_part['content-type'] == 'text/plain') {
+  //   $email->setTextBody($message);
+  // }  else if ($root_part['content-type'] == 'text/html') {
+  //   $email->setHtmlBody($message);
+  // }
 
   $extra_headers = array_diff_key($root_part['headers'], array_flip([
       'from', 'to', 'cc', 'bcc', 'reply-to', 'subject', 'content-type']));
@@ -245,14 +245,6 @@ function parseMimePart($part, $raw_mail, &$email) {
   echo "ZACH DATA CONTENT: ";
   print_r($content);
   echo "END ZACH DATA CONTENT: ";
-
-  // $msg = new MimeMessage("var", $content);
-  // echo "\nZach Stream Message VAR: ";
-  // print_r($msg);
-  
-  //This DATA is missing headers from CONTENT
-  // content has the headers in the message. Data does not have the headers 
-  // content is produced using data - which will take the parts out
   echo "\nZACH DATA: ";
   print_r($data);
   echo "END ZACH DATA: ";
