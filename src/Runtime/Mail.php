@@ -182,7 +182,7 @@ try {
   if (count($parts) > 1) {
     foreach ($parts as $part_id) {
       $part = mailparse_msg_get_part($mime, $part_id);
-      self::parseMimePart($part, $raw_mail, $email);
+      parseMimePart($part, $raw_mail, $email);
     }
   } else if ($root_part['content-type'] == 'text/plain') {
     $email->setTextBody($message);
@@ -227,7 +227,7 @@ function parseMimePart($part, $raw_mail, &$email) {
   $start = $data['starting-pos-body'];
   $end = $data['ending-pos-body'];
   $encoding = ArrayUtil::findByKeyOrDefault($data, 'transfer-encoding', '');
-  $content = self::decodeContent(substr($raw_mail, $start, $end - $start),
+  $content = decodeContent(substr($raw_mail, $start, $end - $start),
                                  $encoding);
   echo "ZACH DATA CONTENT: ";
   print_r($content);
