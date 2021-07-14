@@ -196,6 +196,7 @@ try {
   } else if ($root_part['content-type'] == 'text/plain') {
     $email->setTextBody($message);
   }  else if ($root_part['content-type'] == 'text/html') {
+    echo "ZACH TEXT HTML IF";
     $email->setHtmlBody($message);
   }
 
