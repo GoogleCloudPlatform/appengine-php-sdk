@@ -44,101 +44,38 @@ use Google\AppEngine\Api\Mail\Message;
 use Google\AppEngine\Util\ArrayUtil;
 use Google\AppEngine\Util\StringUtil;
 
-
-// // Parse To
-// $line = fgets($f);
-// $line_arr = explode (":", $line);
-// if($line_arr[0] != 'To'){
-//   throw new Exception('No To field set in mail() call, value is: ' . $line);
-// }
-// $to = $line_arr[1];
-
-// // Parse Subject
-// $line = fgets($f);
-// $line_arr = explode (":", $line);
-// if($line_arr[0] != 'Subject'){
-//   throw new Exception('No Subject field set in mail() call, value is: ' . $line);
-// }
-// $subject = $line_arr[1];
-
-// // Parse Headers and Message
-// $headers = '';
-// $message = '';
-
-// $header_section = true; 
-// while(!feof($f)) {
-//   $line = fgets($f);
-//   if($header_section == true && strpos($line, ':') !== false) {
-//     $headers .=  $line;
-//   } else {
-//     $header_section = false;
-//     $message .=  $line;
-//   }
-// }
- 
-// echo $message."str";
-// fclose($f);
+// *
+//  * Send an email.
+//  *
+//  * This is a re-implementation of PHP's mail() function using App Engine
+//  * mail API. The function relies on mailparse extension to parse emails.
+//  *
+//  * @param string $to Receiver, or receivers of the mail.
+//  * @param string $subject Subject of the email to be sent.
+//  * @param string $message Message to be sent.
+//  * @param string $additional_headers optional
+//  *   String to be inserted at the end of the email header.
+//  * @param string $additional_parameters optional
+//  *   Additional flags to be passed to the mail program. This arugment is
+//  *   added only to match the signature of PHP's mail() function. The value is
+//  *   always ignored.
+//  * @return bool
+//  *   TRUE if the message is sent successfully, otherwise return FALSE.
+//  *
+//  * @see http://php.net/mail
 
 
-// /// Try to read all of the stream into the memory and push it all to mailparse here: 
-// $f = fopen('php://stdin', 'r');
-// $line = fgets($f);
-// $mime = mailparse_msg_create();
-// mailparse_msg_parse($mime, $raw_mail);
-
-// return Mail::sendMail($to, $subject, $message, $headers);
-  
-  // *
-  //  * Send an email.
-  //  *
-  //  * This is a re-implementation of PHP's mail() function using App Engine
-  //  * mail API. The function relies on mailparse extension to parse emails.
-  //  *
-  //  * @param string $to Receiver, or receivers of the mail.
-  //  * @param string $subject Subject of the email to be sent.
-  //  * @param string $message Message to be sent.
-  //  * @param string $additional_headers optional
-  //  *   String to be inserted at the end of the email header.
-  //  * @param string $additional_parameters optional
-  //  *   Additional flags to be passed to the mail program. This arugment is
-  //  *   added only to match the signature of PHP's mail() function. The value is
-  //  *   always ignored.
-  //  * @return bool
-  //  *   TRUE if the message is sent successfully, otherwise return FALSE.
-  //  *
-  //  * @see http://php.net/mail
-   
-
-  // public static function sendMail($to,
-  //                                 $subject,
-  //                                 $message,
-  //                                 $additional_headers = null,
-  //                                 $additional_parameters = null) {
-
-
-// $raw_post_data = fopen('php://stdin', 'r');
-$raw_post_data = file_get_contents('php://stdin');
-
-// $raw_mail = "To: {$to}\rSubject: {$subject}\r";
-// if ($additional_headers != null) {
-//   $raw_mail .= trim($additional_headers);
-// }
-// $raw_mail .= "\r\n{$message}";
-
-
-
+// $raw_mail = fopen('php://stdin', 'r');
+$raw_mail = file_get_contents('php://stdin');
 $mime = mailparse_msg_create();
-mailparse_msg_parse($mime, $raw_post_data);
+mailparse_msg_parse($mime, $raw_mail);
 $root_part = mailparse_msg_get_part_data($mime);
 
 echo "\nZach RAW POST DATA: ";
-print_r($raw_post_data);
+print_r($raw_mail);
 
 echo "\nZach ROOT PART: ";
 print_r($root_part);
-
-$subject = '';
-$message = '';
 
 // Set sender address based on the following order
 // 1. "From" header in $additional_headers
@@ -150,18 +87,7 @@ if (isset($root_part['headers']['from'])) {
 }
 if ($from === false || $from == "") {
   $appid_arr = explode('~', getenv('GAE_APPLICATION'));
-  // echo "PRINTING PHPINFO: ";
-  // print_r(phpinfo());
   $appid = $appid_arr[1];
-  // $host_name = getenv('HTTP_X_APPENGINE_DEFAULT_VERSION_HOSTNAME');
-  // $host_name_suffix = '.appspotmail.com';
-  // $qa_suffix = 'prom-qa.sandbox.google.com';
-  // $length = strlen($qa_suffix);
-  // echo "HOST NAME: " . $host_name;
-  // echo "HOST NAME - LENGTH: " . substr($host_name, - $length);
-  // if(substr($host_name, - $length) == $qa_suffix) {
-  //   $host_name_suffix = '.prommail-qa.corp.google.com';
-  // }
   $from = sprintf('mailer@%s.appspotmail.com', $appid);
   syslog(LOG_WARNING,
          "mail(): Unable to determine sender's email address from the " .
@@ -188,17 +114,18 @@ try {
   echo "Zach parts: ";
   print_r($parts);
 
-  if (count($parts) > 1) {
+  // if (count($parts) > 1) {
     foreach ($parts as $part_id) {
       $part = mailparse_msg_get_part($mime, $part_id);
-      parseMimePart($part, $raw_post_data, $email);
+      parseMimePart($part, $raw_mail, $email);
     }
-  } else if ($root_part['content-type'] == 'text/plain') {
-    $email->setTextBody($message);
-  }  else if ($root_part['content-type'] == 'text/html') {
-    echo "ZACH TEXT HTML IF";
-    $email->setHtmlBody($message);
-  }
+  //ZACH: If you wanted to use this part you have to parse out the message!
+  // } else if ($root_part['content-type'] == 'text/plain') {
+  //   $email->setTextBody($raw_mail);
+  // }  else if ($root_part['content-type'] == 'text/html') {
+  //   echo "ZACH TEXT HTML IF";
+  //   $email->setHtmlBody($raw_mail);
+  // }
 
   $extra_headers = array_diff_key($root_part['headers'], array_flip([
       'from', 'to', 'cc', 'bcc', 'reply-to', 'subject', 'content-type']));
@@ -229,7 +156,6 @@ return true;
  */
 function parseMimePart($part, $raw_mail, &$email) {
   $data = mailparse_msg_get_part_data($part);
-
   $type = ArrayUtil::findByKeyOrDefault($data, 'content-type', 'text/plain');
   $start = $data['starting-pos-body'];
   $end = $data['ending-pos-body'];
