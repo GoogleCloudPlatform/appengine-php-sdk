@@ -117,7 +117,7 @@ use Google\AppEngine\Util\StringUtil;
 
 
 // $raw_post_data = fopen('php://stdin', 'r');
-$raw_post_data = file_get_contents('php://input');
+$raw_post_data = file_get_contents('php://stdin');
 
 // $raw_mail = "To: {$to}\rSubject: {$subject}\r";
 // if ($additional_headers != null) {
@@ -131,7 +131,8 @@ $root_part = mailparse_msg_get_part_data($mime);
 echo "\nZach ROOT PART: ";
 print_r($root_part);
 
-
+$subject = '';
+$message = '';
 
 // Set sender address based on the following order
 // 1. "From" header in $additional_headers
