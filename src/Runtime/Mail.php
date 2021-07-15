@@ -27,7 +27,7 @@
  */
 namespace Google\AppEngine\Runtime;
 
-// Must import all dependencies for an independent executable which does not use composer autoloading.  
+// Must import all dependencies for a stand alone executable which does not use composer autoloading.  
 require_once __DIR__ . "/../Runtime/Proto/ProtocolMessage.php";
 require_once __DIR__ . "/../Runtime/Proto/Encoder.php";
 require_once __DIR__ . "/../Runtime/Proto/Decoder.php";
