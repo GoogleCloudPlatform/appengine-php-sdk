@@ -36,11 +36,10 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     private const HTTP_METHODS = array('GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH');
 
     public $context;
-    private $stream = null;
-    private $urlFetchResponse = null;
   
     // Context options parameters
-    private $headers = [];
+    // $headers should remain public so that it is possible to read '200' response code and/or debug.
+    public $headers = [];
     private $content = '';
     private $timeout = 0.0;
     private $method = 'GET';
@@ -63,7 +62,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     { 
         return array_key_exists($offset, $this->responseHeaders); 
     }
-    public function offsetGet($offset): mixed 
+    public function offsetGet($offset)
     { 
         return $this->responseHeaders[$offset]; 
     }
