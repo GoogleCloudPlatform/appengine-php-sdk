@@ -68,7 +68,7 @@ class MailTest extends ApiProxyTestBase {
     $subject = 'subject';
     $message = 'text';
     $headers = "From: {$from}\r" .
-           "Content-Type: text/plain\r";
+               "Content-Type: text/plain\r";
 
     $message_proto = new MailMessage();
     $message_proto->setSender($from);
@@ -113,7 +113,7 @@ class MailTest extends ApiProxyTestBase {
     $subject = 'subject';
     $message = "<b>html</b>";
     $headers = "From: {$from}\r" .
-           "Content-Type: text/html\r";
+               "Content-Type: text/html\r";
 
     $message_proto = new MailMessage();
     $message_proto->setSender($from);
@@ -122,6 +122,107 @@ class MailTest extends ApiProxyTestBase {
     $message_proto->setHtmlBody($message);
     $response = new VoidProto();
     $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
+    
+    $raw_mail = "To: {$to}\rSubject: {$subject}\r";
+    $raw_mail .= $headers;
+    $raw_mail .= "\r\n{$message}";
+    Runtime\mailRun($raw_mail);
+    $this->apiProxyMock->verify();
+  }
+
+  public function testSendMailWithAttachment() {
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_create");
+    $mailparse_mock->expects($this->once())->willReturn([]);
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_parse");
+    $mailparse_mock->expects($this->once())->willReturn(true);
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_get_structure");
+    $mailparse_mock->expects($this->once())->willReturn([1]);
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_get_part");
+    $mailparse_mock->expects($this->once())->willReturn([]);
+    
+    $image_content_id = '<image-content-id>';
+    $attachment_data = 'image data';
+    $filename = 'image.png';
+
+    $array = array();
+    $array['headers']['from'] = 'foo@foo.com';
+    $array['headers']['to'] = 'bar@bar.com';
+    $array['headers']['subject'] = 'subject';
+    $array['content-type'] = 'text/plain';
+    $array['content-disposition'] = 'inline';
+    $array['disposition-filename'] = $filename;
+    $array['content-id'] = $image_content_id;
+    $array['starting-pos-body'] = 78;
+    $array['ending-pos-body'] = 84;
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_get_part_data");
+    $mailparse_mock->expects($this->any())->willReturn($array);
+
+    $to = 'bar@bar.com';
+    $from = 'foo@foo.com';
+    $subject = 'subject';
+    $message = 'text';
+    $headers = "From: {$from}\r" .
+               "Content-Type: text/plain\r";
+
+    $message_proto = new MailMessage();
+    $message_proto->setSender($from);
+    $message_proto->addTo($to);
+    $message_proto->setSubject($subject);
+    $message_proto->setTextBody($message);
+    $response = new VoidProto();
+
+    // Warning for setting 'content-disposition' but not having a separate body
+    $this->expectException('PHPUnit\Framework\Error\Warning');
+    
+    $raw_mail = "To: {$to}\rSubject: {$subject}\r";
+    $raw_mail .= $headers;
+    $raw_mail .= "\r\n{$message}";
+    Runtime\mailRun($raw_mail);
+  }
+
+  public function testSendMultipartMailWithUnknownContentType() {
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_create");
+    $mailparse_mock->expects($this->once())->willReturn([]);
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_parse");
+    $mailparse_mock->expects($this->once())->willReturn(true);
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_get_structure");
+    $mailparse_mock->expects($this->once())->willReturn([1]);
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_get_part");
+    $mailparse_mock->expects($this->once())->willReturn([]);
+
+    $array = array();
+    $array['headers']['from'] = 'foo@foo.com';
+    $array['headers']['to'] = 'bar@bar.com';
+    $array['headers']['subject'] = 'subject';
+    $array['content-type'] = 'fake_value';
+    $array['starting-pos-body'] = 77;
+    $array['ending-pos-body'] = 88;
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_get_part_data");
+    $mailparse_mock->expects($this->any())->willReturn($array);
+
+    $to = 'bar@bar.com';
+    $from = 'foo@foo.com';
+    $subject = 'subject';
+    $message = "<b>html</b>";
+    $headers = "From: {$from}\r" .
+           "Content-Type: fake_value\r";
+
+    $message_proto = new MailMessage();
+    $message_proto->setSender($from);
+    $message_proto->addTo($to);
+    $message_proto->setSubject($subject);
+    $message_proto->setHtmlBody($message);
+    $response = new VoidProto();
+
+    // Warning issued for incorrect content-type field.
+    $this->expectException('PHPUnit\Framework\Error\Warning');
     
     $raw_mail = "To: {$to}\rSubject: {$subject}\r";
     $raw_mail .= $headers;
