@@ -26,9 +26,9 @@
  * @see http://php.net/mail
  *
  */
+namespace Google\AppEngine\Runtime;
 
-
-// Must import all dependencies for an independent executable.  
+// Must import all dependencies for an independent executable which is not autoloaded with composer.  
 require_once __DIR__ . "/../Runtime/Proto/ProtocolMessage.php";
 require_once __DIR__ . "/../Runtime/Proto/Encoder.php";
 require_once __DIR__ . "/../Runtime/Proto/Decoder.php";
@@ -52,7 +52,17 @@ use Google\AppEngine\Api\Mail\Message;
 use Google\AppEngine\Util\ArrayUtil;
 use Google\AppEngine\Util\StringUtil;
 
+// NOTE: We avoid having a Mail Class in this file to avoid this 
+// class from being autoloaded and directly executable from the user's API. 
+// This implementation is functions only, only callable after a require_once is declared. 
 
+
+/**
+ * Parse a raw mail string and send mail.
+ *
+ * @param string $raw_mail The string holding the raw content of the email.
+ * @return bool True on success, false on failure.
+ */
 function mailRun(string $raw_mail) {
   $mime = mailparse_msg_create();
   mailparse_msg_parse($mime, $raw_mail);

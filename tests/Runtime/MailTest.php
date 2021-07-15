@@ -21,6 +21,8 @@
 
 require_once __DIR__ . "/../../src/Runtime/Mail.php";
 
+
+use Google\AppEngine\Runtime;
 use google\appengine\base\VoidProto;
 use Google\AppEngine\Api\Mail\Message;
 use google\appengine\MailMessage;
@@ -29,33 +31,37 @@ use Google\AppEngine\Runtime\ApplicationError;
 use Google\AppEngine\Testing\ApiProxyTestBase;
 
 class MailTest extends ApiProxyTestBase {
+  // This declaration must be defined inside class. 
+  // Please see https://github.com/php-mock/php-mock-phpunit 
+  use \phpmock\phpunit\PHPMock;
+
   public function setUp(): void {
     parent::setUp();
   }
-
+  
   public function testSendSimpleMail() {
-    // Mocking mailparse functions in the global namespace
-    function mailparse_msg_create() {}
-    function mailparse_msg_parse($mime, $raw_mail) {
-      return true;
-    }
-    function mailparse_msg_get_structure($mime) {
-      return [1];
-    }
 
-    function mailparse_msg_get_part($mimemail, $mimesection) {
-      return [];
-    }
-    function mailparse_msg_get_part_data($mime) {
-      $array = array();
-      $array['headers']['from'] = 'foo@foo.com';
-      $array['headers']['to'] = 'bar@bar.com';
-      $array['headers']['subject'] = 'subject';
-      $array['content-type'] = 'text/plain';
-      $array['starting-pos-body'] = 78;
-      $array['ending-pos-body'] = 84;
-      return $array;
-    }
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_create");
+    $mailparse_mock->expects($this->once())->willReturn([]);
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_parse");
+    $mailparse_mock->expects($this->once())->willReturn(true);
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_get_structure");
+    $mailparse_mock->expects($this->once())->willReturn([1]);
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_get_part");
+    $mailparse_mock->expects($this->once())->willReturn([]);
+
+    $array = array();
+    $array['headers']['from'] = 'foo@foo.com';
+    $array['headers']['to'] = 'bar@bar.com';
+    $array['headers']['subject'] = 'subject';
+    $array['content-type'] = 'text/plain';
+    $array['starting-pos-body'] = 78;
+    $array['ending-pos-body'] = 84;
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_get_part_data");
+    $mailparse_mock->expects($this->any())->willReturn($array);
 
     $to = 'bar@bar.com';
     $from = 'foo@foo.com';
@@ -75,7 +81,7 @@ class MailTest extends ApiProxyTestBase {
     $raw_mail = "To: {$to}\rSubject: {$subject}\r";
     $raw_mail .= $headers;
     $raw_mail .= "\r\n{$message}";
-    mailRun($raw_mail);
+    Runtime\mailRun($raw_mail);
     $this->apiProxyMock->verify();
   }
 

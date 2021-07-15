@@ -15,11 +15,15 @@
  * limitations under the License.
  */
 /**
+ * SendMail Path Executable 
  * Allow users to send mail using the App Engine mail APIs.
  *
+ * @see https://www.php.net/manual/en/mail.configuration.php#ini.sendmail-path
  */
 
 require_once __DIR__ . "/Mail.php";
+
+use Google\AppEngine\Runtime;
 
 $raw_mail = file_get_contents('php://stdin');
 return mailRun($raw_mail);
