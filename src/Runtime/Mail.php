@@ -52,10 +52,6 @@ use Google\AppEngine\Api\Mail\Message;
 use Google\AppEngine\Util\ArrayUtil;
 use Google\AppEngine\Util\StringUtil;
 
-// NOTE: We avoid having a Mail Class in this file to avoid this 
-// class from being autoloaded and directly executable from the user's API. 
-// This implementation is functions only, only callable after a require_once is declared. 
-
 
 /**
  * Parse a raw mail string and send mail.

@@ -31,6 +31,7 @@ use Google\AppEngine\Runtime\ApplicationError;
 use Google\AppEngine\Testing\ApiProxyTestBase;
 
 class MailTest extends ApiProxyTestBase {
+
   // This declaration must be defined inside class. 
   // Please see https://github.com/php-mock/php-mock-phpunit 
   use \phpmock\phpunit\PHPMock;
@@ -39,8 +40,7 @@ class MailTest extends ApiProxyTestBase {
     parent::setUp();
   }
   
-  public function testSendSimpleMail() {
-
+  public function testSendTextMail() {
     $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_create");
     $mailparse_mock->expects($this->once())->willReturn([]);
 
@@ -85,4 +85,48 @@ class MailTest extends ApiProxyTestBase {
     $this->apiProxyMock->verify();
   }
 
+  public function testSendHtmlMail() {
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_create");
+    $mailparse_mock->expects($this->once())->willReturn([]);
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_parse");
+    $mailparse_mock->expects($this->once())->willReturn(true);
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_get_structure");
+    $mailparse_mock->expects($this->once())->willReturn([1]);
+
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_get_part");
+    $mailparse_mock->expects($this->once())->willReturn([]);
+
+    $array = array();
+    $array['headers']['from'] = 'foo@foo.com';
+    $array['headers']['to'] = 'bar@bar.com';
+    $array['headers']['subject'] = 'subject';
+    $array['content-type'] = 'text/html';
+    $array['starting-pos-body'] = 77;
+    $array['ending-pos-body'] = 88;
+    $mailparse_mock = $this->getFunctionMock('Google\AppEngine\Runtime', "mailparse_msg_get_part_data");
+    $mailparse_mock->expects($this->any())->willReturn($array);
+
+    $to = 'bar@bar.com';
+    $from = 'foo@foo.com';
+    $subject = 'subject';
+    $message = "<b>html</b>";
+    $headers = "From: {$from}\r" .
+           "Content-Type: text/html\r";
+
+    $message_proto = new MailMessage();
+    $message_proto->setSender($from);
+    $message_proto->addTo($to);
+    $message_proto->setSubject($subject);
+    $message_proto->setHtmlBody($message);
+    $response = new VoidProto();
+    $this->apiProxyMock->expectCall('mail', 'Send', $message_proto, $response);
+    
+    $raw_mail = "To: {$to}\rSubject: {$subject}\r";
+    $raw_mail .= $headers;
+    $raw_mail .= "\r\n{$message}";
+    Runtime\mailRun($raw_mail);
+    $this->apiProxyMock->verify();
+  }
 }
