@@ -15,11 +15,8 @@
  * limitations under the License.
  */
 /**
- * This file works in conjunction with SendMail.php and should not be used directly. 
- * This file is imported to SendMail.php, and together used to override PHP's mail() function 
- * using App Engine mail API. 
- * This function relies on mailparse extension to parse emails.
- * Please see SendMail.php for instructions on now to enable the mail() override.
+ * Used in conjunction with SendMail.php to send mail via the App Engine Mail API. 
+ * Do not use this directly. See SendMail.php for more details.
  *
  * @see http://php.net/mail
  *
