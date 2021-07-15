@@ -32,7 +32,7 @@ use Google\AppEngine\Testing\ApiProxyTestBase;
 
 class MailTest extends ApiProxyTestBase {
 
-  // This declaration must be defined inside class. 
+  // This use declaration must be defined inside the test class. 
   // Please see https://github.com/php-mock/php-mock-phpunit 
   use \phpmock\phpunit\PHPMock;
 

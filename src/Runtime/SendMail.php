@@ -15,9 +15,13 @@
  * limitations under the License.
  */
 /**
- * SendMail Path Executable 
- * Allow users to send mail using the App Engine mail APIs.
- *
+ * SendMail Executable File 
+ * Include this file in the php.ini to override the mail() function with App Engine mail APIs.
+ * To enable, please add the following to the php.ini file:
+ *  extension = mailparse.so
+ *  sendmail_path = "php ./vendor/google/appengine-php-sdk/src/Runtime/SendMail.php -t -i"
+ *    
+ * @see http://php.net/mail
  * @see https://www.php.net/manual/en/mail.configuration.php#ini.sendmail-path
  */
 

@@ -17,18 +17,17 @@
 /**
  * Allow users to send mail from mail() function using the App Engine mail APIs.
  *
- * This is a re-implementation of PHP's mail() function using App Engine
- * mail API. The function relies on mailparse extension to parse emails.
- * To enable this implementation, please add the following to the php.ini file:
- *    extension = mailparse.so
- *    sendmail_path = "php ./vendor/google/appengine-php-sdk/src/Runtime/Mail.php -t -i"
- *    
+ * This function is used to override PHP's mail() function using App Engine
+ * mail API, which accepts stdin content when the mail() function is called in php. 
+ * This function relies on mailparse extension to parse emails.
+ * To enable this override, please see SendMail.php for instructions. 
+ *
  * @see http://php.net/mail
  *
  */
 namespace Google\AppEngine\Runtime;
 
-// Must import all dependencies for an independent executable which is not autoloaded with composer.  
+// Must import all dependencies for an independent executable which does not use composer autoloading.  
 require_once __DIR__ . "/../Runtime/Proto/ProtocolMessage.php";
 require_once __DIR__ . "/../Runtime/Proto/Encoder.php";
 require_once __DIR__ . "/../Runtime/Proto/Decoder.php";
