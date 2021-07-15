@@ -53,69 +53,68 @@ use Google\AppEngine\Util\ArrayUtil;
 use Google\AppEngine\Util\StringUtil;
 
 
-$raw_mail = file_get_contents('php://stdin');
-$mime = mailparse_msg_create();
-mailparse_msg_parse($mime, $raw_mail);
-$root_part = mailparse_msg_get_part_data($mime);
+function mailRun(string $raw_mail) {
+  $mime = mailparse_msg_create();
+  mailparse_msg_parse($mime, $raw_mail);
+  $root_part = mailparse_msg_get_part_data($mime);
 
-
-// Set sender address based on the following order
-// 1. "From" header in $additional_headers
-// 2. "sendmail_from" ini setting
-// 3. Default address "mailer@<app-id>.appspotmail.com
-$from = ini_get('sendmail_from');
-if (isset($root_part['headers']['from'])) {
-  $from = $root_part['headers']['from'];
-}
-if ($from === false || $from == "") {
-  $appid_arr = explode('~', getenv('GAE_APPLICATION'));
-  $appid = $appid_arr[1];
-  $from = sprintf('mailer@%s.appspotmail.com', $appid);
-  syslog(LOG_WARNING,
-         "mail(): Unable to determine sender's email address from the " .
-         "'sendmail_from' directive in php.ini or from the 'From' " .
-         "header. Falling back to the default $from.");
-}
-
-$email = new Message();
-try {
-  $email->setSender($from);
-  $email->addTo($root_part['headers']['to']);
-  if (isset($root_part['headers']['cc'])) {
-    $email->AddCc($root_part['headers']['cc']);
+  // Set sender address based on the following order
+  // 1. "From" header in $additional_headers
+  // 2. "sendmail_from" ini setting
+  // 3. Default address "mailer@<app-id>.appspotmail.com
+  $from = ini_get('sendmail_from');
+  if (isset($root_part['headers']['from'])) {
+    $from = $root_part['headers']['from'];
   }
-  if (isset($root_part['headers']['bcc'])) {
-    $email->AddBcc($root_part['headers']['bcc']);
-  }
-  if (isset($root_part['headers']['reply-to'])) {
-    $email->setReplyTo($root_part['headers']['reply-to']);
+  if ($from === false || $from == "") {
+    $appid_arr = explode('~', getenv('GAE_APPLICATION'));
+    $appid = $appid_arr[1];
+    $from = sprintf('mailer@%s.appspotmail.com', $appid);
+    syslog(LOG_WARNING,
+           "mail(): Unable to determine sender's email address from the " .
+           "'sendmail_from' directive in php.ini or from the 'From' " .
+           "header. Falling back to the default $from.");
   }
 
-  $email->setSubject($root_part['headers']['subject']);
-  $parts = mailparse_msg_get_structure($mime);
-
-  foreach ($parts as $part_id) {
-    $part = mailparse_msg_get_part($mime, $part_id);
-    parseMimePart($part, $raw_mail, $email);
-  }
-
-  $extra_headers = array_diff_key($root_part['headers'], array_flip([
-      'from', 'to', 'cc', 'bcc', 'reply-to', 'subject', 'content-type']));
-  foreach ($extra_headers as $key => $value) {
-    try {
-      $email->addHeader($key, $value);
-    } catch (\InvalidArgumentException $e) {
-      syslog(LOG_WARNING, "mail:() Dropping disallowed email header $key");
+  $email = new Message();
+  try {
+    $email->setSender($from);
+    $email->addTo($root_part['headers']['to']);
+    if (isset($root_part['headers']['cc'])) {
+      $email->AddCc($root_part['headers']['cc']);
     }
-  }
-  $email->send();
-} catch (\Exception $e) {
-  trigger_error('mail(): ' . $e->getMessage(), E_USER_WARNING);
-  return false;
-}
+    if (isset($root_part['headers']['bcc'])) {
+      $email->AddBcc($root_part['headers']['bcc']);
+    }
+    if (isset($root_part['headers']['reply-to'])) {
+      $email->setReplyTo($root_part['headers']['reply-to']);
+    }
 
-return true;
-  
+    $email->setSubject($root_part['headers']['subject']);
+    $parts = mailparse_msg_get_structure($mime);
+
+    foreach ($parts as $part_id) {
+      $part = mailparse_msg_get_part($mime, $part_id);
+      parseMimePart($part, $raw_mail, $email);
+    }
+
+    $extra_headers = array_diff_key($root_part['headers'], array_flip([
+        'from', 'to', 'cc', 'bcc', 'reply-to', 'subject', 'content-type']));
+    foreach ($extra_headers as $key => $value) {
+      try {
+        $email->addHeader($key, $value);
+      } catch (\InvalidArgumentException $e) {
+        syslog(LOG_WARNING, "mail:() Dropping disallowed email header $key");
+      }
+    }
+    $email->send();
+  } catch (\Exception $e) {
+    trigger_error('mail(): ' . $e->getMessage(), E_USER_WARNING);
+    return false;
+  }
+
+  return true;
+}
 
 /**
  * Parse a MIME part and set the Message object accordingly.
@@ -135,7 +134,6 @@ function parseMimePart($part, $raw_mail, &$email) {
   $content = decodeContent(substr($raw_mail, $start, $end - $start),
                                  $encoding);
   
-
   if (isset($data['content-disposition'])) {
     $filename = ArrayUtil::findByKeyOrDefault(
         $data, 'disposition-filename', uniqid());
