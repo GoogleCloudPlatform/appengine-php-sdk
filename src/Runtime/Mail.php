@@ -15,12 +15,11 @@
  * limitations under the License.
  */
 /**
- * Allow users to send mail from mail() function using the App Engine mail APIs.
- *
- * This function is used to override PHP's mail() function using App Engine
- * mail API, which accepts stdin content when the mail() function is called in php. 
+ * This file works in conjunction with SendMail.php and should not be used directly. 
+ * This file is imported to SendMail.php, and together used to override PHP's mail() function 
+ * using App Engine mail API. 
  * This function relies on mailparse extension to parse emails.
- * To enable this override, please see SendMail.php for instructions. 
+ * Please se SendMail.php for instructions on now to enable the mail() override.
  *
  * @see http://php.net/mail
  *
