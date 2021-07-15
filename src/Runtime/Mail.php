@@ -19,7 +19,7 @@
  * This file is imported to SendMail.php, and together used to override PHP's mail() function 
  * using App Engine mail API. 
  * This function relies on mailparse extension to parse emails.
- * Please se SendMail.php for instructions on now to enable the mail() override.
+ * Please see SendMail.php for instructions on now to enable the mail() override.
  *
  * @see http://php.net/mail
  *
