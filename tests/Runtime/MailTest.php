@@ -81,7 +81,7 @@ class MailTest extends ApiProxyTestBase {
     $raw_mail = "To: {$to}\rSubject: {$subject}\r";
     $raw_mail .= $headers;
     $raw_mail .= "\r\n{$message}";
-    Runtime\mailRun($raw_mail);
+    Runtime\mail($raw_mail);
     $this->apiProxyMock->verify();
   }
 
@@ -126,7 +126,7 @@ class MailTest extends ApiProxyTestBase {
     $raw_mail = "To: {$to}\rSubject: {$subject}\r";
     $raw_mail .= $headers;
     $raw_mail .= "\r\n{$message}";
-    Runtime\mailRun($raw_mail);
+    Runtime\mail($raw_mail);
     $this->apiProxyMock->verify();
   }
 
@@ -181,7 +181,7 @@ class MailTest extends ApiProxyTestBase {
     $raw_mail = "To: {$to}\rSubject: {$subject}\r";
     $raw_mail .= $headers;
     $raw_mail .= "\r\n{$message}";
-    Runtime\mailRun($raw_mail);
+    Runtime\mail($raw_mail);
   }
 
   public function testSendMultipartMailWithUnknownContentType() {
@@ -227,7 +227,7 @@ class MailTest extends ApiProxyTestBase {
     $raw_mail = "To: {$to}\rSubject: {$subject}\r";
     $raw_mail .= $headers;
     $raw_mail .= "\r\n{$message}";
-    Runtime\mailRun($raw_mail);
+    Runtime\mail($raw_mail);
     $this->apiProxyMock->verify();
   }
 }

@@ -30,4 +30,4 @@ require_once __DIR__ . "/Mail.php";
 use Google\AppEngine\Runtime;
 
 $raw_mail = file_get_contents('php://stdin');
-return mailRun($raw_mail);
+return mail($raw_mail);
