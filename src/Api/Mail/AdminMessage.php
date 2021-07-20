@@ -17,11 +17,11 @@
 /**
  */
 
-namespace google\appengine\api\mail;
+namespace Google\AppEngine\Api\Mail;
 
 use google\appengine\base\VoidProto;
-use google\appengine\runtime\ApiProxy;
-use google\appengine\runtime\ApplicationError;
+use Google\AppEngine\Runtime\ApiProxy;
+use Google\AppEngine\Runtime\ApplicationError;
 
 /**
  * Allows users to send mail to application admins using the App Engine mail

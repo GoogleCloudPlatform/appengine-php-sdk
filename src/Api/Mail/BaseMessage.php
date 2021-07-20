@@ -17,7 +17,7 @@
 /**
  */
 
-namespace google\appengine\api\mail;
+namespace Google\AppEngine\Api\Mail;
 
 use google\appengine\MailAttachment;
 use google\appengine\MailHeader;
