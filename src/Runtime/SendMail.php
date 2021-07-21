@@ -27,7 +27,7 @@
 
 require_once __DIR__ . "/Mail.php";
 
-use Google\AppEngine\Runtime;
+use function Google\AppEngine\Runtime\sendRawToMailApi;
 
 $raw_mail = file_get_contents('php://stdin');
 return sendRawToMailApi($raw_mail);
