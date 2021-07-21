@@ -54,7 +54,7 @@ use Google\AppEngine\Util\StringUtil;
  * @param string $raw_mail The string holding the raw content of the email.
  * @return bool True on success, false on failure.
  */
-function sendRawToMailApi(string $raw_mail) {
+function sendRawToMailApi($raw_mail) {
   $mime = mailparse_msg_create();
   mailparse_msg_parse($mime, $raw_mail);
   $root_part = mailparse_msg_get_part_data($mime);
