@@ -30,23 +30,23 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7;
 
-class VmAPiProxyTest extends TestCase {
+class RealApiProxyTest extends TestCase {
   const PACKAGE_NAME = 'app_identity_service';
   const CALL_NAME = "TestCall";
 
   // The default options used when configuring the expected RPC.
   private static $rpc_default_options = [
-    'host' => VmApiProxy::SERVICE_BRIDGE_HOST,
-    'port' => VmApiProxy::API_PORT,
-    'proxy_path' => VmApiProxy::PROXY_PATH,
+    'host' => RealApiProxy::SERVICE_BRIDGE_HOST,
+    'port' => RealApiProxy::API_PORT,
+    'proxy_path' => RealApiProxy::PROXY_PATH,
     'package_name' => self::PACKAGE_NAME,
     'call_name' => self::CALL_NAME,
     'ticket' => 'SomeTicketValue',
-    'timeout' => VmApiProxy::DEFAULT_TIMEOUT_SEC,
+    'timeout' => RealApiProxy::DEFAULT_TIMEOUT_SEC,
     'http_headers' => [
-      VmApiProxy::SERVICE_ENDPOINT_HEADER => VmApiProxy::SERVICE_ENDPOINT_NAME,
-      VmApiProxy::SERVICE_METHOD_HEADER => VmApiProxy::APIHOST_METHOD,
-      'Content-Type' => VmApiProxy::RPC_CONTENT_TYPE,
+      RealApiProxy::SERVICE_ENDPOINT_HEADER => RealApiProxy::SERVICE_ENDPOINT_NAME,
+      RealApiProxy::SERVICE_METHOD_HEADER => RealApiProxy::APIHOST_METHOD,
+      'Content-Type' => RealApiProxy::RPC_CONTENT_TYPE,
     ],
     'context' => [
       'http' => [
@@ -56,17 +56,17 @@ class VmAPiProxyTest extends TestCase {
   ];
 
   protected function setUp(): void {
-    ApiProxy::setApiProxy(new VmApiProxy());
+    ApiProxy::setApiProxy(new RealApiProxy());
 
     // Standard environment variables
-    putenv(VmApiProxy::TICKET_HEADER . '=' .
+    putenv(RealApiProxy::TICKET_HEADER . '=' .
            self::$rpc_default_options['ticket']);
   }
 
   protected function tearDown(): void {
 
     // Clear the environment
-    putenv(VmApiProxy::TICKET_HEADER);
+    putenv(RealApiProxy::TICKET_HEADER);
   }
 
   protected function expectRpc($request,
@@ -92,9 +92,9 @@ class VmAPiProxyTest extends TestCase {
         $remote_request->serializeToString();
 
     $options['context']['http']["timeout"] = $options['timeout'] +
-                                             VmApiProxy::DEADLINE_DELTA_SECONDS;
+                                             RealApiProxy::DEADLINE_DELTA_SECONDS;
 
-    $options['http_headers'][VmApiProxy::SERVICE_DEADLINE_HEADER] =
+    $options['http_headers'][RealApiProxy::SERVICE_DEADLINE_HEADER] =
         $options['timeout'];
 
     // Form the header string - sort by key as we do a string compare to check
@@ -154,12 +154,12 @@ class VmAPiProxyTest extends TestCase {
     ]);
     $handlerStack = HandlerStack::create($mock);
     $client = new Client(['handler' => $handlerStack]);
-    $vmApiProxy = new VmApiProxy(null, $client);
+    $realApiProxy = new RealApiProxy(null, $client);
 
     $this->expectRpc($expected_request, $expected_response);
 
     $response = new SignForAppResponse();
-    $vmApiProxy->makeSyncCall(self::PACKAGE_NAME,
+    $realApiProxy->makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,
                            $response);
@@ -185,7 +185,7 @@ class VmAPiProxyTest extends TestCase {
     ]);
     $handlerStack = HandlerStack::create($mock);
     $client = new Client(['handler' => $handlerStack]);
-    $vmApiProxy = new VmApiProxy(null, $client);
+    $realApiProxy = new RealApiProxy(null, $client);
     $response = new SignForAppResponse();
     
 
@@ -196,7 +196,7 @@ class VmAPiProxyTest extends TestCase {
     $this->expectRpc($expected_request, $expected_response, $options);
 
     $this->expectException('Google\AppEngine\Runtime\\' . $exception);
-    $vmApiProxy->makeSyncCall(self::PACKAGE_NAME,
+    $realApiProxy->makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,
                            $response);
@@ -237,7 +237,7 @@ class VmAPiProxyTest extends TestCase {
 
     $handlerStack = HandlerStack::create($mock);
     $client = new Client(['handler' => $handlerStack]);
-    $vmApiProxy = new VmApiProxy(null, $client);
+    $realApiProxy = new RealApiProxy(null, $client);
     $response = new SignForAppResponse();
 
     $options = [
@@ -250,7 +250,7 @@ class VmAPiProxyTest extends TestCase {
     $this->expectRpc($expected_request, $expected_response, $options);
     
     $this->expectException('Google\AppEngine\Runtime\RPCFailedError');
-    $vmApiProxy->makeSyncCall(self::PACKAGE_NAME,
+    $realApiProxy->makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,
                            $response);
@@ -272,7 +272,7 @@ class VmAPiProxyTest extends TestCase {
     ]);
     $handlerStack = HandlerStack::create($mock);
     $client = new Client(['handler' => $handlerStack]);
-    $vmApiProxy = new VmApiProxy(null, $client);
+    $realApiProxy = new RealApiProxy(null, $client);
 
     $options = [
       'timeout' => $timeout,
@@ -280,7 +280,7 @@ class VmAPiProxyTest extends TestCase {
     $this->expectRpc($expected_request, $expected_response, $options);
 
     $response = new SignForAppResponse();
-    $vmApiProxy->makeSyncCall(self::PACKAGE_NAME,
+    $realApiProxy->makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,
                            $response, 
@@ -296,8 +296,8 @@ class VmAPiProxyTest extends TestCase {
     $expected_response->setKeyName("TheKeyName");
     
     $ticket = 'TheDevTicket';
-    putenv(VmApiProxy::TICKET_HEADER);
-    putenv(VmApiProxy::DEV_TICKET_HEADER . "=$ticket");
+    putenv(RealApiProxy::TICKET_HEADER);
+    putenv(RealApiProxy::DEV_TICKET_HEADER . "=$ticket");
 
     $remote_response = new Response();
     $remote_response->setResponse($expected_response->serializeToString());
@@ -307,7 +307,7 @@ class VmAPiProxyTest extends TestCase {
     ]);
     $handlerStack = HandlerStack::create($mock);
     $client = new Client(['handler' => $handlerStack]);
-    $vmApiProxy = new VmApiProxy(null, $client);
+    $realApiProxy = new RealApiProxy(null, $client);
   
     $options = [
       'ticket' => $ticket,
@@ -316,13 +316,13 @@ class VmAPiProxyTest extends TestCase {
     $this->expectRpc($expected_request, $expected_response, $options);
 
     $response = new SignForAppResponse();
-    $vmApiProxy->makeSyncCall(self::PACKAGE_NAME,
+    $realApiProxy->makeSyncCall(self::PACKAGE_NAME,
                            self::CALL_NAME,
                            $expected_request,
                            $response);
 
     $this->assertEquals($response->getKeyName(), "TheKeyName");
-    putenv(VmApiProxy::DEV_TICKET_HEADER);
+    putenv(RealApiProxy::DEV_TICKET_HEADER);
 
   }
 }
