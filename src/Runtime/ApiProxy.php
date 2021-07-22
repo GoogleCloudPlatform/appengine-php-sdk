@@ -50,19 +50,9 @@ class ApiProxy {
   }
 
   /**
-   * Create the ApiProxy for use during this request. Currently there are three
-   * versions of ApiProxy that could be used.
-   * 1) RemoteApiProxy - Used in 5.4 dev_appserver and configured in Setup.php
-   * 2) RealApiProxy - Used in conjunction with the AppEngine extension.
-   *     Currently used in App Engine V1 and the 5.5 dev_appserver/
-   * 3) VmApiProxy - Used in managed VM's, selected if 'make_call' is not
-   *     defined.
+   * Create the ApiProxy for use during this request.
    */
   private static function createApiProxy() {
-    if (function_exists('make_call')) {
-      return new RealApiProxy();
-    } else {
-      return new VmApiProxy();
-    }
+    return new RealApiProxy();
   }
 }
