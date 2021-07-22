@@ -23,25 +23,6 @@
  */
 namespace Google\AppEngine\Runtime;
 
-// Must import all dependencies for a stand alone executable which does not use composer autoloading.  
-require_once __DIR__ . "/../Runtime/Proto/ProtocolMessage.php";
-require_once __DIR__ . "/../Runtime/Proto/Encoder.php";
-require_once __DIR__ . "/../Runtime/Proto/Decoder.php";
-require_once __DIR__ . "/../Runtime/Proto/ProtocolBufferEncodeError.php";
-require_once __DIR__ . "/../Runtime/Proto/ProtocolBufferDecodeError.php";
-require_once __DIR__ . "/../Api/api_base_pb.php";
-require_once __DIR__ . "/../Api/Mail/mail_service_pb.php";
-require_once __DIR__ . "/../Api/Mail/BaseMessage.php";
-require_once __DIR__ . "/../Api/Mail/Message.php";
-require_once __DIR__ . "/../Runtime/ApiProxyBase.php";
-require_once __DIR__ . "/../Runtime/Error.php";
-require_once __DIR__ . "/../Runtime/ApplicationError.php";
-require_once __DIR__ . "/../Runtime/RealApiProxy.php";
-require_once __DIR__ . "/../Runtime/ApiProxy.php";
-require_once __DIR__ . "/../Ext/RemoteApi/remote_api_pb.php";
-require_once __DIR__ . "/../Util/ArrayUtil.php";
-require_once __DIR__ . "/../Util/StringUtil.php";
-
 use Google\AppEngine\Api\AppIdentity\AppIdentityService;
 use Google\AppEngine\Api\Mail\Message;
 use Google\AppEngine\Util\ArrayUtil;
