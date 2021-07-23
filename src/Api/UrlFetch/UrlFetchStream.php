@@ -45,7 +45,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     private $method = 'GET';
     private $userAgent = '';
     private $verifyPeer = true;
-    private $responseHeaders = null;
+    public $responseHeaders = null;
     
     /**
      * IteratorAggregate and ArrayAccess implements access to http response header data.
