@@ -38,13 +38,13 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
     public $context;
   
     // Context options parameters
-    // $headers should remain public so that it is possible to read '200' response code and/or debug.
+    // All meta data should remain public so that it is accessible to the user.
     public $headers = [];
-    private $content = '';
-    private $timeout = 0.0;
-    private $method = 'GET';
-    private $userAgent = '';
-    private $verifyPeer = true;
+    public $content = '';
+    public $timeout = 0.0;
+    public $method = 'GET';
+    public $userAgent = '';
+    public $verifyPeer = true;
     public $responseHeaders = null;
     
     /**
