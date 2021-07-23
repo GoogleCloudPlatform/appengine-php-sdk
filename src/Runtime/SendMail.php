@@ -25,6 +25,7 @@
  * @see https://www.php.net/manual/en/mail.configuration.php#ini.sendmail-path
  */
 
+require_once '/workspace/vendor/autoload.php';
 require_once __DIR__ . "/Mail.php";
 
 use function Google\AppEngine\Runtime\sendRawToMailApi;
