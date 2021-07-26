@@ -53,7 +53,7 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
      */
 
     /* IteratorAggregate */
-    public function getIterator(): Traversable 
+    public function getIterator(): iterable
     {
         return new ArrayIterator($this->responseHeaders);
     }
