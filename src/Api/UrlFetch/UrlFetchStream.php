@@ -301,8 +301,8 @@ class UrlFetchStream implements IteratorAggregate, ArrayAccess
             $this->urlFetchResponse = $resp;
             $this->stream = new CachingStream(Stream::factory($resp->getContent()));
             $this->responseHeaders = $this->buildHeaderArray($resp->getStatuscode(), $resp->getHeaderList());
-        } catch (Exception $e) {
-            throw new Exception(sprintf("Caught UrlFetch Exception:  %s", $e->getMessage()));
+        } catch (ApplicationError $e) {
+            throw new Exception(sprintf("Caught UrlFetch Exception:  %s", $e->getApplicationError()));
         }
 
         if ($resp->getStatuscode() >= 400) {
