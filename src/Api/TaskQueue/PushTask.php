@@ -214,7 +214,7 @@ final class PushTask {
             'be specified as it is set by the task.');
       }
       echo "Headerss: " . print_r($h) . "\n";
-      $this->headers[] = $h;
+      $this->headers = $h;
     }
   }
 
