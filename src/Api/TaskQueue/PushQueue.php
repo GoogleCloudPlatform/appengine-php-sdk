@@ -170,6 +170,8 @@ final class PushQueue {
         $header_pb = $add->addHeader();
         $header_pb->setKey(trim($pair[0]));
         $header_pb->setValue(trim($pair[1]));
+        echo "<br>ZACH KEY&VALUE: " . trim($pair[0]) . " " . trim($pair[1]);
+
       }
       // TODO: Replace getQueryData() with getBody() and simplify the following
       // block.
