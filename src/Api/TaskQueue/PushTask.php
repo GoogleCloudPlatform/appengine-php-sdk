@@ -66,13 +66,13 @@ final class PushTask {
     'header'        => '',
   ];
 
-  private $url;
+  public $url;
 
-  private $query_data;
+  public $query_data;
 
-  private $options;
+  public $options;
 
-  private $headers = [];
+  public $headers = [];
 
   /**
    * Construct a PushTask.
