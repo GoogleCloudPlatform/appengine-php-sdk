@@ -213,7 +213,7 @@ final class PushTask {
         throw new \InvalidArgumentException('Content-type header may not ' .
             'be specified as it is set by the task.');
       }
-      echo "\nHeaderss: " . $h . "\n";
+      echo "<br>Headerss: " . $h . "<br>";
       array_push($this->headers, $h);
     }
   }
