@@ -188,7 +188,7 @@ final class PushQueue {
     }
 
     try {
-      ApiProxy::makeSyncCall('taskqueue', 'BulkAdd', $req, $resp);
+      ApiProxy::makeSyncCall('taskqueue', 'Add', $req, $resp);
     } catch (ApplicationError $e) {
       throw self::errorCodeToException($e->getApplicationError());
     }
