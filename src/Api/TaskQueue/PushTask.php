@@ -196,8 +196,6 @@ final class PushTask {
     $has_content_type = !empty($this->headers);
     $header_array = explode("\r\n", $header);
 
-    echo "Header Array: " . print_r($header_array) . "\n";
-
     foreach ($header_array as $h) {
       $h = trim($h);
       if (empty($h)) {
@@ -214,8 +212,8 @@ final class PushTask {
             'be specified as it is set by the task.');
       }
       echo "<br>Headerss: " . $h . "<br>";
-      // array_push($this->headers, $h);
-      $this->headers[] = $h;
+      array_push($this->headers, $h);
+      // $this->headers[] = $h;
     }
   }
 

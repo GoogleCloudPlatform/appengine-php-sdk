@@ -895,6 +895,15 @@ namespace google\appengine\TaskQueueAddRequest {
 namespace google\appengine {
   class TaskQueueAddRequest extends \google\net\ProtocolMessage {
     private $header = array();
+
+    public function header_size() {
+      return sizeof($header);
+    }
+    
+    public function header($idx) {
+      return $header[$idx];
+    }
+
     public function getQueueName() {
       if (!isset($this->queue_name)) {
         return '';
