@@ -158,7 +158,7 @@ final class PushQueue {
             'All values in $tasks must be instances of PushTask. ' .
             'Actual type: ' . gettype($task));
       }
-      $names[] = $task->getName();
+      array_push($names, $task->getName());
       $add = $req->addAddRequest();
       $add->setQueueName($this->name);
       $add->setTaskName($task->getName());

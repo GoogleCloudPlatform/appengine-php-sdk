@@ -177,7 +177,7 @@ final class PushTask {
       if (in_array($this->options['method'], ['GET', 'HEAD', 'DELETE'])) {
         $this->url = $url_path . '?' . http_build_query($query_data);
       } else { // PUT or POST
-        $this->headers[] = 'content-type: application/x-www-form-urlencoded';
+        array_push($this->headers,'content-type: application/x-www-form-urlencoded');
       }
     }
     if (strlen($this->url) > self::MAX_URL_LENGTH) {
