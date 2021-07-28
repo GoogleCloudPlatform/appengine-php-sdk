@@ -369,7 +369,7 @@ namespace google\appengine {
       return $this;
     }
     public function addUserEmail($val) {
-      $this->user_email[] = $val;
+      array_push($this->user_email, $val);
       return $this;
     }
     public function clearUserEmail() {
@@ -389,7 +389,7 @@ namespace google\appengine {
       return $this;
     }
     public function addWriterEmail($val) {
-      $this->writer_email[] = $val;
+      array_push($this->writer_email, $val);
       return $this;
     }
     public function clearWriterEmail() {
@@ -896,14 +896,6 @@ namespace google\appengine {
   class TaskQueueAddRequest extends \google\net\ProtocolMessage {
     private $header = array();
 
-    public function header_size() {
-      return sizeof($header);
-    }
-    
-    public function header($idx) {
-      return $header[$idx];
-    }
-
     public function getQueueName() {
       if (!isset($this->queue_name)) {
         return '';
@@ -1018,7 +1010,7 @@ namespace google\appengine {
     }
     public function addHeader() {
       $val = new \google\appengine\TaskQueueAddRequest\Header();
-      $this->header[] = $val;
+      array_push($this->header, $val);
       return $val;
     }
     public function clearHeader() {
@@ -1766,7 +1758,7 @@ namespace google\appengine {
     }
     public function addAddRequest() {
       $val = new \google\appengine\TaskQueueAddRequest();
-      $this->add_request[] = $val;
+      array_push($this->add_request, $val);
       return $val;
     }
     public function clearAddRequest() {
@@ -1983,7 +1975,7 @@ namespace google\appengine {
     }
     public function addTaskResult() {
       $val = new \google\appengine\TaskQueueBulkAddResponse\TaskResult();
-      $this->taskresult[] = $val;
+      array_push($this->taskresult, $val);
       return $val;
     }
     public function clearTaskResult() {
@@ -2087,7 +2079,7 @@ namespace google\appengine {
       return $this;
     }
     public function addTaskName($val) {
-      $this->task_name[] = $val;
+      array_push($this->task_name, $val);
       return $this;
     }
     public function clearTaskName() {
@@ -2234,7 +2226,7 @@ namespace google\appengine {
       return $this;
     }
     public function addResult($val) {
-      $this->result[] = $val;
+      array_push($this->result, $val);
       return $this;
     }
     public function clearResult() {
@@ -2724,7 +2716,7 @@ namespace google\appengine {
     }
     public function addHeaderOverride() {
       $val = new \google\appengine\TaskQueueHttpHeader();
-      $this->header_override[] = $val;
+      array_push($this->header_override, $val);
       return $val;
     }
     public function clearHeaderOverride() {
@@ -3339,7 +3331,7 @@ namespace google\appengine\TaskQueueFetchQueuesResponse {
     }
     public function addHeaderOverride() {
       $val = new \google\appengine\TaskQueueHttpHeader();
-      $this->header_override[] = $val;
+      array_push($this->header_override, $val);
       return $val;
     }
     public function clearHeaderOverride() {
@@ -3675,7 +3667,7 @@ namespace google\appengine {
     }
     public function addQueue() {
       $val = new \google\appengine\TaskQueueFetchQueuesResponse\Queue();
-      $this->queue[] = $val;
+      array_push($this->queue, $val);
       return $val;
     }
     public function clearQueue() {
@@ -3779,7 +3771,7 @@ namespace google\appengine {
       return $this;
     }
     public function addQueueName($val) {
-      $this->queue_name[] = $val;
+      array_push($this->queue_name, $val);
       return $this;
     }
     public function clearQueueName() {
@@ -4332,7 +4324,7 @@ namespace google\appengine {
     }
     public function addQueueStats() {
       $val = new \google\appengine\TaskQueueFetchQueueStatsResponse\QueueStats();
-      $this->queuestats[] = $val;
+      array_push($this->queuestats, $val);
       return $val;
     }
     public function clearQueueStats() {
@@ -5904,7 +5896,7 @@ namespace google\appengine\TaskQueueQueryTasksResponse {
     }
     public function addHeader() {
       $val = new \google\appengine\TaskQueueQueryTasksResponse\Task\Header();
-      $this->header[] = $val;
+      array_push($this->header, $val);
       return $val;
     }
     public function clearHeader() {
@@ -6565,7 +6557,7 @@ namespace google\appengine {
     }
     public function addTask() {
       $val = new \google\appengine\TaskQueueQueryTasksResponse\Task();
-      $this->task[] = $val;
+      array_push($this->task, $val);
       return $val;
     }
     public function clearTask() {
@@ -7573,7 +7565,7 @@ namespace google\appengine {
     }
     public function addTask() {
       $val = new \google\appengine\TaskQueueQueryAndOwnTasksResponse\Task();
-      $this->task[] = $val;
+      array_push($this->task, $val);
       return $val;
     }
     public function clearTask() {
