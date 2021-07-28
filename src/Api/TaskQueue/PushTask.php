@@ -195,6 +195,9 @@ final class PushTask {
 
     $has_content_type = !empty($this->headers);
     $header_array = explode("\r\n", $header);
+
+    echo "Header Array: " . print_r($header_array) . "\n";
+
     foreach ($header_array as $h) {
       $h = trim($h);
       if (empty($h)) {
@@ -210,6 +213,7 @@ final class PushTask {
         throw new \InvalidArgumentException('Content-type header may not ' .
             'be specified as it is set by the task.');
       }
+      echo "Headerss: " . print_r($h) . "\n";
       $this->headers[] = $h;
     }
   }
