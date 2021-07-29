@@ -212,8 +212,8 @@ final class PushTask {
             'be specified as it is set by the task.');
       }
       echo "<br>Headerss: " . $h . "<br>";
-      array_push($this->headers, $h);
-      // $this->headers[] = $h;
+      // array_push($this->headers, $h);
+      $this->headers[] = $h;
     }
   }
 
