@@ -78,7 +78,7 @@ final class ModulesService {
    * will return "v1".
    */
   public static function getCurrentVersionName() {
-    return explode('.', $_SERVER['CURRENT_VERSION_ID'])[0];
+    return explode('.', $_SERVER['GAE_VERSION'])[0];
   }
 
   /**
