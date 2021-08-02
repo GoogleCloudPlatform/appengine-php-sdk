@@ -54,24 +54,24 @@ class ModulesTest extends ApiProxyTestBase {
   }
 
   public function testGetCurrentModuleNameWithDefaultModule() {
-    $_SERVER['CURRENT_MODULE_ID'] = 'default';
-    $_SERVER['CURRENT_VERSION_ID'] = 'v1.123';
+    $_SERVER['GAE_SERVICE'] = 'default';
+    $_SERVER['GAE_VERSION'] = 'v1.123';
     $this->assertEquals('default', ModulesService::getCurrentModuleName());
   }
 
   public function testGetCurrentModuleNameWithNonDefaultModule() {
-    $_SERVER['CURRENT_MODULE_ID'] = 'module1';
-    $_SERVER['CURRENT_VERSION_ID'] = 'v1.123';
+    $_SERVER['GAE_SERVICE'] = 'module1';
+    $_SERVER['GAE_VERSION'] = 'v1.123';
     $this->assertEquals('module1', ModulesService::getCurrentModuleName());
   }
 
   public function testGetCurrentVersionName() {
-    $_SERVER['CURRENT_VERSION_ID'] = 'v1.123';
+    $_SERVER['GAE_VERSION'] = 'v1.123';
     $this->assertEquals('v1', ModulesService::getCurrentVersionName());
   }
 
   public function testGetCurrentInstanceId() {
-    $_SERVER['INSTANCE_ID'] = '123';
+    $_SERVER['GAE_INSTANCE'] = '123';
     $this->assertEquals('123', ModulesService::getCurrentInstanceId());
   }
 
