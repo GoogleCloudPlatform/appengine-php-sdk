@@ -16,7 +16,7 @@
     },
     "require-dev": {
         "mikey179/vfsstream": "~1",
-        "phpunit/phpunit": "^7",
+        "phpunit/phpunit": "^7.0",
         "php-coveralls/php-coveralls": "dev-master",
         "php-mock/php-mock-phpunit": "^2.6"
     },
