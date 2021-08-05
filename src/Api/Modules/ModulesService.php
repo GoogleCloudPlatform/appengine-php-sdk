@@ -67,7 +67,7 @@ final class ModulesService {
    * will return "module5".
    */
   public static function getCurrentModuleName() {
-    return $_SERVER['CURRENT_MODULE_ID'];
+    return $_SERVER['GAE_SERVICE'];
   }
 
   /**
@@ -78,7 +78,7 @@ final class ModulesService {
    * will return "v1".
    */
   public static function getCurrentVersionName() {
-    return explode('.', $_SERVER['CURRENT_VERSION_ID'])[0];
+    return explode('.', $_SERVER['GAE_VERSION'])[0];
   }
 
   /**
@@ -91,7 +91,7 @@ final class ModulesService {
    * "00c61b117c7f7fd0ce9e1325a04b8f0df30deaaf").
    */
   public static function getCurrentInstanceId() {
-    return $_SERVER['INSTANCE_ID'];
+    return $_SERVER['GAE_INSTANCE'];
   }
 
   /**
