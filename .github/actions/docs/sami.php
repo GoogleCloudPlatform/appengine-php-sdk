@@ -18,7 +18,7 @@ $versions = GitVersionCollection::create($projectRoot)
     ->addFromTags(function($tag) {
         return 0 === strpos($tag, '2.');
     })
-    ->add('gh-pages', 'document branch');
+    ->add('gh-pages', 'Document branch');
 
 return new Sami($iterator, [
     'title' => 'Appengine PHP SDK for PHP API Reference',
