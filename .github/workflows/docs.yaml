@@ -39,5 +39,5 @@ jobs:
         - name: Deploy 🚀
           uses: JamesIves/github-pages-deploy-action@releases/v3
           with:
-            BRANCH: docs
-            FOLDER: docs
+            BRANCH: gh-pages
+            FOLDER: .docs
