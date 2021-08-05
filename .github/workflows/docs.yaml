@@ -1,0 +1,43 @@
+name: Generate Documentation
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+    docs:
+        name: "Generate Project Documentation"
+        runs-on: ${{ matrix.operating-system }}
+        strategy:
+          matrix:
+            operating-system: [ubuntu-latest]
+            php-versions: ['7.2']
+
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+        - name: Setup PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ matrix.php-versions }}
+
+        - name: Install dependencies     
+          run: composer install --prefer-dist --no-interaction
+
+        - name: Generate and Push Documentation
+          uses: docker://php:7.3-cli
+          env:
+            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          with:
+            entrypoint: ./.github/actions/docs/entrypoint.sh
+ 
+        - name: Deploy 🚀
+          uses: JamesIves/github-pages-deploy-action@releases/v3
+          with:
+            BRANCH: gh-pages
+            FOLDER: .docs

@@ -33,4 +33,3 @@ jobs:
 
         - name: Run phpunit
           run: vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-
