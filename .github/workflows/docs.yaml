@@ -17,8 +17,9 @@ jobs:
             php-versions: ['7.2']
 
         steps:
-        - name: Setup dependencies
+        - name: Checkout
           uses: actions/checkout@v2
+        - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
@@ -30,11 +31,13 @@ jobs:
 
         - name: Generate and Push Documentation
           uses: docker://php:7.3-cli
+          env:
+            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           with:
             entrypoint: ./.github/actions/docs/entrypoint.sh
  
         - name: Deploy 🚀
           uses: JamesIves/github-pages-deploy-action@releases/v3
           with:
-            BRANCH: gh-pages
-            FOLDER: .docs
+            BRANCH: docs
+            FOLDER: docs

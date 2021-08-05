@@ -5,7 +5,9 @@ use Sami\Sami;
 use Sami\Version\GitVersionCollection;
 use Symfony\Component\Finder\Finder;
 
-$projectRoot = realpath(__DIR__ . '/../../..');
+$projectRoot = realpath(__DIR__ . '/../../..') . '/docs/';
+
+echo "Project ROOT: ".$projectRoot ."\n";
 
 $iterator = Finder::create()
     ->files()
@@ -16,7 +18,7 @@ $iterator = Finder::create()
 
 $versions = GitVersionCollection::create($projectRoot)
     ->addFromTags(function($tag) {
-        return 0 === strpos($tag, 'v2.') && false === strpos($tag, 'RC');
+        return 0 === strpos($tag, '2.');
     })
     ->add('master', 'master branch');
 
