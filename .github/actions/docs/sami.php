@@ -26,13 +26,13 @@ $iterator = Finder::create()
 
 $versions = GitVersionCollection::create($projectRoot)
     ->addFromTags(function($tag) {
-        // $val = false; 
-        // echo "Comparator Result: " . print_r(Comparator::greaterThanOrEqualTo($tag, '2.0'));
-        // if(is_numeric(substr($tag, 0, 1))) {
-        //     $val = Comparator::greaterThanOrEqualTo($tag, '2.0');
-        // }
-        // return $val;
-        return 0 === strpos($tag, '2.');
+        $val = false; 
+        echo "Comparator Result: " . print_r(Comparator::greaterThanOrEqualTo($tag, '2.0'));
+        if(is_numeric(substr($tag, 0, 1))) {
+            $val = Comparator::greaterThanOrEqualTo($tag, '2.0');
+        }
+        return $val;
+        // return 0 === strpos($tag, '2.');
     })
     ->add('master', 'master branch');
 
