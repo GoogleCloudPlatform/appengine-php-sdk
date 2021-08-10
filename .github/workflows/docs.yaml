@@ -3,7 +3,7 @@ name: Generate Documentation
 on:
   push:
     branches:
-      - *
+      - '*'
     tags:
       - '*'
 
