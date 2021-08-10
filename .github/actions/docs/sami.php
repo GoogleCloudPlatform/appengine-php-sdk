@@ -31,8 +31,7 @@ $versions = GitVersionCollection::create($projectRoot)
         //     $val = Comparator::greaterThanOrEqualTo($tag, '2.0');
         // }
         // return $val;
-        return omparator::greaterThanOrEqualTo($tag, '2.0');
-        // return 0 === strpos($tag, '2.');
+        Comparator::greaterThanOrEqualTo($tag, '2.0');
     })
     ->add('master', 'master branch');
 
