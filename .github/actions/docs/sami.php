@@ -1,12 +1,13 @@
 <?php
 
-require_once __DIR__ . '/../../../vendor/composer/semver/src/Comparator.php';
-require_once __DIR__ . '/../../../vendor/composer/semver/src/Constraint/Constraint.php';
-require_once __DIR__ . '/../../../vendor/composer/semver/src/Constraint/Bound.php';
 require_once __DIR__ . '/../../../vendor/composer/semver/src/Constraint/ConstraintInterface.php';
 require_once __DIR__ . '/../../../vendor/composer/semver/src/Constraint/MatchAllConstraint.php';
 require_once __DIR__ . '/../../../vendor/composer/semver/src/Constraint/MatchNoneConstraint.php';
 require_once __DIR__ . '/../../../vendor/composer/semver/src/Constraint/MultiConstraint.php';
+require_once __DIR__ . '/../../../vendor/composer/semver/src/Comparator.php';
+require_once __DIR__ . '/../../../vendor/composer/semver/src/Constraint/Constraint.php';
+require_once __DIR__ . '/../../../vendor/composer/semver/src/Constraint/Bound.php';
+
 
 use Sami\RemoteRepository\GitHubRemoteRepository;
 use Sami\Sami;
