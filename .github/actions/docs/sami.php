@@ -21,7 +21,7 @@ $versions = GitVersionCollection::create($projectRoot)
     ->addFromTags(function($tag) {
         $val = false; 
         echo "Comparator Result: " . print_r(Comparator::greaterThanOrEqualTo($tag, '2.0.0'));
-        if(is_numeric(substr($tag, 0, 1)) {
+        if(is_numeric(substr($tag, 0, 1))) {
             $val = Comparator::greaterThanOrEqualTo($tag, '2.0.0');
         }
         return $val;
