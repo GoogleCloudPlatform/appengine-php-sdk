@@ -4,6 +4,7 @@ use Sami\RemoteRepository\GitHubRemoteRepository;
 use Sami\Sami;
 use Sami\Version\GitVersionCollection;
 use Symfony\Component\Finder\Finder;
+use Composer\Semver\Comparator;
 
 $projectRoot = realpath(__DIR__ . '/../../..');
 
@@ -16,7 +17,7 @@ $iterator = Finder::create()
 
 $versions = GitVersionCollection::create($projectRoot)
     ->addFromTags(function($tag) {
-        return 0 === strpos($tag, '2.');
+        return Comparator::greaterThanOrEqualTo($tag, '2.0.0');
     })
     ->add('master', 'Master branch');
 
