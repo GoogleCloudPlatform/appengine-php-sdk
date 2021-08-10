@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 use Sami\RemoteRepository\GitHubRemoteRepository;
 use Sami\Sami;
 use Sami\Version\GitVersionCollection;
