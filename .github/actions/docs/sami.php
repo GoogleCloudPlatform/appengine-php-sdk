@@ -19,6 +19,7 @@ $iterator = Finder::create()
 
 $versions = GitVersionCollection::create($projectRoot)
     ->addFromTags(function($tag) {
+        echo "Comparator Result: " . print_r(Comparator::greaterThanOrEqualTo($tag, '2.0.0'));
         return Comparator::greaterThanOrEqualTo($tag, '2.0.0');
     })
     ->add('master', 'master branch');
