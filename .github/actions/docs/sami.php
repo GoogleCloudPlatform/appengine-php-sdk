@@ -24,7 +24,7 @@ $iterator = Finder::create()
     ->exclude('tests')
     ->in($projectRoot);
 
-echo "Comparator result: " . print_r(Comparator::greaterThanOrEqualTo('2foos', '2.0');
+echo "Comparator result: " . print_r(Comparator::greaterThanOrEqualTo('2foos', '2.0'));
 $versions = GitVersionCollection::create($projectRoot)
     ->addFromTags(function($tag) {
         $val = false; 
