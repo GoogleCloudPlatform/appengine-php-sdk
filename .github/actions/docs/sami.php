@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
+// require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use Sami\RemoteRepository\GitHubRemoteRepository;
 use Sami\Sami;
@@ -19,12 +19,13 @@ $iterator = Finder::create()
 
 $versions = GitVersionCollection::create($projectRoot)
     ->addFromTags(function($tag) {
-        $val = false; 
-        echo "Comparator Result: " . print_r(Comparator::greaterThanOrEqualTo($tag, '2.0.0'));
-        if(is_numeric(substr($tag, 0, 1))) {
-            $val = Comparator::greaterThanOrEqualTo($tag, '2.0.0');
-        }
-        return $val;
+        // $val = false; 
+        // echo "Comparator Result: " . print_r(Comparator::greaterThanOrEqualTo($tag, '2.0'));
+        // if(is_numeric(substr($tag, 0, 1))) {
+        //     $val = Comparator::greaterThanOrEqualTo($tag, '2.0');
+        // }
+        // return $val;
+        return 0 === strpos($tag, '2.');
     })
     ->add('master', 'master branch');
 
