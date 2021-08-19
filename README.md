@@ -12,5 +12,8 @@ This is a subset of the full App Engine SDK that is available for developers
 that are simply writing applications to run on App Engine. You can download
 the full SDK for developing applications from [here](https://cloud.google.com/appengine/downloads).
 
-Please see API documentation at https://googlecloudplatform.github.io/appengine-php-sdk/2.0.0. Or more generally, https://googlecloudplatform.github.io/appengine-php-sdk/<release-tag-number>. 
+Please see API documentation at https://googlecloudplatform.github.io/appengine-php-sdk/2.0.0. Or more generally, https://googlecloudplatform.github.io/appengine-php-sdk/"release-tag-number".
+
+This Gen 2 SDK is currently in private preview. To gain access, please sign up at https://docs.google.com/forms/d/e/1FAIpQLSd1hFLA2UFSYwIMxm9ZI3pwigORZBgjJRH0qrnhtE7nvhhRCQ/viewform.
+
 
