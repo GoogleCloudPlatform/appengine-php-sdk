@@ -1,6 +1,7 @@
 # Google App Engine PHP SDK
 
-[![Build Status](https://travis-ci.org/GoogleCloudPlatform/appengine-php-sdk.svg)](https://travis-ci.org/GoogleCloudPlatform/appengine-php-sdk)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FGoogleCloudPlatform%2Ffunctions-framework-php%2Fbadge&style=flat)](https://actions-badge.atrox.dev/GoogleCloudPlatform/appengine-php-sdk/goto)
+[![Packagist](https://poser.pugx.org/google/appengine-php-sdk/v/stable)](https://packagist.org/packages/google/appengine-php-sdk)
 [![License](https://poser.pugx.org/google/appengine-php-sdk/license)](https://packagist.org/packages/google/appengine-php-sdk)
 
 ## Description
