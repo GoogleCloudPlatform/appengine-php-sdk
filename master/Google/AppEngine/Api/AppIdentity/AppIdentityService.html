@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Google\AppEngine\Api\AppIdentity\AppIdentityService | Appengine PHP SDK for PHP API Reference</title>
+
+            <link rel="stylesheet" type="text/css" href="../../../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../../css/sami.css">
+        <script src="../../../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../../../js/bootstrap.min.js"></script>
+        <script src="../../../../js/typeahead.min.js"></script>
+        <script src="../../../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:Google_AppEngine_Api_AppIdentity_AppIdentityService" data-root-path="../../../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                    <form action="#" method="GET">
+                <select id="version-switcher" name="version">
+                                            <option value="../../../../../2.0.0/index.html" data-version="2.0.0">2.0.0</option>
+                                            <option value="../../../../../2.0.1/index.html" data-version="2.0.1">2.0.1</option>
+                                            <option value="../../../../../master/index.html" data-version="master">master branch</option>
+                                    </select>
+            </form>
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="../../../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../../../index.html">Appengine PHP SDK for PHP API Reference</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../../../classes.html">Classes</a></li>
+                                            <li><a href="../../../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../../../traits.html">Traits</a></li>
+                    <li><a href="../../../../doc-index.html">Index</a></li>
+                    <li><a href="../../../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                        <li><a href="../../../../Google.html">Google</a></li><li class="backslash">\</li><li><a href="../../../../Google/AppEngine.html">AppEngine</a></li><li class="backslash">\</li><li><a href="../../../../Google/AppEngine/Api.html">Api</a></li><li class="backslash">\</li><li><a href="../../../../Google/AppEngine/Api/AppIdentity.html">AppIdentity</a></li><li class="backslash">\</li><li>AppIdentityService</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            AppIdentityService
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>AppIdentityService</strong>        (<a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/AppIdentity/AppIdentityService.php">View source</a>)
+</p>
+
+        
+    
+
+            <div class="description">
+            <p>The AppIdentityService allows you to sign arbitrary byte
+array using per app private key maintained by App Engine. You can also
+retrieve a list of public certificates which can be used to
+verify the signature.</p>            <p>App Engine is responsible for maintaining per-application
+private key. App Engine will keep rotating private keys
+periodically. App Engine never releases these private keys externally.</p>
+
+<p>Since private keys are rotated periodically,
+getPublicCertificates() could return a list of public
+certificates. It's the caller's responsibility to try these
+certificates one by one when doing signature verification.</p>                    </div>
+    
+    
+            <h2>Constants</h2>
+
+            <table class="table table-condensed">
+                    <tr>
+                <td>PACKAGE_NAME</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>PARTITION_SEPARATOR</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>DOMAIN_SEPARATOR</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>MEMCACHE_KEY_PREFIX</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>EXPIRY_SAFETY_MARGIN_SECS</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>EXPIRY_SHORT_MARGIN_SECS</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+            </table>
+
+    
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_signForApp">signForApp</a>(string $bytes_to_sign)
+        
+                                            <p>Signs arbitrary byte array using per app private key.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getServiceAccountName">getServiceAccountName</a>()
+        
+                                            <p>Get the service account name for the application.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<a href="../../../../Google/AppEngine/Api/AppIdentity/PublicCertificate.html"><abbr title="Google\AppEngine\Api\AppIdentity\PublicCertificate">PublicCertificate</abbr></a>[]
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getPublicCertificates">getPublicCertificates</a>()
+        
+                                            <p>Get the list of public certifates for the application.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getAccessToken">getAccessToken</a>(array $scopes)
+        
+                                            <p>Gets an OAuth2 access token for the application's service account from
+the cache or generates and caches one by calling
+getAccessTokenUncached($scopes)</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getApplicationId">getApplicationId</a>()
+        
+                                            <p>Get the application id of an app.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDefaultVersionHostname">getDefaultVersionHostname</a>()
+        
+                                            <p>Get the standard hostname of the default version of the app.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method_signForApp">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/AppIdentity/AppIdentityService.php#L74">line 74</a></div>
+        <code>        static            array
+    <strong>signForApp</strong>(string $bytes_to_sign)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Signs arbitrary byte array using per app private key.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$bytes_to_sign</td>
+                <td>The bytes to generate the signature for.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td>An array containing the elements
+'key_name' - the name of the key used to sign the bytes
+'signature' - the signature of the bytes.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/InvalidArgumentException">InvalidArgumentException</a></td>
+                <td>If $bytes_to_sign is not a string.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/AppIdentity/AppIdentityException.html"><abbr title="Google\AppEngine\Api\AppIdentity\AppIdentityException">AppIdentityException</abbr></a></td>
+                <td>If there is an error using the AppIdentity
+service.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getServiceAccountName">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/AppIdentity/AppIdentityService.php#L104">line 104</a></div>
+        <code>        static            string
+    <strong>getServiceAccountName</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the service account name for the application.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>The service account name.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/AppIdentity/AppIdentityException.html"><abbr title="Google\AppEngine\Api\AppIdentity\AppIdentityException">AppIdentityException</abbr></a></td>
+                <td>If there is an error using the AppIdentity
+service.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getPublicCertificates">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/AppIdentity/AppIdentityService.php#L127">line 127</a></div>
+        <code>        static            <a href="../../../../Google/AppEngine/Api/AppIdentity/PublicCertificate.html"><abbr title="Google\AppEngine\Api\AppIdentity\PublicCertificate">PublicCertificate</abbr></a>[]
+    <strong>getPublicCertificates</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the list of public certifates for the application.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../../Google/AppEngine/Api/AppIdentity/PublicCertificate.html"><abbr title="Google\AppEngine\Api\AppIdentity\PublicCertificate">PublicCertificate</abbr></a>[]</td>
+            <td>An array of the applications public
+certificates.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/AppIdentity/AppIdentityException.html"><abbr title="Google\AppEngine\Api\AppIdentity\AppIdentityException">AppIdentityException</abbr></a></td>
+                <td>If there is an error using the AppIdentity
+service.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAccessToken">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/AppIdentity/AppIdentityService.php#L169">line 169</a></div>
+        <code>        static            array
+    <strong>getAccessToken</strong>(array $scopes)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets an OAuth2 access token for the application's service account from
+the cache or generates and caches one by calling
+getAccessTokenUncached($scopes)</p>                    <p>Each application has an associated Google account. This function returns
+OAuth2 access token corresponding to the running app. Access tokens are
+safe to cache and reuse until they expire.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$scopes</td>
+                <td>The scopes to acquire the access token for.
+Can be either a single string or an array of strings.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td>An array with the following key/value pairs.
+'access_token' - The access token for the application.
+'expiration_time' - The expiration time for the access token.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/InvalidArgumentException">InvalidArgumentException</a></td>
+                <td>If $scopes is not a string or an array of
+strings.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/AppIdentity/AppIdentityException.html"><abbr title="Google\AppEngine\Api\AppIdentity\AppIdentityException">AppIdentityException</abbr></a></td>
+                <td>If there is an error using the AppIdentity
+service.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getApplicationId">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/AppIdentity/AppIdentityService.php#L247">line 247</a></div>
+        <code>        static            string
+    <strong>getApplicationId</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the application id of an app.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>The application id of the app.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDefaultVersionHostname">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/AppIdentity/AppIdentityService.php#L259">line 259</a></div>
+        <code>        static            string
+    <strong>getDefaultVersionHostname</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the standard hostname of the default version of the app.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>The standard hostname of the default version of the
+application, or FALSE if the call failed.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>

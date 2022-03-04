@@ -1,0 +1,3393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Google\AppEngine\Api\Memcache\Memcached | Appengine PHP SDK for PHP API Reference</title>
+
+            <link rel="stylesheet" type="text/css" href="../../../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../../css/sami.css">
+        <script src="../../../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../../../js/bootstrap.min.js"></script>
+        <script src="../../../../js/typeahead.min.js"></script>
+        <script src="../../../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:Google_AppEngine_Api_Memcache_Memcached" data-root-path="../../../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                    <form action="#" method="GET">
+                <select id="version-switcher" name="version">
+                                            <option value="../../../../../2.0.0/index.html" data-version="2.0.0">2.0.0</option>
+                                            <option value="../../../../../2.0.1/index.html" data-version="2.0.1">2.0.1</option>
+                                            <option value="../../../../../master/index.html" data-version="master">master branch</option>
+                                    </select>
+            </form>
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="../../../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../../../index.html">Appengine PHP SDK for PHP API Reference</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../../../classes.html">Classes</a></li>
+                                            <li><a href="../../../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../../../traits.html">Traits</a></li>
+                    <li><a href="../../../../doc-index.html">Index</a></li>
+                    <li><a href="../../../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                        <li><a href="../../../../Google.html">Google</a></li><li class="backslash">\</li><li><a href="../../../../Google/AppEngine.html">AppEngine</a></li><li class="backslash">\</li><li><a href="../../../../Google/AppEngine/Api.html">Api</a></li><li class="backslash">\</li><li><a href="../../../../Google/AppEngine/Api/Memcache.html">Memcache</a></li><li class="backslash">\</li><li>Memcached</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            Memcached
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>Memcached</strong>        (<a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php">View source</a>)
+</p>
+
+        
+    
+
+    
+    
+            <h2>Constants</h2>
+
+            <table class="table table-condensed">
+                    <tr>
+                <td>OPT_PREFIX_KEY</td>
+                <td class="last">
+                    <p><em>Constants taken from http://www.php.net/manual/en/memcached.constants.php</em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_COMPRESSION</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_HASH</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_DISTRIBUTION</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_BUFFER_WRITES</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_BINARY_PROTOCOL</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_NO_BLOCK</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_TCP_NODELAY</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_SOCKET_SEND_SIZE</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_SOCKET_RECV_SIZE</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_CONNECT_TIMEOUT</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_RETRY_TIMEOUT</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_SEND_TIMEOUT</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_RECV_TIMEOUT</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_POLL_TIMEOUT</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_CACHE_LOOKUPS</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_SERVER_FAILURE_LIMIT</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_SERIALIZER</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>HAVE_IGBINARY</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>HAVE_JSON</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>SERIALIZER_PHP</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>SERIALIZER_IGBINARY</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>SERIALIZER_JSON</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>HASH_DEFAULT</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>HASH_MD5</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>HASH_CRC</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>HASH_FNV1_64</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>HASH_FNV1A_64</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>HASH_FNV1_32</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>HASH_FNV1A_32</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>HASH_HSIEH</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>HASH_MURMUR</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>DISTRIBUTION_MODULA</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>DISTRIBUTION_CONSISTENT</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>OPT_LIBKETAMA_COMPATIBLE</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>GET_PRESERVE_ORDER</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_SUCCESS</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_FAILURE</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_HOST_LOOKUP_FAILURE</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_UNKNOWN_READ_FAILURE</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_PROTOCOL_ERROR</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_CLIENT_ERROR</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_SERVER_ERROR</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_WRITE_FAILURE</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_DATA_EXISTS</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_NOTSTORED</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_NOTFOUND</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_PARTIAL_READ</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_SOME_ERRORS</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_NO_SERVERS</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_END</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_ERRNO</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_BUFFERED</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_TIMEOUT</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_BAD_KEY_PROVIDED</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_CONNECTION_SOCKET_CREATE_FAILURE</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RES_PAYLOAD_FAILURE</td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+            </table>
+
+    
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___construct">__construct</a>($persistent_id = null)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_add">add</a>(string $key, mixed $value, int $expiration = 0)
+        
+                                            <p>add is similar to set(), but the operation fails if the key already exists
+on the server.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addByKey">addByKey</a>(string $server_key, string $key, mixed $value, int $expiration = 0)
+        
+                                            <p>Memcached::addByKey() is functionally equivalent to Memcached::add(),
+except that the free-form server_key can be used to map the key to a
+specific server. This is useful if you need to keep a bunch of related keys
+on a certain server.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addServer">addServer</a>($host, $port, $weight = 0)
+        
+                                            <p>This function is present only for compatibility and does nothing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addServers">addServers</a>($servers)
+        
+                                            <p>This function is present only for compatibility and does nothing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_append">append</a>(string $key, string $value)
+        
+                                            <p>Memcached::append() appends the given value string to the value of an
+existing item. The reason that value is forced to be a string is that
+appending mixed types is not well-defined.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_appendByKey">appendByKey</a>(string $server_key, string $key, string $value)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_cas">cas</a>(mixed $cas_token, string $key, mixed $value, int $expiration = 0)
+        
+                                            <p>Performs a set and check operation, so that the item will be stored only
+if no other client has updated it since it was last fetched by this
+client.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_casByKey">casByKey</a>(mixed $cas_token, string $server_key, string $key, mixed $value, int $expiration = 0)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_decrement">decrement</a>(string $key, int $offset = 1, int $initial_value = 0, int $expiration = 0)
+        
+                                            <p>Decrements a numeric item's value by $offset.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_decrementByKey">decrementByKey</a>(string $server_key, string $key, int $offset = 1, int $initial_value = 0, int $expiration = 0)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_delete">delete</a>(string $key, int $time = 0)
+        
+                                            <p>deletes the $key from the server.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_deleteByKey">deleteByKey</a>(string $server_key, string $key, int $time = 0)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_deleteMulti">deleteMulti</a>(array $keys, int $time = 0)
+        
+                                            <p>deletes an array of $keys from the server.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_deleteMultiByKey">deleteMultiByKey</a>(string $server_key, array $keys, int $time = 0)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Google\AppEngine\Api\Memcache\The">The</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_fetch">fetch</a>()
+        
+                                            <p>fetch retrieves the next result from the last getDelayed() request.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_fetchAll">fetchAll</a>()
+        
+                                            <p>Fetch all of the remaining results from the last getDelayed() request.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_flush">flush</a>(int $delay = 0)
+        
+                                            <p>Invalidates all existing cache items immediately.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Google\AppEngine\Api\Memcache\the">the</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_get">get</a>(string $key, callable $cache_cb = null, mixed $cas_token = null)
+        
+                                            <p>Returns the item that was previously stored under the $key.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getAllKeys">getAllKeys</a>()
+        
+                                            <p>This function is present only for compatibility and does nothing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Google\AppEngine\Api\Memcache\the">the</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getByKey">getByKey</a>(string $server_key, string $key, callable $cache_cb, mixed $cas_token)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDelayed">getDelayed</a>(array $keys, bool $with_cas = false, callable $value_cb = null)
+        
+                                            <p>Issues a request to memcache for multiple items the keys of which are
+specified in the keys array.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDelayedByKey">getDelayedByKey</a>(string $server_key, array $keys, bool $with_cas = false, callable $value_cb = null)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getMulti">getMulti</a>(array $keys, array $cas_tokens = null, int $flags = 0)
+        
+                                            <p>Similar to Memcached::get(), but instead of a single key item, it retrieves
+multiple items the keys of which are specified in the keys array.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getMultiByKey">getMultiByKey</a>($server_key, $keys, $with_cas = false, $value_cb = null)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    mixed
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getOption">getOption</a>($option)
+        
+                                            <p>Retrieve a Memcached option value.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    int
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getResultCode">getResultCode</a>()
+        
+                                            <p>Returns one of the Memcached::RES_* constants that is the result of the
+last executed Memcached method.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getResultMessage">getResultMessage</a>()
+        
+                                            <p>Return the message describing the result of the last operation.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getServerByKey">getServerByKey</a>($server_key)
+        
+                                            <p>This function is present only for compatibility and does nothing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getServerList">getServerList</a>()
+        
+                                            <p>This function is present only for compatibility and does nothing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getStats">getStats</a>()
+        
+                                            <p>This function is present only for compatibility and does nothing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getVersion">getVersion</a>()
+        
+                                            <p>This function is present only for compatibility and does nothing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Google\AppEngine\Api\Memcache\The">The</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_increment">increment</a>(string $key, int $offset = 1, int $initial_value = 0, int $expiry = 0)
+        
+                                            <p>Increments a numeric item's value by the specified offset. If the item's
+value is not numeric, and error will result.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Google\AppEngine\Api\Memcache\The">The</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_incrementByKey">incrementByKey</a>(string $server_key, string $key, int $offset = 1, int $initial_value = 0, int $expiry = 0)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_isPersistent">isPersistent</a>()
+        
+                                            <p>This function is present only for compatibility and does nothing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_isPristine">isPristine</a>()
+        
+                                            <p>This function is present only for compatibility and does nothing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    true
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_prepend">prepend</a>(string $key, string $value)
+        
+                                            <p>Prepends the given value string to an existing item.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    true
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_prependByKey">prependByKey</a>(string $server_key, string $key, string $value)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_quit">quit</a>()
+        
+                                            <p>This function is present only for compatibility and does nothing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    true
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_replace">replace</a>(string $key, mixed $value, int $expiration = 0)
+        
+                                            <p>Replace is similar to Memcache::set(), but the operation will fail if the
+key is not found on the server.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    true
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_replaceByKey">replaceByKey</a>(string $server_key, string $key, mixed $value, int $expiration = 0)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_resetServerList">resetServerList</a>()
+        
+                                            <p>This function is present only for compatibility and does nothing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    true
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_set">set</a>(string $key, mixed $value, int $expiration = 0)
+        
+                                            <p>Stores the value on a memcache server under the specified key. The
+expiration parameters can be used to control when the value is considered
+expired.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    true
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setByKey">setByKey</a>(string $server_key, string $key, mixed $value, int $expiration = 0)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setMulti">setMulti</a>(array $items, int $expiration = 0)
+        
+                                            <p>Is similar to Memcached::set(), but instead of a single key/value item, it
+works on multiple items specified in items.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setMultiByKey">setMultiByKey</a>(string $server_key, array $items, int $expiration = 0)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setOption">setOption</a>(int $option, mixed $value)
+        
+                                            <p>This method sets the vaue of a memcached option.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setOptions">setOptions</a>(mixed $options)
+        
+                                            <p>This is a varion of Memcached::setOption() that takes an array of options
+to be set.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setSaslAuthData">setSaslAuthData</a>($username, $password)
+        
+                                            <p>This function is present only for compatibility and does nothing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_touch">touch</a>(string $key, int $expiration = 0)
+        
+                                            <p>Sets a new expiration time on an item.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_touchByKey">touchByKey</a>(string $server_key, string $key, int $expiration = 0)
+        
+                                            <p>Functionally equivalent to Memcached::touch().</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L119">line 119</a></div>
+        <code>                    
+    <strong>__construct</strong>($persistent_id = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$persistent_id</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_add">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L138">line 138</a></div>
+        <code>                    bool
+    <strong>add</strong>(string $key, mixed $value, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>add is similar to set(), but the operation fails if the key already exists
+on the server.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td>The value to store.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time, defaults to 0.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success, false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_set"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::set</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L160">line 160</a></div>
+        <code>                    bool
+    <strong>addByKey</strong>(string $server_key, string $key, mixed $value, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Memcached::addByKey() is functionally equivalent to Memcached::add(),
+except that the free-form server_key can be used to map the key to a
+specific server. This is useful if you need to keep a bunch of related keys
+on a certain server.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td>The value to store.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time, defaults to 0.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success, false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_add"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::add</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addServer">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L170">line 170</a></div>
+        <code>                    
+    <strong>addServer</strong>($host, $port, $weight = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This function is present only for compatibility and does nothing.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$host</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$port</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$weight</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addServers">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L177">line 177</a></div>
+        <code>                    
+    <strong>addServers</strong>($servers)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This function is present only for compatibility and does nothing.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$servers</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_append">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L191">line 191</a></div>
+        <code>                    
+    <strong>append</strong>(string $key, string $value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Memcached::append() appends the given value string to the value of an
+existing item. The reason that value is forced to be a string is that
+appending mixed types is not well-defined.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to append the value.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$value</td>
+                <td>The value to append</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_appendByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L215">line 215</a></div>
+        <code>                    
+    <strong>appendByKey</strong>(string $server_key, string $key, string $value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to append the value.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$value</td>
+                <td>The value to append</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_append"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::append</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_cas">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L231">line 231</a></div>
+        <code>                    bool
+    <strong>cas</strong>(mixed $cas_token, string $key, mixed $value, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Performs a set and check operation, so that the item will be stored only
+if no other client has updated it since it was last fetched by this
+client.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>mixed</td>
+                <td>$cas_token</td>
+                <td>Unique memcached assigned value.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td>The value to store.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time, defaults to 0.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>True on success, or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_casByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L281">line 281</a></div>
+        <code>                    bool
+    <strong>casByKey</strong>(mixed $cas_token, string $server_key, string $key, mixed $value, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>mixed</td>
+                <td>$cas_token</td>
+                <td>Unique memcached assigned value.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>Ignored.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td>The value to store.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time, defaults to 0.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>True on success, or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_cas"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::cas</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_decrement">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L300">line 300</a></div>
+        <code>                    bool
+    <strong>decrement</strong>(string $key, int $offset = 1, int $initial_value = 0, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Decrements a numeric item's value by $offset.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$offset</td>
+                <td>The amount by which to decrement the item's value.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$initial_value</td>
+                <td>The value to set the item to if it does not
+currently exist.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time, defaults to 0.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>True on success, or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_decrementByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L320">line 320</a></div>
+        <code>                    bool
+    <strong>decrementByKey</strong>(string $server_key, string $key, int $offset = 1, int $initial_value = 0, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$offset</td>
+                <td>The amount by which to decrement the item's value.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$initial_value</td>
+                <td>The value to set the item to if it does not
+currently exist.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time, defaults to 0.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>True on success, or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_decrement"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::decrement</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_delete">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L338">line 338</a></div>
+        <code>                    bool
+    <strong>delete</strong>(string $key, int $time = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>deletes the $key from the server.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key to delete from the server.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$time</td>
+                <td>The time parameter is the amount of time in seconds the
+client wishes the server to refuse add and replace commands for this key.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_deleteByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L352">line 352</a></div>
+        <code>                    bool
+    <strong>deleteByKey</strong>(string $server_key, string $key, int $time = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key to delete from the server.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$time</td>
+                <td>The time parameter is the amount of time in seconds the
+client wishes the server to refuse add and replace commands for this key.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_delete"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::delete</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_deleteMulti">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L365">line 365</a></div>
+        <code>                    bool
+    <strong>deleteMulti</strong>(array $keys, int $time = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>deletes an array of $keys from the server.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$keys</td>
+                <td>The keys to delete from the server.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$time</td>
+                <td>The time parameter is the amount of time in seconds the
+client wishes the server to refuse add and replace commands for this key.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_deleteMultiByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L404">line 404</a></div>
+        <code>                    bool
+    <strong>deleteMultiByKey</strong>(string $server_key, array $keys, int $time = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$keys</td>
+                <td>The keys to delete from the server.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$time</td>
+                <td>The time parameter is the amount of time in seconds the
+client wishes the server to refuse add and replace commands for this key.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            Memcache::deleteMulti().
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_fetch">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L415">line 415</a></div>
+        <code>                    <abbr title="Google\AppEngine\Api\Memcache\The">The</abbr>
+    <strong>fetch</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>fetch retrieves the next result from the last getDelayed() request.</p>                    <p>Note that currently getDelayed is a synchronous call.</p>                            </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Google\AppEngine\Api\Memcache\The">The</abbr></td>
+            <td>next result, or false if there are no more results.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_fetchAll">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L430">line 430</a></div>
+        <code>                    array
+    <strong>fetchAll</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Fetch all of the remaining results from the last getDelayed() request.</p>                    <p>Note that currently getDelayed is a synchronous call.</p>                            </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td>The remaining results, or false if there are no results.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_flush">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L447">line 447</a></div>
+        <code>                    bool
+    <strong>flush</strong>(int $delay = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Invalidates all existing cache items immediately.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>int</td>
+                <td>$delay</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success, or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_get">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L463">line 463</a></div>
+        <code>                    <abbr title="Google\AppEngine\Api\Memcache\the">the</abbr>
+    <strong>get</strong>(string $key, callable $cache_cb = null, mixed $cas_token = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the item that was previously stored under the $key.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>callable</td>
+                <td>$cache_cb</td>
+                <td>Read through caching callback.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$cas_token</td>
+                <td>The variable to store the CAS token in. This value
+is opaque to the application.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Google\AppEngine\Api\Memcache\the">the</abbr></td>
+            <td>value stored in the cache of false if there was a failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAllKeys">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L520">line 520</a></div>
+        <code>                    
+    <strong>getAllKeys</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This function is present only for compatibility and does nothing.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L535">line 535</a></div>
+        <code>                    <abbr title="Google\AppEngine\Api\Memcache\the">the</abbr>
+    <strong>getByKey</strong>(string $server_key, string $key, callable $cache_cb, mixed $cas_token)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>callable</td>
+                <td>$cache_cb</td>
+                <td>Read through caching callback.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$cas_token</td>
+                <td>The variable to store the CAS token in. This value
+is opaque to the application.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Google\AppEngine\Api\Memcache\the">the</abbr></td>
+            <td>value stored in the cache of false if there was a failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcache.html#method_get"><abbr title="Google\AppEngine\Api\Memcache\Memcache">Memcache</abbr>::get</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDelayed">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L550">line 550</a></div>
+        <code>                    bool
+    <strong>getDelayed</strong>(array $keys, bool $with_cas = false, callable $value_cb = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Issues a request to memcache for multiple items the keys of which are
+specified in the keys array.</p>                    <p>Currently this method executes synchronously.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$keys</td>
+                <td>Array of keys to retrieve.</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$with_cas</td>
+                <td>If true, retrieve the CAS tokens for the keys.</td>
+            </tr>
+                    <tr>
+                <td>callable</td>
+                <td>$value_cb</td>
+                <td>The result callback.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success, or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDelayedByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L593">line 593</a></div>
+        <code>                    bool
+    <strong>getDelayedByKey</strong>(string $server_key, array $keys, bool $with_cas = false, callable $value_cb = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$keys</td>
+                <td>Array of keys to retrieve.</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$with_cas</td>
+                <td>If true, retrieve the CAS tokens for the keys.</td>
+            </tr>
+                    <tr>
+                <td>callable</td>
+                <td>$value_cb</td>
+                <td>The result callback.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success, or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <abbr title="Google\AppEngine\Api\Memcache\getDelayedByKey.">getDelayedByKey.</abbr>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getMulti">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L613">line 613</a></div>
+        <code>                    array
+    <strong>getMulti</strong>(array $keys, array $cas_tokens = null, int $flags = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Similar to Memcached::get(), but instead of a single key item, it retrieves
+multiple items the keys of which are specified in the keys array.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$keys</td>
+                <td>Array of keys to retrieve.</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$cas_tokens</td>
+                <td>The variable to store the CAS tokens for found
+items.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$flags</td>
+                <td>The flags for the get operation.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td>The array of found items for false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_get"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::get</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getMultiByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L686">line 686</a></div>
+        <code>                    array
+    <strong>getMultiByKey</strong>($server_key, $keys, $with_cas = false, $value_cb = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$server_key</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$keys</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$with_cas</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$value_cb</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td>The array of found items for false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_getMulti"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::getMulti</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getOption">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L700">line 700</a></div>
+        <code>                    mixed
+    <strong>getOption</strong>($option)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Retrieve a Memcached option value.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$option</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>mixed</td>
+            <td>the value of the requested option, of false on error.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getResultCode">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L713">line 713</a></div>
+        <code>                    int
+    <strong>getResultCode</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns one of the Memcached::RES_* constants that is the result of the
+last executed Memcached method.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int</td>
+            <td>The result code of the last memcached operation.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getResultMessage">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L722">line 722</a></div>
+        <code>                    string
+    <strong>getResultMessage</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return the message describing the result of the last operation.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>Message describing the result of the last operation.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getServerByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L740">line 740</a></div>
+        <code>                    
+    <strong>getServerByKey</strong>($server_key)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This function is present only for compatibility and does nothing.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$server_key</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getServerList">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L747">line 747</a></div>
+        <code>                    
+    <strong>getServerList</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This function is present only for compatibility and does nothing.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getStats">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L754">line 754</a></div>
+        <code>                    
+    <strong>getStats</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This function is present only for compatibility and does nothing.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getVersion">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L761">line 761</a></div>
+        <code>                    
+    <strong>getVersion</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This function is present only for compatibility and does nothing.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_increment">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L776">line 776</a></div>
+        <code>                    <abbr title="Google\AppEngine\Api\Memcache\The">The</abbr>
+    <strong>increment</strong>(string $key, int $offset = 1, int $initial_value = 0, int $expiry = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Increments a numeric item's value by the specified offset. If the item's
+value is not numeric, and error will result.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key of the item to increment</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$offset</td>
+                <td>The amount by which to increment the item's value</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$initial_value</td>
+                <td>The value to set the item to if it doesn't exist.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiry</td>
+                <td>The expiry time to set on the item.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Google\AppEngine\Api\Memcache\The">The</abbr></td>
+            <td>new item's value on success or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_incrementByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L795">line 795</a></div>
+        <code>                    <abbr title="Google\AppEngine\Api\Memcache\The">The</abbr>
+    <strong>incrementByKey</strong>(string $server_key, string $key, int $offset = 1, int $initial_value = 0, int $expiry = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key of the item to increment</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$offset</td>
+                <td>The amount by which to increment the item's value</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$initial_value</td>
+                <td>The value to set the item to if it doesn't exist.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiry</td>
+                <td>The expiry time to set on the item.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Google\AppEngine\Api\Memcache\The">The</abbr></td>
+            <td>new item's value on success or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_increment"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::increment</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_isPersistent">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L853">line 853</a></div>
+        <code>                    
+    <strong>isPersistent</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This function is present only for compatibility and does nothing.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_isPristine">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L860">line 860</a></div>
+        <code>                    
+    <strong>isPristine</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This function is present only for compatibility and does nothing.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_prepend">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L872">line 872</a></div>
+        <code>                    true
+    <strong>prepend</strong>(string $key, string $value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Prepends the given value string to an existing item.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$value</td>
+                <td>The string to prepend.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>true</td>
+            <td>on success or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_prependByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L897">line 897</a></div>
+        <code>                    true
+    <strong>prependByKey</strong>(string $server_key, string $key, string $value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$value</td>
+                <td>The string to prepend.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>true</td>
+            <td>on success or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_prepend"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::prepend</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_quit">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L904">line 904</a></div>
+        <code>                    
+    <strong>quit</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This function is present only for compatibility and does nothing.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_replace">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L918">line 918</a></div>
+        <code>                    true
+    <strong>replace</strong>(string $key, mixed $value, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Replace is similar to Memcache::set(), but the operation will fail if the
+key is not found on the server.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td>The value to store.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time, defaults to 0.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>true</td>
+            <td>if the method succeeds, false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_replaceByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L935">line 935</a></div>
+        <code>                    true
+    <strong>replaceByKey</strong>(string $server_key, string $key, mixed $value, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td>The value to store.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time, defaults to 0.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>true</td>
+            <td>if the method succeeds, false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_replace"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::replace</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_resetServerList">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L942">line 942</a></div>
+        <code>                    
+    <strong>resetServerList</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This function is present only for compatibility and does nothing.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_set">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L957">line 957</a></div>
+        <code>                    true
+    <strong>set</strong>(string $key, mixed $value, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Stores the value on a memcache server under the specified key. The
+expiration parameters can be used to control when the value is considered
+expired.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td>The value to store.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time, defaults to 0.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>true</td>
+            <td>if the method succeeds, false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L974">line 974</a></div>
+        <code>                    true
+    <strong>setByKey</strong>(string $server_key, string $key, mixed $value, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td>The value to store.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time, defaults to 0.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>true</td>
+            <td>if the method succeeds, false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_set"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::set</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setMulti">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L989">line 989</a></div>
+        <code>                    
+    <strong>setMulti</strong>(array $items, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Is similar to Memcached::set(), but instead of a single key/value item, it
+works on multiple items specified in items.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$items</td>
+                <td>An array of key value pairs to set.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time to set for the value.</p>
+
+<p>returns bool true if the call succeeds, false otherwise.</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_set"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::set</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setMultiByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1028">line 1028</a></div>
+        <code>                    bool
+    <strong>setMultiByKey</strong>(string $server_key, array $items, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$items</td>
+                <td>An array of key value pairs to set.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time to set for the value.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true if the call succeeds, false otherwise.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_setMulti"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::setMulti</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setOption">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1040">line 1040</a></div>
+        <code>                    bool
+    <strong>setOption</strong>(int $option, mixed $value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This method sets the vaue of a memcached option.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>int</td>
+                <td>$option</td>
+                <td>The option to set.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td>The value to set the option to.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true if the call succeeds, false otherwise.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setOptions">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1057">line 1057</a></div>
+        <code>                    bool
+    <strong>setOptions</strong>(mixed $options)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This is a varion of Memcached::setOption() that takes an array of options
+to be set.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>mixed</td>
+                <td>$options</td>
+                <td>An associated array of options.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true if the call succeeds, false otherwise.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setSaslAuthData">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1068">line 1068</a></div>
+        <code>                    
+    <strong>setSaslAuthData</strong>($username, $password)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>This function is present only for compatibility and does nothing.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$username</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$password</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_touch">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1079">line 1079</a></div>
+        <code>                    bool
+    <strong>touch</strong>(string $key, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Sets a new expiration time on an item.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to append the value.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time, defaults to 0.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_touchByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1097">line 1097</a></div>
+        <code>                    bool
+    <strong>touchByKey</strong>(string $server_key, string $key, int $expiration = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Functionally equivalent to Memcached::touch().</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to append the value.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$expiration</td>
+                <td>The expiration time, defaults to 0.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>
