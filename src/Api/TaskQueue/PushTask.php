@@ -134,7 +134,7 @@ final class PushTask {
     if (!empty($extra_options)) {
       throw new \InvalidArgumentException(
           'Invalid options supplied: ' .
-          htmlspecialchars(implode(',', $extra_options)));
+          htmlspecialchars(implode(',', $extra_options), ENT_COMPAT));
     }
 
     $this->options = array_merge(self::$default_options, $options);
@@ -153,11 +153,11 @@ final class PushTask {
         $display_len = 1000;
         throw new \InvalidArgumentException('name exceeds maximum length of ' .
             self::MAX_NAME_LENGTH . ". First $display_len characters of name: "
-            . htmlspecialchars(substr($name, 0, $display_len)));
+                . htmlspecialchars(substr($name, 0, $display_len), ENT_COMPAT));
       }
       if (!preg_match(self::NAME_PATTERN, $name)) {
         throw new \InvalidArgumentException('name must match pattern: ' .
-            self::NAME_PATTERN . '. name: ' . htmlspecialchars($name));
+                                            self::NAME_PATTERN . '. name: ' . htmlspecialchars($name, ENT_COMPAT));
       }
     }
     $delay = $this->options['delay_seconds'];
@@ -203,7 +203,7 @@ final class PushTask {
       if (strpos($h, ':') === false) {
         throw new \InvalidArgumentException(
             'Each header must contain a colon. Header: ' .
-            htmlspecialchars($h));
+            htmlspecialchars($h, ENT_COMPAT));
       }
       if ($has_content_type &&
           strncasecmp('content-type', $h, strlen('content-type')) == 0) {

@@ -174,7 +174,7 @@ final class AppIdentityService {
       $cache_key .= implode(self::DOMAIN_SEPARATOR, $scopes);
     } else {
       throw new \InvalidArgumentException(
-          'Invalid scope ' . htmlspecialchars($scopes));
+          'Invalid scope ' . htmlspecialchars($scopes, ENT_COMPAT));
     }
 
     $result = self::getTokenFromCache($cache_key);
@@ -219,12 +219,12 @@ final class AppIdentityService {
           $req->addScope($scope);
         } else {
           throw new \InvalidArgumentException(
-            'Invalid scope ' . htmlspecialchars($scope));
+              'Invalid scope ' . htmlspecialchars($scope, ENT_COMPAT));
         }
       }
     } else {
       throw new \InvalidArgumentException(
-          'Invalid scope ' . htmlspecialchars($scopes));
+          'Invalid scope ' . htmlspecialchars($scopes, ENT_COMPAT));
     }
 
     try {

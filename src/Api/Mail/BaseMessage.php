@@ -88,7 +88,7 @@ abstract class BaseMessage {
             call_user_func(array($this, $func_name), $value);
           } else {
             $error = sprintf("Message received an invalid option: %s",
-                             htmlspecialchars($key));
+                             htmlspecialchars($key, ENT_COMPAT));
             throw new \InvalidArgumentException($error);
           }
         }
@@ -294,8 +294,8 @@ abstract class BaseMessage {
       // Array keys don't have consistent case.
       $error = sprintf("Input header '%s: %s' is not allowlisted for use with" .
                        " the Google App Engine Mail Service.",
-                       htmlspecialchars($key),
-                       htmlspecialchars($value));
+                       htmlspecialchars($key, ENT_COMPAT),
+                       htmlspecialchars($value, ENT_COMPAT));
       return false;
     }
     return true;
@@ -333,7 +333,7 @@ abstract class BaseMessage {
       case ErrorCode::UNAUTHORIZED_SENDER:
         $error = sprintf("Mail Service Error: Sender (%s) is not an " .
                          "authorized email address.",
-                         htmlspecialchars($this->message->getSender()));
+                         htmlspecialchars($this->message->getSender(), ENT_COMPAT));
         throw new \InvalidArgumentException($error);
       case ErrorCode::INVALID_ATTACHMENT_TYPE:
         throw new \InvalidArgumentException(
@@ -388,7 +388,7 @@ abstract class BaseMessage {
   public function setReplyTo($email) {
     if (!$this->checkValidEmail($email)) {
       throw new \InvalidArgumentException(
-          "Invalid reply-to: ". htmlspecialchars($email));
+          "Invalid reply-to: ". htmlspecialchars($email, ENT_COMPAT));
     }
     $this->message->setReplyto($email);
   }
@@ -403,7 +403,7 @@ abstract class BaseMessage {
   public function setSender($email) {
     if (!$this->checkValidEmail($email)) {
       throw new \InvalidArgumentException(
-          "Invalid sender: ". htmlspecialchars($email));
+          "Invalid sender: ". htmlspecialchars($email, ENT_COMPAT));
     }
     $this->message->setSender($email);
   }
