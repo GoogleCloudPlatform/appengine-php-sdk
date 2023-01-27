@@ -21,10 +21,4 @@
  * included in the autoloader inside the composer.json.
  */
 
-$classMap = [
-    'Google\AppEngine\Api\AppIdentity\AppIdentityService' => 'google\appengine\api\app_identity\AppIdentityService',
-];
-
-foreach ($classMap as $class => $alias) {
-    @class_alias($class, $alias);
-}
+@class_alias('Google\AppEngine\Api\AppIdentity\AppIdentityService', 'google\appengine\api\app_identity\AppIdentityService');
