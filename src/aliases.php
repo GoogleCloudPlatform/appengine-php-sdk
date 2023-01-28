@@ -15,10 +15,12 @@
  * limitations under the License.
  */
 /**
- * Alias.php creates aliases for the classes to match the 
+ * Alias.php creates aliases for the classes to match the
  * original names used in the php55 sdk. This is for the
- * convenience of migration to php7+ sdk. Alias.php is 
+ * convenience of migration to php7+ sdk. Alias.php is
  * included in the autoloader inside the composer.json.
  */
 
-@class_alias('Google\AppEngine\Api\AppIdentity\AppIdentityService', 'google\appengine\api\app_identity\AppIdentityService');
+if (!class_exists('google\appengine\api\app_identity\AppIdentityService')) {
+    @class_alias('Google\AppEngine\Api\AppIdentity\AppIdentityService', 'google\appengine\api\app_identity\AppIdentityService');
+}
