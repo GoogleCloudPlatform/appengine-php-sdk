@@ -11,6 +11,7 @@
     },
     "require": {
         "php": ">=7.2.0",
+        "guzzlehttp/streams": "^3.0",
         "guzzlehttp/guzzle": "^7.2"
     },
     "require-dev": {
