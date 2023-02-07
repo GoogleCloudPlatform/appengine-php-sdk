@@ -21,4 +21,20 @@
  * included in the autoloader inside the composer.json.
  */
 
-@class_alias('Google\AppEngine\Api\AppIdentity\AppIdentityService', 'google\appengine\api\app_identity\AppIdentityService');
+$classMap = [
+    'Google\AppEngine\Api\AppIdentity\AppIdentityService' => 'google\appengine\api\app_identity\AppIdentityService',
+    'Google\AppEngine\Api\Modules\InvalidModuleStateException' => 'google\appengine\api\modules\InvalidModuleStateException',
+    'Google\AppEngine\Api\Modules\ModulesException' => 'google\appengine\api\modules\ModulesException',
+    'Google\AppEngine\Api\Modules\ModulesService' => 'google\appengine\api\modules\ModulesService',
+    'Google\AppEngine\Api\Modules\TransientModulesException' => 'google\appengine\api\modules\TransientModulesException',
+    'Google\AppEngine\Api\TaskQueue\PushTask' => 'google\appengine\api\taskqueue\PushTask',
+	'Google\AppEngine\Api\TaskQueue\PushQueue' => 'google\appengine\api\taskqueue\PushQueue',
+	'Google\AppEngine\Api\Users\User' => 'google\appengine\api\users\User',
+	'Google\AppEngine\Api\Users\UserService' => 'google\appengine\api\users\UserService',
+	'Google\AppEngine\Api\Users\UserServiceUtil' => 'google\appengine\api\users\UserServiceUtil',
+	'Google\AppEngine\Api\Users\UsersException' =>'google\appengine\api\users\UsersException'
+];
+
+foreach ($classMap as $class => $alias) {
+    @class_alias($class, $alias);
+}
