@@ -63,7 +63,6 @@ final class MemcacheSessionHandler implements \SessionHandlerInterface {
    * @param string $sessionName Not ued
    * @return bool true if successful, false otherwise
    */
-    #[\ReturnTypeWillChange]
   public function open($savePath, $sessionName) {
     return true;
   }
@@ -72,7 +71,6 @@ final class MemcacheSessionHandler implements \SessionHandlerInterface {
    * Closes the session handler.
    * @return bool true if successful, false otherwise
    */
-    #[\ReturnTypeWillChange]
   public function close() {
     return $this->memcacheContainer->close();
   }
@@ -82,7 +80,6 @@ final class MemcacheSessionHandler implements \SessionHandlerInterface {
    * @param string $id Session ID associated with the data to be retrieved
    * @return string data associated with that ID or empty string on failure
    */
-    #[\ReturnTypeWillChange]
   public function read($id) {
     $data = $this->memcacheContainer->get(self::SESSION_PREFIX . $id);
     return  empty($data) ? '' : $data;
@@ -94,7 +91,6 @@ final class MemcacheSessionHandler implements \SessionHandlerInterface {
    * @param string $data Data to be stored
    * @return bool true if successful, false otherwise
    */
-    #[\ReturnTypeWillChange]
   public function write($id, $data) {
     return $this->memcacheContainer->set(
         self::SESSION_PREFIX . $id, $data, $this->expire);
@@ -105,7 +101,6 @@ final class MemcacheSessionHandler implements \SessionHandlerInterface {
    * @param string $id Session ID associated with the data to be destroyed
    * @return bool true if successful, false otherwise
    */
-    #[\ReturnTypeWillChange]
   public function destroy($id) {
     return $this->memcacheContainer->delete(
         self::SESSION_PREFIX . $id);
@@ -117,7 +112,6 @@ final class MemcacheSessionHandler implements \SessionHandlerInterface {
    * @param int $maxlifetime Not used
    * @return bool true if successful, false otherwise
    */
-    #[\ReturnTypeWillChange]
   public function gc($maxlifetime) {
     // Handled by "expire" in Memcache.
     return true;
