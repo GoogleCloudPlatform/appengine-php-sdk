@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Google\AppEngine\Api\Modules\ModulesService | Appengine PHP SDK for PHP API Reference</title>
+
+            <link rel="stylesheet" type="text/css" href="../../../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../../css/sami.css">
+        <script src="../../../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../../../js/bootstrap.min.js"></script>
+        <script src="../../../../js/typeahead.min.js"></script>
+        <script src="../../../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:Google_AppEngine_Api_Modules_ModulesService" data-root-path="../../../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                    <form action="#" method="GET">
+                <select id="version-switcher" name="version">
+                                            <option value="../../../../../2.0.0/index.html" data-version="2.0.0">2.0.0</option>
+                                            <option value="../../../../../2.0.1/index.html" data-version="2.0.1">2.0.1</option>
+                                            <option value="../../../../../2.1.0/index.html" data-version="2.1.0">2.1.0</option>
+                                            <option value="../../../../../master/index.html" data-version="master">master branch</option>
+                                    </select>
+            </form>
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="../../../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../../../index.html">Appengine PHP SDK for PHP API Reference</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../../../classes.html">Classes</a></li>
+                                            <li><a href="../../../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../../../traits.html">Traits</a></li>
+                    <li><a href="../../../../doc-index.html">Index</a></li>
+                    <li><a href="../../../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                        <li><a href="../../../../Google.html">Google</a></li><li class="backslash">\</li><li><a href="../../../../Google/AppEngine.html">AppEngine</a></li><li class="backslash">\</li><li><a href="../../../../Google/AppEngine/Api.html">Api</a></li><li class="backslash">\</li><li><a href="../../../../Google/AppEngine/Api/Modules.html">Modules</a></li><li class="backslash">\</li><li>ModulesService</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            ModulesService
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>ModulesService</strong>        (<a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.0.1/src/Api/Modules/ModulesService.php">View source</a>)
+</p>
+
+        
+    
+
+    
+    
+    
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getCurrentModuleName">getCurrentModuleName</a>()
+        
+                                            <p>Gets the name of the currently running module.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getCurrentVersionName">getCurrentVersionName</a>()
+        
+                                            <p>Gets the version of the currently running module.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getCurrentInstanceId">getCurrentInstanceId</a>()
+        
+                                            <p>Gets the id of the currently running instance.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string[]
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getModules">getModules</a>()
+        
+                                            <p>Gets an array of all the modules for the application.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string[]
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getVersions">getVersions</a>(string $module = null)
+        
+                                            <p>Get an array of all versions associated with a module.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDefaultVersion">getDefaultVersion</a>(string $module = null)
+        
+                                            <p>Get the default version of a module.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;integer
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getNumInstances">getNumInstances</a>(string $module = null, string $version = null)
+        
+                                            <p>Get the number of instances set for a version of a module.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setNumInstances">setNumInstances</a>($instances, $module = null, $version = null)
+        
+                                            <p>Set the number of instances for a version of a module.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_startVersion">startVersion</a>(string $module, string $version)
+        
+                                            <p>Starts all instances of the given version of a module.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_stopVersion">stopVersion</a>(string $module = null, string $version = null)
+        
+                                            <p>Stops all instances of the given version of a module.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getHostname">getHostname</a>(string $module = null, string $version = null, string $instance = null)
+        
+                                            <p>Returns the hostname to use when contacting a module.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method_getCurrentModuleName">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.0.1/src/Api/Modules/ModulesService.php#L69">line 69</a></div>
+        <code>        static            string
+    <strong>getCurrentModuleName</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets the name of the currently running module.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>The name of the current module. For example, if this is
+version "v1" of module "module5" for app "my-app", this function
+will return "module5".</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCurrentVersionName">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.0.1/src/Api/Modules/ModulesService.php#L80">line 80</a></div>
+        <code>        static            string
+    <strong>getCurrentVersionName</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets the version of the currently running module.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>The name of the current module. For example, if this is
+version "v1" of module "module5" for app "my-app", this function
+will return "v1".</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCurrentInstanceId">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.0.1/src/Api/Modules/ModulesService.php#L93">line 93</a></div>
+        <code>        static            string
+    <strong>getCurrentInstanceId</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets the id of the currently running instance.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>The name of the current module. For example, if this is
+instance 2 of version "v1" of module "module5" for app "my-app", this
+function will return "2". For automatically-scaled modules, this function
+will return a unique hex string for the instance (e.g.
+"00c61b117c7f7fd0ce9e1325a04b8f0df30deaaf").</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getModules">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.0.1/src/Api/Modules/ModulesService.php#L105">line 105</a></div>
+        <code>        static            string[]
+    <strong>getModules</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets an array of all the modules for the application.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string[]</td>
+            <td>An array of string containing the names of the modules
+associated with the application. The 'default' module will be included if
+it exists, as will the name of the module that is associated with the
+instance that calls this function.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getVersions">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.0.1/src/Api/Modules/ModulesService.php#L128">line 128</a></div>
+        <code>        static            string[]
+    <strong>getVersions</strong>(string $module = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get an array of all versions associated with a module.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$module</td>
+                <td>The name of the module to retrieve the versions for.
+If null then the versions for the current module will be retrieved.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string[]</td>
+            <td>An array of strings containing the names of versions
+associated with the module. The current version will also be included in
+this list.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/InvalidArgumentException">InvalidArgumentException</a></td>
+                <td>If $module is not a string.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/ModulesException.html"><abbr title="Google\AppEngine\Api\Modules\ModulesException">ModulesException</abbr></a></td>
+                <td>If the given $module isn't valid.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/TransientModulesException.html"><abbr title="Google\AppEngine\Api\Modules\TransientModulesException">TransientModulesException</abbr></a></td>
+                <td>if there is an issue fetching the
+information.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDefaultVersion">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.0.1/src/Api/Modules/ModulesService.php#L161">line 161</a></div>
+        <code>        static            string
+    <strong>getDefaultVersion</strong>(string $module = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the default version of a module.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$module</td>
+                <td>The name of the module to retrieve the default
+versions for. If null then the default versions for the current module
+will be retrieved.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>The default version of the module.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/InvalidArgumentException">InvalidArgumentException</a></td>
+                <td>If $module is not a string.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/ModulesException.html"><abbr title="Google\AppEngine\Api\Modules\ModulesException">ModulesException</abbr></a></td>
+                <td>If the given $module is invalid or if no default
+version could be found.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getNumInstances">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.0.1/src/Api/Modules/ModulesService.php#L200">line 200</a></div>
+        <code>        static            integer
+    <strong>getNumInstances</strong>(string $module = null, string $version = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get the number of instances set for a version of a module.</p>                    <p>This function does not work on automatically-scaled modules.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$module</td>
+                <td>The name of the module to retrieve the count for. If
+null then the count for the current module will be retrieved.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$version</td>
+                <td>The version of the module to retrieve the count for.
+If null then the count for the version of the current instance will be
+retrieved.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>integer</td>
+            <td>The number of instances set for the current module
+version.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/InvalidArgumentException">InvalidArgumentException</a></td>
+                <td>If $module or $version is not a string.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/ModulesException.html"><abbr title="Google\AppEngine\Api\Modules\ModulesException">ModulesException</abbr></a></td>
+                <td>if the given combination of $module and $version
+is invalid.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setNumInstances">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.0.1/src/Api/Modules/ModulesService.php#L247">line 247</a></div>
+        <code>        static            
+    <strong>setNumInstances</strong>($instances, $module = null, $version = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Set the number of instances for a version of a module.</p>                    <p>This function does not work on automatically-scaled modules.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$instances</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$module</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$version</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/InvalidArgumentException">InvalidArgumentException</a></td>
+                <td>If $instances is not an integer or if
+$module or $version is not a string.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/ModulesException.html"><abbr title="Google\AppEngine\Api\Modules\ModulesException">ModulesException</abbr></a></td>
+                <td>if the given combination of $module and $version
+is invalid.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/TransientModulesException.html"><abbr title="Google\AppEngine\Api\Modules\TransientModulesException">TransientModulesException</abbr></a></td>
+                <td>if there is an issue setting the
+instance count.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_startVersion">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.0.1/src/Api/Modules/ModulesService.php#L297">line 297</a></div>
+        <code>        static            
+    <strong>startVersion</strong>(string $module, string $version)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Starts all instances of the given version of a module.</p>                    <p>*</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$module</td>
+                <td>The name of the module to start.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$version</td>
+                <td>The version of the module to start.</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/InvalidArgumentException">InvalidArgumentException</a></td>
+                <td>If $module or $version is not a string.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/ModulesException.html"><abbr title="Google\AppEngine\Api\Modules\ModulesException">ModulesException</abbr></a></td>
+                <td>if the given combination of $module and $version
+is invalid.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/InvalidModuleStateException.html"><abbr title="Google\AppEngine\Api\Modules\InvalidModuleStateException">InvalidModuleStateException</abbr></a></td>
+                <td>if the given $version is already
+started or cannot be started.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/TransientModulesException.html"><abbr title="Google\AppEngine\Api\Modules\TransientModulesException">TransientModulesException</abbr></a></td>
+                <td>if there is an issue starting the module
+version.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_stopVersion">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.0.1/src/Api/Modules/ModulesService.php#L337">line 337</a></div>
+        <code>        static            
+    <strong>stopVersion</strong>(string $module = null, string $version = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Stops all instances of the given version of a module.</p>                    <p>*</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$module</td>
+                <td>The name of the module to stop. If null then the
+current module will be stopped.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$version</td>
+                <td>The version of the module to stop. If null then the
+current version will be stopped.</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/InvalidArgumentException">InvalidArgumentException</a></td>
+                <td>If $module or $version is not a string.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/ModulesException.html"><abbr title="Google\AppEngine\Api\Modules\ModulesException">ModulesException</abbr></a></td>
+                <td>if the given combination of $module and $version
+instance is invalid.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/InvalidModuleStateException.html"><abbr title="Google\AppEngine\Api\Modules\InvalidModuleStateException">InvalidModuleStateException</abbr></a></td>
+                <td>if the given $version is already
+stopped or cannot be stopped.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/TransientModulesException.html"><abbr title="Google\AppEngine\Api\Modules\TransientModulesException">TransientModulesException</abbr></a></td>
+                <td>if there is an issue stopping the module
+version.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getHostname">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.0.1/src/Api/Modules/ModulesService.php#L387">line 387</a></div>
+        <code>        static            string
+    <strong>getHostname</strong>(string $module = null, string $version = null, string $instance = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the hostname to use when contacting a module.</p>                    <p>*</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$module</td>
+                <td>The name of the module whose hostname should be
+returned. If null then the hostname of the current module will be returned.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$version</td>
+                <td>The version of the module whose hostname should be
+returned. If null then the hostname for the version of the current
+instance will be returned.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$instance</td>
+                <td>The instance whose hostname should be returned. If
+null then the load balanced hostname for the module will be returned. If
+the module is not a fixed module then the instance parameter is ignored.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>The valid canonical hostname that can be used to communicate
+with the given module/version/instance e.g.
+"0.version1.module5.myapp.appspot.com".</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/InvalidArgumentException">InvalidArgumentException</a></td>
+                <td>If $module or $version is not a string
+or if $instance is not a string or integer.</td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Google/AppEngine/Api/Modules/ModulesException.html"><abbr title="Google\AppEngine\Api\Modules\ModulesException">ModulesException</abbr></a></td>
+                <td>if the given combination of $module and $instance
+is invalid.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>

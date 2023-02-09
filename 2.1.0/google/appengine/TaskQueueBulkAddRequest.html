@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>google\appengine\TaskQueueBulkAddRequest | Appengine PHP SDK for PHP API Reference</title>
+
+            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/sami.css">
+        <script src="../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/typeahead.min.js"></script>
+        <script src="../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:google_appengine_TaskQueueBulkAddRequest" data-root-path="../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                    <form action="#" method="GET">
+                <select id="version-switcher" name="version">
+                                            <option value="../../../2.0.0/index.html" data-version="2.0.0">2.0.0</option>
+                                            <option value="../../../2.0.1/index.html" data-version="2.0.1">2.0.1</option>
+                                            <option value="../../../2.1.0/index.html" data-version="2.1.0">2.1.0</option>
+                                            <option value="../../../master/index.html" data-version="master">master branch</option>
+                                    </select>
+            </form>
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../index.html">Appengine PHP SDK for PHP API Reference</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../classes.html">Classes</a></li>
+                                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../traits.html">Traits</a></li>
+                    <li><a href="../../doc-index.html">Index</a></li>
+                    <li><a href="../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                        <li><a href="../../google.html">google</a></li><li class="backslash">\</li><li><a href="../../google/appengine.html">appengine</a></li><li class="backslash">\</li><li>TaskQueueBulkAddRequest</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            TaskQueueBulkAddRequest
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>TaskQueueBulkAddRequest</strong>        extends <a href="../../google/net/ProtocolMessage.html"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a>        (<a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php">View source</a>)
+</p>
+
+        
+    
+
+    
+    
+    
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_serializeToString">serializeToString</a>()
+        
+                                            <p>Serializes the message and return it as a string.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_serializeToString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_serializePartialToString">serializePartialToString</a>()
+        
+                                            <p>Serializes a protocol buffer that might not have all of the required fields
+set.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_serializePartialToString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_parseFromString">parseFromString</a>(string $s)
+        
+                                            <p>Fills the message with a protocol buffer parsed from the given input
+string.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_parseFromString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_parsePartialFromString">parsePartialFromString</a>(string $s)
+        
+                                            <p>Fills the message with a protocol buffer parsed from the given input
+string. Will not fail if the resulting protocol buffer is not fully
+initialized.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_parsePartialFromString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_mergeFromString">mergeFromString</a>(string $s)
+        
+                                            <p>Like parseFromString, fills the message with a protocol buffer parsed from
+the given input string.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_mergeFromString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_mergePartialFromString">mergePartialFromString</a>(string $s)
+        
+                                            <p>Like parsePartialFromString, fills the message with a protocol buffer
+parsed from the given input string. Will not fail if the resulting protocol
+buffer is not fully initialized.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_mergePartialFromString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_copyFrom">copyFrom</a>(mixed $pb)
+        
+                                            <p>Copies data from another protocol buffer into this protocol buffer.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_copyFrom"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_isInitialized">isInitialized</a>()
+        
+                                            <p>Checks if this protocol message has all of the requried fields initialized.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_isInitialized"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_checkInitialized">checkInitialized</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_tryMerge">tryMerge</a>($d)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_outputPartial">outputPartial</a>($out)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_byteSizePartial">byteSizePartial</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_clear">clear</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_mergeFrom">mergeFrom</a>($x)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_equals">equals</a>($x)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_shortDebugString">shortDebugString</a>($prefix = &quot;&quot;)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_debugFormatString">debugFormatString</a>($value)
+        
+                                            <p>Format protocol buffer as a text string for debugging.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_debugFormatString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_debugFormatDouble">debugFormatDouble</a>($value)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_debugFormatDouble"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_lengthVarUint64">lengthVarUint64</a>($value)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_lengthVarUint64"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_lengthVarInt64">lengthVarInt64</a>($value)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_lengthVarInt64"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_lengthVarInt32">lengthVarInt32</a>($value)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_lengthVarInt32"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_lengthString">lengthString</a>($len)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_lengthString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_debugFormatBool">debugFormatBool</a>($b)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_debugFormatBool"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_debugFormatFloat">debugFormatFloat</a>($value)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_debugFormatFloat"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_debugFormatFixed32">debugFormatFixed32</a>($value)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_debugFormatFixed32"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_debugFormatFixed64">debugFormatFixed64</a>($value)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_debugFormatFixed64"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_debugFormatInt32">debugFormatInt32</a>($value)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_debugFormatInt32"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_debugFormatInt64">debugFormatInt64</a>($value)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_debugFormatInt64"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_checkProtoArray">checkProtoArray</a>($arr)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_checkProtoArray"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_integerEquals">integerEquals</a>(int $a, int $b)
+        
+                                            <p>Checks if two integers are equal.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../google/net/ProtocolMessage.html#method_integerEquals"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getAddRequestSize">getAddRequestSize</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getAddRequestList">getAddRequestList</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_mutableAddRequest">mutableAddRequest</a>($idx)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getAddRequest">getAddRequest</a>($idx)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addAddRequest">addAddRequest</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_clearAddRequest">clearAddRequest</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method_serializeToString">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_serializeToString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L39">line 39</a></div>
+        <code>                    string
+    <strong>serializeToString</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Serializes the message and return it as a string.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>The serialized protocol buffer.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../google/net/ProtocolBufferEncodeError.html"><abbr title="google\net\ProtocolBufferEncodeError">ProtocolBufferEncodeError</abbr></a></td>
+                <td>If the protocol buffer is not
+initialized.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_serializePartialToString">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_serializePartialToString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L54">line 54</a></div>
+        <code>                    string
+    <strong>serializePartialToString</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Serializes a protocol buffer that might not have all of the required fields
+set.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>The serialized protocol buffer.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_parseFromString">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_parseFromString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L77">line 77</a></div>
+        <code>                    
+    <strong>parseFromString</strong>(string $s)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Fills the message with a protocol buffer parsed from the given input
+string.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$s</td>
+                <td>The string containing a serialized protocol buffer.</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../google/net/ProtocolBufferDecodeError.html"><abbr title="google\net\ProtocolBufferDecodeError">ProtocolBufferDecodeError</abbr></a></td>
+                <td>If the result message is not correctly
+initialized.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_parsePartialFromString">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_parsePartialFromString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L92">line 92</a></div>
+        <code>                    
+    <strong>parsePartialFromString</strong>(string $s)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Fills the message with a protocol buffer parsed from the given input
+string. Will not fail if the resulting protocol buffer is not fully
+initialized.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$s</td>
+                <td>The string containing a serialized protocol buffer.</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_mergeFromString">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_mergeFromString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L108">line 108</a></div>
+        <code>                    
+    <strong>mergeFromString</strong>(string $s)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Like parseFromString, fills the message with a protocol buffer parsed from
+the given input string.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$s</td>
+                <td>The string containing a serialized protocol buffer.</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../google/net/ProtocolBufferDecodeError.html"><abbr title="google\net\ProtocolBufferDecodeError">ProtocolBufferDecodeError</abbr></a></td>
+                <td>If the result message is not correctly
+initialized.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_mergePartialFromString">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_mergePartialFromString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L128">line 128</a></div>
+        <code>                    
+    <strong>mergePartialFromString</strong>(string $s)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Like parsePartialFromString, fills the message with a protocol buffer
+parsed from the given input string. Will not fail if the resulting protocol
+buffer is not fully initialized.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$s</td>
+                <td>The string containing a serialized protocol buffer.</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_copyFrom">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_copyFrom"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L140">line 140</a></div>
+        <code>                    
+    <strong>copyFrom</strong>(mixed $pb)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Copies data from another protocol buffer into this protocol buffer.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>mixed</td>
+                <td>$pb</td>
+                <td>The protocol buffer to copy from.</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_isInitialized">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_isInitialized"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L154">line 154</a></div>
+        <code>                    bool
+    <strong>isInitialized</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Checks if this protocol message has all of the requried fields initialized.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true if all fields are initialized, false otherwise.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_checkInitialized">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1804">line 1804</a></div>
+        <code>                    
+    <strong>checkInitialized</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_tryMerge">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1786">line 1786</a></div>
+        <code>                    
+    <strong>tryMerge</strong>($d)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$d</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_outputPartial">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1778">line 1778</a></div>
+        <code>                    
+    <strong>outputPartial</strong>($out)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$out</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_byteSizePartial">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1769">line 1769</a></div>
+        <code>                    
+    <strong>byteSizePartial</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_clear">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1766">line 1766</a></div>
+        <code>                    
+    <strong>clear</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_mergeFrom">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1810">line 1810</a></div>
+        <code>                    
+    <strong>mergeFrom</strong>($x)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$x</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_equals">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1816">line 1816</a></div>
+        <code>                    
+    <strong>equals</strong>($x)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$x</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_shortDebugString">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1824">line 1824</a></div>
+        <code>                    
+    <strong>shortDebugString</strong>($prefix = &quot;&quot;)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$prefix</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_debugFormatString">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_debugFormatString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L171">line 171</a></div>
+        <code>        static    protected        
+    <strong>debugFormatString</strong>($value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Format protocol buffer as a text string for debugging.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_debugFormatDouble">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_debugFormatDouble"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L181">line 181</a></div>
+        <code>        static    protected        
+    <strong>debugFormatDouble</strong>($value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_lengthVarUint64">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_lengthVarUint64"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L192">line 192</a></div>
+        <code>        static    protected        
+    <strong>lengthVarUint64</strong>($value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_lengthVarInt64">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_lengthVarInt64"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L227">line 227</a></div>
+        <code>        static    protected        
+    <strong>lengthVarInt64</strong>($value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_lengthVarInt32">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_lengthVarInt32"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L241">line 241</a></div>
+        <code>        static    protected        
+    <strong>lengthVarInt32</strong>($value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_lengthString">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_lengthString"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L245">line 245</a></div>
+        <code>        static    protected        
+    <strong>lengthString</strong>($len)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$len</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_debugFormatBool">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_debugFormatBool"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L249">line 249</a></div>
+        <code>        static    protected        
+    <strong>debugFormatBool</strong>($b)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$b</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_debugFormatFloat">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_debugFormatFloat"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L259">line 259</a></div>
+        <code>        static    protected        
+    <strong>debugFormatFloat</strong>($value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_debugFormatFixed32">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_debugFormatFixed32"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L263">line 263</a></div>
+        <code>        static    protected        
+    <strong>debugFormatFixed32</strong>($value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_debugFormatFixed64">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_debugFormatFixed64"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L268">line 268</a></div>
+        <code>        static    protected        
+    <strong>debugFormatFixed64</strong>($value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_debugFormatInt32">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_debugFormatInt32"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L290">line 290</a></div>
+        <code>        static    protected        
+    <strong>debugFormatInt32</strong>($value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_debugFormatInt64">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_debugFormatInt64"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L296">line 296</a></div>
+        <code>        static    protected        
+    <strong>debugFormatInt64</strong>($value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_checkProtoArray">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_checkProtoArray"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L303">line 303</a></div>
+        <code>            protected        
+    <strong>checkProtoArray</strong>($arr)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$arr</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_integerEquals">
+        <div class="location">in <a href="../../google/net/ProtocolMessage.html#method_integerEquals"><abbr title="google\net\ProtocolMessage">ProtocolMessage</abbr></a> at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Runtime/Proto/ProtocolMessage.php#L322">line 322</a></div>
+        <code>        static    protected        bool
+    <strong>integerEquals</strong>(int $a, int $b)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Checks if two integers are equal.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>int</td>
+                <td>$a</td>
+                <td>The first integer to compare.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$b</td>
+                <td>The second integer to compare.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>True if the intergers are equal, false otherwise.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAddRequestSize">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1735">line 1735</a></div>
+        <code>                    
+    <strong>getAddRequestSize</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAddRequestList">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1738">line 1738</a></div>
+        <code>                    
+    <strong>getAddRequestList</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_mutableAddRequest">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1741">line 1741</a></div>
+        <code>                    
+    <strong>mutableAddRequest</strong>($idx)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$idx</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAddRequest">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1749">line 1749</a></div>
+        <code>                    
+    <strong>getAddRequest</strong>($idx)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$idx</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addAddRequest">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1758">line 1758</a></div>
+        <code>                    
+    <strong>addAddRequest</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_clearAddRequest">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/2.1.0/src/Api/TaskQueue/taskqueue_service_pb.php#L1763">line 1763</a></div>
+        <code>                    
+    <strong>clearAddRequest</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>
