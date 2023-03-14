@@ -13,4 +13,4 @@ wget https://github.com/jdpedrie/Sami/releases/download/v4.3.0/sami.phar
 # Run the docs generation command
 chmod -R 0777 .
 php sami.phar update .github/actions/docs/sami.php
-
+chmod -R 0777 .
