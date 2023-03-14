@@ -11,6 +11,7 @@ mkdir .cache
 wget https://github.com/jdpedrie/Sami/releases/download/v4.3.0/sami.phar
 
 # Run the docs generation command
+git config --global --add safe.directory /github/workspace  
 chmod -R 0777 .
 php sami.phar update .github/actions/docs/sami.php
 chmod -R 0777 .
