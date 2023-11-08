@@ -97,7 +97,7 @@ class MessageTest extends ApiProxyTestBase {
 
   public function testCheckInvalidEmails() {
     $invalid_email = "invalid.email <script>alert('wello')</script>";
-    $converted_invalid_email = htmlspecialchars($invalid_email);
+    $converted_invalid_email = htmlspecialchars($invalid_email, ENT_COMPAT);
 
     $this->assertEquals(
         $this->setupValidEmailTest(

@@ -62,7 +62,7 @@ final class UserService {
       ApiProxy::makeSyncCall('user', 'CreateLoginURL', $req, $resp);
     } catch (ApplicationError $e) {
       throw self::applicationErrorToException(
-          $e, htmlspecialchars($destination_url));
+          $e, htmlspecialchars($destination_url, ENT_COMPAT));
     }
     return $resp->getLoginUrl();
   }
@@ -89,7 +89,7 @@ final class UserService {
       ApiProxy::makeSyncCall('user', 'CreateLogoutURL', $req, $resp);
     } catch (ApplicationError $e) {
       throw self::applicationErrorToException(
-        $e, htmlspecialchars($destination_url));
+          $e, htmlspecialchars($destination_url, ENT_COMPAT));
     }
     return $resp->getLogoutUrl();
   }

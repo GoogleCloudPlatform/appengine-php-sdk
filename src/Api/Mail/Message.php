@@ -165,12 +165,12 @@ final class Message extends BaseMessage {
       return array($email_list);
     } else if (!is_array($email_list)) {
       $error = sprintf("Invalid %s: %s", $err_str, $email_list);
-      throw new \InvalidArgumentException(htmlspecialchars($error));
+      throw new \InvalidArgumentException(htmlspecialchars($error, ENT_COMPAT));
     } else {
       foreach($email_list as $email) {
         if (!$this->checkValidEmail($email)) {
           $error = sprintf("Invalid %s: %s", $err_str, $email);
-          throw new \InvalidArgumentException(htmlspecialchars($error));
+          throw new \InvalidArgumentException(htmlspecialchars($error, ENT_COMPAT));
         }
       }
       return $email_list;
