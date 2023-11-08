@@ -173,26 +173,65 @@ class Memcache {
     return true;
   }
 
-  private function getMulti($keys, $flags = null) {
+  private function getMulti($keys, $flags = null, $for_peek = false) {
     $request = new MemcacheGetRequest();
     $response = new MemcacheGetResponse();
+
+    if ($for_peek) {
+      $request->setForPeek(true);
+    }
 
     foreach ($keys as $key) {
       $request->addKey($key);
     }
 
-    ApiProxy::makeSyncCall('memcache', 'Get', $request, $response);
+    try {
+      ApiProxy::makeSyncCall('memcache', 'Get', $request, $response);
+    } catch (Error $e) {
+      return false;
+    }
 
     $return_value = array();
     foreach ($response->getItemList() as $item) {
       try {
-        $return_value[$item->getKey()] = MemcacheUtils::deserializeValue(
-            $item->getValue(), $item->getFlags());
+        $value = MemcacheUtils::deserializeValue($item->getValue(), $item->getFlags());
+        if ($for_peek) {
+          $itemWithTimestamps = new ItemWithTimestamps(
+            $value,
+            $item->getTimestamps()->getExpirationTimeSec(),
+            $item->getTimestamps()->getLastAccessTimeSec(),
+            $item->getTimestamps()->getDeleteLockTimeSec());
+          $return_value[$item->getKey()] = $itemWithTimestamps;
+        } else {
+          $return_value[$item->getKey()] = $value;
+        }
       } catch (\UnexpectedValueException $e) {
         // Skip entries that cannot be deserialized.
       }
     }
     return $return_value;
+  }
+
+  private function getInternal($keys, $flags, $for_peek) {
+    if (is_array($keys)) {
+      $return_value = $this->getMulti($keys, $flags, $for_peek);
+      if (empty($return_value)) {
+        return false;
+      } else {
+        return $return_value;
+      }
+    } else {
+      try {
+        $return_value = $this->getMulti(array($keys), array($flags), $for_peek);
+      } catch (Error $e) {
+        return false;
+      }
+      if (array_key_exists($keys, $return_value)) {
+        return $return_value[$keys];
+      } else {
+        return false;
+      }
+    }
   }
 
   /**
@@ -209,25 +248,7 @@ class Memcache {
    *               is returned.
    */
   public function get($keys, $flags = null) {
-    if (is_array($keys)) {
-      $return_value = $this->getMulti($keys, $flags);
-      if (empty($return_value)) {
-        return false;
-      } else {
-        return $return_value;
-      }
-    } else {
-      try {
-        $return_value = $this->getMulti(array($keys), array($flags));
-      } catch (Error $e) {
-        return false;
-      }
-      if (array_key_exists($keys, $return_value)) {
-        return $return_value[$keys];
-      } else {
-        return false;
-      }
-    }
+    return $this->getInternal($keys, $flags, false /* $for_peek */);
   }
 
   // Not implemented:
@@ -294,6 +315,23 @@ class Memcache {
    */
   public function pconnect($host, $port = null, $timeout = 1) {
     return true;
+  }
+
+  /**
+   * Gets an item from memcache along with timestamp metadata.
+   *
+   * @param string|string[] $keys The key associated with the value to fetch, or
+   *                              an array of keys if fetching multiple values.
+   *
+   * @param int $flags This parameter is present only for compatibility and is
+   *                   ignored. It should return the stored flag value.
+   *
+   * @return mixed On success, the ItemWithTimestamps associated with the key,
+   *               or an array of key-ItemWithTimestamp pairs when $keys is an
+   *               array. On failure, false is returned.
+   */
+  public function peek($keys, $flags = null) {
+      return $this->getInternal($keys, $flags, true /* $for_peek */);
   }
 
   /**

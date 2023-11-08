@@ -220,6 +220,25 @@ function memcache_pconnect($host, $port = null, $timeout = 1) {
 }
 
 /**
+ * Gets an item from memcache along with timestamp metadata.
+ *
+ * @param Memcache $memcache_obj The cache instance to get the item from.
+ *
+ * @param string|string[] $keys The key associated with the value to fetch, or
+ *                              an array of keys if fetching multiple values.
+ *
+ * @param int $flags This parameter is present only for compatibility and is
+ *                   ignored. It should return the stored flag value.
+ *
+ * @return mixed On success, the ItemWithTimestamps associated with the key,
+ *               or an array of key-ItemWithTimestamp pairs when $keys is an
+ *               array. On failure, false is returned.
+ */
+function memcache_peek($memcache_obj, $keys, $flags = null) {
+  return $memcache_obj->peek($keys, $flags);
+}
+
+/**
  * Replaces an existing item in the cache. Will fail if the key is not already
  * present in the cache.
  *
