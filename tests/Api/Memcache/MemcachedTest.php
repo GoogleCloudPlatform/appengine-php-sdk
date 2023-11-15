@@ -232,6 +232,42 @@ class MemcachedTest extends ApiProxyTestBase {
     $this->apiProxyMock->verify();
   }
 
+  public function testPeekSuccess() {
+    $request = new MemcacheGetRequest();
+    $request->addKey("widgets_key");
+
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+    $item = $response->addItem();
+    $item->setKey("widgets_key");
+    $item->setValue("INF");
+    $item->setFlags(6);  // float
+    $timestamps = $item->mutableTimestamps();
+    $timestamps->setExpirationTimeSec(123);
+    $timestamps->setLastAccessTimeSec(456);
+    $timestamps->setDeleteLockTimeSec(789);
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+    $memcached = new Memcached();
+    $memcached->setOption(Memcached::OPT_PREFIX_KEY, "widgets_");
+    $res = $memcached->peek("key");
+    $mits = new MemcacheItemWithTimestamps(INF, 123,456,789);
+    $this->assertNotNull($res);
+    $this->assertEquals($res->getValue(), $mits->getValue());
+    $this->assertEquals($res->getLastAccessTimeSec(),
+                        $mits->getLastAccessTimeSec());
+    $this->assertEquals($res->getExpirationTimeSec(),
+                        $mits->getExpirationTimeSec());
+    $this->assertEquals($res->getDeleteLockTimeSec(),
+                        $mits->getDeleteLockTimeSec());
+    $this->assertEquals($memcached->getResultCode(), Memcached::RES_SUCCESS);
+    $this->apiProxyMock->verify();
+  }
+
   public function testGetMultiSuccess() {
     $request = new MemcacheGetRequest();
     $request->addKey("key");
@@ -255,6 +291,51 @@ class MemcachedTest extends ApiProxyTestBase {
                                    $cas_tokens,
                                    Memcached::GET_PRESERVE_ORDER);
     $this->assertEquals("value", $result["key"]);
+    $this->assertEquals(123456, $cas_tokens["key"]);
+    $this->assertTrue(array_key_exists("key1", $result));
+    $this->assertNull($result["key1"]);
+    $this->assertTrue(array_key_exists("key1", $cas_tokens));
+    $this->assertNull($cas_tokens["key1"]);
+    $this->assertEquals($memcached->getResultCode(), Memcached::RES_SUCCESS);
+    $this->apiProxyMock->verify();
+  }
+
+  public function testPeekMultiSuccess() {
+    $request = new MemcacheGetRequest();
+    $request->addKey("key");
+    $request->addKey("key1");
+    $request->setForCas(true);
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+    $item = $response->addItem();
+    $item->setKey("key");
+    $item->setValue("value");
+    $item->setFlags(0);  // string.
+    $item->setCasId(123456);
+    $timestamps = $item->mutableTimestamps();
+    $timestamps->setExpirationTimeSec(123);
+    $timestamps->setLastAccessTimeSec(456);
+    $timestamps->setDeleteLockTimeSec(789);
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+    $memcached = new Memcached();
+    $keys = ["key", "key1"];
+    $result = $memcached->peekMulti($keys,
+                                    $cas_tokens,
+                                    Memcached::GET_PRESERVE_ORDER);
+    $want = new MemcacheItemWithTimestamps("value", 123, 456, 789);
+    $this->assertNotNull($result["key"]);
+    $this->assertEquals($want->getValue(), $result["key"]->getValue());
+    $this->assertEquals($want->getLastAccessTimeSec(),
+                        $result["key"]->getLastAccessTimeSec());
+    $this->assertEquals($want->getExpirationTimeSec(),
+                        $result["key"]->getExpirationTimeSec());
+    $this->assertEquals($want->getDeleteLockTimeSec(),
+                        $result["key"]->getDeleteLockTimeSec());
     $this->assertEquals(123456, $cas_tokens["key"]);
     $this->assertTrue(array_key_exists("key1", $result));
     $this->assertNull($result["key1"]);
@@ -301,6 +382,55 @@ class MemcachedTest extends ApiProxyTestBase {
     $this->apiProxyMock->verify();
   }
 
+  public function testPeekMultiUnexpectedValue() {
+    $request = new MemcacheGetRequest();
+    $request->addKey("key");
+    $request->addKey("key1");
+    $request->setForCas(true);
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+    $item = $response->addItem();
+    $item->setKey("key");
+    $item->setValue("value");
+    $item->setFlags(2);  // Python's picked type.
+    $item->setCasId(123456);
+    $timestamps = $item->mutableTimestamps();
+    $timestamps->setExpirationTimeSec(123);
+    $timestamps->setLastAccessTimeSec(456);
+    $timestamps->setDeleteLockTimeSec(789);
+    $item = $response->addItem();
+    $item->setKey("key1");
+    $item->setValue("value1");
+    $item->setFlags(0);  // String.
+    $item->setCasId(789);
+    $timestamps = $item->mutableTimestamps();
+    $timestamps->setExpirationTimeSec(987);
+    $timestamps->setLastAccessTimeSec(654);
+    $timestamps->setDeleteLockTimeSec(321);
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+    $memcached = new Memcached();
+    $keys = ["key", "key1"];
+    $result = $memcached->peekMulti($keys,
+                                    $cas_tokens,
+                                    Memcached::GET_PRESERVE_ORDER);
+    $this->assertTrue(array_key_exists("key", $result));
+    $this->assertNull($result["key"]);
+    $this->assertTrue(array_key_exists("key", $cas_tokens));
+    $this->assertNull($cas_tokens["key"]);
+    $this->assertEquals("value1", $result["key1"]->getValue());
+    $this->assertEquals(987, $result["key1"]->getExpirationTimeSec());
+    $this->assertEquals(654, $result["key1"]->getLastAccessTimeSec());
+    $this->assertEquals(321, $result["key1"]->getDeleteLockTimeSec());
+    $this->assertEquals(789, $cas_tokens["key1"]);
+    $this->assertEquals($memcached->getResultCode(), Memcached::RES_SUCCESS);
+    $this->apiProxyMock->verify();
+  }
+
   public function testGetCasSuccess() {
     $request = new MemcacheGetRequest();
     $request->addKey("widgets_key");
@@ -320,6 +450,39 @@ class MemcachedTest extends ApiProxyTestBase {
     $memcached = new Memcached();
     $memcached->setOption(Memcached::OPT_PREFIX_KEY, "widgets_");
     $this->assertEquals("value", $memcached->get("key", null, $cas_id));
+    $this->assertEquals($memcached->getResultCode(), Memcached::RES_SUCCESS);
+    $this->assertEquals($cas_id, 123456);
+    $this->apiProxyMock->verify();
+  }
+
+  public function testPeekCasSuccess() {
+    $request = new MemcacheGetRequest();
+    $request->addKey("widgets_key");
+    $request->setForCas(true);
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+    $item = $response->addItem();
+    $item->setKey("widgets_key");
+    $item->setValue("value");
+    $item->setFlags(0);  // string.
+    $item->setCasId(123456);
+    $timestamps = $item->mutableTimestamps();
+    $timestamps->setExpirationTimeSec(123);
+    $timestamps->setLastAccessTimeSec(456);
+    $timestamps->setDeleteLockTimeSec(789);
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+    $memcached = new Memcached();
+    $memcached->setOption(Memcached::OPT_PREFIX_KEY, "widgets_");
+    $res = $memcached->peek("key", $cas_id);
+    $this->assertEquals("value", $res->getValue());
+    $this->assertEquals(123, $res->getExpirationTimeSec());
+    $this->assertEquals(456, $res->getLastAccessTimeSec());
+    $this->assertEquals(789, $res->getDeleteLockTimeSec());
     $this->assertEquals($memcached->getResultCode(), Memcached::RES_SUCCESS);
     $this->assertEquals($cas_id, 123456);
     $this->apiProxyMock->verify();
@@ -383,6 +546,24 @@ class MemcachedTest extends ApiProxyTestBase {
     $this->apiProxyMock->verify();
   }
 
+  public function testPeekMissing() {
+    $request = new MemcacheGetRequest();
+    $request->addKey("key");
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+    $memcached = new Memcached();
+    $this->assertFalse($memcached->peek("key"));
+    $this->assertEquals($memcached->getResultCode(), Memcached::RES_NOTFOUND);
+    $this->assertEquals($memcached->getResultMessage(), 'NOT FOUND');
+    $this->apiProxyMock->verify();
+  }
+
   public function testGetUnexpectedValue() {
     $request = new MemcacheGetRequest();
     $request->addKey("key");
@@ -399,6 +580,27 @@ class MemcachedTest extends ApiProxyTestBase {
                                     $response);
     $memcached = new Memcached();
     $this->assertFalse($memcached->get("key"));
+    $this->assertEquals($memcached->getResultCode(), Memcached::RES_NOTFOUND);
+    $this->apiProxyMock->verify();
+  }
+
+  public function testPeekUnexpectedValue() {
+    $request = new MemcacheGetRequest();
+    $request->addKey("key");
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+    $item = $response->addItem();
+    $item->setKey("key");
+    $item->setValue("value");
+    $item->setFlags(2);  // Python's picked type.
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+    $memcached = new Memcached();
+    $this->assertFalse($memcached->peek("key"));
     $this->assertEquals($memcached->getResultCode(), Memcached::RES_NOTFOUND);
     $this->apiProxyMock->verify();
   }
@@ -862,6 +1064,66 @@ class MemcachedTest extends ApiProxyTestBase {
     $result = $memcached->fetch();
     $this->assertEquals($result["key"], "bar");
     $this->assertEquals($result["value"], "bar_value");
+    $this->assertEquals($result["cas"], 2);
+    $this->assertFalse($memcached->fetch());
+    $this->assertEquals($cb_count, 2);
+    $this->apiProxyMock->verify();
+  }
+
+  public function testPeekDelayedSuccess() {
+    $request = new MemcacheGetRequest();
+    $request->addKey("key");
+    $request->addKey("bar");
+    $request->setForCas(true);
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+    $item = $response->addItem();
+    $item->setKey("key");
+    $item->setValue("value");
+    $item->setFlags(0);  // string.
+    $item->setCasId(123456);
+    $timestamps = $item->mutableTimestamps();
+    $timestamps->setExpirationTimeSec(123);
+    $timestamps->setLastAccessTimeSec(456);
+    $timestamps->setDeleteLockTimeSec(789);
+
+    $item = $response->addItem();
+    $item->setKey("bar");
+    $item->setValue("bar_value");
+    $item->setFlags(0);  // string.
+    $item->setCasId(2);
+    $timestamps = $item->mutableTimestamps();
+    $timestamps->setExpirationTimeSec(987);
+    $timestamps->setLastAccessTimeSec(654);
+    $timestamps->setDeleteLockTimeSec(321);
+
+    $cb_count = 0;
+    $cb = function($val) use (&$cb_count) {
+      $cb_count++;
+    };
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+
+    $memcached = new Memcached();
+    $this->assertTrue($memcached->peekDelayed(["key", "bar"], true, $cb));
+    $this->assertEquals($memcached->getResultCode(), Memcached::RES_SUCCESS);
+    $result = $memcached->fetch();
+    $this->assertEquals($result["key"], "key");
+    $this->assertEquals($result["value"]->getValue(), "value");
+    $this->assertEquals($result["value"]->getExpirationTimeSec(), 123);
+    $this->assertEquals($result["value"]->getLastAccessTimeSec(), 456);
+    $this->assertEquals($result["value"]->getDeleteLockTimeSec(), 789);
+    $this->assertEquals($result["cas"], 123456);
+    $result = $memcached->fetch();
+    $this->assertEquals($result["key"], "bar");
+    $this->assertEquals($result["value"]->getValue(), "bar_value");
+    $this->assertEquals($result["value"]->getExpirationTimeSec(), 987);
+    $this->assertEquals($result["value"]->getLastAccessTimeSec(), 654);
+    $this->assertEquals($result["value"]->getDeleteLockTimeSec(), 321);
     $this->assertEquals($result["cas"], 2);
     $this->assertFalse($memcached->fetch());
     $this->assertEquals($cb_count, 2);

@@ -461,16 +461,61 @@ class Memcached {
    * @return the value stored in the cache of false if there was a failure.
    */
   public function get($key, $cache_cb = null, &$cas_token = null) {
+    // Only way to check if we were passed a $cas_token is checking the number
+    // of passed in arguments.
+    $for_cas = false;
+    if (func_num_args() == 3) {
+      $for_cas = true;
+    }
+    return $this->getInternal(false /* $for_peek */,
+                              $for_cas,
+                              $key,
+                              $cache_cb,
+                              $cas_token);
+  }
+
+  /**
+   * Returns the item and corresponding timestamps that were previously stored
+   * under the $key.
+   *
+   * @param string $key The key under which to store the value.
+   * @param mixed $cas_token The variable to store the CAS token in. This value
+   * is opaque to the application.
+   *
+   * @return the MemcacheItemWithTimestamps stored in the cache or false if
+   * there was a failure.
+   */
+  public function peek($key, &$cas_token = null) {
+    // Only way to check if we were passed a $cas_token is checking the number
+    // of passed in arguments.
+    $for_cas = false;
+    if (func_num_args() == 2) {
+      $for_cas = true;
+    }
+    return $this->getInternal(true /* $for_peek */,
+                              $for_cas,
+                              $key,
+                              null,
+                              $cas_token);
+  }
+
+  private function getInternal($for_peek,
+                               $for_cas,
+                               $key,
+                               $cache_cb = null,
+                               &$cas_token = null) {
     // Not re-using getMulti to avoid messing with multiple result arrays for
     // cas tokens.
     $request = new MemcacheGetRequest();
     $response = new MemcacheGetResponse();
 
+    if ($for_peek) {
+      $request->setForPeek(true);
+    }
+
     $key = $this->getPrefixKey($key);
     $request->addKey($key);
-    // Only way to check if we were passed a $cas_token is checking the number
-    // of passed in arguments.
-    if (func_num_args() == 3) {
+    if ($for_cas) {
       $request->setForCas(true);
     }
 
@@ -502,8 +547,19 @@ class Memcached {
       }
       $this->result_code = self::RES_SUCCESS;
       try {
-        return MemcacheUtils::deserializeValue($item->getValue(),
-                                               $item->getFlags());
+        $value = MemcacheUtils::deserializeValue($item->getValue(),
+                                                 $item->getFlags());
+        if ($for_peek) {
+          $memcacheItemWithTimestamps = new MemcacheItemWithTimestamps(
+            $value,
+            $item->getTimestamps()->getExpirationTimeSec(),
+            $item->getTimestamps()->getLastAccessTimeSec(),
+            $item->getTimestamps()->getDeleteLockTimeSec());
+          $return_value = $memcacheItemWithTimestamps;
+        } else {
+          $return_value = $value;
+        }
+        return $return_value;
       } catch (\UnexpectedValueException $e) {
         $this->result_code = self::RES_NOTFOUND;
         return false;
@@ -537,6 +593,21 @@ class Memcached {
   }
 
   /**
+   * @see Memcache::peek().
+   *
+   * @param string $server_key This parameter is ignored.
+   * @param string $key The key under which to store the value.
+   * @param mixed $cas_token The variable to store the CAS token in. This value
+   * is opaque to the application.
+   *
+   * @return the MemcacheItemWithTimestamps stored in the cache or false if
+   * there was a failure.
+   */
+  public function peekByKey($server_key, $key, &$cas_token) {
+    return $this->peek($key, $cas_token);
+  }
+
+  /**
    * Issues a request to memcache for multiple items the keys of which are
    * specified in the keys array.
    * Currently this method executes synchronously.
@@ -548,15 +619,39 @@ class Memcached {
    * @return bool true on success, or false on failure.
    */
   public function getDelayed($keys, $with_cas=false, $value_cb=null) {
+    return $this->getDelayedInternal(false /* $for_peek */,
+                                     $keys,
+                                     $with_cas,
+                                     $value_cb);
+  }
+
+  /**
+   * Issues a request to memcache for multiple items with timestamps, the keys
+   * of which are specified in the keys array.
+   * Currently this method executes synchronously.
+   *
+   * @param array $keys Array of keys to retrieve.
+   * @param bool $with_cas If true, retrieve the CAS tokens for the keys.
+   * @param callable $value_cb The result callback.
+   *
+   * @return bool true on success, or false on failure.
+   */
+  public function peekDelayed($keys, $with_cas=false, $value_cb=null) {
+    return $this->getDelayedInternal(true /* $for_peek */,
+                                     $keys,
+                                     $with_cas,
+                                     $value_cb);
+  }
+
+  private function getDelayedInternal($for_peek,
+                                      $keys,
+                                      $with_cas=false,
+                                      $value_cb=null) {
     // Clear any previous delayed results.
     $this->delayed_results = array();
 
     $cas_tokens = null;
-    if ($with_cas) {
-      $results = $this->getMulti($keys, $cas_tokens);
-    } else {
-      $results = $this->getMulti($keys);
-    }
+    $results = $this->getMultiInternal($for_peek, $with_cas, $keys, $cas_tokens);
 
     if (!$results) {
       return false;
@@ -598,6 +693,23 @@ class Memcached {
   }
 
   /**
+   * @see peekDelayedByKey.
+   *
+   * @param string $server_key This parameter is ignored.
+   * @param array $keys Array of keys to retrieve.
+   * @param bool $with_cas If true, retrieve the CAS tokens for the keys.
+   * @param callable $value_cb The result callback.
+   *
+   * @return bool true on success, or false on failure.
+   */
+  public function peekDelayedByKey($server_key,
+                                   $keys,
+                                   $with_cas = false,
+                                   $value_cb = null) {
+    return $this->peekDelayed($keys, $with_cas, $value_cb);
+  }
+
+  /**
    * Similar to Memcached::get(), but instead of a single key item, it retrieves
    * multiple items the keys of which are specified in the keys array.
    *
@@ -611,8 +723,58 @@ class Memcached {
    * @return array The array of found items for false on failure.
    */
   public function getMulti($keys, &$cas_tokens = null, $flags = 0) {
+    // Only way to check if we were passed a $cas_token is checking the number
+    // of passed in arguments.
+    $for_cas = false;
+    if (func_num_args() > 1) {
+      $for_cas = true;
+    }
+    return $this->getMultiInternal(false /* $for_peek */,
+                                   $for_cas,
+                                   $keys,
+                                   $cas_tokens,
+                                   $flags);
+  }
+
+  /**
+   * Similar to Memcached::peek(), but instead of a single key item, it
+   * retrieves multiple items and their timestamps, the keys of which are
+   * specified in the keys array.
+   *
+   * @see Memcached::peek()
+   *
+   * @param array $keys Array of keys to retrieve.
+   * @param array $cas_tokens The variable to store the CAS tokens for found
+   * items.
+   * @param int $flags The flags for the get operation.
+   *
+   * @return array The array of found items for false on failure.
+   */
+  public function peekMulti($keys, &$cas_tokens = null, $flags = 0) {
+    // Only way to check if we were passed a $cas_token is checking the number
+    // of passed in arguments.
+    $for_cas = false;
+    if (func_num_args() > 1) {
+      $for_cas = true;
+    }
+    return $this->getMultiInternal(true /* $for_peek */,
+                                   $for_cas,
+                                   $keys,
+                                   $cas_tokens,
+                                   $flags);
+  }
+
+  private function getMultiInternal($for_peek,
+                                    $for_cas,
+                                    $keys,
+                                    &$cas_tokens = null,
+                                    $flags = 0) {
     $request = new MemcacheGetRequest();
     $response = new MemcacheGetResponse();
+
+    if ($for_peek) {
+      $request->setForPeek(true);
+    }
 
     foreach ($keys as $key) {
       $key = $this->getPrefixKey($key);
@@ -621,7 +783,7 @@ class Memcached {
 
     // Need to check the number of arguments passed to the function to see if
     // the user wants cas_tokens.
-    if (func_num_args() > 1) {
+    if ($for_cas) {
       $request->setForCas(true);
     }
 
@@ -635,8 +797,18 @@ class Memcached {
     $return_value = array();
     foreach ($response->getItemList() as $item) {
       try {
-        $return_value[$item->getKey()] = MemcacheUtils::deserializeValue(
-            $item->getValue(), $item->getFlags());
+        $value = MemcacheUtils::deserializeValue($item->getValue(),
+                                                 $item->getFlags());
+        if ($for_peek) {
+          $memcacheItemWithTimestamps = new MemcacheItemWithTimestamps(
+            $value,
+            $item->getTimestamps()->getExpirationTimeSec(),
+            $item->getTimestamps()->getLastAccessTimeSec(),
+            $item->getTimestamps()->getDeleteLockTimeSec());
+          $return_value[$item->getKey()] = $memcacheItemWithTimestamps;
+        } else {
+          $return_value[$item->getKey()] = $value;
+        }
       } catch (\UnexpectedValueException $e) {
         // Skip entries that cannot be deserialized.
         continue;
@@ -665,7 +837,7 @@ class Memcached {
         }
       }
       $return_value = $ordered_result;
-      if (func_num_args() > 1) {
+      if ($for_cas) {
         $cas_tokens = $ordered_cas_tokens;
       }
     }
@@ -688,6 +860,24 @@ class Memcached {
                                 $with_cas = false,
                                 $value_cb = null) {
     return $this->getMulti($keys, $with_cas, $value_cb);
+  }
+
+  /**
+   * @see Memcached::peekMulti()
+   *
+   * @param string $server_key This parameter is ignored.
+   * @param array $keys Array of keys to retrieve.
+   * @param array $cas_tokens The variable to store the CAS tokens for found
+   * items.
+   * @param int $flags The flags for the get operation.
+   *
+   * @return array The array of found items for false on failure.
+   */
+  public function peekMultiByKey($server_key,
+                                 $keys,
+                                 $with_cas = false,
+                                 $value_cb = null) {
+    return $this->peekMulti($keys, $with_cas, $value_cb);
   }
 
   /**
