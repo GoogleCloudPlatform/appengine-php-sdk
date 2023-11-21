@@ -262,6 +262,164 @@ class MemcacheTest extends ApiProxyTestBase {
     $this->apiProxyMock->verify();
   }
 
+  public function testPeekStringSuccess() {
+    $memcache = new Memcache();
+
+    $request = new MemcacheGetRequest();
+    $request->addKey("key");
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+    $item = $response->addItem();
+    $item->setKey("key");
+    $item->setValue("value");
+    $item->setFlags(0);  // String.
+    $timestamps = $item->mutableTimestamps();
+    $timestamps->setExpirationTimeSec(123);
+    $timestamps->setLastAccessTimeSec(456);
+    $timestamps->setDeleteLockTimeSec(789);
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+    $this->assertEquals(new MemcacheItemWithTimestamps("value", 123, 456, 789),
+                        $memcache->peek("key"));
+    $this->apiProxyMock->verify();
+  }
+
+  public function testPeekUnicodeSuccess() {
+    $memcache = new Memcache();
+
+    $request = new MemcacheGetRequest();
+    $request->addKey("key");
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+    $item = $response->addItem();
+    $item->setKey("key");
+    $item->setValue("value");
+    $item->setFlags(1);  // Unicode.
+    $timestamps = $item->mutableTimestamps();
+    $timestamps->setExpirationTimeSec(123);
+    $timestamps->setLastAccessTimeSec(456);
+    $timestamps->setDeleteLockTimeSec(789);
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+    $this->assertEquals(new MemcacheItemWithTimestamps("value", 123, 456, 789),
+                        $memcache->peek("key"));
+    $this->apiProxyMock->verify();
+  }
+
+  public function testPeekMissing() {
+    $memcache = new Memcache();
+
+    $request = new MemcacheGetRequest();
+    $request->addKey("key");
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+    $this->assertFalse($memcache->peek("key"));
+    $this->apiProxyMock->verify();
+  }
+
+  public function testPeekUnexpectedValue() {
+    $memcache = new Memcache();
+
+    $request = new MemcacheGetRequest();
+    $request->addKey("key");
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+    $item = $response->addItem();
+    $item->setKey("key");
+    $item->setValue("value");
+    $item->setFlags(2);  // Python's picked type.
+    $timestamps = $item->mutableTimestamps();
+    $timestamps->setExpirationTimeSec(123);
+    $timestamps->setLastAccessTimeSec(456);
+    $timestamps->setDeleteLockTimeSec(789);
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+    $this->assertFalse($memcache->peek("key"));
+    $this->apiProxyMock->verify();
+  }
+
+  public function testPeekMany() {
+    $memcache = new Memcache();
+
+    $request = new MemcacheGetRequest();
+    $request->addKey("key1");
+    $request->addKey("key2");
+    $request->addKey("key3");
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+    $item3 = $response->addItem();
+    $item3->setKey("key3");
+    $item3->setValue("value3");
+    $item3->setFlags(0);  // string.
+    $timestamps = $item3->mutableTimestamps();
+    $timestamps->setExpirationTimeSec(123);
+    $timestamps->setLastAccessTimeSec(456);
+    $timestamps->setDeleteLockTimeSec(789);
+
+    $item1 = $response->addItem();
+    $item1->setKey("key1");
+    $item1->setValue("value1");
+    $item1->setFlags(0);  // string.
+    $timestamps = $item1->mutableTimestamps();
+    $timestamps->setExpirationTimeSec(987);
+    $timestamps->setLastAccessTimeSec(654);
+    $timestamps->setDeleteLockTimeSec(321);
+
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+    $this->assertEquals(array("key1" => new MemcacheItemWithTimestamps("value1",
+                                                                       987,
+								       654,
+								       321),
+                              "key3" => new MemcacheItemWithTimestamps("value3",
+			                                               123,
+								       456,
+								       789)),
+                        $memcache->peek(array("key1", "key2", "key3")));
+    $this->apiProxyMock->verify();
+  }
+
+  public function testPeekManyAllMissing() {
+    $memcache = new Memcache();
+
+    $request = new MemcacheGetRequest();
+    $request->addKey("key1");
+    $request->addKey("key2");
+    $request->addKey("key3");
+    $request->setForPeek(true);
+
+    $response = new MemcacheGetResponse();
+
+    $this->apiProxyMock->expectCall('memcache',
+                                    'Get',
+                                    $request,
+                                    $response);
+    $this->assertFalse($memcache->peek(array("key1", "key2", "key3")));
+    $this->apiProxyMock->verify();
+  }
+
   public function testIncrementSuccess() {
     $memcache = new Memcache();
 
