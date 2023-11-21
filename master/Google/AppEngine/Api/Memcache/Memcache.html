@@ -209,6 +209,16 @@ representing an integer e.g. 5, 5.0 or "5" or the call with fail.</p>           
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    mixed
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_peek">peek</a>(string|string[] $keys, int $flags = null)
+        
+                                            <p>Gets an item from memcache along with timestamp metadata.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     bool
                 </div>
                 <div class="col-md-8 type">
@@ -522,7 +532,7 @@ representing an integer e.g. 5, 5.0 or "5" or the call with fail.</p>           
             </div>
                     <div class="method-item">
                     <h3 id="method_get">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L211">line 211</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L250">line 250</a></div>
         <code>                    mixed
     <strong>get</strong>(string|string[] $keys, int $flags = null)
         </code>
@@ -571,7 +581,7 @@ representing an integer e.g. 5, 5.0 or "5" or the call with fail.</p>           
             </div>
                     <div class="method-item">
                     <h3 id="method_increment">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L250">line 250</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L271">line 271</a></div>
         <code>                    mixed
     <strong>increment</strong>(string $key, int $value = 1)
         </code>
@@ -618,7 +628,7 @@ representing an integer e.g. 5, 5.0 or "5" or the call with fail.</p>           
             </div>
                     <div class="method-item">
                     <h3 id="method_pconnect">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L295">line 295</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L316">line 316</a></div>
         <code>                    
     <strong>pconnect</strong>($host, $port = null, $timeout = 1)
         </code>
@@ -658,8 +668,57 @@ representing an integer e.g. 5, 5.0 or "5" or the call with fail.</p>           
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_peek">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L333">line 333</a></div>
+        <code>                    mixed
+    <strong>peek</strong>(string|string[] $keys, int $flags = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets an item from memcache along with timestamp metadata.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string|string[]</td>
+                <td>$keys</td>
+                <td>The key associated with the value to fetch, or
+                             an array of keys if fetching multiple values.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$flags</td>
+                <td>This parameter is present only for compatibility and is
+                  ignored. It should return the stored flag value.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>mixed</td>
+            <td>On success, the MemcacheItemWithTimestamps associated with
+              the key, or an array of key-MemcacheItemWithTimestamp pairs
+              when $keys is an array. On failure, false is returned.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_replace">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L321">line 321</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L359">line 359</a></div>
         <code>                    bool
     <strong>replace</strong>(string $key, mixed $value, int $flag = null, int $expire = 0)
         </code>
@@ -723,7 +782,7 @@ present in the cache.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_set">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L359">line 359</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L397">line 397</a></div>
         <code>                    bool
     <strong>set</strong>(string $key, mixed $value, int $flag = null, int $expire = 0)
         </code>
@@ -787,7 +846,7 @@ present or not.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setCompressThreshold">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L378">line 378</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcache.php#L416">line 416</a></div>
         <code>                    
     <strong>setCompressThreshold</strong>($threshold, $min_savings = 0.2)
         </code>

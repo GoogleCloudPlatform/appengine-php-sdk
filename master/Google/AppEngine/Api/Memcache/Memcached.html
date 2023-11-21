@@ -710,6 +710,17 @@ client.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    <abbr title="Google\AppEngine\Api\Memcache\the">the</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_peek">peek</a>(string $key, mixed $cas_token = null)
+        
+                                            <p>Returns the item and corresponding timestamps that were previously stored
+under the $key.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     
                 </div>
                 <div class="col-md-8 type">
@@ -731,6 +742,17 @@ client.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    <abbr title="Google\AppEngine\Api\Memcache\the">the</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_peekByKey">peekByKey</a>(string $server_key, string $key, mixed $cas_token)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     bool
                 </div>
                 <div class="col-md-8 type">
@@ -745,7 +767,29 @@ specified in the keys array.</p>                </div>
                     bool
                 </div>
                 <div class="col-md-8 type">
+                    <a href="#method_peekDelayed">peekDelayed</a>(array $keys, bool $with_cas = false, callable $value_cb = null)
+        
+                                            <p>Issues a request to memcache for multiple items with timestamps, the keys
+of which are specified in the keys array.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getDelayedByKey">getDelayedByKey</a>(string $server_key, array $keys, bool $with_cas = false, callable $value_cb = null)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_peekDelayedByKey">peekDelayedByKey</a>(string $server_key, array $keys, bool $with_cas = false, callable $value_cb = null)
         
                                             <p class="no-description">No description</p>
                                     </div>
@@ -767,7 +811,30 @@ multiple items the keys of which are specified in the keys array.</p>           
                     array
                 </div>
                 <div class="col-md-8 type">
+                    <a href="#method_peekMulti">peekMulti</a>(array $keys, array $cas_tokens = null, int $flags = 0)
+        
+                                            <p>Similar to Memcached::peek(), but instead of a single key item, it
+retrieves multiple items and their timestamps, the keys of which are
+specified in the keys array.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getMultiByKey">getMultiByKey</a>($server_key, $keys, $with_cas = false, $value_cb = null)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_peekMultiByKey">peekMultiByKey</a>($server_key, $keys, $with_cas = false, $value_cb = null)
         
                                             <p class="no-description">No description</p>
                                     </div>
@@ -1987,8 +2054,56 @@ is opaque to the application.</td>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_peek">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L488">line 488</a></div>
+        <code>                    <abbr title="Google\AppEngine\Api\Memcache\the">the</abbr>
+    <strong>peek</strong>(string $key, mixed $cas_token = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the item and corresponding timestamps that were previously stored
+under the $key.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$cas_token</td>
+                <td>The variable to store the CAS token in. This value
+is opaque to the application.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Google\AppEngine\Api\Memcache\the">the</abbr></td>
+            <td>MemcacheItemWithTimestamps stored in the cache or false if
+there was a failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getAllKeys">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L520">line 520</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L576">line 576</a></div>
         <code>                    
     <strong>getAllKeys</strong>()
         </code>
@@ -2009,7 +2124,7 @@ is opaque to the application.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getByKey">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L535">line 535</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L591">line 591</a></div>
         <code>                    <abbr title="Google\AppEngine\Api\Memcache\the">the</abbr>
     <strong>getByKey</strong>(string $server_key, string $key, callable $cache_cb, mixed $cas_token)
         </code>
@@ -2073,8 +2188,69 @@ is opaque to the application.</td>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_peekByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L606">line 606</a></div>
+        <code>                    <abbr title="Google\AppEngine\Api\Memcache\the">the</abbr>
+    <strong>peekByKey</strong>(string $server_key, string $key, mixed $cas_token)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td>The key under which to store the value.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$cas_token</td>
+                <td>The variable to store the CAS token in. This value
+is opaque to the application.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Google\AppEngine\Api\Memcache\the">the</abbr></td>
+            <td>MemcacheItemWithTimestamps stored in the cache or false if
+there was a failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcache.html#method_peek"><abbr title="Google\AppEngine\Api\Memcache\Memcache">Memcache</abbr>::peek</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getDelayed">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L550">line 550</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L621">line 621</a></div>
         <code>                    bool
     <strong>getDelayed</strong>(array $keys, bool $with_cas = false, callable $value_cb = null)
         </code>
@@ -2124,8 +2300,59 @@ specified in the keys array.</p>                    <p>Currently this method exe
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_peekDelayed">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L639">line 639</a></div>
+        <code>                    bool
+    <strong>peekDelayed</strong>(array $keys, bool $with_cas = false, callable $value_cb = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Issues a request to memcache for multiple items with timestamps, the keys
+of which are specified in the keys array.</p>                    <p>Currently this method executes synchronously.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$keys</td>
+                <td>Array of keys to retrieve.</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$with_cas</td>
+                <td>If true, retrieve the CAS tokens for the keys.</td>
+            </tr>
+                    <tr>
+                <td>callable</td>
+                <td>$value_cb</td>
+                <td>The result callback.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success, or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getDelayedByKey">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L593">line 593</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L688">line 688</a></div>
         <code>                    bool
     <strong>getDelayedByKey</strong>(string $server_key, array $keys, bool $with_cas = false, callable $value_cb = null)
         </code>
@@ -2188,8 +2415,72 @@ specified in the keys array.</p>                    <p>Currently this method exe
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_peekDelayedByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L705">line 705</a></div>
+        <code>                    bool
+    <strong>peekDelayedByKey</strong>(string $server_key, array $keys, bool $with_cas = false, callable $value_cb = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$server_key</td>
+                <td>This parameter is ignored.</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$keys</td>
+                <td>Array of keys to retrieve.</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$with_cas</td>
+                <td>If true, retrieve the CAS tokens for the keys.</td>
+            </tr>
+                    <tr>
+                <td>callable</td>
+                <td>$value_cb</td>
+                <td>The result callback.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td>true on success, or false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <abbr title="Google\AppEngine\Api\Memcache\peekDelayedByKey.">peekDelayedByKey.</abbr>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getMulti">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L613">line 613</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L725">line 725</a></div>
         <code>                    array
     <strong>getMulti</strong>(array $keys, array $cas_tokens = null, int $flags = 0)
         </code>
@@ -2251,8 +2542,72 @@ items.</td>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_peekMulti">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L753">line 753</a></div>
+        <code>                    array
+    <strong>peekMulti</strong>(array $keys, array $cas_tokens = null, int $flags = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Similar to Memcached::peek(), but instead of a single key item, it
+retrieves multiple items and their timestamps, the keys of which are
+specified in the keys array.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$keys</td>
+                <td>Array of keys to retrieve.</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$cas_tokens</td>
+                <td>The variable to store the CAS tokens for found
+items.</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$flags</td>
+                <td>The flags for the get operation.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td>The array of found items for false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_peek"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::peek</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getMultiByKey">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L686">line 686</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L858">line 858</a></div>
         <code>                    array
     <strong>getMultiByKey</strong>($server_key, $keys, $with_cas = false, $value_cb = null)
         </code>
@@ -2315,8 +2670,72 @@ items.</td>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_peekMultiByKey">
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L876">line 876</a></div>
+        <code>                    array
+    <strong>peekMultiByKey</strong>($server_key, $keys, $with_cas = false, $value_cb = null)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$server_key</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$keys</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$with_cas</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$value_cb</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td>The array of found items for false on failure.</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../../Google/AppEngine/Api/Memcache/Memcached.html#method_peekMulti"><abbr title="Google\AppEngine\Api\Memcache\Memcached">Memcached</abbr>::peekMulti</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getOption">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L700">line 700</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L890">line 890</a></div>
         <code>                    mixed
     <strong>getOption</strong>($option)
         </code>
@@ -2356,7 +2775,7 @@ items.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getResultCode">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L713">line 713</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L903">line 903</a></div>
         <code>                    int
     <strong>getResultCode</strong>()
         </code>
@@ -2387,7 +2806,7 @@ last executed Memcached method.</p>                                             
             </div>
                     <div class="method-item">
                     <h3 id="method_getResultMessage">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L722">line 722</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L912">line 912</a></div>
         <code>                    string
     <strong>getResultMessage</strong>()
         </code>
@@ -2417,7 +2836,7 @@ last executed Memcached method.</p>                                             
             </div>
                     <div class="method-item">
                     <h3 id="method_getServerByKey">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L740">line 740</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L930">line 930</a></div>
         <code>                    
     <strong>getServerByKey</strong>($server_key)
         </code>
@@ -2448,7 +2867,7 @@ last executed Memcached method.</p>                                             
             </div>
                     <div class="method-item">
                     <h3 id="method_getServerList">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L747">line 747</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L937">line 937</a></div>
         <code>                    
     <strong>getServerList</strong>()
         </code>
@@ -2469,7 +2888,7 @@ last executed Memcached method.</p>                                             
             </div>
                     <div class="method-item">
                     <h3 id="method_getStats">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L754">line 754</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L944">line 944</a></div>
         <code>                    
     <strong>getStats</strong>()
         </code>
@@ -2490,7 +2909,7 @@ last executed Memcached method.</p>                                             
             </div>
                     <div class="method-item">
                     <h3 id="method_getVersion">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L761">line 761</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L951">line 951</a></div>
         <code>                    
     <strong>getVersion</strong>()
         </code>
@@ -2511,7 +2930,7 @@ last executed Memcached method.</p>                                             
             </div>
                     <div class="method-item">
                     <h3 id="method_increment">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L776">line 776</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L966">line 966</a></div>
         <code>                    <abbr title="Google\AppEngine\Api\Memcache\The">The</abbr>
     <strong>increment</strong>(string $key, int $offset = 1, int $initial_value = 0, int $expiry = 0)
         </code>
@@ -2567,7 +2986,7 @@ value is not numeric, and error will result.</p>                                
             </div>
                     <div class="method-item">
                     <h3 id="method_incrementByKey">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L795">line 795</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L985">line 985</a></div>
         <code>                    <abbr title="Google\AppEngine\Api\Memcache\The">The</abbr>
     <strong>incrementByKey</strong>(string $server_key, string $key, int $offset = 1, int $initial_value = 0, int $expiry = 0)
         </code>
@@ -2636,7 +3055,7 @@ value is not numeric, and error will result.</p>                                
             </div>
                     <div class="method-item">
                     <h3 id="method_isPersistent">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L853">line 853</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1043">line 1043</a></div>
         <code>                    
     <strong>isPersistent</strong>()
         </code>
@@ -2657,7 +3076,7 @@ value is not numeric, and error will result.</p>                                
             </div>
                     <div class="method-item">
                     <h3 id="method_isPristine">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L860">line 860</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1050">line 1050</a></div>
         <code>                    
     <strong>isPristine</strong>()
         </code>
@@ -2678,7 +3097,7 @@ value is not numeric, and error will result.</p>                                
             </div>
                     <div class="method-item">
                     <h3 id="method_prepend">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L872">line 872</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1062">line 1062</a></div>
         <code>                    true
     <strong>prepend</strong>(string $key, string $value)
         </code>
@@ -2723,7 +3142,7 @@ value is not numeric, and error will result.</p>                                
             </div>
                     <div class="method-item">
                     <h3 id="method_prependByKey">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L897">line 897</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1087">line 1087</a></div>
         <code>                    true
     <strong>prependByKey</strong>(string $server_key, string $key, string $value)
         </code>
@@ -2782,7 +3201,7 @@ value is not numeric, and error will result.</p>                                
             </div>
                     <div class="method-item">
                     <h3 id="method_quit">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L904">line 904</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1094">line 1094</a></div>
         <code>                    
     <strong>quit</strong>()
         </code>
@@ -2803,7 +3222,7 @@ value is not numeric, and error will result.</p>                                
             </div>
                     <div class="method-item">
                     <h3 id="method_replace">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L918">line 918</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1108">line 1108</a></div>
         <code>                    true
     <strong>replace</strong>(string $key, mixed $value, int $expiration = 0)
         </code>
@@ -2854,7 +3273,7 @@ key is not found on the server.</p>                                             
             </div>
                     <div class="method-item">
                     <h3 id="method_replaceByKey">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L935">line 935</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1125">line 1125</a></div>
         <code>                    true
     <strong>replaceByKey</strong>(string $server_key, string $key, mixed $value, int $expiration = 0)
         </code>
@@ -2918,7 +3337,7 @@ key is not found on the server.</p>                                             
             </div>
                     <div class="method-item">
                     <h3 id="method_resetServerList">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L942">line 942</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1132">line 1132</a></div>
         <code>                    
     <strong>resetServerList</strong>()
         </code>
@@ -2939,7 +3358,7 @@ key is not found on the server.</p>                                             
             </div>
                     <div class="method-item">
                     <h3 id="method_set">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L957">line 957</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1147">line 1147</a></div>
         <code>                    true
     <strong>set</strong>(string $key, mixed $value, int $expiration = 0)
         </code>
@@ -2991,7 +3410,7 @@ expired.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setByKey">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L974">line 974</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1164">line 1164</a></div>
         <code>                    true
     <strong>setByKey</strong>(string $server_key, string $key, mixed $value, int $expiration = 0)
         </code>
@@ -3055,7 +3474,7 @@ expired.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setMulti">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L989">line 989</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1179">line 1179</a></div>
         <code>                    
     <strong>setMulti</strong>(array $items, int $expiration = 0)
         </code>
@@ -3105,7 +3524,7 @@ works on multiple items specified in items.</p>                                 
             </div>
                     <div class="method-item">
                     <h3 id="method_setMultiByKey">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1028">line 1028</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1218">line 1218</a></div>
         <code>                    bool
     <strong>setMultiByKey</strong>(string $server_key, array $items, int $expiration = 0)
         </code>
@@ -3164,7 +3583,7 @@ works on multiple items specified in items.</p>                                 
             </div>
                     <div class="method-item">
                     <h3 id="method_setOption">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1040">line 1040</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1230">line 1230</a></div>
         <code>                    bool
     <strong>setOption</strong>(int $option, mixed $value)
         </code>
@@ -3209,7 +3628,7 @@ works on multiple items specified in items.</p>                                 
             </div>
                     <div class="method-item">
                     <h3 id="method_setOptions">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1057">line 1057</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1247">line 1247</a></div>
         <code>                    bool
     <strong>setOptions</strong>(mixed $options)
         </code>
@@ -3250,7 +3669,7 @@ to be set.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setSaslAuthData">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1068">line 1068</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1258">line 1258</a></div>
         <code>                    
     <strong>setSaslAuthData</strong>($username, $password)
         </code>
@@ -3286,7 +3705,7 @@ to be set.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_touch">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1079">line 1079</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1269">line 1269</a></div>
         <code>                    bool
     <strong>touch</strong>(string $key, int $expiration = 0)
         </code>
@@ -3331,7 +3750,7 @@ to be set.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_touchByKey">
-        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1097">line 1097</a></div>
+        <div class="location">at         <a href="https://github.com/GoogleCloudPlatform/appengine-php-sdk/blob/master/src/Api/Memcache/Memcached.php#L1287">line 1287</a></div>
         <code>                    bool
     <strong>touchByKey</strong>(string $server_key, string $key, int $expiration = 0)
         </code>
