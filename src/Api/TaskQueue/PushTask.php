@@ -66,13 +66,13 @@ final class PushTask {
     'header'        => '',
   ];
 
-  private $url;
+  public $url;
 
-  private $query_data;
+  public $query_data;
 
-  private $options;
+  public $options;
 
-  private $headers = [];
+  public $headers = [];
 
   /**
    * Construct a PushTask.
@@ -177,7 +177,7 @@ final class PushTask {
       if (in_array($this->options['method'], ['GET', 'HEAD', 'DELETE'])) {
         $this->url = $url_path . '?' . http_build_query($query_data);
       } else { // PUT or POST
-        $this->headers[] = 'content-type: application/x-www-form-urlencoded';
+        array_push($this->headers,'content-type: application/x-www-form-urlencoded');
       }
     }
     if (strlen($this->url) > self::MAX_URL_LENGTH) {
@@ -195,6 +195,7 @@ final class PushTask {
 
     $has_content_type = !empty($this->headers);
     $header_array = explode("\r\n", $header);
+
     foreach ($header_array as $h) {
       $h = trim($h);
       if (empty($h)) {
@@ -210,6 +211,8 @@ final class PushTask {
         throw new \InvalidArgumentException('Content-type header may not ' .
             'be specified as it is set by the task.');
       }
+      echo "<br>Headerss: " . $h . "<br>";
+      // array_push($this->headers, $h);
       $this->headers[] = $h;
     }
   }

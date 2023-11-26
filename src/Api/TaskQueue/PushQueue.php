@@ -158,7 +158,7 @@ final class PushQueue {
             'All values in $tasks must be instances of PushTask. ' .
             'Actual type: ' . gettype($task));
       }
-      $names[] = $task->getName();
+      array_push($names, $task->getName());
       $add = $req->addAddRequest();
       $add->setQueueName($this->name);
       $add->setTaskName($task->getName());
@@ -170,6 +170,8 @@ final class PushQueue {
         $header_pb = $add->addHeader();
         $header_pb->setKey(trim($pair[0]));
         $header_pb->setValue(trim($pair[1]));
+        echo "<br>ZACH KEY&VALUE: " . trim($pair[0]) . " " . trim($pair[1]);
+
       }
       // TODO: Replace getQueryData() with getBody() and simplify the following
       // block.
