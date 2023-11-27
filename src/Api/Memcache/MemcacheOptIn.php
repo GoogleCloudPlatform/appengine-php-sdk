@@ -52,6 +52,9 @@ if (!defined('MEMCACHE_HAVE_SESSION')) {
 	define('MEMCACHE_HAVE_SESSION', 1); // See ext/session/MemcacheSessionHandler.
 }
 
+ini_set('session.save_path', 'Google\AppEngine\Api\Memcache\Memcache');
+session_set_save_handler(new Google\AppEngine\Ext\Session\MemcacheSessionHandler(), true);
+
 /**
  * Adds a new item to the cache. Will fail if the key is already present in the
  * cache.
