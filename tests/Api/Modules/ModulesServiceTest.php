@@ -51,7 +51,7 @@ class ModulesTest extends ApiProxyTestBase {
 
   public function tearDown(): void {
     $_SERVER = $this->_SERVER;
-    putenv('MODULES_USE_ADMIN_API');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API');
     ModulesService::setAdminServiceForTesting(null);
     parent::tearDown();
   }
@@ -79,7 +79,7 @@ class ModulesTest extends ApiProxyTestBase {
   }
   
   public function testGetModulesAdminApiSuccess() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
 
     // 1. Mock the Service objects
     $service1 = $this->createMock('Google_Service_Appengine_Service');
@@ -114,7 +114,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests that getModules throws a ModulesException if the Admin API call fails.
    */
   public function testGetModulesAdminApiFailure() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
 
     $appsServices = $this->createMock('Google_Service_Appengine_Resource_AppsServices');
     $appsServices->method('listAppsServices')
@@ -148,7 +148,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests that getVersions correctly lists versions for a module using the Admin API.
    */
   public function testGetVersionsAdminApiSuccess() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $targetModule = 'module1';
 
     // 1. Mock the Version objects
@@ -184,7 +184,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests getVersions with Admin API when no module is specified (uses current).
    */
   public function testGetVersionsAdminApiDefaultModule() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $_SERVER['GAE_SERVICE'] = 'default';
 
     $version = $this->createMock('Google_Service_Appengine_Version');
@@ -211,7 +211,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests that getVersions throws a ModulesException on Admin API failure.
    */
   public function testGetVersionsAdminApiFailure() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
 
     $versionsResource = $this->createMock('Google_Service_Appengine_Resource_AppsServicesVersions');
     $versionsResource->method('listAppsServicesVersions')
@@ -266,7 +266,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests success when a single version has 100% (1.0) traffic allocation.
    */
   public function testGetDefaultVersionAdminApiSuccess100Percent() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $targetModule = 'module1';
 
     $trafficSplit = $this->createMock('Google_Service_Appengine_TrafficSplit');
@@ -292,7 +292,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests success when traffic is split; the version with the highest allocation wins.
    */
   public function testGetDefaultVersionAdminApiSuccessSplit() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
 
     $trafficSplit = $this->createMock('Google_Service_Appengine_TrafficSplit');
     $trafficSplit->method('getAllocations')->willReturn([
@@ -320,7 +320,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests tie-breaking logic where the lexicographically smaller version ID wins.
    */
   public function testGetDefaultVersionAdminApiSuccessTieBreak() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
 
     $trafficSplit = $this->createMock('Google_Service_Appengine_TrafficSplit');
     $trafficSplit->method('getAllocations')->willReturn([
@@ -347,7 +347,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests that a ModulesException is thrown if allocations are empty.
    */
   public function testGetDefaultVersionAdminApiNoAllocations() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
 
     $trafficSplit = $this->createMock('Google_Service_Appengine_TrafficSplit');
     $trafficSplit->method('getAllocations')->willReturn([]);
@@ -373,7 +373,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests that API exceptions are correctly wrapped in ModulesException.
    */
   public function testGetDefaultVersionAdminApiFailure() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
 
     $appsServices = $this->createMock('Google_Service_Appengine_Resource_AppsServices');
     $appsServices->method('get')
@@ -394,7 +394,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests that getNumInstances correctly retrieves instance count using the Admin API.
    */
   public function testGetNumInstancesAdminApiSuccess() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $targetModule = 'module1';
     $targetVersion = 'v1';
 
@@ -426,7 +426,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests getNumInstances using Admin API with default module/version from environment.
    */
   public function testGetNumInstancesAdminApiDefaults() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $_SERVER['GAE_SERVICE'] = 'default-module';
     $_SERVER['GAE_VERSION'] = 'v2.12345';
 
@@ -454,7 +454,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests that getNumInstances throws a ModulesException if the Admin API call fails.
    */
   public function testGetNumInstancesAdminApiFailure() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
 
     $versionsResource = $this->createMock('Google_Service_Appengine_Resource_AppsServicesVersions');
     $versionsResource->method('get')
@@ -527,7 +527,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests that setNumInstances correctly patches the version using the Admin API.
    */
   public function testSetNumInstancesAdminApiSuccess() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $instances = 10;
     $targetModule = 'module1';
     $targetVersion = 'v1';
@@ -564,7 +564,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests setNumInstances using Admin API with default module/version.
    */
   public function testSetNumInstancesAdminApiDefaults() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $_SERVER['GAE_SERVICE'] = 'default-module';
     $_SERVER['GAE_VERSION'] = 'v2.98765';
     $instances = 3;
@@ -592,7 +592,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests that setNumInstances throws a ModulesException if the patch operation fails.
    */
   public function testSetNumInstancesAdminApiFailure() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
 
     $versionsResource = $this->createMock('Google_Service_Appengine_Resource_AppsServicesVersions');
     $versionsResource->method('patch')
@@ -670,7 +670,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests that startVersion correctly patches the serving status to SERVING.
    */
   public function testStartVersionAdminApiSuccess() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $targetModule = 'module1';
     $targetVersion = 'v1';
 
@@ -706,7 +706,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests startVersion with Admin API when the patch operation fails.
    */
   public function testStartVersionAdminApiFailure() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
 
     $versionsResource = $this->createMock('Google_Service_Appengine_Resource_AppsServicesVersions');
     $versionsResource->method('patch')
@@ -769,7 +769,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests that stopVersion correctly patches the serving status to STOPPED.
    */
   public function testStopVersionAdminApiSuccess() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $targetModule = 'module1';
     $targetVersion = 'v1';
 
@@ -805,7 +805,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests stopVersion using Admin API with default module/version.
    */
   public function testStopVersionAdminApiDefaults() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $_SERVER['GAE_SERVICE'] = 'default-module';
     $_SERVER['GAE_VERSION'] = 'v2.123';
 
@@ -832,7 +832,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests startVersion with Admin API when the patch operation fails.
    */
   public function testStopVersionAdminApiFailure() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
 
     $versionsResource = $this->createMock('Google_Service_Appengine_Resource_AppsServicesVersions');
     $versionsResource->method('patch')
@@ -905,7 +905,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests hostname construction for a legacy app with a single 'default' module.
    */
   public function testGetHostnameAdminApiLegacyApp() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $_SERVER['GAE_SERVICE'] = 'default';
     $_SERVER['GAE_VERSION'] = 'v1.123';
 
@@ -940,7 +940,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests instance-specific hostname construction for a manually scaled service.
    */
   public function testGetHostnameAdminApiManualScaling() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $module = 'module1';
     $version = 'v1';
     $instance = 2;
@@ -981,7 +981,7 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests fallback logic when no version is provided and current version doesn't exist in target module.
    */
   public function testGetHostnameAdminApiVersionFallback() {
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $_SERVER['GAE_SERVICE'] = 'default';
     $_SERVER['GAE_VERSION'] = 'current-v.123';
     $targetModule = 'other-module';
@@ -1017,7 +1017,7 @@ class ModulesTest extends ApiProxyTestBase {
    */
   public function testGetHostnameAdminApiInvalidScalingError() {
     // Enable the Admin API path
-    putenv('MODULES_USE_ADMIN_API=true');
+    putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $_SERVER['GOOGLE_CLOUD_PROJECT'] = 'test-project';
     
     // 1. Mock the App Engine Application (for default hostname retrieval)

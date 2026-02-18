@@ -102,7 +102,7 @@ final class ModulesService {
   }
   
   private static function useAdminApi() {
-    return strtolower(getenv('MODULES_USE_ADMIN_API')) === 'true';
+    return strtolower(getenv('APPENGINE_MODULES_USE_ADMIN_API')) === 'true';
   }
 
   private static function getAdminService() {
