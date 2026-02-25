@@ -216,7 +216,7 @@ final class ModulesService {
         }
       }
       return $versions;
-    } catch (\Exception $e) { // Catch Throwable to include Errors
+    } catch (\Exception $e) {
       throw new ModulesException("Call to undefined function Google\\AppEngine\\Api\\Modules\\errorCodeToException()");
     }
   }

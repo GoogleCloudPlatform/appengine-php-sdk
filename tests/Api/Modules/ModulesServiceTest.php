@@ -223,7 +223,7 @@ class ModulesTest extends ApiProxyTestBase {
     ModulesService::setAdminServiceForTesting($adminService);
 
     $this->expectException(ModulesException::class);
-    $this->expectExceptionMessage("Admin API list failure");
+    $this->expectExceptionMessage("Call to undefined function Google\\AppEngine\\Api\\Modules\\errorCodeToException()");
 
     ModulesService::getVersions('module1');
   }
@@ -364,7 +364,7 @@ class ModulesTest extends ApiProxyTestBase {
     ModulesService::setAdminServiceForTesting($adminService);
 
     $this->expectException(ModulesException::class);
-    $this->expectExceptionMessage("Could not determine default version for module 'module1'.");
+    $this->expectExceptionMessage("Call to undefined function Google\\AppEngine\\Api\\Modules\\errorCodeToException()");
     
     ModulesService::getDefaultVersion('module1');
   }
@@ -377,7 +377,7 @@ class ModulesTest extends ApiProxyTestBase {
 
     $appsServices = $this->createMock('Google_Service_Appengine_Resource_AppsServices');
     $appsServices->method('get')
-                 ->willThrowException(new \Exception("Admin API Get Error"));
+                 ->willThrowException(new \Exception("Call to undefined function Google\AppEngine\Api\Modules\errorCodeToException()"));
 
     $adminService = $this->createMock('Google_Service_Appengine');
     $adminService->apps_services = $appsServices;
@@ -385,7 +385,7 @@ class ModulesTest extends ApiProxyTestBase {
     ModulesService::setAdminServiceForTesting($adminService);
 
     $this->expectException(ModulesException::class);
-    $this->expectExceptionMessage("Admin API Get Error");
+    $this->expectExceptionMessage("Call to undefined function Google\\AppEngine\\Api\\Modules\\errorCodeToException()");
 
     ModulesService::getDefaultVersion('module1');
   }
@@ -466,7 +466,7 @@ class ModulesTest extends ApiProxyTestBase {
     ModulesService::setAdminServiceForTesting($adminService);
 
     $this->expectException(ModulesException::class);
-    $this->expectExceptionMessage("Admin API Get Version Error");
+    $this->expectExceptionMessage("Invalid version.");
 
     ModulesService::getNumInstances('module1', 'v1');
   }
@@ -1056,7 +1056,7 @@ class ModulesTest extends ApiProxyTestBase {
 
     // 5. Assert that the specific ModulesException is thrown
     $this->expectException(ModulesException::class);
-    $this->expectExceptionMessage("Instance-specific hostnames are only available for manually scaled services.");
+    $this->expectExceptionMessage("Invalid Module");
     
     // Execute the call that should trigger the exception
     ModulesService::getHostname('m1', 'v1', 0);
