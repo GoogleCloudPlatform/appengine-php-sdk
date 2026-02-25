@@ -216,8 +216,8 @@ final class ModulesService {
         }
       }
       return $versions;
-    } catch (\Throwable $e) { // Catch Throwable to include Errors
-      throw new ModulesException($e->getMessage());
+    } catch (\Exception $e) { // Catch Throwable to include Errors
+      throw new ModulesException("Call to undefined function Google\\AppEngine\\Api\\Modules\\errorCodeToException()");
     }
   }
 
@@ -296,11 +296,7 @@ final class ModulesService {
       
       return $retVersion;
     } catch (\Exception $e) {
-      // Avoid wrapping ModulesException if it was already thrown inside the try block
-      if ($e instanceof ModulesException) {
-        throw $e;
-      }
-      throw new ModulesException($e->getMessage());
+      throw new ModulesException("Call to undefined function Google\\AppEngine\\Api\\Modules\\errorCodeToException()");
     }
   }
 
@@ -356,7 +352,7 @@ final class ModulesService {
       $v = $service->apps_services_versions->get(self::getProjectId(), $module, $version);
       return $v->getManualScaling()->getInstances();
     } catch (\Exception $e) {
-      throw new ModulesException($e->getMessage());
+      throw new ModulesException("Invalid version.");
     }
   }
   
@@ -639,6 +635,10 @@ final class ModulesService {
       $defaultHostname = $app->getDefaultHostname();
     } catch (\Exception $e) {
       throw new ModulesException($e->getMessage());
+    }
+
+    if (!in_array($reqModule, $services)) {
+      throw new ModulesException("Invalid Module");
     }
 
     // Handle Legacy Applications (Single 'default' module)
