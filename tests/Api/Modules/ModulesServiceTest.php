@@ -99,7 +99,7 @@ class ModulesTest extends ApiProxyTestBase {
                  ->willReturn($response);
 
     // 4. Mock the main App Engine Service client
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services = $appsServices;
 
     // Inject the mock
@@ -120,7 +120,7 @@ class ModulesTest extends ApiProxyTestBase {
     $appsServices->method('listAppsServices')
                  ->willThrowException(new \Exception("Admin API Error"));
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services = $appsServices;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -170,7 +170,7 @@ class ModulesTest extends ApiProxyTestBase {
                      ->willReturn($response);
 
     // 4. Mock the main App Engine Service client
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -198,7 +198,7 @@ class ModulesTest extends ApiProxyTestBase {
                      ->with('test-project', 'default')
                      ->willReturn($response);
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -217,7 +217,7 @@ class ModulesTest extends ApiProxyTestBase {
     $versionsResource->method('listAppsServicesVersions')
                      ->willThrowException(new \Exception("Admin API list failure"));
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -280,7 +280,7 @@ class ModulesTest extends ApiProxyTestBase {
                  ->with('test-project', $targetModule)
                  ->willReturn($serviceConfig);
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services = $appsServices;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -307,7 +307,7 @@ class ModulesTest extends ApiProxyTestBase {
     $appsServices = $this->createMock('Google_Service_Appengine_Resource_AppsServices');
     $appsServices->method('get')->willReturn($serviceConfig);
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services = $appsServices;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -334,7 +334,7 @@ class ModulesTest extends ApiProxyTestBase {
     $appsServices = $this->createMock('Google_Service_Appengine_Resource_AppsServices');
     $appsServices->method('get')->willReturn($serviceConfig);
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services = $appsServices;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -358,7 +358,7 @@ class ModulesTest extends ApiProxyTestBase {
     $appsServices = $this->createMock('Google_Service_Appengine_Resource_AppsServices');
     $appsServices->method('get')->willReturn($serviceConfig);
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services = $appsServices;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -379,7 +379,7 @@ class ModulesTest extends ApiProxyTestBase {
     $appsServices->method('get')
                  ->willThrowException(new \Exception("Call to undefined function Google\AppEngine\Api\Modules\errorCodeToException()"));
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services = $appsServices;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -412,7 +412,7 @@ class ModulesTest extends ApiProxyTestBase {
                      ->willReturn($version);
 
     // 3. Mock the main App Engine Service client
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -441,7 +441,7 @@ class ModulesTest extends ApiProxyTestBase {
                      ->with('test-project', 'default-module', 'v2') // Expects parsed version 'v2'
                      ->willReturn($version);
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -460,7 +460,7 @@ class ModulesTest extends ApiProxyTestBase {
     $versionsResource->method('get')
                      ->willThrowException(new \Exception("Admin API Get Version Error"));
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -551,7 +551,7 @@ class ModulesTest extends ApiProxyTestBase {
                      );
 
     // 3. Mock the main App Engine Service client
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -580,7 +580,7 @@ class ModulesTest extends ApiProxyTestBase {
                          ['updateMask' => 'manualScaling.instances']
                      );
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -598,7 +598,7 @@ class ModulesTest extends ApiProxyTestBase {
     $versionsResource->method('patch')
                      ->willThrowException(new \Exception("Admin API Patch Error"));
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -693,7 +693,7 @@ class ModulesTest extends ApiProxyTestBase {
                      );
 
     // 3. Mock the main App Engine Service client
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -712,7 +712,7 @@ class ModulesTest extends ApiProxyTestBase {
     $versionsResource->method('patch')
                      ->willThrowException(new \Exception("Admin API Patch Error"));
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -792,7 +792,7 @@ class ModulesTest extends ApiProxyTestBase {
                      );
 
     // 3. Mock the main App Engine Service client
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -820,7 +820,7 @@ class ModulesTest extends ApiProxyTestBase {
                          ['updateMask' => 'servingStatus']
                      );
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -838,7 +838,7 @@ class ModulesTest extends ApiProxyTestBase {
     $versionsResource->method('patch')
                      ->willThrowException(new \Exception("Admin API Patch Error"));
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps_services_versions = $versionsResource;
 
     ModulesService::setAdminServiceForTesting($adminService);
@@ -915,7 +915,7 @@ class ModulesTest extends ApiProxyTestBase {
     $appsResource = $this->createMock('Google_Service_Appengine_Resource_Apps');
     $appsResource->method('get')->with('test-project')->willReturn($app);
 
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps = $appsResource;
 
     // Mock getModules to return only 'default'
@@ -947,7 +947,7 @@ class ModulesTest extends ApiProxyTestBase {
 
     $app = $this->createMock('Google_Service_Appengine_Application');
     $app->method('getDefaultHostname')->willReturn('myapp.appspot.com');
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps = $this->createMock('Google_Service_Appengine_Resource_Apps');
     $adminService->apps->method('get')->willReturn($app);
 
@@ -988,7 +988,7 @@ class ModulesTest extends ApiProxyTestBase {
 
     $app = $this->createMock('Google_Service_Appengine_Application');
     $app->method('getDefaultHostname')->willReturn('myapp.appspot.com');
-    $adminService = $this->createMock('Google_Service_Appengine');
+    $adminService = $this->createAdminServiceMock();
     $adminService->apps = $this->createMock('Google_Service_Appengine_Resource_Apps');
     $adminService->apps->method('get')->willReturn($app);
 
@@ -1016,28 +1016,31 @@ class ModulesTest extends ApiProxyTestBase {
    * Tests that getHostname fails if an instance is requested for a non-manually scaled service.
    */
   public function testGetHostnameAdminApiInvalidScalingError() {
-    // Enable the Admin API path
     putenv('APPENGINE_MODULES_USE_ADMIN_API=true');
     $_SERVER['GOOGLE_CLOUD_PROJECT'] = 'test-project';
     
-    // 1. Mock the App Engine Application (for default hostname retrieval)
+    // 1. Mock the Application
     $app = $this->createMock('Google_Service_Appengine_Application');
     $app->method('getDefaultHostname')->willReturn('myapp.appspot.com');
-    
     $appsResource = $this->createMock('Google_Service_Appengine_Resource_Apps');
     $appsResource->method('get')->with('test-project')->willReturn($app);
 
-    // 2. Mock the Services List (to prevent foreach(null) in getModules)
-    // The previous error occurred because this mock returned null by default.
+    // 2. Mock the Services List - MUST return 'm1' to avoid "Invalid Module" error
+    $serviceMock = $this->createMock('Google_Service_Appengine_Service');
+    $serviceMock->method('getId')->willReturn('m1');
+    
     $listServicesResponse = $this->createMock('Google_Service_Appengine_ListServicesResponse');
-    $listServicesResponse->method('getServices')->willReturn([]); // Return empty array
+    $listServicesResponse->method('getServices')->willReturn([$serviceMock]); 
     
     $appsServices = $this->createMock('Google_Service_Appengine_Resource_AppsServices');
     $appsServices->method('listAppsServices')->willReturn($listServicesResponse);
 
     // 3. Mock a Version that is NOT manually scaled
-    // This triggers the specific error we are testing for.
-    $version = $this->createMock('Google_Service_Appengine_Version');
+    // FIX: Use onlyMethods() instead of addMethods()
+    $version = $this->getMockBuilder('Google_Service_Appengine_Version')
+                    ->disableOriginalConstructor()
+                    ->onlyMethods(['getManualScaling'])
+                    ->getMock();
     $version->method('getManualScaling')->willReturn(null);
     
     $versionsResource = $this->createMock('Google_Service_Appengine_Resource_AppsServicesVersions');
@@ -1045,20 +1048,18 @@ class ModulesTest extends ApiProxyTestBase {
                      ->with('test-project', 'm1', 'v1', ['view' => 'FULL'])
                      ->willReturn($version);
 
-    // 4. Assemble the main Admin Service mock
-    $adminService = $this->createMock('Google_Service_Appengine');
+    // 4. Assemble the main Admin Service mock using your helper
+    $adminService = $this->createAdminServiceMock(); // Ensures getClient() is not null
     $adminService->apps = $appsResource;
     $adminService->apps_services = $appsServices;
     $adminService->apps_services_versions = $versionsResource;
 
-    // Inject the mock into the service
     ModulesService::setAdminServiceForTesting($adminService);
 
-    // 5. Assert that the specific ModulesException is thrown
+    // 5. Assert that the specific Scaling error is thrown
     $this->expectException(ModulesException::class);
-    $this->expectExceptionMessage("Invalid Module");
+    $this->expectExceptionMessage("Instance-specific hostnames are only available for manually scaled services.");
     
-    // Execute the call that should trigger the exception
     ModulesService::getHostname('m1', 'v1', 0);
   }
 
@@ -1136,4 +1137,13 @@ class ModulesTest extends ApiProxyTestBase {
     $this->assertEquals('hostname', ModulesService::getHostname());
     $this->apiProxyMock->verify();
   }
+  
+  private function createAdminServiceMock() {
+  $client = $this->createMock('Google_Client');
+  $adminService = $this->createMock('Google_Service_Appengine');
+
+  $adminService->method('getClient')->willReturn($client);
+  
+  return $adminService;
+}
 }
