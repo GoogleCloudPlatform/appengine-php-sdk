@@ -105,8 +105,12 @@ final class ModulesService {
     return strtolower(getenv('APPENGINE_MODULES_USE_ADMIN_API')) === 'true';
   }
 
-  private static function getAdminService() {
+  private static function getAdminService($methodName = null) {
     if (self::$adminService !== null) {
+      if ($methodName) {
+        $userAgent = 'appengine-modules-api-php-client/' . $methodName;
+        self::$adminService->getClient()->setApplicationName($userAgent);
+      }
       return self::$adminService;
     }
     static $service = null;
@@ -115,6 +119,10 @@ final class ModulesService {
       $client->useApplicationDefaultCredentials();
       $client->addScope('https://www.googleapis.com/auth/cloud-platform');
       $service = new \Google_Service_Appengine($client);
+    }
+    if ($methodName) {
+      $userAgent = 'appengine-modules-api-php-client/' . $methodName;
+      $service->getClient()->setApplicationName($userAgent);
     }
     return $service;
   }
@@ -154,22 +162,22 @@ final class ModulesService {
    * instance that calls this function.
    */
    
-    public static function getModules() {
+  public static function getModules() {
     if (!self::useAdminApi()) {
       return self::getModulesLegacy();
     }
     try {
-      $service = self::getAdminService();
+      $service = self::getAdminService("get_modules");
       $response = $service->apps_services->listAppsServices(self::getProjectId());
       $modules = [];
       $services = $response->getServices();
-      if ($services !== null) { // Add null check
+      if ($services !== null) {
         foreach ($services as $s) {
           $modules[] = $s->getId();
         }
       }
       return $modules;
-    } catch (\Throwable $e) { // Catch Throwable to include Errors
+    } catch (\Throwable $e) {
       throw new ModulesException($e->getMessage());
     }
   }
@@ -205,12 +213,12 @@ final class ModulesService {
     }
     $module = $module ?: self::getCurrentModuleName();
     try {
-      $service = self::getAdminService();
+      $service = self::getAdminService("get_versions");
       $response = $service->apps_services_versions->listAppsServicesVersions(
           self::getProjectId(), $module);
       $versions = [];
       $versionList = $response->getVersions();
-      if ($versionList !== null) { // Add null check
+      if ($versionList !== null) {
         foreach ($versionList as $v) {
           $versions[] = $v->getId();
         }
@@ -262,7 +270,7 @@ final class ModulesService {
     
     $module = $module ?: self::getCurrentModuleName();
     try {
-      $service = self::getAdminService();
+      $service = self::getAdminService("get_default_version");
       $serviceConfig = $service->apps_services->get(self::getProjectId(), $module);
       
       $split = $serviceConfig->getSplit();
@@ -271,7 +279,6 @@ final class ModulesService {
       $maxAlloc = -1.0;
       $retVersion = null;
 
-      // Iterate through allocations to find the version with the highest traffic
       foreach ($allocations as $version => $allocation) {
         if ($allocation == 1.0) {
           $retVersion = $version;
@@ -282,14 +289,12 @@ final class ModulesService {
           $retVersion = $version;
           $maxAlloc = $allocation;
         } elseif ($allocation == $maxAlloc) {
-          // Tie-breaker: Lexicographically smaller version ID
           if ($version < $retVersion) {
             $retVersion = $version;
           }
         }
       }
 
-      // If no version could be determined (e.g. empty allocations), throw the exception
       if ($retVersion === null) {
         throw new ModulesException("Could not determine default version for module '$module'.");
       }
@@ -348,7 +353,7 @@ final class ModulesService {
     $module = $module ?: self::getCurrentModuleName();
     $version = $version ?: self::getCurrentVersionName();
     try {
-      $service = self::getAdminService();
+      $service = self::getAdminService("get_num_instances");
       $v = $service->apps_services_versions->get(self::getProjectId(), $module, $version);
       return $v->getManualScaling()->getInstances();
     } catch (\Exception $e) {
@@ -412,7 +417,7 @@ final class ModulesService {
     try {
       $module = $module ?: self::getCurrentModuleName();
       $version = $version ?: self::getCurrentVersionName();
-      $service = self::getAdminService();
+      $service = self::getAdminService("set_num_instances");
       $v = new \Google_Service_Appengine_Version();
       $manualScaling = new \Google_Service_Appengine_ManualScaling();
       $manualScaling->setInstances($instances);
@@ -483,7 +488,7 @@ final class ModulesService {
     $module = $module ?: self::getCurrentModuleName();
     $version = $version ?: self::getCurrentVersionName();
     try {
-      $service = self::getAdminService();
+      $service = self::getAdminService("start_version");
       $v = new \Google_Service_Appengine_Version();
       $v->setServingStatus('SERVING');
       $service->apps_services_versions->patch(
@@ -542,7 +547,7 @@ final class ModulesService {
     $module = $module ?: self::getCurrentModuleName();
     $version = $version ?: self::getCurrentVersionName();
     try {
-      $service = self::getAdminService();
+      $service = self::getAdminService("stop_version");
       $v = new \Google_Service_Appengine_Version();
       $v->setServingStatus('STOPPED');
       $service->apps_services_versions->patch(
@@ -628,9 +633,7 @@ final class ModulesService {
 
     try {
       $services = self::getModules();
-      $service = self::getAdminService();
-        
-      // Fetch application details to get the default hostname
+      $service = self::getAdminService("get_hostname");
       $app = $service->apps->get($projectId);
       $defaultHostname = $app->getDefaultHostname();
     } catch (\Exception $e) {
@@ -641,7 +644,6 @@ final class ModulesService {
       throw new ModulesException("Invalid Module");
     }
 
-    // Handle Legacy Applications (Single 'default' module)
     if (count($services) === 1 && $services[0] === 'default') {
       if ($reqModule !== 'default') {
         throw new ModulesException("Module '$reqModule' not found.");
@@ -651,7 +653,6 @@ final class ModulesService {
           : self::constructHostname($reqVersion, $defaultHostname);
     }
 
-    // Handle instance-specific hostname requests
     if ($instance !== null) {
       try {
         $vDetails = $service->apps_services_versions->get($projectId, $reqModule, $reqVersion, ['view' => 'FULL']);
@@ -674,14 +675,12 @@ final class ModulesService {
       }
     }
 
-    // Handle requests with no explicit version and no instance
     if ($version === null) {
       try {
         $versionsList = self::getVersions($reqModule);
         if (in_array($reqVersion, $versionsList)) {
           return self::constructHostname($reqVersion, $reqModule, $defaultHostname);
         } else {
-          // Return hostname without version if current version doesn't exist in target module
           return self::constructHostname($reqModule, $defaultHostname);
         }
       } catch (\Google_Service_Exception $e) {
@@ -692,7 +691,6 @@ final class ModulesService {
       }
     }
 
-    // Request with a version but no instance
     return self::constructHostname($version, $reqModule, $defaultHostname);
   }
   
