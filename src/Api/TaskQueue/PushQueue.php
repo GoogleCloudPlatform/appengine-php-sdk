@@ -147,6 +147,11 @@ final class PushQueue {
           '$tasks must contain at most ' . self::MAX_TASKS_PER_ADD .
           ' tasks. Actual size: ' . count($tasks));
     }
+
+    if (getenv('GAE_PUSHQUEUE_BACKEND') === 'CLOUD_TASK') {
+        return $this->addTasksCloudTasks($tasks);
+    }
+
     $req = new TaskQueueBulkAddRequest();
     $resp = new TaskQueueBulkAddResponse();
 
@@ -209,6 +214,138 @@ final class PushQueue {
     }
     if (isset($exception)) {
       throw $exception;
+    }
+    return $names;
+  }
+
+  private static function getMetadataValue($path) {
+    $opts = [
+        'http' => [
+            'method' => 'GET',
+            'header' => 'Metadata-Flavor: Google',
+            'timeout' => 1.0
+        ]
+    ];
+    $context = stream_context_create($opts);
+    $url = 'http://metadata.google.internal/computeMetadata/v1/' . $path;
+    $result = @file_get_contents($url, false, $context);
+    return $result;
+  }
+
+  private static function getRegion() {
+    static $region = null;
+    if ($region === null) {
+        $region = getenv('REGION_ID');
+        if (!$region) {
+            $zone = self::getMetadataValue('instance/zone');
+            if ($zone) {
+                $parts = explode('/', $zone);
+                $zoneName = end($parts);
+                $dashPos = strrpos($zoneName, '-');
+                if ($dashPos !== false) {
+                    $region = substr($zoneName, 0, $dashPos);
+                } else {
+                    $region = $zoneName;
+                }
+            }
+        }
+        if (!$region) {
+            $region = 'us-central1';
+        }
+    }
+    return $region;
+  }
+
+  private static function getProjectId() {
+    static $projectId = null;
+    if ($projectId === null) {
+        $projectId = getenv('GOOGLE_CLOUD_PROJECT');
+        if (!$projectId) {
+            $projectId = self::getMetadataValue('project/project-id');
+        }
+        if (!$projectId) {
+            $appId = ApiProxy::getCurrentAppId();
+            if (($pos = strpos($appId, '~')) !== false) {
+                $projectId = substr($appId, $pos + 1);
+            } else {
+                $projectId = $appId;
+            }
+        }
+    }
+    return $projectId;
+  }
+
+  private function addTasksCloudTasks($tasks) {
+    $client = new \Google\Cloud\Tasks\V2\CloudTasksClient();
+    $projectId = self::getProjectId();
+    $region = self::getRegion();
+    $queueName = $client->queueName($projectId, $region, $this->name);
+
+    $names = [];
+    foreach ($tasks as $task) {
+      $ctTask = new \Google\Cloud\Tasks\V2\Task();
+      
+      if ($task->getName()) {
+          $ctTask->setName($client->taskName($projectId, $region, $this->name, $task->getName()));
+      }
+
+      $httpRequest = new \Google\Cloud\Tasks\V2\HttpRequest();
+      
+      $url = $task->getUrl();
+      if (strncmp($url, '/', 1) === 0) {
+          $hostname = \Google\AppEngine\Api\Modules\ModulesService::getHostname();
+          $url = "https://" . $hostname . $url;
+      }
+      $httpRequest->setUrl($url);
+      
+      $methodStr = $task->getMethod();
+      $methodMap = [
+          'POST' => \Google\Cloud\Tasks\V2\HttpMethod::POST,
+          'GET' => \Google\Cloud\Tasks\V2\HttpMethod::GET,
+          'HEAD' => \Google\Cloud\Tasks\V2\HttpMethod::HEAD,
+          'PUT' => \Google\Cloud\Tasks\V2\HttpMethod::PUT,
+          'DELETE' => \Google\Cloud\Tasks\V2\HttpMethod::DELETE,
+      ];
+      $httpRequest->setHttpMethod($methodMap[$methodStr]);
+
+      $headers = [];
+      foreach ($task->getHeaders() as $header) {
+        $pair = explode(':', $header, 2);
+        $headers[trim($pair[0])] = trim($pair[1]);
+      }
+      $httpRequest->setHeaders($headers);
+
+      if ($methodStr === 'POST' || $methodStr === 'PUT') {
+          if ($task->getQueryData()) {
+              $httpRequest->setBody(http_build_query($task->getQueryData()));
+          }
+      }
+      
+      $ctTask->setHttpRequest($httpRequest);
+
+      if ($task->getDelaySeconds() > 0) {
+          $scheduleTime = new \Google\Protobuf\Timestamp();
+          $scheduleTime->setSeconds(time() + $task->getDelaySeconds());
+          $ctTask->setScheduleTime($scheduleTime);
+      }
+
+      $request = (new \Google\Cloud\Tasks\V2\CreateTaskRequest())
+          ->setParent($queueName)
+          ->setTask($ctTask);
+
+      try {
+          $response = $client->createTask($request);
+          $fullName = $response->getName();
+          $parts = explode('/', $fullName);
+          $names[] = end($parts);
+      } catch (\Google\ApiCore\ApiException $e) {
+          if ($e->getStatus() === 'ALREADY_EXISTS') {
+              throw new TaskAlreadyExistsException('Task with the same name exists already');
+          }
+          throw new TaskQueueException('Cloud Tasks Error: ' . $e->getMessage(), $e->getCode());
+      } catch (\Exception $e) {
+          throw new TaskQueueException('Error calling Cloud Tasks: ' . $e->getMessage());
+      }
     }
     return $names;
   }

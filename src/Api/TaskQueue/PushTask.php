@@ -64,6 +64,7 @@ final class PushTask {
     'method'        => 'POST',
     'name'          => '',
     'header'        => '',
+    'transactional' => false,
   ];
 
   private $url;
@@ -287,6 +288,15 @@ final class PushTask {
    * exists in the queue.
    * @throws TaskQueueException if there was a problem using the service.
    */
+  /**
+   * Return whether the task is transactional.
+   *
+   * @return bool Whether the task is transactional.
+   */
+  public function isTransactional() {
+    return $this->options['transactional'];
+  }
+
   public function add($queue_name = 'default') {
     $queue = new PushQueue($queue_name);
     return $queue->addTasks([$this])[0];

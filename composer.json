@@ -13,7 +13,8 @@
         "php": ">=7.2.0",
         "guzzlehttp/streams": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
-        "composer/semver": "^3.2"
+        "composer/semver": "^3.2",
+        "google/cloud-tasks": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8",
