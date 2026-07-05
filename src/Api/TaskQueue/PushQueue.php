@@ -335,12 +335,8 @@ final class PushQueue {
           $ctTask->setScheduleTime($scheduleTime);
       }
 
-      $request = (new \Google\Cloud\Tasks\V2\CreateTaskRequest())
-          ->setParent($queueName)
-          ->setTask($ctTask);
-
       try {
-          $response = $client->createTask($request);
+          $response = $client->createTask($queueName, $ctTask);
           $fullName = $response->getName();
           $parts = explode('/', $fullName);
           $names[] = end($parts);
