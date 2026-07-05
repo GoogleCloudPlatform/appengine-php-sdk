@@ -291,9 +291,22 @@ final class PushQueue {
 
       $httpRequest = new \Google\Cloud\Tasks\V2\HttpRequest();
       
+      $headers = [];
+      $hostHeader = null;
+      foreach ($task->getHeaders() as $header) {
+        $pair = explode(':', $header, 2);
+        $key = trim($pair[0]);
+        $val = trim($pair[1]);
+        $headers[$key] = $val;
+        if (strcasecmp($key, 'Host') === 0) {
+            $hostHeader = $val;
+        }
+      }
+      $httpRequest->setHeaders($headers);
+
       $url = $task->getUrl();
       if (strncmp($url, '/', 1) === 0) {
-          $hostname = \Google\AppEngine\Api\Modules\ModulesService::getHostname();
+          $hostname = $hostHeader ?: \Google\AppEngine\Api\Modules\ModulesService::getHostname();
           $url = "https://" . $hostname . $url;
       }
       $httpRequest->setUrl($url);
@@ -307,13 +320,6 @@ final class PushQueue {
           'DELETE' => \Google\Cloud\Tasks\V2\HttpMethod::DELETE,
       ];
       $httpRequest->setHttpMethod($methodMap[$methodStr]);
-
-      $headers = [];
-      foreach ($task->getHeaders() as $header) {
-        $pair = explode(':', $header, 2);
-        $headers[trim($pair[0])] = trim($pair[1]);
-      }
-      $httpRequest->setHeaders($headers);
 
       if ($methodStr === 'POST' || $methodStr === 'PUT') {
           if ($task->getQueryData()) {
