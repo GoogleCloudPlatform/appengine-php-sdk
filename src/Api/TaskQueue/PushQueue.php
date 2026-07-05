@@ -323,7 +323,12 @@ final class PushQueue {
 
       if ($methodStr === 'POST' || $methodStr === 'PUT') {
           if ($task->getQueryData()) {
-              $httpRequest->setBody(http_build_query($task->getQueryData()));
+              $body = http_build_query($task->getQueryData());
+              if (strlen($body) > PushTask::MAX_TASK_SIZE_BYTES) {
+                  throw new TaskQueueException('Task greater than maximum size of ' .
+                      PushTask::MAX_TASK_SIZE_BYTES . '. size: ' . strlen($body));
+              }
+              $httpRequest->setBody($body);
           }
       }
       
