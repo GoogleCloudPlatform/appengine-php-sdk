@@ -307,6 +307,7 @@ final class PushQueue {
       $url = $task->getUrl();
       if (strncmp($url, '/', 1) === 0) {
           $hostname = $hostHeader ?: \Google\AppEngine\Api\Modules\ModulesService::getHostname();
+          $hostname = self::convertToDotNotation($hostname, $projectId);
           $url = "https://" . $hostname . $url;
       }
       $httpRequest->setUrl($url);
@@ -355,5 +356,16 @@ final class PushQueue {
       }
     }
     return $names;
+  }
+
+  private static function convertToDotNotation($hostname, $projectId) {
+      $parts = explode('.', $hostname);
+      $projectIdx = array_search($projectId, $parts);
+      if ($projectIdx !== false && $projectIdx > 0) {
+          $group1 = array_slice($parts, 0, $projectIdx + 1);
+          $group2 = array_slice($parts, $projectIdx + 1);
+          return implode('-dot-', $group1) . '.' . implode('.', $group2);
+      }
+      return $hostname;
   }
 }
