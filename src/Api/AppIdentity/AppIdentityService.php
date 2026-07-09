@@ -274,8 +274,12 @@ final class AppIdentityService {
   private static function putTokenInCache($name, $value, $expiry_secs) {
     $expiry_time_from_epoch = $expiry_secs - self::EXPIRY_SAFETY_MARGIN_SECS -
         self::EXPIRY_SHORT_MARGIN_SECS;
-    $memcache = new Memcache();
-    $memcache->set($name, $value, null, $expiry_time_from_epoch);
+    if (class_exists('Memcache')) {
+      try {
+        $memcache = new Memcache();
+        $memcache->set($name, $value, null, $expiry_time_from_epoch);
+      } catch (\Throwable $t) {}
+    }
     // Record the expiry time in the object being cached, so we can check it
     // when read from APC.
     self::putTokenInApc($name, $value, $expiry_secs);
@@ -296,7 +300,11 @@ final class AppIdentityService {
         self::EXPIRY_SHORT_MARGIN_SECS;
     $cache_ttl = self::getTTLForToken($expiry_time_from_epoch);
     $value['eviction_time_epoch'] = $cache_ttl['eviction_time_epoch'];
-    apc_store($name, $value, $cache_ttl['apc_ttl_in_seconds']);
+    if (function_exists('apcu_store')) {
+      apcu_store($name, $value, $cache_ttl['apc_ttl_in_seconds']);
+    } elseif (function_exists('apc_store')) {
+      apc_store($name, $value, $cache_ttl['apc_ttl_in_seconds']);
+    }
   }
 
   /**
@@ -311,17 +319,24 @@ final class AppIdentityService {
    */
   private static function getTokenFromCache($name) {
     $success = false;
-    $result = apc_fetch($name, $success);
-    if ($success && time() < $result['eviction_time_epoch']) {
+    $result = false;
+    if (function_exists('apcu_fetch')) {
+      $result = apcu_fetch($name, $success);
+    } elseif (function_exists('apc_fetch')) {
+      $result = apc_fetch($name, $success);
+    }
+    if ($success && $result !== false && time() < $result['eviction_time_epoch']) {
       unset($result['eviction_time_epoch']);
       return $result;
     }
-    $memcache = new Memcache();
-    $result = $memcache->get($name);
-    // If there was a result in memcache but not in apc we can add using a
-    // short timeout.
-    if ($result !== false) {
-      self::putTokenInApc($name, $result, $result['expiration_time']);
+    if (class_exists('Memcache')) {
+      try {
+        $memcache = new Memcache();
+        $result = $memcache->get($name);
+        if ($result !== false) {
+          self::putTokenInApc($name, $result, $result['expiration_time']);
+        }
+      } catch (\Throwable $t) {}
     }
     return $result;
   }
