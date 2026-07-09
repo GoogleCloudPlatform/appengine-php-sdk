@@ -404,6 +404,20 @@ final class PushQueue {
       }
 
       if ($code === 200 || $code === 201) {
+        $resData = json_decode($response, true);
+        if (isset($resData['tasks']) && is_array($resData['tasks'])) {
+          foreach ($resData['tasks'] as $idx => $item) {
+            if (isset($item['status']) && isset($item['status']['code']) && (int)$item['status']['code'] !== 0) {
+              $statusCode = (int)$item['status']['code'];
+              $statusMsg = $item['status']['message'] ?? 'Unknown error in batchCreate';
+              if ($statusCode === 6 || $statusCode === 409 || stripos($statusMsg, 'already exists') !== false) {
+                throw new TaskAlreadyExistsException('Task with the same name exists already: ' . $statusMsg);
+              } else {
+                throw new TaskQueueException('Cloud Tasks batchCreate task failed (' . $statusCode . '): ' . $statusMsg);
+              }
+            }
+          }
+        }
         foreach ($chunkNames as $name) {
           $names[] = $name;
         }
