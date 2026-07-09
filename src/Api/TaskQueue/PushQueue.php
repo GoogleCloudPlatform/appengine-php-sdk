@@ -401,6 +401,7 @@ final class PushQueue {
         $code = intval($matches[1]);
       } else {
         $code = 500;
+      }
       if ($code === 200 || $code === 201) {
         $resData = json_decode($response, true);
         if (isset($resData['tasks']) && is_array($resData['tasks'])) {
