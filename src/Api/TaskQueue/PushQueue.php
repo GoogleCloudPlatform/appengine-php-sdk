@@ -322,16 +322,25 @@ final class PushQueue {
 
         $headers = [];
         $hostHeader = null;
+        $hasContentType = false;
         foreach ($task->getHeaders() as $header) {
           $pair = explode(':', $header, 2);
           $key = trim($pair[0]);
           $val = trim($pair[1]);
-          $headers[$key] = $val;
           if (strcasecmp($key, 'Host') === 0) {
             $hostHeader = $val;
+            $key = 'Host';
+          } elseif (strcasecmp($key, 'Content-Type') === 0) {
+            $hasContentType = true;
+            $key = 'Content-Type';
+          } elseif (strcasecmp($key, 'X-AppEngine-QueueName') === 0) {
+            $key = 'X-AppEngine-QueueName';
+          } elseif (strcasecmp($key, 'X-AppEngine-TaskName') === 0) {
+            $key = 'X-AppEngine-TaskName';
           }
+          $headers[$key] = $val;
         }
-        if (!isset($headers['Content-Type'])) {
+        if (!$hasContentType) {
           $headers['Content-Type'] = 'application/octet-stream';
         }
         if (!isset($headers['X-AppEngine-QueueName'])) {
