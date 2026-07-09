@@ -417,8 +417,8 @@ final class PushQueue {
           if (isset($resData['error']) && isset($resData['error']['code']) && (int)$resData['error']['code'] !== 0) {
             $errCode = (int)$resData['error']['code'];
             $errMsg = $resData['error']['message'] ?? 'BatchCreateTasks operation failed';
-            if ($errCode === 6 || $errCode === 409 || stripos($errMsg, 'already exists') !== false) {
-              throw new TaskAlreadyExistsException('Task exists already: ' . $errMsg);
+            if (self::isAlreadyExistsError($errCode, $errMsg)) {
+              throw new TaskAlreadyExistsException('Task exists already (or is tombstoned): ' . $errMsg);
             } else {
               throw new TaskQueueException('Cloud Tasks batchCreate failed (' . $errCode . '): ' . $errMsg);
             }
@@ -428,8 +428,8 @@ final class PushQueue {
             foreach ($failedReqs as $idx => $err) {
               $errCode = (int)($err['code'] ?? 0);
               $errMsg = $err['message'] ?? 'Task creation failed';
-              if ($errCode === 6 || $errCode === 409 || stripos($errMsg, 'already exists') !== false) {
-                throw new TaskAlreadyExistsException('Task exists already: ' . $errMsg);
+              if (self::isAlreadyExistsError($errCode, $errMsg)) {
+                throw new TaskAlreadyExistsException('Task exists already (or is tombstoned): ' . $errMsg);
               } else {
                 throw new TaskQueueException('Cloud Tasks batchCreate task failed (' . $errCode . '): ' . $errMsg);
               }
@@ -439,14 +439,24 @@ final class PushQueue {
         foreach ($chunkNames as $name) {
           $names[] = $name;
         }
-      } else if ($code === 409) {
-        throw new TaskAlreadyExistsException('Task with the same name exists already');
+      } else if ($code === 409 || self::isAlreadyExistsError($code, $response)) {
+        throw new TaskAlreadyExistsException('Task with the same name exists already (or is tombstoned)');
       } else {
         throw new TaskQueueException('Cloud Tasks batchCreate failed with status ' . $code . ': ' . $response);
       }
     }
 
     return $names;
+  }
+
+  private static function isAlreadyExistsError($errCode, $errMsg) {
+    if ($errCode === 6 || $errCode === 409 || stripos($errMsg, 'already exists') !== false) {
+      return true;
+    }
+    if (($errCode === 5 || $errCode === 404) && stripos($errMsg, 'Requested entity was not found') !== false) {
+      return true;
+    }
+    return false;
   }
 
   private static function convertToDotNotation($hostname, $projectId) {
