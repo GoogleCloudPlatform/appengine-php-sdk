@@ -404,15 +404,25 @@ final class PushQueue {
       }
       if ($code === 200 || $code === 201) {
         $resData = json_decode($response, true);
-        if (isset($resData['tasks']) && is_array($resData['tasks'])) {
-          foreach ($resData['tasks'] as $idx => $item) {
-            if (isset($item['status']) && isset($item['status']['code']) && (int)$item['status']['code'] !== 0) {
-              $statusCode = (int)$item['status']['code'];
-              $statusMsg = $item['status']['message'] ?? 'Unknown error in batchCreate';
-              if ($statusCode === 6 || $statusCode === 409 || stripos($statusMsg, 'already exists') !== false) {
-                throw new TaskAlreadyExistsException('Task with the same name exists already: ' . $statusMsg);
+        if (is_array($resData)) {
+          if (isset($resData['error']) && isset($resData['error']['code']) && (int)$resData['error']['code'] !== 0) {
+            $errCode = (int)$resData['error']['code'];
+            $errMsg = $resData['error']['message'] ?? 'BatchCreateTasks operation failed';
+            if ($errCode === 6 || $errCode === 409 || stripos($errMsg, 'already exists') !== false) {
+              throw new TaskAlreadyExistsException('Task exists already: ' . $errMsg);
+            } else {
+              throw new TaskQueueException('Cloud Tasks batchCreate failed (' . $errCode . '): ' . $errMsg);
+            }
+          }
+          $failedReqs = $resData['metadata']['failedRequests'] ?? ($resData['metadata']['failed_requests'] ?? null);
+          if (is_array($failedReqs)) {
+            foreach ($failedReqs as $idx => $err) {
+              $errCode = (int)($err['code'] ?? 0);
+              $errMsg = $err['message'] ?? 'Task creation failed';
+              if ($errCode === 6 || $errCode === 409 || stripos($errMsg, 'already exists') !== false) {
+                throw new TaskAlreadyExistsException('Task exists already: ' . $errMsg);
               } else {
-                throw new TaskQueueException('Cloud Tasks batchCreate task failed (' . $statusCode . '): ' . $statusMsg);
+                throw new TaskQueueException('Cloud Tasks batchCreate task failed (' . $errCode . '): ' . $errMsg);
               }
             }
           }
