@@ -465,6 +465,9 @@ final class PushQueue {
       if ($projectIdx !== false && $projectIdx > 0) {
           $group1 = array_slice($parts, 0, $projectIdx + 1);
           $group2 = array_slice($parts, $projectIdx + 1);
+          if (count($group1) > 2) {
+              array_shift($group1);
+          }
           return implode('-dot-', $group1) . '.' . implode('.', $group2);
       }
       return $hostname;
