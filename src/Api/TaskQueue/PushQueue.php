@@ -392,6 +392,7 @@ final class PushQueue {
       $batchPayload = json_encode(['requests' => $requests]);
       $url = "https://cloudtasks.googleapis.com/v2beta3/" . $fullQueueName . "/tasks:batchCreate";
 
+      // On dogfood branch, use Client SDK for BatchCreateTasks
       $opts = [
         'http' => [
           'method' => 'POST',
