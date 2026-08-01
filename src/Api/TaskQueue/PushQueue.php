@@ -389,31 +389,61 @@ final class PushQueue {
         ];
       }
 
-      // On dogfood branch, use Client SDK for Task creation
-      $client = new \Google\Cloud\Tasks\V2beta3\CloudTasksClient();
-      try {
-        foreach ($chunk as $idx => $task) {
-          $tName = $chunkNames[$idx];
-          $fTaskName = "projects/" . $projectId . "/locations/" . $region . "/queues/" . $this->name . "/tasks/" . $tName;
+      $batchPayload = json_encode(['requests' => $requests]);
+      $url = "https://cloudtasks.googleapis.com/v2beta3/" . $fullQueueName . "/tasks:batchCreate";
 
-          $httpReq = new \Google\Cloud\Tasks\V2beta3\HttpRequest();
-          $httpReq->setUrl($requests[$idx]['task']['httpRequest']['url']);
-          $httpReq->setHttpMethod(\Google\Cloud\Tasks\V2beta3\HttpMethod::POST);
-
-          $taskObj = new \Google\Cloud\Tasks\V2beta3\Task();
-          $taskObj->setName($fTaskName);
-          $taskObj->setHttpRequest($httpReq);
-
-          $client->createTask($fullQueueName, $taskObj);
-          $names[] = $tName;
+      // On dogfood branch, call BatchCreateTasks RPC via v2beta3 REST endpoint
+      $opts = [
+        'http' => [
+          'method' => 'POST',
+          'header' => "Authorization: Bearer " . $token . "\r\n" .
+                      "Content-Type: application/json\r\n",
+          'content' => $batchPayload,
+          'timeout' => 10.0,
+          'ignore_errors' => true,
+        ]
+      ];
+      $context = stream_context_create($opts);
+      $response = @file_get_contents($url, false, $context);
+      
+      $statusLine = $http_response_header[0] ?? '';
+      if (preg_match('#HTTP/\d+\.\d+\s+([0-9]{3})#', $statusLine, $matches)) {
+        $code = intval($matches[1]);
+      } else {
+        $code = 500;
+      }
+      if ($code === 200 || $code === 201) {
+        $resData = json_decode($response, true);
+        if (is_array($resData)) {
+          if (isset($resData['error']) && isset($resData['error']['code']) && (int)$resData['error']['code'] !== 0) {
+            $errCode = (int)$resData['error']['code'];
+            $errMsg = $resData['error']['message'] ?? 'BatchCreateTasks operation failed';
+            if (self::isAlreadyExistsError($errCode, $errMsg)) {
+              throw new TaskAlreadyExistsException('Task exists already (or is tombstoned): ' . $errMsg);
+            } else {
+              throw new TaskQueueException('Cloud Tasks batchCreate failed (' . $errCode . '): ' . $errMsg);
+            }
+          }
+          $failedReqs = $resData['metadata']['failedRequests'] ?? ($resData['metadata']['failed_requests'] ?? null);
+          if (is_array($failedReqs)) {
+            foreach ($failedReqs as $idx => $err) {
+              $errCode = (int)($err['code'] ?? 0);
+              $errMsg = $err['message'] ?? 'Task creation failed';
+              if (self::isAlreadyExistsError($errCode, $errMsg)) {
+                throw new TaskAlreadyExistsException('Task exists already (or is tombstoned): ' . $errMsg);
+              } else {
+                throw new TaskQueueException('Cloud Tasks batchCreate task failed (' . $errCode . '): ' . $errMsg);
+              }
+            }
+          }
         }
-      } catch (\Google\ApiCore\ApiException $e) {
-        if ($e->getStatus() === 'ALREADY_EXISTS' || $e->getCode() === 409) {
-          throw new TaskAlreadyExistsException('Task exists already: ' . $e->getMessage());
+        foreach ($chunkNames as $name) {
+          $names[] = $name;
         }
-        throw new TaskQueueException('Cloud Tasks Client SDK creation failed: ' . $e->getMessage());
-      } finally {
-        $client->close();
+      } else if ($code === 409 || self::isAlreadyExistsError($code, $response)) {
+        throw new TaskAlreadyExistsException('Task with the same name exists already (or is tombstoned)');
+      } else {
+        throw new TaskQueueException('Cloud Tasks batchCreate failed with status ' . $code . ': ' . $response);
       }
     }
 
