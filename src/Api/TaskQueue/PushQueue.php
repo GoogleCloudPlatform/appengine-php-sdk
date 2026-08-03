@@ -379,7 +379,17 @@ final class PushQueue {
       $client = new \Google\Cloud\Tasks\V2beta3\CloudTasksClient();
       try {
         $response = $client->batchCreateTasks($fullQueueName, $createTaskRequests);
+
+        $resObj = $response->getResponse();
+        if ($resObj) {
+          foreach ($resObj->getTasks() as $resTask) {
+            $parts = explode('/', $resTask->getName());
+            $names[] = end($parts);
+          }
+        }
+
         $metadata = $response->getMetadata();
+        $exception = null;
         if ($metadata && $metadata->getFailedRequests()) {
           foreach ($chunk as $idx => $task) {
             if ($metadata->getFailedRequests()->offsetExists($idx)) {
@@ -387,18 +397,15 @@ final class PushQueue {
               $code = $errStatus->getCode();
               $msg = $errStatus->getMessage();
               if (self::isAlreadyExistsError($code, $msg)) {
-                throw new TaskAlreadyExistsException('Task exists already: ' . $msg);
+                $exception = new TaskAlreadyExistsException('Task exists already: ' . $msg);
+              } else {
+                throw new TaskQueueException('Task creation failed: ' . $msg);
               }
-              throw new TaskQueueException('Task creation failed: ' . $msg);
             }
           }
         }
-        $resObj = $response->getResponse();
-        if ($resObj) {
-          foreach ($resObj->getTasks() as $resTask) {
-            $parts = explode('/', $resTask->getName());
-            $names[] = end($parts);
-          }
+        if ($exception !== null) {
+          throw $exception;
         }
       } catch (\Google\ApiCore\ApiException $e) {
         if ($e->getStatus() === 'ALREADY_EXISTS' || $e->getCode() === 409) {
