@@ -298,22 +298,9 @@ final class PushQueue {
     $chunks = array_chunk($tasks, 100);
 
     foreach ($chunks as $chunk) {
-      $requests = [];
-      $chunkNames = [];
+      $createTaskRequests = [];
 
       foreach ($chunk as $task) {
-        $taskName = $task->getName();
-        if (!$taskName) {
-          $taskName = 'task-' . sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-              mt_rand(0, 0xffff), mt_rand(0, 0xffff),
-              mt_rand(0, 0xffff),
-              mt_rand(0, 0x0fff) | 0x4000,
-              mt_rand(0, 0x3fff) | 0x8000,
-              mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff));
-        }
-        $chunkNames[] = $taskName;
-        $fullTaskName = $fullQueueName . "/tasks/" . $taskName;
-
         $headers = [];
         $hostHeader = null;
         $hasContentType = false;
@@ -340,7 +327,9 @@ final class PushQueue {
         if (!isset($headers['X-AppEngine-QueueName'])) {
           $headers['X-AppEngine-QueueName'] = $this->name;
         }
-        if (!isset($headers['X-AppEngine-TaskName'])) {
+
+        $taskName = $task->getName();
+        if ($taskName && !isset($headers['X-AppEngine-TaskName'])) {
           $headers['X-AppEngine-TaskName'] = $taskName;
         }
 
@@ -351,11 +340,13 @@ final class PushQueue {
           $url = "https://" . $hostname . $url;
         }
 
-        $httpReq = [
-          'httpMethod' => $task->getMethod(),
-          'url' => $url,
-          'headers' => $headers,
-        ];
+        $httpReq = new \Google\Cloud\Tasks\V2beta3\HttpRequest();
+        $httpReq->setUrl($url);
+        $httpReq->setHttpMethod(\Google\Cloud\Tasks\V2beta3\HttpMethod::POST);
+
+        foreach ($headers as $k => $v) {
+          $httpReq->getHeaders()[$k] = $v;
+        }
 
         if ($task->getMethod() === 'POST' || $task->getMethod() === 'PUT') {
           if ($task->getQueryData()) {
@@ -364,50 +355,35 @@ final class PushQueue {
               throw new TaskQueueException('Task greater than maximum size of ' .
                   PushTask::MAX_TASK_SIZE_BYTES . '. size: ' . strlen($body));
             }
-            $httpReq['body'] = base64_encode($body);
+            $httpReq->setBody($body);
           }
         }
 
-        $taskMap = [
-          'name' => $fullTaskName,
-          'httpRequest' => $httpReq,
-        ];
+        $taskObj = new \Google\Cloud\Tasks\V2beta3\Task();
+        if ($taskName) {
+          $fullTaskName = $fullQueueName . "/tasks/" . $taskName;
+          $taskObj->setName($fullTaskName);
+        }
+        $taskObj->setHttpRequest($httpReq);
 
         if ($task->getDelaySeconds() > 0) {
-          $taskMap['scheduleTime'] = gmdate('Y-m-d\TH:i:s.000\Z', time() + $task->getDelaySeconds());
+          $ts = new \Google\Protobuf\Timestamp();
+          $ts->setSeconds(time() + $task->getDelaySeconds());
+          $taskObj->setScheduleTime($ts);
         }
 
-        $requests[] = [
-          'parent' => $fullQueueName,
-          'task' => $taskMap,
-        ];
+        $createTaskReq = new \Google\Cloud\Tasks\V2beta3\CreateTaskRequest();
+        $createTaskReq->setParent($fullQueueName);
+        $createTaskReq->setTask($taskObj);
+        $createTaskRequests[] = $createTaskReq;
       }
 
-      // On dogfood branch, use Client SDK for batchCreateTasks
       $client = new \Google\Cloud\Tasks\V2beta3\CloudTasksClient();
       try {
-        $createTaskRequests = [];
-        foreach ($chunk as $idx => $task) {
-          $tName = $chunkNames[$idx];
-          $fTaskName = "projects/" . $projectId . "/locations/" . $region . "/queues/" . $this->name . "/tasks/" . $tName;
-
-          $httpReq = new \Google\Cloud\Tasks\V2beta3\HttpRequest();
-          $httpReq->setUrl($requests[$idx]['task']['httpRequest']['url']);
-          $httpReq->setHttpMethod(\Google\Cloud\Tasks\V2beta3\HttpMethod::POST);
-
-          $taskObj = new \Google\Cloud\Tasks\V2beta3\Task();
-          $taskObj->setName($fTaskName);
-          $taskObj->setHttpRequest($httpReq);
-
-          $createTaskReq = new \Google\Cloud\Tasks\V2beta3\CreateTaskRequest();
-          $createTaskReq->setParent($fullQueueName);
-          $createTaskReq->setTask($taskObj);
-          $createTaskRequests[] = $createTaskReq;
-        }
-
-        $client->batchCreateTasks($fullQueueName, $createTaskRequests);
-        foreach ($chunkNames as $name) {
-          $names[] = $name;
+        $response = $client->batchCreateTasks($fullQueueName, $createTaskRequests);
+        foreach ($response->getTasks() as $resTask) {
+          $parts = explode('/', $resTask->getName());
+          $names[] = end($parts);
         }
       } catch (\Google\ApiCore\ApiException $e) {
         if ($e->getStatus() === 'ALREADY_EXISTS' || $e->getCode() === 409) {
