@@ -287,7 +287,7 @@ final class PushTask {
    * exists in the queue.
    * @throws TaskQueueException if there was a problem using the service.
    */
-   public function add($queue_name = 'default') {
+  public function add($queue_name = 'default') {
     $queue = new PushQueue($queue_name);
     return $queue->addTasks([$this])[0];
   }

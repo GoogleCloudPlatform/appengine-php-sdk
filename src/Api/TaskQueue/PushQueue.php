@@ -235,22 +235,16 @@ final class PushQueue {
   private static function getRegion() {
     static $region = null;
     if ($region === null) {
-        $region = getenv('REGION_ID');
+        $region = getenv('LOCATION_ID') ?: getenv('GAE_LOCATION') ?: getenv('GAE_REGION') ?: getenv('REGION_ID');
         if (!$region) {
-            $zone = self::getMetadataValue('instance/zone');
-            if ($zone) {
-                $parts = explode('/', $zone);
-                $zoneName = end($parts);
-                $dashPos = strrpos($zoneName, '-');
-                if ($dashPos !== false) {
-                    $region = substr($zoneName, 0, $dashPos);
-                } else {
-                    $region = $zoneName;
-                }
+            $regionPath = self::getMetadataValue('instance/region');
+            if ($regionPath) {
+                $parts = explode('/', $regionPath);
+                $region = end($parts);
             }
         }
         if (!$region) {
-            $region = 'us-central1';
+            $region = getenv('LOCAL_GCP_REGION') ?: 'us-central1';
         }
     }
     return $region;
