@@ -330,13 +330,15 @@ final class PushQueue {
         }
 
         $methodMap = [
-          'POST' => \Google\Cloud\Tasks\V2beta3\HttpMethod::POST,
-          'GET' => \Google\Cloud\Tasks\V2beta3\HttpMethod::GET,
-          'PUT' => \Google\Cloud\Tasks\V2beta3\HttpMethod::PUT,
-          'DELETE' => \Google\Cloud\Tasks\V2beta3\HttpMethod::DELETE,
-          'HEAD' => \Google\Cloud\Tasks\V2beta3\HttpMethod::HEAD,
+          'POST' => 1,
+          'GET' => 2,
+          'HEAD' => 3,
+          'PUT' => 4,
+          'DELETE' => 5,
+          'PATCH' => 6,
+          'OPTIONS' => 7,
         ];
-        $httpMethod = isset($methodMap[$task->getMethod()]) ? $methodMap[$task->getMethod()] : \Google\Cloud\Tasks\V2beta3\HttpMethod::POST;
+        $httpMethod = isset($methodMap[$task->getMethod()]) ? $methodMap[$task->getMethod()] : 1;
 
         $appEngineReq = new \Google\Cloud\Tasks\V2beta3\AppEngineHttpRequest();
         $appEngineReq->setRelativeUri($task->getUrl() ?: '/');
