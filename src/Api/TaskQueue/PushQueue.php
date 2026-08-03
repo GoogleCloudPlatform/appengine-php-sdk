@@ -302,16 +302,12 @@ final class PushQueue {
 
       foreach ($chunk as $task) {
         $headers = [];
-        $hostHeader = null;
         $hasContentType = false;
         foreach ($task->getHeaders() as $header) {
           $pair = explode(':', $header, 2);
           $key = trim($pair[0]);
           $val = trim($pair[1]);
-          if (strcasecmp($key, 'Host') === 0) {
-            $hostHeader = $val;
-            $key = 'Host';
-          } elseif (strcasecmp($key, 'Content-Type') === 0) {
+          if (strcasecmp($key, 'Content-Type') === 0) {
             $hasContentType = true;
             $key = 'Content-Type';
           } elseif (strcasecmp($key, 'X-AppEngine-QueueName') === 0) {
@@ -333,19 +329,21 @@ final class PushQueue {
           $headers['X-AppEngine-TaskName'] = $taskName;
         }
 
-        $url = $task->getUrl();
-        if (strncmp($url, '/', 1) === 0) {
-          $hostname = $hostHeader ?: \Google\AppEngine\Api\Modules\ModulesService::getHostname();
-          $hostname = self::convertToDotNotation($hostname, $projectId);
-          $url = "https://" . $hostname . $url;
-        }
+        $methodMap = [
+          'POST' => \Google\Cloud\Tasks\V2beta3\HttpMethod::POST,
+          'GET' => \Google\Cloud\Tasks\V2beta3\HttpMethod::GET,
+          'PUT' => \Google\Cloud\Tasks\V2beta3\HttpMethod::PUT,
+          'DELETE' => \Google\Cloud\Tasks\V2beta3\HttpMethod::DELETE,
+          'HEAD' => \Google\Cloud\Tasks\V2beta3\HttpMethod::HEAD,
+        ];
+        $httpMethod = isset($methodMap[$task->getMethod()]) ? $methodMap[$task->getMethod()] : \Google\Cloud\Tasks\V2beta3\HttpMethod::POST;
 
-        $httpReq = new \Google\Cloud\Tasks\V2beta3\HttpRequest();
-        $httpReq->setUrl($url);
-        $httpReq->setHttpMethod(\Google\Cloud\Tasks\V2beta3\HttpMethod::POST);
+        $appEngineReq = new \Google\Cloud\Tasks\V2beta3\AppEngineHttpRequest();
+        $appEngineReq->setRelativeUri($task->getUrl() ?: '/');
+        $appEngineReq->setHttpMethod($httpMethod);
 
         foreach ($headers as $k => $v) {
-          $httpReq->getHeaders()[$k] = $v;
+          $appEngineReq->getHeaders()[$k] = $v;
         }
 
         if ($task->getMethod() === 'POST' || $task->getMethod() === 'PUT') {
@@ -355,7 +353,7 @@ final class PushQueue {
               throw new TaskQueueException('Task greater than maximum size of ' .
                   PushTask::MAX_TASK_SIZE_BYTES . '. size: ' . strlen($body));
             }
-            $httpReq->setBody($body);
+            $appEngineReq->setBody($body);
           }
         }
 
@@ -364,7 +362,7 @@ final class PushQueue {
           $fullTaskName = $fullQueueName . "/tasks/" . $taskName;
           $taskObj->setName($fullTaskName);
         }
-        $taskObj->setHttpRequest($httpReq);
+        $taskObj->setAppEngineHttpRequest($appEngineReq);
 
         if ($task->getDelaySeconds() > 0) {
           $ts = new \Google\Protobuf\Timestamp();
@@ -406,19 +404,5 @@ final class PushQueue {
       return true;
     }
     return false;
-  }
-
-  private static function convertToDotNotation($hostname, $projectId) {
-      $parts = explode('.', $hostname);
-      $projectIdx = array_search($projectId, $parts);
-      if ($projectIdx !== false && $projectIdx > 0) {
-          $group1 = array_slice($parts, 0, $projectIdx + 1);
-          $group2 = array_slice($parts, $projectIdx + 1);
-          if (count($group1) > 2) {
-              array_shift($group1);
-          }
-          return implode('-dot-', $group1) . '.' . implode('.', $group2);
-      }
-      return $hostname;
   }
 }
