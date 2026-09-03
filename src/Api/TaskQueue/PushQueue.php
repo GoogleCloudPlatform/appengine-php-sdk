@@ -340,7 +340,7 @@ final class PushQueue {
         ];
         $httpMethod = isset($methodMap[$task->getMethod()]) ? $methodMap[$task->getMethod()] : 1;
 
-        $appEngineReq = new \Google\Cloud\Tasks\V2beta3\AppEngineHttpRequest();
+        $appEngineReq = new \Google\Cloud\Tasks\V2\AppEngineHttpRequest();
         $appEngineReq->setRelativeUri($task->getUrl() ?: '/');
         $appEngineReq->setHttpMethod($httpMethod);
 
@@ -359,7 +359,7 @@ final class PushQueue {
           }
         }
 
-        $taskObj = new \Google\Cloud\Tasks\V2beta3\Task();
+        $taskObj = new \Google\Cloud\Tasks\V2\Task();
         if ($taskName) {
           $fullTaskName = $fullQueueName . "/tasks/" . $taskName;
           $taskObj->setName($fullTaskName);
@@ -372,13 +372,13 @@ final class PushQueue {
           $taskObj->setScheduleTime($ts);
         }
 
-        $createTaskReq = new \Google\Cloud\Tasks\V2beta3\CreateTaskRequest();
+        $createTaskReq = new \Google\Cloud\Tasks\V2\CreateTaskRequest();
         $createTaskReq->setParent($fullQueueName);
         $createTaskReq->setTask($taskObj);
         $createTaskRequests[] = $createTaskReq;
       }
 
-      $client = new \Google\Cloud\Tasks\V2beta3\CloudTasksClient();
+      $client = new \Google\Cloud\Tasks\V2\CloudTasksClient();
       try {
         $response = $client->batchCreateTasks($fullQueueName, $createTaskRequests);
 
