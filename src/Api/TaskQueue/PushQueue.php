@@ -272,29 +272,9 @@ final class PushQueue {
     return $projectId;
   }
 
-  private static function getCloudPlatformToken() {
-      try {
-          $res = \Google\AppEngine\Api\AppIdentity\AppIdentityService::getAccessToken('https://www.googleapis.com/auth/cloud-platform');
-          if (isset($res['access_token'])) {
-              return $res['access_token'];
-          }
-      } catch (\Exception $e) {
-          // Fallback to metadata server if AppIdentityService fails
-      }
-      $json = self::getMetadataValue('instance/service-accounts/default/token');
-      if ($json) {
-          $data = json_decode($json, true);
-          if (isset($data['access_token'])) {
-              return $data['access_token'];
-          }
-      }
-      throw new TaskQueueException('Failed to obtain OAuth access token for Cloud Tasks');
-  }
-
   private function addTasksCloudTasks($tasks) {
     $projectId = self::getProjectId();
     $region = self::getRegion();
-    $token = self::getCloudPlatformToken();
     $fullQueueName = "projects/" . $projectId . "/locations/" . $region . "/queues/" . $this->name;
 
     $names = [];
