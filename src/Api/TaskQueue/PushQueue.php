@@ -637,7 +637,13 @@ final class PushQueue {
       return $names;
     }
 
-    throw new TaskQueueException('Cloud Tasks Client SDK batchCreate is not available.');
+    // Fallback: If native batchCreateTasks is not available in the installed Cloud Tasks SDK,
+    // enqueue tasks individually using createTask.
+    foreach ($tasks as $task) {
+      $res = $this->createSingleTaskCloudTasks($task, $fullQueueName);
+      $names[] = $res[0];
+    }
+    return $names;
   }
 
   private static function isAlreadyExistsError($errCode, $errMsg) {
