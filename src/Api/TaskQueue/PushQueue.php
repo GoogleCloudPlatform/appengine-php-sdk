@@ -272,10 +272,106 @@ final class PushQueue {
     return $projectId;
   }
 
+  private function buildCloudTaskObj($task, $fullQueueName) {
+    $headers = [];
+    $hasContentType = false;
+    foreach ($task->getHeaders() as $header) {
+      $pair = explode(':', $header, 2);
+      $key = trim($pair[0]);
+      $val = trim($pair[1]);
+      if (strcasecmp($key, 'Content-Type') === 0) {
+        $hasContentType = true;
+        $key = 'Content-Type';
+      } elseif (strcasecmp($key, 'X-AppEngine-QueueName') === 0) {
+        $key = 'X-AppEngine-QueueName';
+      } elseif (strcasecmp($key, 'X-AppEngine-TaskName') === 0) {
+        $key = 'X-AppEngine-TaskName';
+      }
+      $headers[$key] = $val;
+    }
+    if (!$hasContentType) {
+      $headers['Content-Type'] = 'application/octet-stream';
+    }
+    if (!isset($headers['X-AppEngine-QueueName'])) {
+      $headers['X-AppEngine-QueueName'] = $this->name;
+    }
+
+    $taskName = $task->getName();
+    if ($taskName && !isset($headers['X-AppEngine-TaskName'])) {
+      $headers['X-AppEngine-TaskName'] = $taskName;
+    }
+
+    $methodMap = [
+      'POST' => 1,
+      'GET' => 2,
+      'HEAD' => 3,
+      'PUT' => 4,
+      'DELETE' => 5,
+      'PATCH' => 6,
+      'OPTIONS' => 7,
+    ];
+    $httpMethod = isset($methodMap[$task->getMethod()]) ? $methodMap[$task->getMethod()] : 1;
+
+    $appEngineReq = new \Google\Cloud\Tasks\V2\AppEngineHttpRequest();
+    $appEngineReq->setRelativeUri($task->getUrl() ?: '/');
+    $appEngineReq->setHttpMethod($httpMethod);
+
+    foreach ($headers as $k => $v) {
+      $appEngineReq->getHeaders()[$k] = $v;
+    }
+
+    if ($task->getMethod() === 'POST' || $task->getMethod() === 'PUT') {
+      if ($task->getQueryData()) {
+        $body = http_build_query($task->getQueryData());
+        if (strlen($body) > PushTask::MAX_TASK_SIZE_BYTES) {
+          throw new TaskQueueException('Task greater than maximum size of ' .
+              PushTask::MAX_TASK_SIZE_BYTES . '. size: ' . strlen($body));
+        }
+        $appEngineReq->setBody($body);
+      }
+    }
+
+    $taskObj = new \Google\Cloud\Tasks\V2\Task();
+    if ($taskName) {
+      $fullTaskName = $fullQueueName . "/tasks/" . $taskName;
+      $taskObj->setName($fullTaskName);
+    }
+    $taskObj->setAppEngineHttpRequest($appEngineReq);
+
+    if ($task->getDelaySeconds() > 0) {
+      $ts = new \Google\Protobuf\Timestamp();
+      $ts->setSeconds(time() + $task->getDelaySeconds());
+      $taskObj->setScheduleTime($ts);
+    }
+
+    return $taskObj;
+  }
+
+  private function createSingleTaskCloudTasks($task, $fullQueueName) {
+    $taskObj = $this->buildCloudTaskObj($task, $fullQueueName);
+    $client = new \Google\Cloud\Tasks\V2\CloudTasksClient();
+    try {
+      $response = $client->createTask($fullQueueName, $taskObj);
+      $parts = explode('/', $response->getName());
+      return [end($parts)];
+    } catch (\Google\ApiCore\ApiException $e) {
+      if ($e->getStatus() === 'ALREADY_EXISTS' || $e->getCode() === 409 || self::isAlreadyExistsError($e->getCode(), $e->getMessage())) {
+        throw new TaskAlreadyExistsException('Task exists already: ' . $e->getMessage());
+      }
+      throw new TaskQueueException('Cloud Tasks Client SDK createTask failed: ' . $e->getMessage());
+    } finally {
+      $client->close();
+    }
+  }
+
   private function addTasksCloudTasks($tasks) {
     $projectId = self::getProjectId();
     $region = self::getRegion();
     $fullQueueName = "projects/" . $projectId . "/locations/" . $region . "/queues/" . $this->name;
+
+    if (count($tasks) === 1) {
+      return $this->createSingleTaskCloudTasks($tasks[0], $fullQueueName);
+    }
 
     $names = [];
     $chunks = array_chunk($tasks, 100);
@@ -284,77 +380,7 @@ final class PushQueue {
       $createTaskRequests = [];
 
       foreach ($chunk as $task) {
-        $headers = [];
-        $hasContentType = false;
-        foreach ($task->getHeaders() as $header) {
-          $pair = explode(':', $header, 2);
-          $key = trim($pair[0]);
-          $val = trim($pair[1]);
-          if (strcasecmp($key, 'Content-Type') === 0) {
-            $hasContentType = true;
-            $key = 'Content-Type';
-          } elseif (strcasecmp($key, 'X-AppEngine-QueueName') === 0) {
-            $key = 'X-AppEngine-QueueName';
-          } elseif (strcasecmp($key, 'X-AppEngine-TaskName') === 0) {
-            $key = 'X-AppEngine-TaskName';
-          }
-          $headers[$key] = $val;
-        }
-        if (!$hasContentType) {
-          $headers['Content-Type'] = 'application/octet-stream';
-        }
-        if (!isset($headers['X-AppEngine-QueueName'])) {
-          $headers['X-AppEngine-QueueName'] = $this->name;
-        }
-
-        $taskName = $task->getName();
-        if ($taskName && !isset($headers['X-AppEngine-TaskName'])) {
-          $headers['X-AppEngine-TaskName'] = $taskName;
-        }
-
-        $methodMap = [
-          'POST' => 1,
-          'GET' => 2,
-          'HEAD' => 3,
-          'PUT' => 4,
-          'DELETE' => 5,
-          'PATCH' => 6,
-          'OPTIONS' => 7,
-        ];
-        $httpMethod = isset($methodMap[$task->getMethod()]) ? $methodMap[$task->getMethod()] : 1;
-
-        $appEngineReq = new \Google\Cloud\Tasks\V2\AppEngineHttpRequest();
-        $appEngineReq->setRelativeUri($task->getUrl() ?: '/');
-        $appEngineReq->setHttpMethod($httpMethod);
-
-        foreach ($headers as $k => $v) {
-          $appEngineReq->getHeaders()[$k] = $v;
-        }
-
-        if ($task->getMethod() === 'POST' || $task->getMethod() === 'PUT') {
-          if ($task->getQueryData()) {
-            $body = http_build_query($task->getQueryData());
-            if (strlen($body) > PushTask::MAX_TASK_SIZE_BYTES) {
-              throw new TaskQueueException('Task greater than maximum size of ' .
-                  PushTask::MAX_TASK_SIZE_BYTES . '. size: ' . strlen($body));
-            }
-            $appEngineReq->setBody($body);
-          }
-        }
-
-        $taskObj = new \Google\Cloud\Tasks\V2\Task();
-        if ($taskName) {
-          $fullTaskName = $fullQueueName . "/tasks/" . $taskName;
-          $taskObj->setName($fullTaskName);
-        }
-        $taskObj->setAppEngineHttpRequest($appEngineReq);
-
-        if ($task->getDelaySeconds() > 0) {
-          $ts = new \Google\Protobuf\Timestamp();
-          $ts->setSeconds(time() + $task->getDelaySeconds());
-          $taskObj->setScheduleTime($ts);
-        }
-
+        $taskObj = $this->buildCloudTaskObj($task, $fullQueueName);
         $createTaskReq = new \Google\Cloud\Tasks\V2\CreateTaskRequest();
         $createTaskReq->setParent($fullQueueName);
         $createTaskReq->setTask($taskObj);
