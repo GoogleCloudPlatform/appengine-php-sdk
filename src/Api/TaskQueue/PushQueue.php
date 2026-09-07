@@ -148,7 +148,10 @@ final class PushQueue {
           ' tasks. Actual size: ' . count($tasks));
     }
 
-    if (getenv('GAE_PUSHQUEUE_BACKEND') === 'CLOUD_TASK') {
+    $useCloudTasks = getenv('GAE_PUSHQUEUE_BACKEND') === 'CLOUD_TASK' ||
+        strtolower((string) getenv('APPENGINE_USE_CLOUDTASK_PUSH_QUEUE')) === 'true' ||
+        getenv('APPENGINE_USE_CLOUDTASK_PUSH_QUEUE') === '1';
+    if ($useCloudTasks) {
         return $this->addTasksCloudTasks($tasks);
     }
 
