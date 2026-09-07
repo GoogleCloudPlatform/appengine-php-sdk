@@ -441,6 +441,39 @@ final class PushQueue {
       } finally {
         $client->close();
       }
+    } elseif (class_exists('\Google\Cloud\Tasks\V2\CloudTasksClient')) {
+      $taskObj = $this->buildCloudTaskObjV2($task, $fullQueueName);
+      $client = new \Google\Cloud\Tasks\V2\CloudTasksClient();
+      try {
+        $response = $client->createTask($fullQueueName, $taskObj);
+        $parts = explode('/', $response->getName());
+        return [end($parts)];
+      } catch (\Google\ApiCore\ApiException $e) {
+        if ($e->getStatus() === 'ALREADY_EXISTS' || $e->getCode() === 409 || self::isAlreadyExistsError($e->getCode(), $e->getMessage())) {
+          throw new TaskAlreadyExistsException('Task exists already: ' . $e->getMessage());
+        }
+        throw new TaskQueueException('Cloud Tasks Client SDK createTask failed: ' . $e->getMessage());
+      } finally {
+        $client->close();
+      }
+    } elseif (class_exists('\Google\Cloud\Tasks\V2beta3\Client\CloudTasksClient')) {
+      $taskObj = $this->buildCloudTaskObjV2beta3($task, $fullQueueName);
+      $client = new \Google\Cloud\Tasks\V2beta3\Client\CloudTasksClient();
+      $createTaskReq = (new \Google\Cloud\Tasks\V2beta3\CreateTaskRequest())
+          ->setParent($fullQueueName)
+          ->setTask($taskObj);
+      try {
+        $response = $client->createTask($createTaskReq);
+        $parts = explode('/', $response->getName());
+        return [end($parts)];
+      } catch (\Google\ApiCore\ApiException $e) {
+        if ($e->getStatus() === 'ALREADY_EXISTS' || $e->getCode() === 409 || self::isAlreadyExistsError($e->getCode(), $e->getMessage())) {
+          throw new TaskAlreadyExistsException('Task exists already: ' . $e->getMessage());
+        }
+        throw new TaskQueueException('Cloud Tasks Client SDK createTask failed: ' . $e->getMessage());
+      } finally {
+        $client->close();
+      }
     } elseif (class_exists('\Google\Cloud\Tasks\V2beta3\CloudTasksClient')) {
       $taskObj = $this->buildCloudTaskObjV2beta3($task, $fullQueueName);
       $client = new \Google\Cloud\Tasks\V2beta3\CloudTasksClient();
@@ -472,7 +505,15 @@ final class PushQueue {
     $names = [];
     $chunks = array_chunk($tasks, 100);
 
+    // 1. Try V2 batchCreateTasks if available
+    $v2ClientClass = null;
     if (class_exists('\Google\Cloud\Tasks\V2\Client\CloudTasksClient') && method_exists('\Google\Cloud\Tasks\V2\Client\CloudTasksClient', 'batchCreateTasks')) {
+      $v2ClientClass = '\Google\Cloud\Tasks\V2\Client\CloudTasksClient';
+    } elseif (class_exists('\Google\Cloud\Tasks\V2\CloudTasksClient') && method_exists('\Google\Cloud\Tasks\V2\CloudTasksClient', 'batchCreateTasks')) {
+      $v2ClientClass = '\Google\Cloud\Tasks\V2\CloudTasksClient';
+    }
+
+    if ($v2ClientClass !== null) {
       foreach ($chunks as $chunk) {
         $createTaskRequests = [];
         foreach ($chunk as $task) {
@@ -483,9 +524,24 @@ final class PushQueue {
           $createTaskRequests[] = $createTaskReq;
         }
 
-        $client = new \Google\Cloud\Tasks\V2\Client\CloudTasksClient();
+        $client = new $v2ClientClass();
         try {
-          $response = $client->batchCreateTasks($fullQueueName, $createTaskRequests);
+          if (class_exists('\Google\Cloud\Tasks\V2\BatchCreateTasksRequest')) {
+            $batchReq = (new \Google\Cloud\Tasks\V2\BatchCreateTasksRequest())
+                ->setParent($fullQueueName)
+                ->setRequests($createTaskRequests);
+            try {
+              $response = $client->batchCreateTasks($batchReq);
+            } catch (\TypeError $te) {
+              $response = $client->batchCreateTasks($fullQueueName, $createTaskRequests);
+            }
+          } else {
+            $response = $client->batchCreateTasks($fullQueueName, $createTaskRequests);
+          }
+
+          if (method_exists($response, 'pollUntilComplete') && !$response->isDone()) {
+            $response->pollUntilComplete();
+          }
           $resObj = method_exists($response, 'getResponse') ? $response->getResponse() : $response;
           if ($resObj && method_exists($resObj, 'getTasks')) {
             foreach ($resObj->getTasks() as $resTask) {
@@ -505,7 +561,15 @@ final class PushQueue {
       return $names;
     }
 
-    if (class_exists('\Google\Cloud\Tasks\V2beta3\CloudTasksClient')) {
+    // 2. Try V2beta3 batchCreateTasks
+    $betaClientClass = null;
+    if (class_exists('\Google\Cloud\Tasks\V2beta3\Client\CloudTasksClient') && method_exists('\Google\Cloud\Tasks\V2beta3\Client\CloudTasksClient', 'batchCreateTasks')) {
+      $betaClientClass = '\Google\Cloud\Tasks\V2beta3\Client\CloudTasksClient';
+    } elseif (class_exists('\Google\Cloud\Tasks\V2beta3\CloudTasksClient') && method_exists('\Google\Cloud\Tasks\V2beta3\CloudTasksClient', 'batchCreateTasks')) {
+      $betaClientClass = '\Google\Cloud\Tasks\V2beta3\CloudTasksClient';
+    }
+
+    if ($betaClientClass !== null) {
       foreach ($chunks as $chunk) {
         $createTaskRequests = [];
         foreach ($chunk as $task) {
@@ -516,21 +580,35 @@ final class PushQueue {
           $createTaskRequests[] = $createTaskReq;
         }
 
-        $client = new \Google\Cloud\Tasks\V2beta3\CloudTasksClient();
+        $client = new $betaClientClass();
         try {
-          $response = $client->batchCreateTasks($fullQueueName, $createTaskRequests);
+          if (class_exists('\Google\Cloud\Tasks\V2beta3\BatchCreateTasksRequest')) {
+            $batchReq = (new \Google\Cloud\Tasks\V2beta3\BatchCreateTasksRequest())
+                ->setParent($fullQueueName)
+                ->setRequests($createTaskRequests);
+            try {
+              $response = $client->batchCreateTasks($batchReq);
+            } catch (\TypeError $te) {
+              $response = $client->batchCreateTasks($fullQueueName, $createTaskRequests);
+            }
+          } else {
+            $response = $client->batchCreateTasks($fullQueueName, $createTaskRequests);
+          }
 
-          $resObj = $response->getResponse();
-          if ($resObj) {
+          if (method_exists($response, 'pollUntilComplete') && !$response->isDone()) {
+            $response->pollUntilComplete();
+          }
+          $resObj = method_exists($response, 'getResponse') ? $response->getResponse() : $response;
+          if ($resObj && method_exists($resObj, 'getTasks')) {
             foreach ($resObj->getTasks() as $resTask) {
               $parts = explode('/', $resTask->getName());
               $names[] = end($parts);
             }
           }
 
-          $metadata = $response->getMetadata();
+          $metadata = method_exists($response, 'getMetadata') ? $response->getMetadata() : null;
           $exception = null;
-          if ($metadata && $metadata->getFailedRequests()) {
+          if ($metadata && method_exists($metadata, 'getFailedRequests') && $metadata->getFailedRequests()) {
             foreach ($chunk as $idx => $task) {
               if ($metadata->getFailedRequests()->offsetExists($idx)) {
                 $errStatus = $metadata->getFailedRequests()->offsetGet($idx);
